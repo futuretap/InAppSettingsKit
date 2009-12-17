@@ -1,0 +1,176 @@
+//
+//  IASKSpecifier.m
+//  http://www.inappsettingskit.com
+//
+//  Copyright (c) 2009:
+//  Luc Vandal, Edovia Inc., http://www.edovia.com
+//  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
+//  All rights reserved.
+// 
+//  It is appreciated but not required that you give credit to Luc Vandal and Ortwin Gentz, 
+//  as the original authors of this code. You can give credit in a blog post, a tweet or on 
+//  a info page of your app. Also, the original authors appreciate letting them know if you use this code.
+//
+//  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
+//
+
+#import "IASKSpecifier.h"
+#import "IASKSettingsReader.h"
+
+@interface IASKSpecifier ()
+@property (nonatomic, retain) NSDictionary  *multipleValuesDict;
+- (void)_reinterpretValues:(NSDictionary*)specifierDict;
+@end
+
+@implementation IASKSpecifier
+
+@synthesize specifierDict=_specifierDict;
+@synthesize multipleValuesDict=_multipleValuesDict;
+@synthesize settingsReader = _settingsReader;
+
+- (id)initWithSpecifier:(NSDictionary*)specifier {
+    if ([super init]) {
+        [self setSpecifierDict:specifier];
+        
+        if ([[self type] isEqualToString:kIASKPSMultiValueSpecifier]) {
+            [self _reinterpretValues:[self specifierDict]];
+        }
+    }
+    return self;
+}
+
+- (void)dealloc {
+    [_specifierDict release];
+    [_multipleValuesDict release];
+	[_settingsReader release];
+	_settingsReader = nil;
+
+    [super dealloc];
+}
+
+- (void)_reinterpretValues:(NSDictionary*)specifierDict {
+    NSArray *values = [_specifierDict objectForKey:kIASKValues];
+    NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
+    
+    NSMutableDictionary *multipleValuesDict = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    [multipleValuesDict setObject:values forKey:kIASKValues];
+    [multipleValuesDict setObject:titles forKey:kIASKTitles];
+    
+    [self setMultipleValuesDict:multipleValuesDict];
+}
+
+- (NSString*)title {
+    return [self.settingsReader titleForStringId:[_specifierDict objectForKey:kIASKTitle]];
+}
+
+- (NSString*)key {
+    return [_specifierDict objectForKey:kIASKKey];
+}
+
+- (NSString*)type {
+    return [_specifierDict objectForKey:kIASKType];
+}
+
+- (NSString*)titleForCurrentValue:(id)currentValue {
+    NSInteger keyIndex = [[_multipleValuesDict objectForKey:kIASKValues] indexOfObject:currentValue];
+    return [self.settingsReader titleForStringId:[[_multipleValuesDict objectForKey:kIASKTitles] objectAtIndex:keyIndex]];
+}
+
+- (NSInteger)multipleValuesCount {
+    return [[_multipleValuesDict objectForKey:kIASKValues] count];
+}
+
+- (NSArray*)multipleValues {
+    return [_multipleValuesDict objectForKey:kIASKValues];
+}
+
+- (NSArray*)multipleTitles {
+    return [_multipleValuesDict objectForKey:kIASKTitles];
+}
+
+- (NSString*)file {
+    return [_specifierDict objectForKey:kIASKFile];
+}
+
+- (id)defaultValue {
+    return [_specifierDict objectForKey:kIASKDefaultValue];
+}
+
+- (id)trueValue {
+    return [_specifierDict objectForKey:kIASKTrueValue];
+}
+
+- (id)falseValue {
+    return [_specifierDict objectForKey:kIASKFalseValue];
+}
+
+- (float)minimumValue {
+    return [[_specifierDict objectForKey:kIASKMinimumValue] floatValue];
+}
+
+- (float)maximumValue {
+    return [[_specifierDict objectForKey:kIASKMaximumValue] floatValue];
+}
+
+- (NSString*)minimumValueImage {
+    return [_specifierDict objectForKey:kIASKMinimumValueImage];
+}
+
+- (NSString*)maximumValueImage {
+    return [_specifierDict objectForKey:kIASKMaximumValueImage];
+}
+
+- (BOOL)isSecure {
+    return [[_specifierDict objectForKey:kIASKIsSecure] boolValue];
+}
+
+- (UIKeyboardType)keyboardType {
+    if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardAlphabet]) {
+        return UIKeyboardTypeASCIICapable;
+    }
+    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardNumbersAndPunctuation]) {
+        return UIKeyboardTypeNumbersAndPunctuation;
+    }
+    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardNumberPad]) {
+        return UIKeyboardTypeNumberPad;
+    }
+    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:KIASKKeyboardURL]) {
+        return UIKeyboardTypeURL;
+    }
+    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardEmailAddress]) {
+        return UIKeyboardTypeEmailAddress;
+    }
+    return UIKeyboardTypeDefault;
+}
+
+- (UITextAutocapitalizationType)autocapitalizationType {
+    if ([[_specifierDict objectForKey:kIASKAutocapitalizationType] isEqualToString:kIASKAutoCapNone]) {
+        return UITextAutocapitalizationTypeNone;
+    }
+    else if ([[_specifierDict objectForKey:kIASKAutocapitalizationType] isEqualToString:kIASKAutoCapSentences]) {
+        return UITextAutocapitalizationTypeSentences;
+    }
+    else if ([[_specifierDict objectForKey:kIASKAutocapitalizationType] isEqualToString:kIASKAutoCapWords]) {
+        return UITextAutocapitalizationTypeWords;
+    }
+    else if ([[_specifierDict objectForKey:kIASKAutocapitalizationType] isEqualToString:kIASKAutoCapAllCharacters]) {
+        return UITextAutocapitalizationTypeAllCharacters;
+    }
+    return UITextAutocapitalizationTypeNone;
+}
+
+- (UITextAutocorrectionType)autoCorrectionType {
+    if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCapNone]) {
+        return UITextAutocorrectionTypeDefault;
+    }
+    else if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCapSentences]) {
+        return UITextAutocorrectionTypeNo;
+    }
+    else if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCapWords]) {
+        return UITextAutocorrectionTypeYes;
+    }
+    return UITextAutocorrectionTypeDefault;
+}
+
+@end
