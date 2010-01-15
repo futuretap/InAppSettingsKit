@@ -108,6 +108,17 @@
     return [[_specifierDict objectForKey:kIASKDefaultValue] description];
 }
 
+- (BOOL)defaultBoolValue {
+	id defaultValue = [self defaultValue];
+	if ([defaultValue isEqual:[self trueValue]]) {
+		return YES;
+	}
+	if ([defaultValue isEqual:[self falseValue]]) {
+		return NO;
+	}
+	return [defaultValue boolValue];
+}
+
 - (id)trueValue {
     return [_specifierDict objectForKey:kIASKTrueValue];
 }

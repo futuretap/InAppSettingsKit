@@ -37,6 +37,7 @@
 - (NSString*)file;
 - (id)defaultValue;
 - (id)defaultStringValue;
+- (BOOL)defaultBoolValue;
 - (id)trueValue;
 - (id)falseValue;
 - (float)minimumValue;

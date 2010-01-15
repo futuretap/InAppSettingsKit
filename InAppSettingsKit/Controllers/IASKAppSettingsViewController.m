@@ -264,8 +264,22 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 																					 options:nil] objectAtIndex:0];
         }
         [[cell label] setText:[specifier title]];
-        [[cell toggle] setOn:[[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? 
-		 [[[NSUserDefaults standardUserDefaults] objectForKey:key] boolValue] : [[specifier defaultValue] boolValue]];
+
+		id currentValue = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+		BOOL toggleState;
+		if (currentValue) {
+			if ([currentValue isEqual:[specifier trueValue]]) {
+				toggleState = YES;
+			} else if ([currentValue isEqual:[specifier falseValue]]) {
+				toggleState = NO;
+			} else {
+				toggleState = [currentValue boolValue];
+			}
+		} else {
+			toggleState = [specifier defaultBoolValue];
+		}
+		[[cell toggle] setOn:toggleState];
+		
         [[cell toggle] addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
         [[cell toggle] setKey:key];
         return cell;
