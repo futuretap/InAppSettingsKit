@@ -36,6 +36,7 @@
 - (NSArray*)multipleTitles;
 - (NSString*)file;
 - (id)defaultValue;
+- (id)defaultStringValue;
 - (id)trueValue;
 - (id)falseValue;
 - (float)minimumValue;

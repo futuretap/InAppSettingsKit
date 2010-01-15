@@ -274,7 +274,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
         UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSMultiValueSpecifier] autorelease];
         [[cell textLabel] setText:[specifier title]];
         [[cell detailTextLabel] setText:[specifier titleForCurrentValue:[[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? 
-										 [[NSUserDefaults standardUserDefaults] objectForKey:key] : [specifier defaultValue]]];
+										 [[NSUserDefaults standardUserDefaults] objectForKey:key] : [specifier defaultStringValue]]];
 		
 		// left align the value if the title is empty
 		if (!specifier.title.length) {
@@ -291,7 +291,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
     else if ([[specifier type] isEqualToString:kIASKPSTitleValueSpecifier]) {
         UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSTitleValueSpecifier] autorelease];
         [[cell textLabel] setText:[specifier title]];
-        [[cell detailTextLabel] setText:[specifier defaultValue]];
+        [[cell detailTextLabel] setText:[specifier defaultStringValue]];
         [cell setUserInteractionEnabled:NO];
         [cell setAccessoryType:UITableViewCellAccessoryNone];
         return cell;
@@ -306,7 +306,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
         }
         [[cell label] setText:[specifier title]];
         [[cell textField] setText:[[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? 
-		 [[NSUserDefaults standardUserDefaults] objectForKey:key] : [specifier defaultValue]];
+		 [[NSUserDefaults standardUserDefaults] objectForKey:key] : [specifier defaultStringValue]];
         [[cell textField] setKey:key];
         [[cell textField] setDelegate:self];
         [[cell textField] addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];

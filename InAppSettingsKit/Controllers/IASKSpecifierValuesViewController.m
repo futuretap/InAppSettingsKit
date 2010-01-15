@@ -107,7 +107,10 @@
         [cell setAccessoryType:UITableViewCellAccessoryNone];
     }
 
-    [[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
+	@try {
+		[[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
+	}
+	@catch (NSException * e) {}
     return cell;
 }
 

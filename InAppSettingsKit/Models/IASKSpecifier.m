@@ -74,7 +74,15 @@
 
 - (NSString*)titleForCurrentValue:(id)currentValue {
     NSInteger keyIndex = [[_multipleValuesDict objectForKey:kIASKValues] indexOfObject:currentValue];
-    return [self.settingsReader titleForStringId:[[_multipleValuesDict objectForKey:kIASKTitles] objectAtIndex:keyIndex]];
+	if (keyIndex == NSNotFound) {
+		return nil;
+	}
+	@try {
+		return [self.settingsReader titleForStringId:[[_multipleValuesDict objectForKey:kIASKTitles] objectAtIndex:keyIndex]];
+	}
+	@catch (NSException * e) {
+		return nil;
+	}
 }
 
 - (NSInteger)multipleValuesCount {
@@ -95,6 +103,10 @@
 
 - (id)defaultValue {
     return [_specifierDict objectForKey:kIASKDefaultValue];
+}
+
+- (id)defaultStringValue {
+    return [[_specifierDict objectForKey:kIASKDefaultValue] description];
 }
 
 - (id)trueValue {
