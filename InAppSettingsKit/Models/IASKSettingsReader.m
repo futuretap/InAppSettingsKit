@@ -37,8 +37,12 @@ dataSource=_dataSource;
         // Generate the settings bundle path
         NSString *path = [self bundlePath];
         
-        [self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".plist"]]];
+        [self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".inApp.plist"]]];
         [self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:[self path]]];
+		if (!self.settingsBundle) {
+			[self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".plist"]]];
+			[self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:[self path]]];
+		}
         _bundle = [[NSBundle bundleWithPath:path] retain];
         
         if (_settingsBundle) {
