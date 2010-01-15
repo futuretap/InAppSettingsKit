@@ -80,9 +80,8 @@
 	@try {
 		return [self.settingsReader titleForStringId:[[_multipleValuesDict objectForKey:kIASKTitles] objectAtIndex:keyIndex]];
 	}
-	@catch (NSException * e) {
-		return nil;
-	}
+	@catch (NSException * e) {}
+	return nil;
 }
 
 - (NSInteger)multipleValuesCount {

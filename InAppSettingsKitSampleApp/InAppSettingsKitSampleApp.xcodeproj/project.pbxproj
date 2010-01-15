@@ -31,7 +31,6 @@
 		DA33F5A110BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA33F59210BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.xib */; };
 		DA33F5A210BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA33F59310BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib */; };
 		DA33F5A310BC2222004736E8 /* IASKSpecifierValuesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA33F59410BC2222004736E8 /* IASKSpecifierValuesView.xib */; };
-		DA5F277510BC262000F983BD /* InAppSettingsKitSampleApp-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA5F277410BC262000F983BD /* InAppSettingsKitSampleApp-Info.plist */; };
 		DACD38AA10598A7600AC8E51 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DACD38A910598A7600AC8E51 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +49,7 @@
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* InAppSettingsKitSampleApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppSettingsKitSampleApp_Prefix.pch; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = "English.lproj/InAppSettingsKitSampleApp-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitSampleApp-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		DA33F57910BC2222004736E8 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		DA33F57B10BC2222004736E8 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
@@ -146,7 +145,7 @@
 			children = (
 				280E754B0DD40C5E005A515E /* MainView.xib */,
 				280E754C0DD40C5E005A515E /* MainWindow.xib */,
-				DA5F277410BC262000F983BD /* InAppSettingsKitSampleApp-Info.plist */,
+				8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -294,7 +293,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA5F277510BC262000F983BD /* InAppSettingsKitSampleApp-Info.plist in Resources */,
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
 				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
 				DACD38AA10598A7600AC8E51 /* Settings.bundle in Resources */,
@@ -332,17 +330,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		DA5F277410BC262000F983BD /* InAppSettingsKitSampleApp-Info.plist */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D1107310486CEB800E47090 /* English */,
-			);
-			name = "InAppSettingsKitSampleApp-Info.plist";
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -353,7 +340,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
-				INFOPLIST_FILE = "English.lproj/InAppSettingsKitSampleApp-Info.plist";
+				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				PRODUCT_NAME = InAppSettingsKitSampleApp;
 			};
 			name = Debug;
@@ -365,7 +352,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
-				INFOPLIST_FILE = "English.lproj/InAppSettingsKitSampleApp-Info.plist";
+				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				PRODUCT_NAME = InAppSettingsKitSampleApp;
 			};
 			name = Release;
