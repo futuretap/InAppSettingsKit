@@ -68,9 +68,10 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 }
 
 - (void)setFile:(NSString *)file {
-	[file copy];
-	[_file release];
-	_file = file;
+	if (file != _file) {
+		[_file release];
+		_file = [file copy];
+	}
 	
 	self.settingsReader = nil; // automatically initializes itself
 }
