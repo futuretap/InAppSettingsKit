@@ -114,6 +114,12 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		} 
 		self.title = NSLocalizedString(@"Settings", @"");
 	}
+	[super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[_tableView flashScrollIndicators];
+	[super viewDidAppear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

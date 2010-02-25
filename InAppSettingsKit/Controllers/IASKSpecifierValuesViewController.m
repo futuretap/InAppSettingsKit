@@ -49,7 +49,14 @@
     if (_tableView) {
         [_tableView reloadData];
     }
+	[super viewWillAppear:animated];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+	[_tableView flashScrollIndicators];
+	[super viewDidAppear:animated];
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait) || (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
