@@ -8,7 +8,7 @@
 	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
-        <dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
@@ -25,10 +25,10 @@
 			<integer>1</integer>
 			<key>MaximumValue</key>
 			<integer>5</integer>
-            <key>MinimumValueImage</key>
-			<string>minImage.png</string>
+			<key>MinimumValueImage</key>
+			<string>slow.png</string>
 			<key>MaximumValueImage</key>
-			<string>maxImage.png</string>
+			<string>fast.png</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -41,14 +41,14 @@
 			<string>PSTextFieldSpecifier</string>
 			<key>IsSecure</key>
 			<true/>
-            <key>Title</key>
+			<key>Title</key>
 			<string>TEXT_FIELD_PWD</string>
-            <key>KeyboardType</key>
+			<key>KeyboardType</key>
 			<string>EmailAddress</string>
-            <key>Key</key>
+			<key>Key</key>
 			<string>password</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Title</key>
 			<string>TOGGLE_SWITCH_TITLE2</string>
 			<key>Type</key>
@@ -57,9 +57,9 @@
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
-            <key>TrueValue</key>
+			<key>TrueValue</key>
 			<integer>1</integer>
-            <key>FalseValue</key>
+			<key>FalseValue</key>
 			<integer>2</integer>
 			<key>Title</key>
 			<string>TOGGLE_SWITCH2</string>

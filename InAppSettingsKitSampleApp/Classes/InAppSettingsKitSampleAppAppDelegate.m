@@ -3,7 +3,7 @@
 //  InAppSettingsKitSampleApp
 //  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -20,26 +20,19 @@
 
 @implementation InAppSettingsKitSampleAppAppDelegate
 
-
 @synthesize window;
-@synthesize mainViewController;
+@synthesize navigationController;
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-    
-	MainViewController *aController = [[MainViewController alloc] initWithNibName:@"MainView" bundle:nil];
-	self.mainViewController = aController;
-	[aController release];
-	
-    mainViewController.view.frame = [UIScreen mainScreen].applicationFrame;
-	[window addSubview:[mainViewController view]];
-    [window makeKeyAndVisible];
+	[window addSubview:navigationController.view];
 }
 
 
 - (void)dealloc {
-    [mainViewController release];
     [window release];
+	[navigationController release];
+
     [super dealloc];
 }
 

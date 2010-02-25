@@ -3,7 +3,7 @@
 //  InAppSettingsKitSampleApp
 //  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -16,52 +16,33 @@
 //
 
 #import "MainViewController.h"
-#import "MainView.h"
 
 @implementation MainViewController
 
-@synthesize appSettingsViewController=_appSettingsViewController;
+@synthesize appSettingsViewController;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
+- (IASKAppSettingsViewController*)appSettingsViewController {
+	if (!appSettingsViewController) {
+		appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+		appSettingsViewController.delegate = self;
+	}
+	return appSettingsViewController;
 }
 
+- (IBAction)showSettingsPush:(id)sender {
+	//[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
+	// But we encourage you no to uncomment. Thank you!
+	self.appSettingsViewController.showDoneButton = NO;
+	[self.navigationController pushViewController:self.appSettingsViewController animated:YES];
+}
 
-/*
- // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
- - (void)viewDidLoad {
- [super viewDidLoad];
- }
- */
-
-
-/*
- // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
- }
- */
-
-
-- (IBAction)showSettings {
-    if (!_appSettingsViewController) {
-        IASKAppSettingsViewController *viewController    = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
-		viewController.delegate = self;
-        UINavigationController *aNavController      = [[UINavigationController alloc] initWithRootViewController:viewController];
-        [[aNavController navigationBar] setBarStyle:UIBarStyleBlackOpaque];
-        [[aNavController view] setFrame:CGRectMake(0.0, 0.0, 320.0, 480.0)];
-        [self setAppSettingsViewController:aNavController];
-        //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
-                                                    // But we encourage you no to uncomment. Thank you!
-        //[viewController setShowDoneButton:NO]; // Uncomment to remove the DONE button shown in the navigation bar
-        [viewController release];
-        [aNavController release];
-    }
-    [self presentModalViewController:_appSettingsViewController animated:YES];
+- (IBAction)showSettingsModal:(id)sender {
+    UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
+    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
+    // But we encourage you not to uncomment. Thank you!
+    self.appSettingsViewController.showDoneButton = YES;
+    [self presentModalViewController:aNavController animated:YES];
+    [aNavController release];
 }
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
@@ -71,28 +52,23 @@
 }
 
 
-/*
- // Override to allow orientations other than the default portrait orientation.
  - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	 // Return YES for supported orientations
+	 return (interfaceOrientation == UIInterfaceOrientationPortrait);
  }
- */
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
+	self.appSettingsViewController = nil;
 }
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
 
 - (void)dealloc {
+	[appSettingsViewController release];
+	appSettingsViewController = nil;
+	
     [super dealloc];
 }
 

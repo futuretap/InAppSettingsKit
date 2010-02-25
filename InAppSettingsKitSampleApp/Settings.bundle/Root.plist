@@ -104,6 +104,14 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
+			<string>Complete List</string>
+			<key>File</key>
+			<string>Complete</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
 			<string>ADVANCED_TITLE</string>
 			<key>File</key>
 			<string>Advanced</string>
@@ -130,7 +138,7 @@
 			<key>Title</key>
 			<string>Copyright</string>
 			<key>DefaultValue</key>
-			<string>2009 Acme Inc.</string>
+			<string>Luc Vandal, Ortwin Gentz</string>
 			<key>Key</key>
 			<string>copyright</string>
 		</dict>

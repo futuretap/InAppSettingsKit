@@ -3,7 +3,7 @@
 //  InAppSettingsKitSampleApp
 //  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -19,11 +19,11 @@
 
 @interface InAppSettingsKitSampleAppAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    MainViewController *mainViewController;
+    UINavigationController *navigationController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) MainViewController *mainViewController;
+@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 
 @end
 
