@@ -32,7 +32,8 @@
     if ([super init]) {
         [self setSpecifierDict:specifier];
         
-        if ([[self type] isEqualToString:kIASKPSMultiValueSpecifier]) {
+        if ([[self type] isEqualToString:kIASKPSMultiValueSpecifier] ||
+			[[self type] isEqualToString:kIASKPSTitleValueSpecifier]) {
             [self _reinterpretValues:[self specifierDict]];
         }
     }
@@ -54,8 +55,13 @@
     
     NSMutableDictionary *multipleValuesDict = [[[NSMutableDictionary alloc] init] autorelease];
     
-    [multipleValuesDict setObject:values forKey:kIASKValues];
-    [multipleValuesDict setObject:titles forKey:kIASKTitles];
+    if (values) {
+		[multipleValuesDict setObject:values forKey:kIASKValues];
+	}
+	
+    if (titles) {
+		[multipleValuesDict setObject:titles forKey:kIASKTitles];
+	}
     
     [self setMultipleValuesDict:multipleValuesDict];
 }
@@ -73,12 +79,17 @@
 }
 
 - (NSString*)titleForCurrentValue:(id)currentValue {
-    NSInteger keyIndex = [[_multipleValuesDict objectForKey:kIASKValues] indexOfObject:currentValue];
+	NSArray *values = [self multipleValues];
+	NSArray *titles = [self multipleTitles];
+	if (values.count != titles.count) {
+		return nil;
+	}
+    NSInteger keyIndex = [values indexOfObject:currentValue];
 	if (keyIndex == NSNotFound) {
 		return nil;
 	}
 	@try {
-		return [self.settingsReader titleForStringId:[[_multipleValuesDict objectForKey:kIASKTitles] objectAtIndex:keyIndex]];
+		return [self.settingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
 	}
 	@catch (NSException * e) {}
 	return nil;
@@ -183,13 +194,13 @@
 }
 
 - (UITextAutocorrectionType)autoCorrectionType {
-    if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCapNone]) {
+    if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCorrDefault]) {
         return UITextAutocorrectionTypeDefault;
     }
-    else if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCapSentences]) {
+    else if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCorrNo]) {
         return UITextAutocorrectionTypeNo;
     }
-    else if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCapWords]) {
+    else if ([[_specifierDict objectForKey:kIASKAutoCorrectionType] isEqualToString:kIASKAutoCorrYes]) {
         return UITextAutocorrectionTypeYes;
     }
     return UITextAutocorrectionTypeDefault;

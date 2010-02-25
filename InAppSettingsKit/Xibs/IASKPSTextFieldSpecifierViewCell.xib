@@ -47,8 +47,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUILabel" id="68117349">
 								<reference key="NSNextResponder" ref="642554623"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 10}, {106, 21}}</string>
+								<int key="NSvFlags">294</int>
+								<string key="NSFrame">{{19, 11}, {240, 21}}</string>
 								<reference key="NSSuperview" ref="642554623"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -69,12 +69,11 @@
 							</object>
 							<object class="IBUITextField" id="239084550">
 								<reference key="NSNextResponder" ref="642554623"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{124, 5}, {166, 31}}</string>
+								<int key="NSvFlags">291</int>
+								<string key="NSFrame">{{100, 11}, {201, 21}}</string>
 								<reference key="NSSuperview" ref="642554623"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText">hello</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
@@ -194,7 +193,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
 					<string>IASKPSTextFieldSpecifierViewCell</string>
-					<string>{{133, 524}, {320, 44}}</string>
+					<string>{{105, 513}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>IASKTextField</string>

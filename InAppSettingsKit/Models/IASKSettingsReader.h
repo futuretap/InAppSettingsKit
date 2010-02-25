@@ -29,7 +29,7 @@
 #define kIASKIsSecure                         @"IsSecure"
 #define KIASKKeyboardType                     @"KeyboardType"
 #define kIASKAutocapitalizationType           @"AutocapitalizationType"
-#define kIASKAutoCorrectionType               @"AutoCorrectionType"
+#define kIASKAutoCorrectionType               @"AutocorrectionType"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
 #define kIASKKeyboardAlphabet                 @"Alphabet"
@@ -63,11 +63,15 @@
 
 #define kIASKSectionHeaderIndex               0
 
-#define kIASKSliderNoImagesX                  11
+#define kIASKSliderNoImagesX                  21
 #define kIASKSliderNoImagesWidth              278
-#define kIASKSliderBothImagesX                45
-#define kIASKSliderBothImagesWidth            210
-#define kIASKSliderOneImageWidth              244
+#define kIASKSliderBothImagesX                53
+#define kIASKSliderBothImagesWidth            214
+#define kIASKSliderOneImageWidth              246
+
+#define kIASKTableWidth                       320
+#define kIASKSpacing                          9
+#define kIASKMinLabelWidth                    97
 
 @class IASKSpecifier;
 

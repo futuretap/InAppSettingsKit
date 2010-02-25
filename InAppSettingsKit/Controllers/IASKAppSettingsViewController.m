@@ -2,7 +2,7 @@
 //  IASKAppSettingsViewController.m
 //  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -101,14 +101,17 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
         [_tableView reloadData];
     }
 	
+	self.navigationItem.rightBarButtonItem = nil;
+	self.navigationController.delegate = nil;
 	if ([self.file isEqualToString:@"Root"]) {
+		self.navigationController.delegate = self;
         if (_showDoneButton) {
             UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
                                                                                         target:self 
                                                                                         action:@selector(dismiss:)];
             self.navigationItem.rightBarButtonItem = buttonItem;
             [buttonItem release];
-		}        
+		} 
 		self.title = NSLocalizedString(@"Settings", @"");
 	}
 }
@@ -129,6 +132,11 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 	// e.g. self.myOutlet = nil;
 }
 
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+	if (![viewController isKindOfClass:[IASKAppSettingsViewController class]] && ![viewController isKindOfClass:[IASKSpecifierValuesViewController class]]) {
+		[self dismiss:nil];
+	}
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -288,8 +296,8 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
     else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
         UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSMultiValueSpecifier] autorelease];
         [[cell textLabel] setText:[specifier title]];
-        [[cell detailTextLabel] setText:[specifier titleForCurrentValue:[[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? 
-										 [[NSUserDefaults standardUserDefaults] objectForKey:key] : [specifier defaultStringValue]]];
+		[[cell detailTextLabel] setText:[[specifier titleForCurrentValue:[[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? 
+										 [[NSUserDefaults standardUserDefaults] objectForKey:key] : [specifier defaultValue]] description]];
 		
 		// left align the value if the title is empty
 		if (!specifier.title.length) {
@@ -298,16 +306,35 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 			cell.textLabel.textColor = cell.detailTextLabel.textColor;
 			cell.detailTextLabel.text = nil;
 		}
-        //NSLog(@"[[NSUserDefaults standardUserDefaults] objectForKey:key]: %@", [[NSUserDefaults standardUserDefaults] objectForKey:key]);
-        //NSLog(@"[specifier defaultValue]: %@", [specifier defaultValue]);
-        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+
+		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+
         return cell;
     }
     else if ([[specifier type] isEqualToString:kIASKPSTitleValueSpecifier]) {
         UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSTitleValueSpecifier] autorelease];
-        [[cell textLabel] setText:[specifier title]];
-        [[cell detailTextLabel] setText:[specifier defaultStringValue]];
-        [cell setUserInteractionEnabled:NO];
+        cell.textLabel.text = [specifier title];
+		id value = [[NSUserDefaults standardUserDefaults] objectForKey:key] ? : [specifier defaultValue];
+		
+		NSString *stringValue;
+		if ([specifier multipleValues] || [specifier multipleTitles]) {
+			stringValue = [specifier titleForCurrentValue:value];
+		} else {
+			stringValue = [value description];
+		}
+
+		cell.detailTextLabel.text = stringValue;
+		
+		// left align the value if the title is empty
+		if (!specifier.title.length) {
+			cell.textLabel.text = cell.detailTextLabel.text;
+			cell.textLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
+			cell.textLabel.textColor = cell.detailTextLabel.textColor;
+			cell.detailTextLabel.text = nil;
+		}
+		cell.textLabel.adjustsFontSizeToFitWidth = YES;
+		
+		[cell setUserInteractionEnabled:NO];
         [cell setAccessoryType:UITableViewCellAccessoryNone];
         return cell;
     }
@@ -332,11 +359,12 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
         [[cell textField] setTextAlignment:UITextAlignmentLeft];
         [[cell textField] setReturnKeyType:UIReturnKeyDone];
         [cell setAccessoryType:UITableViewCellAccessoryNone];
-        return cell;
-    }
-    else if ([[specifier type] isEqualToString:kIASKPSSliderSpecifier]) {
+
+		[cell setNeedsLayout];
+		return cell;
+	}
+	else if ([[specifier type] isEqualToString:kIASKPSSliderSpecifier]) {
         IASKPSSliderSpecifierViewCell *cell = (IASKPSSliderSpecifierViewCell*)[tableView dequeueReusableCellWithIdentifier:[specifier type]];
-		CGRect sliderFrame;
         
         if (!cell) {
             cell = (IASKPSSliderSpecifierViewCell*) [[[NSBundle mainBundle] loadNibNamed:@"IASKPSSliderSpecifierViewCell" 
@@ -344,50 +372,27 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 																			   options:nil] objectAtIndex:0];
         }
         
-        sliderFrame             = [[cell slider] frame];
-        sliderFrame.origin.x    = kIASKSliderNoImagesX;
-        sliderFrame.size.width  = kIASKSliderNoImagesWidth;
-        
-        // Check if there are min and max images. If so, change the layout accordingly.
-        if ([[specifier minimumValueImage] length] > 0 && [[specifier maximumValueImage] length] > 0) {
-            // Both images
+        if ([[specifier minimumValueImage] length] > 0) {
             [[cell minImage] setImage:[UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:[specifier minimumValueImage]]]];
-            [[cell maxImage] setImage:[UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:[specifier maximumValueImage]]]];
-            [[cell minImage] setHidden:NO];
-            [[cell maxImage] setHidden:NO];
-            sliderFrame.origin.x    = kIASKSliderBothImagesX;
-            sliderFrame.size.width  = kIASKSliderBothImagesWidth;
         }
-        else if ([[specifier minimumValueImage] length] > 0) {
-            // Min image
-            [[cell minImage] setImage:[UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:[specifier minimumValueImage]]]];
-            [[cell minImage] setHidden:NO];
-            [[cell maxImage] setHidden:YES];
-            sliderFrame.origin.x    = kIASKSliderBothImagesX;
-            sliderFrame.size.width  = kIASKSliderOneImageWidth;
-        }
-        else if ([[specifier maximumValueImage] length] > 0) {
-            // Max image
+		
+        if ([[specifier maximumValueImage] length] > 0) {
             [[cell maxImage] setImage:[UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:[specifier maximumValueImage]]]];
-            [[cell minImage] setHidden:YES];
-            [[cell maxImage] setHidden:NO];
-            sliderFrame.origin.x    = kIASKSliderNoImagesX;
-            sliderFrame.size.width  = kIASKSliderOneImageWidth;
         }
         
-        [[cell slider] setFrame:sliderFrame];
         [[cell slider] setMinimumValue:[specifier minimumValue]];
         [[cell slider] setMaximumValue:[specifier maximumValue]];
         [[cell slider] setValue:[[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? 
 		 [[[NSUserDefaults standardUserDefaults] objectForKey:key] floatValue] : [[specifier defaultValue] floatValue]];
         [[cell slider] addTarget:self action:@selector(sliderChangedValue:) forControlEvents:UIControlEventValueChanged];
         [[cell slider] setKey:key];
+		[cell setNeedsLayout];
         return cell;
     }
     else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
         UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSChildPaneSpecifier] autorelease];
         [[cell textLabel] setText:[specifier title]];
-        NSLog(@"[specifier file]: %@", [specifier file]);
+        //NSLog(@"[specifier file]: %@", [specifier file]);
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
         return cell;
     }
@@ -525,11 +530,11 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
     [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
     
     [self.view setFrame:viewFrameBeforeAnimation];
+    [textField setTextAlignment:UITextAlignmentLeft];
     [UIView commitAnimations];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField setTextAlignment:UITextAlignmentLeft];
     [textField resignFirstResponder];
 	return YES;
 }

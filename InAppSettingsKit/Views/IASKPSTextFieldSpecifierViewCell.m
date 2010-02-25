@@ -2,7 +2,7 @@
 //  IASKPSTextFieldSpecifierViewCell.m
 //  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -16,19 +16,24 @@
 
 #import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKTextField.h"
+#import "IASKSettingsReader.h"
 
 @implementation IASKPSTextFieldSpecifierViewCell
 
 @synthesize label=_label,
             textField=_textField;
-            
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        // Initialization code
-    }
-    return self;
-}
 
+- (void)layoutSubviews {
+	CGSize labelSize = [_label sizeThatFits:CGSizeZero];
+	labelSize.width = MIN(labelSize.width, _label.bounds.size.width);
+
+	CGRect textFieldFrame = _textField.frame;
+	textFieldFrame.origin.x = _label.frame.origin.x + MAX(kIASKMinLabelWidth, labelSize.width) + kIASKSpacing;
+	if (!_label.text.length)
+		textFieldFrame.origin.x = _label.frame.origin.x;
+	textFieldFrame.size.width = kIASKTableWidth - textFieldFrame.origin.x - _label.frame.origin.x;
+	_textField.frame = textFieldFrame;
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 
