@@ -168,6 +168,8 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		[self.currentFirstResponder resignFirstResponder];
 	}
 	
+	self.navigationController.delegate = nil;
+	
 	if (self.delegate && [self.delegate conformsToProtocol:@protocol(IASKSettingsDelegate)]) {
 		[self.delegate settingsViewControllerDidEnd:self];
 	}
