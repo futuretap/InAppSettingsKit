@@ -20,6 +20,7 @@
 #import "IASKPSToggleSwitchSpecifierViewCell.h"
 #import "IASKPSSliderSpecifierViewCell.h"
 #import "IASKPSTextFieldSpecifierViewCell.h"
+#import "IASKPSTitleValueSpecifierViewCell.h"
 #import "IASKSwitch.h"
 #import "IASKSlider.h"
 #import "IASKSpecifier.h"
@@ -302,25 +303,17 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
         return cell;
     }
     else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
-        UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSMultiValueSpecifier] autorelease];
+        UITableViewCell *cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSMultiValueSpecifier] autorelease];
         [[cell textLabel] setText:[specifier title]];
 		[[cell detailTextLabel] setText:[[specifier titleForCurrentValue:[[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? 
 										 [[NSUserDefaults standardUserDefaults] objectForKey:key] : [specifier defaultValue]] description]];
 		
-		// left align the value if the title is empty
-		if (!specifier.title.length) {
-			cell.textLabel.text = cell.detailTextLabel.text;
-			cell.textLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
-			cell.textLabel.textColor = cell.detailTextLabel.textColor;
-			cell.detailTextLabel.text = nil;
-		}
-
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 
         return cell;
     }
     else if ([[specifier type] isEqualToString:kIASKPSTitleValueSpecifier]) {
-        UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSTitleValueSpecifier] autorelease];
+        UITableViewCell *cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSTitleValueSpecifier] autorelease];
         cell.textLabel.text = [specifier title];
 		id value = [[NSUserDefaults standardUserDefaults] objectForKey:key] ? : [specifier defaultValue];
 		
@@ -332,15 +325,6 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		}
 
 		cell.detailTextLabel.text = stringValue;
-		
-		// left align the value if the title is empty
-		if (!specifier.title.length) {
-			cell.textLabel.text = cell.detailTextLabel.text;
-			cell.textLabel.font = [UIFont systemFontOfSize:[UIFont labelFontSize]];
-			cell.textLabel.textColor = cell.detailTextLabel.textColor;
-			cell.detailTextLabel.text = nil;
-		}
-		cell.textLabel.adjustsFontSizeToFitWidth = YES;
 		
 		[cell setUserInteractionEnabled:NO];
         [cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -398,7 +382,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
         return cell;
     }
     else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
-        UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSChildPaneSpecifier] autorelease];
+        UITableViewCell *cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKPSChildPaneSpecifier] autorelease];
         [[cell textLabel] setText:[specifier title]];
         //NSLog(@"[specifier file]: %@", [specifier file]);
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];

@@ -70,8 +70,13 @@
 #define kIASKSliderOneImageWidth              246
 
 #define kIASKTableWidth                       320
-#define kIASKSpacing                          9
+#define kIASKSpacing                          5
 #define kIASKMinLabelWidth                    97
+#define kIASKMinValueWidth                    35
+#define kIASKPaddingLeft                      9
+#define kIASKPaddingRight                     10
+
+#define kIASKLabelFontSize                    17
 
 @class IASKSpecifier;
 

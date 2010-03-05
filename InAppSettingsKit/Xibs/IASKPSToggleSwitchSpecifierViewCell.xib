@@ -37,7 +37,7 @@
 			</object>
 			<object class="IBUITableViewCell" id="507262743">
 				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">292</int>
+				<int key="NSvFlags">290</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIView" id="659685403">
@@ -47,8 +47,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUILabel" id="697203718">
 								<reference key="NSNextResponder" ref="659685403"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 10}, {182, 21}}</string>
+								<int key="NSvFlags">294</int>
+								<string key="NSFrame">{{9, 10}, {200, 21}}</string>
 								<reference key="NSSuperview" ref="659685403"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -69,8 +69,8 @@
 							</object>
 							<object class="IBUISwitch" id="297989004">
 								<reference key="NSNextResponder" ref="659685403"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{198, 8}, {94, 27}}</string>
+								<int key="NSvFlags">289</int>
+								<string key="NSFrame">{{218, 8}, {94, 27}}</string>
 								<reference key="NSSuperview" ref="659685403"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -98,6 +98,7 @@
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
 				</object>
+				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISeparatorStyle">1</int>
 				<int key="IBUISelectionStyle">0</int>

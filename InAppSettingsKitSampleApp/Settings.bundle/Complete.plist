@@ -204,7 +204,7 @@
 			<key>Key</key>
 			<string>title_long</string>
 			<key>DefaultValue</key>
-			<string>Value with a very long text</string>
+			<string>Value with a very, very long text</string>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
 		</dict>
@@ -229,6 +229,26 @@
 				<string>Two</string>
 				<string>Three</string>
 			</array>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Title with a very, very loong label</string>
+			<key>Key</key>
+			<string>title_longtitle</string>
+			<key>DefaultValue</key>
+			<string>Value is long, too</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string></string>
+			<key>Key</key>
+			<string>title_withoutlabel</string>
+			<key>DefaultValue</key>
+			<string>Title without label</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -383,6 +403,28 @@
 			<string>Multi Value</string>
 			<key>Key</key>
 			<string>multivalue</string>
+			<key>DefaultValue</key>
+			<integer>2</integer>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>One</string>
+				<string>Two</string>
+				<string>Three</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Multi Value with a long title</string>
+			<key>Key</key>
+			<string>multivalue_long</string>
 			<key>DefaultValue</key>
 			<integer>2</integer>
 			<key>Values</key>
