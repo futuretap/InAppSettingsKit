@@ -24,23 +24,20 @@
 	}
 	[super layoutSubviews];
 	
-	CGFloat viewWidth =  [self.textLabel superview].frame.size.width;
+	CGSize viewSize =  [self.textLabel superview].frame.size;
 	
 	// set the left title label frame
 	CGFloat labelWidth = [self.textLabel sizeThatFits:CGSizeZero].width;
-	labelWidth = MIN(labelWidth, viewWidth - kIASKMinValueWidth - kIASKPaddingLeft - kIASKSpacing -kIASKPaddingRight);
-	CGRect labelFrame = self.textLabel.frame;
-	labelFrame.origin.x = kIASKPaddingLeft;
-	labelFrame.size.width = labelWidth;
-	labelFrame.size.height -= 2;
+	labelWidth = MIN(labelWidth, viewSize.width - kIASKMinValueWidth - kIASKPaddingLeft - kIASKSpacing -kIASKPaddingRight);
+	CGRect labelFrame = CGRectMake(kIASKPaddingLeft, 0, labelWidth, viewSize.height -2);
 	self.textLabel.frame = labelFrame;
 	
 	// set the right value label frame
 	if (self.detailTextLabel.text.length) {
-		CGRect valueFrame = self.detailTextLabel.frame;
-		valueFrame.origin.x = kIASKPaddingLeft + labelWidth + kIASKSpacing;
-		valueFrame.size.width = viewWidth - valueFrame.origin.x - kIASKPaddingRight;
-		valueFrame.size.height -= 2;
+		CGRect valueFrame = CGRectMake(kIASKPaddingLeft + labelWidth + kIASKSpacing,
+									   0,
+									   viewSize.width - (kIASKPaddingLeft + labelWidth + kIASKSpacing) - kIASKPaddingRight,
+									   viewSize.height -2);
 		self.detailTextLabel.frame = valueFrame;
 	}
 }
