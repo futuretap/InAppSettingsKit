@@ -6,6 +6,7 @@
 //  Copyright (c) 2009-2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
+//  Manuel "StuFF mc" Carrasco Molina, http://www.pomcast.biz
 //  All rights reserved.
 // 
 //  It is appreciated but not required that you give credit to Luc Vandal and Ortwin Gentz, 
@@ -14,6 +15,7 @@
 //
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
+//	Settings Icon (also used in App Icon) thanks to http://glyphish.com/ 
 
 #import "InAppSettingsKitSampleAppAppDelegate.h"
 #import "MainViewController.h"
@@ -22,17 +24,20 @@
 
 @synthesize window;
 @synthesize navigationController;
+@synthesize tabBarController;
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	[window addSubview:navigationController.view];
+	NSLog(@"App Started");
+	//	[window addSubview:navigationController.view]; // Uncomment this line and comment the next one to see *only* a navigationcontroller
+	[window addSubview:tabBarController.view];
 }
 
 
 - (void)dealloc {
     [window release];
 	[navigationController release];
-
+	[tabBarController release];
     [super dealloc];
 }
 
