@@ -13,6 +13,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
+		6A1F35EE11490727003E6295 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F35ED11490727003E6295 /* Icon.png */; };
+		6A9BBF591148F1DA003D97FA /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A9BBF581148F1DA003D97FA /* 20-gear2.png */; };
 		AA87D1DD113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */; };
 		AA8D0ED51136E17600EEB1C6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */; };
 		DA33F59510BC2222004736E8 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */; };
@@ -37,13 +39,16 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppSettingsKitSampleAppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppSettingsKitSampleAppAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* InAppSettingsKitSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InAppSettingsKitSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* In App Settings Kit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "In App Settings Kit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* InAppSettingsKitSampleApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppSettingsKitSampleApp_Prefix.pch; sourceTree = "<group>"; };
+		6A1F35ED11490727003E6295 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		6A9BBEE11148EE4B003D97FA /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		6A9BBF581148F1DA003D97FA /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitSampleApp-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		AA87D1DB113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTitleValueSpecifierViewCell.h; sourceTree = "<group>"; };
 		AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
@@ -105,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				DACD38A910598A7600AC8E51 /* Settings.bundle */,
-				1D6058910D05DD3D006BFB54 /* InAppSettingsKitSampleApp.app */,
+				1D6058910D05DD3D006BFB54 /* In App Settings Kit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,6 +145,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6A1F35ED11490727003E6295 /* Icon.png */,
+				6A9BBF581148F1DA003D97FA /* 20-gear2.png */,
 				AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */,
 			);
@@ -257,7 +264,7 @@
 			);
 			name = InAppSettingsKitSampleApp;
 			productName = InAppSettingsKitSampleApp;
-			productReference = 1D6058910D05DD3D006BFB54 /* InAppSettingsKitSampleApp.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* In App Settings Kit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -298,6 +305,8 @@
 				DA33F5A210BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */,
 				DA33F5A310BC2222004736E8 /* IASKSpecifierValuesView.xib in Resources */,
 				AA8D0ED51136E17600EEB1C6 /* MainWindow.xib in Resources */,
+				6A9BBF591148F1DA003D97FA /* 20-gear2.png in Resources */,
+				6A1F35EE11490727003E6295 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +342,7 @@
 			children = (
 				AA8D0ED41136E17600EEB1C6 /* English */,
 				AA8D0ED61136E18200EEB1C6 /* German */,
+				6A9BBEE11148EE4B003D97FA /* French */,
 			);
 			name = MainWindow.xib;
 			sourceTree = "<group>";
@@ -350,7 +360,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
-				PRODUCT_NAME = InAppSettingsKitSampleApp;
 			};
 			name = Debug;
 		};
@@ -362,7 +371,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
-				PRODUCT_NAME = InAppSettingsKitSampleApp;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -376,6 +384,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				PRODUCT_NAME = "In App Settings Kit";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
@@ -389,6 +398,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				PRODUCT_NAME = "In App Settings Kit";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
