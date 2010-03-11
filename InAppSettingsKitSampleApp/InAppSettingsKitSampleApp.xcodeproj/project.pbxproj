@@ -15,6 +15,7 @@
 		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		6A1F35EE11490727003E6295 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F35ED11490727003E6295 /* Icon.png */; };
 		6A9BBF591148F1DA003D97FA /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A9BBF581148F1DA003D97FA /* 20-gear2.png */; };
+		AA40952A1149663600C3BBFF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA4095291149663600C3BBFF /* Localizable.strings */; };
 		AA87D1DD113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */; };
 		AA8D0ED51136E17600EEB1C6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */; };
 		DA33F59510BC2222004736E8 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */; };
@@ -50,6 +51,9 @@
 		6A9BBEE11148EE4B003D97FA /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		6A9BBF581148F1DA003D97FA /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitSampleApp-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AA4095271149662F00C3BBFF /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA40952B1149664400C3BBFF /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AA40952C1149664600C3BBFF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA87D1DB113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTitleValueSpecifierViewCell.h; sourceTree = "<group>"; };
 		AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
 		AA8D0ED41136E17600EEB1C6 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainWindow.xib; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 				6A9BBF581148F1DA003D97FA /* 20-gear2.png */,
 				AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */,
+				AA4095291149663600C3BBFF /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -307,6 +312,7 @@
 				AA8D0ED51136E17600EEB1C6 /* MainWindow.xib in Resources */,
 				6A9BBF591148F1DA003D97FA /* 20-gear2.png in Resources */,
 				6A1F35EE11490727003E6295 /* Icon.png in Resources */,
+				AA40952A1149663600C3BBFF /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +343,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		AA4095291149663600C3BBFF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA4095271149662F00C3BBFF /* English */,
+				AA40952B1149664400C3BBFF /* German */,
+				AA40952C1149664600C3BBFF /* French */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

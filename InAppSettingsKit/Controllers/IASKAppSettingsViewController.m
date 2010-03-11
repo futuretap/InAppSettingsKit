@@ -88,6 +88,16 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
     return self;
 }
 
+- (void)awakeFromNib {
+	// If set to YES, will display credits for InAppSettingsKit creators
+	_showCreditsFooter = YES;
+	
+	// If set to YES, will add a DONE button at the right of the navigation bar
+	// if loaded via NIB, it's likely we sit in a TabBar- or NavigationController
+	// and thus don't need the Done button
+	_showDoneButton = NO;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

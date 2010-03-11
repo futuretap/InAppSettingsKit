@@ -29,7 +29,6 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	NSLog(@"App Started");
-	//	[window addSubview:navigationController.view]; // Uncomment this line and comment the next one to see *only* a navigationcontroller
 	[window addSubview:tabBarController.view];
 }
 
