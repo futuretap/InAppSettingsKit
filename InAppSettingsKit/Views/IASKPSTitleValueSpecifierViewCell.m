@@ -1,10 +1,8 @@
 //
 //  IASKPSTitleValueSpecifierViewCell.m
-//  InAppSettingsKitSampleApp
-//
 //  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009-2010:
+//  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -38,7 +36,8 @@
 	
 	// set the left title label frame
 	CGFloat labelWidth = [self.textLabel sizeThatFits:CGSizeZero].width;
-	labelWidth = MIN(labelWidth, viewSize.width - kIASKMinValueWidth - kIASKPaddingLeft - kIASKSpacing -kIASKPaddingRight);
+	CGFloat minValueWidth = (self.detailTextLabel.text.length) ? kIASKMinValueWidth + kIASKSpacing : 0;
+	labelWidth = MIN(labelWidth, viewSize.width - minValueWidth - kIASKPaddingLeft -kIASKPaddingRight);
 	CGRect labelFrame = CGRectMake(kIASKPaddingLeft, 0, labelWidth, viewSize.height -2);
 	self.textLabel.frame = labelFrame;
 	
