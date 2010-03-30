@@ -43,7 +43,6 @@
 - (void)dealloc {
     [_specifierDict release];
     [_multipleValuesDict release];
-	[_settingsReader release];
 	_settingsReader = nil;
 
     [super dealloc];

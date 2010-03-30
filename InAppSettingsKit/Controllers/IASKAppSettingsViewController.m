@@ -165,6 +165,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 	[currentFirstResponder release];
 	currentFirstResponder = nil;
 	
+    self.settingsReader = nil;
 	_delegate = nil;
 
     [super dealloc];

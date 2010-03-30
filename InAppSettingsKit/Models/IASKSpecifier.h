@@ -24,7 +24,7 @@
 	IASKSettingsReader *_settingsReader;
 }
 @property (nonatomic, retain) NSDictionary  *specifierDict;
-@property (nonatomic, retain) IASKSettingsReader *settingsReader;
+@property (nonatomic, assign) IASKSettingsReader *settingsReader;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
 - (NSString*)title;
