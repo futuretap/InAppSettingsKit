@@ -33,7 +33,7 @@ dataSource=_dataSource;
 }
 
 - (id)initWithFile:(NSString*)file {
-    if (self=[super init]) {
+    if ((self=[super init])) {
         // Generate the settings bundle path
         NSString *path = [self bundlePath];
         
