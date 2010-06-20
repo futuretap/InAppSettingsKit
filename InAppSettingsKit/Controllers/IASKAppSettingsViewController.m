@@ -123,7 +123,9 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
             self.navigationItem.rightBarButtonItem = buttonItem;
             [buttonItem release];
 		} 
-		self.title = NSLocalizedString(@"Settings", @"");
+		if (!self.title) {
+			self.title = NSLocalizedString(@"Settings", @"");
+		}
 	}
 	[super viewWillAppear:animated];
 }
