@@ -500,7 +500,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    [textField setTextAlignment:UITextAlignmentRight];
+    [textField setTextAlignment:UITextAlignmentLeft];
     return YES;
 }
 
