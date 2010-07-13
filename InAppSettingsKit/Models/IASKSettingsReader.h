@@ -53,8 +53,8 @@
 #define kIASKPSSliderSpecifier                @"PSSliderSpecifier"
 #define kIASKPSTitleValueSpecifier            @"PSTitleValueSpecifier"
 #define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"
-
 #define kIASKPSChildPaneSpecifier             @"PSChildPaneSpecifier"
+#define kIASKOpenURLSpecifier                 @"IASKOpenURLSpecifier"
 
 #define kIASKBundleFolder                     @"Settings.bundle"
 #define kIASKBundleFilename                   @"Root.plist"

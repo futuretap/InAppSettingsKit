@@ -429,8 +429,18 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
         [[cell textLabel] setText:[specifier title]];
         return cell;
-    }
-    else {
+    } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
+        
+        if (!cell) {
+            cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
+			[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
+
+		cell.textLabel.text = [specifier title];
+		cell.detailTextLabel.text = [[specifier defaultValue] description];
+		return cell;        
+	} else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
 		
         if (!cell) {
@@ -512,8 +522,10 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;
         [[self navigationController] pushViewController:targetViewController animated:YES];
-    }
-    else {
+    } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:specifier.file]];    
+	} else {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
 }
