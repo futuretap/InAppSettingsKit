@@ -30,13 +30,12 @@
     
     NSMutableArray          *_viewList;
     NSIndexPath             *_currentIndexPath;
-    CGFloat                 animatedDistance;
-    CGRect                 	viewFrameBeforeAnimation;
+	NSIndexPath				*_topmostRowBeforeKeyboardWasShown;
 	
 	IASKSettingsReader		*_settingsReader;
 	NSString				*_file;
 	
-	id                      currentFirstResponder;
+	id                      _currentFirstResponder;
     
     BOOL                    _showCreditsFooter;
     BOOL                    _showDoneButton;
