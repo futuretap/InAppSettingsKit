@@ -57,6 +57,7 @@
 #define kIASKOpenURLSpecifier                 @"IASKOpenURLSpecifier"
 
 #define kIASKBundleFolder                     @"Settings.bundle"
+#define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
 #define kIASKBundleFilename                   @"Root.plist"
 
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
@@ -82,6 +83,7 @@
 
 @interface IASKSettingsReader : NSObject {
     NSString        *_path;
+    NSString        *_bundleFolder;
     NSDictionary    *_settingsBundle;
     NSArray         *_dataSource;
     NSBundle        *_bundle;
@@ -98,6 +100,7 @@
 - (NSString*)pathForImageNamed:(NSString*)image;
 
 @property (nonatomic, retain) NSString      *path;
+@property (nonatomic, retain) NSString      *bundleFolder;
 @property (nonatomic, retain) NSDictionary  *settingsBundle;
 @property (nonatomic, retain) NSArray       *dataSource;
 
