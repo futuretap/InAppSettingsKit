@@ -78,6 +78,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 	self.settingsReader = nil; // automatically initializes itself
 }
 
+#pragma mark standard view controller methods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // If set to YES, will display credits for InAppSettingsKit creators
@@ -507,7 +508,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
             [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
             
-            targetViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+            targetViewController = [[[self class] alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
 			
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
