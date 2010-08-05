@@ -37,6 +37,12 @@
 */
 
 
+- (CGSize)contentSizeForViewInPopover
+{
+	[_tableView reloadData];
+	return _tableView.contentSize;
+}
+
 /*- (void)viewDidLoad {
     [super viewDidLoad];
 }*/

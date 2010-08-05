@@ -78,6 +78,12 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 	self.settingsReader = nil; // automatically initializes itself
 }
 
+- (CGSize)contentSizeForViewInPopover
+{
+	[_tableView reloadData];
+	return _tableView.contentSize;
+}
+
 #pragma mark standard view controller methods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
