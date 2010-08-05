@@ -136,6 +136,16 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 			self.title = NSLocalizedString(@"Settings", @"");
 		}
 	}
+	
+	if (self.currentIndexPath) {
+		if (animated) {
+			// animate deselection of previously selected row
+			[_tableView selectRowAtIndexPath:self.currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+			[_tableView deselectRowAtIndexPath:self.currentIndexPath animated:YES];
+		}
+		self.currentIndexPath = nil;
+	}
+	
 	[super viewWillAppear:animated];
 }
 
@@ -487,7 +497,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
             // load the view controll back in to push it
             targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
         }
-        _currentIndexPath = indexPath;
+        self.currentIndexPath = indexPath;
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         [[self navigationController] pushViewController:targetViewController animated:YES];
@@ -518,7 +528,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
             // load the view controll back in to push it
             targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
         }
-        _currentIndexPath = indexPath;
+        self.currentIndexPath = indexPath;
 		targetViewController.file = specifier.file;
 		targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;
