@@ -134,7 +134,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait) || (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
