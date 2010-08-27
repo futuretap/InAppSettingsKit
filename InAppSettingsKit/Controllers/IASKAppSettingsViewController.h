@@ -30,13 +30,12 @@
     
     NSMutableArray          *_viewList;
     NSIndexPath             *_currentIndexPath;
-    CGFloat                 animatedDistance;
-    CGRect                 	viewFrameBeforeAnimation;
+	NSIndexPath				*_topmostRowBeforeKeyboardWasShown;
 	
 	IASKSettingsReader		*_settingsReader;
 	NSString				*_file;
 	
-	id                      currentFirstResponder;
+	id                      _currentFirstResponder;
     
     BOOL                    _showCreditsFooter;
     BOOL                    _showDoneButton;
@@ -51,5 +50,10 @@
 @property (nonatomic, assign) BOOL showDoneButton;
 
 - (IBAction)dismiss:(id)sender;
+
+// subclassing: optionally override these methods to customize appearance and functionality
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

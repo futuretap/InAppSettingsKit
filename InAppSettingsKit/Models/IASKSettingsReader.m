@@ -24,7 +24,8 @@
 
 @implementation IASKSettingsReader
 
-@synthesize path=_path, 
+@synthesize path=_path,
+bundleFolder=_bundleFolder,
 settingsBundle=_settingsBundle, 
 dataSource=_dataSource;
 
@@ -33,15 +34,23 @@ dataSource=_dataSource;
 }
 
 - (id)initWithFile:(NSString*)file {
-    if (self=[super init]) {
-        // Generate the settings bundle path
-        NSString *path = [self bundlePath];
-        
-        [self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".inApp.plist"]]];
-        [self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:[self path]]];
-		if (!self.settingsBundle) {
-			[self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".plist"]]];
+    if ((self=[super init])) {
+		[self setBundleFolder:kIASKBundleFolderAlt];
+		// Generate the settings bundle path
+		NSString *path = [self bundlePath];
+		
+		// Try both bundle folders
+		for (int i=0;i<2;i++) {			
+			[self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".inApp.plist"]]];
 			[self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:[self path]]];
+			if (!self.settingsBundle) {
+				[self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".plist"]]];
+				[self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:[self path]]];
+			}
+			if (self.settingsBundle)
+				break;
+			[self setBundleFolder:kIASKBundleFolder];
+			path = [self bundlePath];
 		}
         _bundle = [[NSBundle bundleWithPath:path] retain];
         
@@ -138,7 +147,7 @@ dataSource=_dataSource;
 
 - (NSString*)bundlePath {
     NSString *libDirectory  = [[NSBundle mainBundle] bundlePath];
-    return [libDirectory stringByAppendingPathComponent:kIASKBundleFolder];
+    return [libDirectory stringByAppendingPathComponent:_bundleFolder];
 }
 
 - (NSString*)pathForImageNamed:(NSString*)image {
