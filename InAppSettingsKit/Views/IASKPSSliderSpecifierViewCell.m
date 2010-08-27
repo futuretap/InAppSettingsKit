@@ -25,9 +25,13 @@
             maxImage=_maxImage;
 
 - (void)layoutSubviews {
-	CGRect sliderFrame      = _slider.frame;
-	sliderFrame.origin.x    = kIASKSliderNoImagesX;
-	sliderFrame.size.width  = kIASKSliderNoImagesWidth;
+    [super layoutSubviews];
+	CGRect  sliderBounds    = _slider.bounds;
+    CGPoint sliderCenter    = _slider.center;
+    const double superViewWidth = _slider.superview.frame.size.width;
+    
+    sliderCenter.x = superViewWidth / 2;
+    sliderBounds.size.width = superViewWidth - kIASKSliderNoImagesPadding * 2;
 	_minImage.hidden = YES;
 	_maxImage.hidden = YES;
 
@@ -36,23 +40,23 @@
 		// Both images
 		_minImage.hidden = NO;
 		_maxImage.hidden = NO;
-		sliderFrame.origin.x    = kIASKSliderBothImagesX;
-		sliderFrame.size.width  = kIASKSliderBothImagesWidth;
+        sliderBounds.size.width  = superViewWidth - kIASKSliderImagesPadding * 2;
 	}
 	else if (_minImage.image) {
 		// Min image
 		_minImage.hidden = NO;
-		sliderFrame.origin.x    = kIASKSliderBothImagesX;
-		sliderFrame.size.width  = kIASKSliderOneImageWidth;
+		sliderCenter.x    += (kIASKSliderImagesPadding - kIASKSliderNoImagesPadding) / 2;
+		sliderBounds.size.width  = superViewWidth - kIASKSliderNoImagesPadding - kIASKSliderImagesPadding;
 	}
 	else if (_maxImage.image) {
 		// Max image
 		_maxImage.hidden = NO;
-		sliderFrame.origin.x    = kIASKSliderNoImagesX;
-		sliderFrame.size.width  = kIASKSliderOneImageWidth;
+		sliderCenter.x    -= (kIASKSliderImagesPadding - kIASKSliderNoImagesPadding) / 2;
+		sliderBounds.size.width  = superViewWidth - kIASKSliderNoImagesPadding - kIASKSliderImagesPadding;
 	}
 	
-	_slider.frame = sliderFrame;
+	_slider.bounds = sliderBounds;
+    _slider.center = sliderCenter;
 }	
 
 - (void)dealloc {

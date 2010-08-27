@@ -64,11 +64,9 @@
 
 #define kIASKSectionHeaderIndex               0
 
-#define kIASKSliderNoImagesX                  21
-#define kIASKSliderNoImagesWidth              278
-#define kIASKSliderBothImagesX                53
-#define kIASKSliderBothImagesWidth            214
-#define kIASKSliderOneImageWidth              246
+#define kIASKSliderNoImagesPadding            11
+#define kIASKSliderImagesPadding              43
+
 
 #define kIASKTableWidth                       320
 #define kIASKSpacing                          5
