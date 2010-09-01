@@ -29,10 +29,24 @@
 - (void)viewWillAppear:(BOOL)animated {
     if (_currentSpecifier) {
         [self setTitle:[_currentSpecifier title]];
+        
+		// Find the currently checked item
+		if([[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]]) {
+			NSInteger index = [[_currentSpecifier multipleValues] indexOfObject:[[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]]];
+			[self setCheckedItem:[NSIndexPath indexPathForRow:index inSection:0]];
+        }
+        
+        else {
+			NSInteger index = [[_currentSpecifier multipleValues] indexOfObject:[_currentSpecifier defaultValue]];
+			[self setCheckedItem:[NSIndexPath indexPathForRow:index inSection:0]];
+        }
     }
     
     if (_tableView) {
         [_tableView reloadData];
+
+		// Make sure the currently checked item is visible
+        [_tableView scrollToRowAtIndexPath:[self checkedItem] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
     }
 	[super viewWillAppear:animated];
 }
@@ -92,20 +106,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell   = [tableView dequeueReusableCellWithIdentifier:kCellValue];
-    NSArray *values         = [_currentSpecifier multipleValues];
     NSArray *titles         = [_currentSpecifier multipleTitles];
 	
     if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue] autorelease];
     }
 	
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]] ?
-		[[[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]] isEqual:[values objectAtIndex:indexPath.row]] :
-		[[_currentSpecifier defaultValue] isEqual:[values objectAtIndex:indexPath.row]]) {
-        [self selectCell:cell];
-        [self setCheckedItem:indexPath];
-    }
-    else {
+	if ([indexPath isEqual:[self checkedItem]]) {
+		[self selectCell:cell];
+    } else {
         [self deselectCell:cell];
     }
 	
@@ -131,6 +140,7 @@
     [self setCheckedItem:indexPath];
 	
     [[NSUserDefaults standardUserDefaults] setObject:[values objectAtIndex:indexPath.row] forKey:[_currentSpecifier key]];
+	[[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:[_currentSpecifier key]];
 }
 
