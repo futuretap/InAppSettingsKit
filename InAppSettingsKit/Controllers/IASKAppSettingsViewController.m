@@ -38,6 +38,8 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
 #define kIASKCreditsViewWidth                         285
 
+CGRect IASKCGRectSwap(CGRect rect);
+
 @interface IASKAppSettingsViewController ()
 - (void)_textChanged:(id)sender;
 - (void)_keyboardWillShow:(NSNotification*)notification;
@@ -563,6 +565,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+	self.currentFirstResponder = textField;
 	if ([_tableView indexPathsForVisibleRows].count) {
 		_topmostRowBeforeKeyboardWasShown = (NSIndexPath*)[[_tableView indexPathsForVisibleRows] objectAtIndex:0];
 	} else {
@@ -594,7 +597,13 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		
 		// Reduce the tableView height by the part of the keyboard that actually covers the tableView
 		CGRect windowRect = [[UIApplication sharedApplication] keyWindow].bounds;
+		if (UIInterfaceOrientationLandscapeLeft == self.interfaceOrientation ||UIInterfaceOrientationLandscapeRight == self.interfaceOrientation ) {
+			windowRect = IASKCGRectSwap(windowRect);
+		}
 		CGRect viewRectAbsolute = [_tableView convertRect:_tableView.bounds toView:[[UIApplication sharedApplication] keyWindow]];
+		if (UIInterfaceOrientationLandscapeLeft == self.interfaceOrientation ||UIInterfaceOrientationLandscapeRight == self.interfaceOrientation ) {
+			viewRectAbsolute = IASKCGRectSwap(viewRectAbsolute);
+		}
 		CGRect frame = _tableView.frame;
 		frame.size.height -= [keyboardFrameValue CGRectValue].size.height - CGRectGetMaxY(windowRect) + CGRectGetMaxY(viewRectAbsolute);
 
@@ -614,6 +623,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		[_tableView scrollToRowAtIndexPath:textFieldIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 	}
 }
+
 
 - (void) scrollToOldPosition {
   [_tableView scrollToRowAtIndexPath:_topmostRowBeforeKeyboardWasShown atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -643,4 +653,13 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
   [_tableView reloadData];
 }
 
+#pragma mark CGRect Utility function
+CGRect IASKCGRectSwap(CGRect rect) {
+	CGRect newRect;
+	newRect.origin.x = rect.origin.y;
+	newRect.origin.y = rect.origin.x;
+	newRect.size.width = rect.size.height;
+	newRect.size.height = rect.size.width;
+	return newRect;
+}
 @end
