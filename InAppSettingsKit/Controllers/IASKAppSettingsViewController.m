@@ -154,11 +154,16 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 //	_tableView.frame = self.view.bounds;
 	[super viewDidAppear:animated];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self
+  NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
+  [dc addObserver:self selector:@selector(synchronizeUserDefaults) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
+  [dc addObserver:self selector:@selector(synchronizeUserDefaults) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
+  [dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+
+	[dc addObserver:self
 											 selector:@selector(_keyboardWillShow:)
 												 name:UIKeyboardWillShowNotification
 											   object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self
+	[dc addObserver:self
 											 selector:@selector(_keyboardWillHide:)
 												 name:UIKeyboardWillHideNotification
 											   object:nil];		
@@ -627,4 +632,15 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		[self performSelector:@selector(scrollToOldPosition) withObject:nil afterDelay:0.1];
 	}
 }	
+
+#pragma mark Notifications
+
+- (void)synchronizeUserDefaults {
+  [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)userDefaultsDidChange {
+  [_tableView reloadData];
+}
+
 @end

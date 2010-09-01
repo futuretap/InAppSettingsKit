@@ -26,20 +26,22 @@
 @synthesize checkedItem=_checkedItem;
 @synthesize settingsReader = _settingsReader;
 
+- (void) updateCheckedItem {
+    NSInteger index;
+	
+	// Find the currently checked item
+    if([[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]]) {
+      index = [[_currentSpecifier multipleValues] indexOfObject:[[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]]];
+    } else {
+      index = [[_currentSpecifier multipleValues] indexOfObject:[_currentSpecifier defaultValue]];
+    }
+	[self setCheckedItem:[NSIndexPath indexPathForRow:index inSection:0]];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     if (_currentSpecifier) {
         [self setTitle:[_currentSpecifier title]];
-        
-		// Find the currently checked item
-		if([[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]]) {
-			NSInteger index = [[_currentSpecifier multipleValues] indexOfObject:[[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]]];
-			[self setCheckedItem:[NSIndexPath indexPathForRow:index inSection:0]];
-        }
-        
-        else {
-			NSInteger index = [[_currentSpecifier multipleValues] indexOfObject:[_currentSpecifier defaultValue]];
-			[self setCheckedItem:[NSIndexPath indexPathForRow:index inSection:0]];
-        }
+        [self updateCheckedItem];
     }
     
     if (_tableView) {
@@ -54,6 +56,8 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[_tableView flashScrollIndicators];
 	[super viewDidAppear:animated];
+  NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
+  [dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
 }
 
 
@@ -142,6 +146,15 @@
     [[NSUserDefaults standardUserDefaults] setObject:[values objectAtIndex:indexPath.row] forKey:[_currentSpecifier key]];
 	[[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:[_currentSpecifier key]];
+}
+
+#pragma mark Notifications
+
+- (void)userDefaultsDidChange {
+  if(_currentSpecifier) {
+    [self updateCheckedItem];
+  }
+  [_tableView reloadData];
 }
 
 @end
