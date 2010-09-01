@@ -44,6 +44,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)_textChanged:(id)sender;
 - (void)_keyboardWillShow:(NSNotification*)notification;
 - (void)_keyboardWillHide:(NSNotification*)notification;
+- (void)synchronizeUserDefaults;
+- (void)reload;
 @end
 
 @implementation IASKAppSettingsViewController
@@ -156,10 +158,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 //	_tableView.frame = self.view.bounds;
 	[super viewDidAppear:animated];
 
-  NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
-  [dc addObserver:self selector:@selector(synchronizeUserDefaults) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
-  [dc addObserver:self selector:@selector(synchronizeUserDefaults) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
-  [dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
+	IASK_IF_IOS4_OR_GREATER([dc addObserver:self selector:@selector(synchronizeUserDefaults) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];);
+	IASK_IF_IOS4_OR_GREATER([dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];);
+	[dc addObserver:self selector:@selector(synchronizeUserDefaults) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
 
 	[dc addObserver:self
 											 selector:@selector(_keyboardWillShow:)
@@ -180,7 +182,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
+	IASK_IF_IOS4_OR_GREATER([dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];);
+	IASK_IF_IOS4_OR_GREATER([dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];);
+	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+	[dc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+
 	[super viewDidDisappear:animated];
 }
 
@@ -649,8 +656,9 @@ CGRect IASKCGRectSwap(CGRect rect);
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)userDefaultsDidChange {
-  [_tableView reloadData];
+- (void)reload {
+	// wait 0.5 sec until UI is available after applicationWillEnterForeground
+	[_tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
 }
 
 #pragma mark CGRect Utility function

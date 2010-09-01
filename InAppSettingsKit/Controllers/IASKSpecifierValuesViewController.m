@@ -20,6 +20,10 @@
 
 #define kCellValue      @"kCellValue"
 
+@interface IASKSpecifierValuesViewController()
+- (void)userDefaultsDidChange;
+@end
+
 @implementation IASKSpecifierValuesViewController
 
 @synthesize currentSpecifier=_currentSpecifier;
@@ -56,8 +60,15 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[_tableView flashScrollIndicators];
 	[super viewDidAppear:animated];
-  NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
-  [dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(userDefaultsDidChange)
+												 name:NSUserDefaultsDidChangeNotification
+											   object:[NSUserDefaults standardUserDefaults]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
+	[super viewDidDisappear:animated];
 }
 
 
@@ -151,10 +162,15 @@
 #pragma mark Notifications
 
 - (void)userDefaultsDidChange {
-  if(_currentSpecifier) {
-    [self updateCheckedItem];
-  }
-  [_tableView reloadData];
+	NSIndexPath *oldCheckedItem = self.checkedItem;
+	if(_currentSpecifier) {
+		[self updateCheckedItem];
+	}
+	
+	// only reload the table if it had changed; prevents animation cancellation
+	if (self.checkedItem != oldCheckedItem) {
+		[_tableView reloadData];
+	}
 }
 
 @end
