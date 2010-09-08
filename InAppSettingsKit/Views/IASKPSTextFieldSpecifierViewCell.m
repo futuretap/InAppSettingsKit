@@ -24,6 +24,7 @@
             textField=_textField;
 
 - (void)layoutSubviews {
+    [super layoutSubviews];
 	CGSize labelSize = [_label sizeThatFits:CGSizeZero];
 	labelSize.width = MIN(labelSize.width, _label.bounds.size.width);
 
@@ -31,7 +32,7 @@
 	textFieldFrame.origin.x = _label.frame.origin.x + MAX(kIASKMinLabelWidth, labelSize.width) + kIASKSpacing;
 	if (!_label.text.length)
 		textFieldFrame.origin.x = _label.frame.origin.x;
-	textFieldFrame.size.width = kIASKTableWidth - textFieldFrame.origin.x - _label.frame.origin.x;
+	textFieldFrame.size.width = self.frame.size.width - textFieldFrame.origin.x - _label.frame.origin.x;
 	_textField.frame = textFieldFrame;
 }
 

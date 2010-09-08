@@ -338,7 +338,7 @@
 			<key>Type</key>
 			<string>PSSliderSpecifier</string>
 			<key>Key</key>
-			<string>slider_preference</string>
+			<string>slider_preference1</string>
 			<key>DefaultValue</key>
 			<real>0.5</real>
 			<key>MinimumValue</key>
@@ -350,7 +350,7 @@
 			<key>Type</key>
 			<string>PSSliderSpecifier</string>
 			<key>Key</key>
-			<string>slider_preference</string>
+			<string>slider_preference2</string>
 			<key>DefaultValue</key>
 			<real>0.5</real>
 			<key>MinimumValue</key>
@@ -366,7 +366,7 @@
 			<key>Type</key>
 			<string>PSSliderSpecifier</string>
 			<key>Key</key>
-			<string>slider_preference</string>
+			<string>slider_preference3</string>
 			<key>DefaultValue</key>
 			<real>0.5</real>
 			<key>MinimumValue</key>
@@ -380,7 +380,7 @@
 			<key>Type</key>
 			<string>PSSliderSpecifier</string>
 			<key>Key</key>
-			<string>slider_preference</string>
+			<string>slider_preference4</string>
 			<key>DefaultValue</key>
 			<real>0.5</real>
 			<key>MinimumValue</key>

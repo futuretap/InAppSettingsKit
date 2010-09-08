@@ -376,6 +376,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -387,6 +389,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				SDKROOT = iphoneos4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

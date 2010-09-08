@@ -38,10 +38,14 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
 #define kIASKCreditsViewWidth                         285
 
+CGRect IASKCGRectSwap(CGRect rect);
+
 @interface IASKAppSettingsViewController ()
 - (void)_textChanged:(id)sender;
 - (void)_keyboardWillShow:(NSNotification*)notification;
 - (void)_keyboardWillHide:(NSNotification*)notification;
+- (void)synchronizeUserDefaults;
+- (void)reload;
 @end
 
 @implementation IASKAppSettingsViewController
@@ -136,6 +140,16 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 			self.title = NSLocalizedString(@"Settings", @"");
 		}
 	}
+	
+	if (self.currentIndexPath) {
+		if (animated) {
+			// animate deselection of previously selected row
+			[_tableView selectRowAtIndexPath:self.currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+			[_tableView deselectRowAtIndexPath:self.currentIndexPath animated:YES];
+		}
+		self.currentIndexPath = nil;
+	}
+	
 	[super viewWillAppear:animated];
 }
 
@@ -144,11 +158,16 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 //	_tableView.frame = self.view.bounds;
 	[super viewDidAppear:animated];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self
+	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
+	IASK_IF_IOS4_OR_GREATER([dc addObserver:self selector:@selector(synchronizeUserDefaults) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];);
+	IASK_IF_IOS4_OR_GREATER([dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];);
+	[dc addObserver:self selector:@selector(synchronizeUserDefaults) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
+
+	[dc addObserver:self
 											 selector:@selector(_keyboardWillShow:)
 												 name:UIKeyboardWillShowNotification
 											   object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self
+	[dc addObserver:self
 											 selector:@selector(_keyboardWillHide:)
 												 name:UIKeyboardWillHideNotification
 											   object:nil];		
@@ -163,7 +182,12 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
+	IASK_IF_IOS4_OR_GREATER([dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];);
+	IASK_IF_IOS4_OR_GREATER([dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];);
+	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+	[dc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+
 	[super viewDidDisappear:animated];
 }
 
@@ -487,7 +511,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
             // load the view controll back in to push it
             targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
         }
-        _currentIndexPath = indexPath;
+        self.currentIndexPath = indexPath;
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         [[self navigationController] pushViewController:targetViewController animated:YES];
@@ -518,7 +542,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
             // load the view controll back in to push it
             targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
         }
-        _currentIndexPath = indexPath;
+        self.currentIndexPath = indexPath;
 		targetViewController.file = specifier.file;
 		targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;
@@ -548,6 +572,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
+	self.currentFirstResponder = textField;
 	if ([_tableView indexPathsForVisibleRows].count) {
 		_topmostRowBeforeKeyboardWasShown = (NSIndexPath*)[[_tableView indexPathsForVisibleRows] objectAtIndex:0];
 	} else {
@@ -579,7 +604,13 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		
 		// Reduce the tableView height by the part of the keyboard that actually covers the tableView
 		CGRect windowRect = [[UIApplication sharedApplication] keyWindow].bounds;
+		if (UIInterfaceOrientationLandscapeLeft == self.interfaceOrientation ||UIInterfaceOrientationLandscapeRight == self.interfaceOrientation ) {
+			windowRect = IASKCGRectSwap(windowRect);
+		}
 		CGRect viewRectAbsolute = [_tableView convertRect:_tableView.bounds toView:[[UIApplication sharedApplication] keyWindow]];
+		if (UIInterfaceOrientationLandscapeLeft == self.interfaceOrientation ||UIInterfaceOrientationLandscapeRight == self.interfaceOrientation ) {
+			viewRectAbsolute = IASKCGRectSwap(viewRectAbsolute);
+		}
 		CGRect frame = _tableView.frame;
 		frame.size.height -= [keyboardFrameValue CGRectValue].size.height - CGRectGetMaxY(windowRect) + CGRectGetMaxY(viewRectAbsolute);
 
@@ -600,6 +631,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 	}
 }
 
+
 - (void) scrollToOldPosition {
   [_tableView scrollToRowAtIndexPath:_topmostRowBeforeKeyboardWasShown atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
@@ -617,4 +649,25 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 		[self performSelector:@selector(scrollToOldPosition) withObject:nil afterDelay:0.1];
 	}
 }	
+
+#pragma mark Notifications
+
+- (void)synchronizeUserDefaults {
+  [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)reload {
+	// wait 0.5 sec until UI is available after applicationWillEnterForeground
+	[_tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
+}
+
+#pragma mark CGRect Utility function
+CGRect IASKCGRectSwap(CGRect rect) {
+	CGRect newRect;
+	newRect.origin.x = rect.origin.y;
+	newRect.origin.y = rect.origin.x;
+	newRect.size.width = rect.size.height;
+	newRect.size.height = rect.size.width;
+	return newRect;
+}
 @end
