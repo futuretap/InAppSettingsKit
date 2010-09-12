@@ -26,6 +26,7 @@
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
+#import "IASKAppSettingsWebViewController.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -35,6 +36,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
 #define kIASKSpecifierValuesViewControllerIndex       0
 #define kIASKSpecifierChildViewControllerIndex        1
+#define kIASKAppSettingsWebViewControllerIndex        2
 
 #define kIASKCreditsViewWidth                         285
 
@@ -111,7 +113,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     _viewList = [[NSMutableArray alloc] init];
     [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
     [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
-
+    [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
 }
 
 - (void)viewDidUnload {
@@ -203,7 +205,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-	if (![viewController isKindOfClass:[IASKAppSettingsViewController class]] && ![viewController isKindOfClass:[IASKSpecifierValuesViewController class]]) {
+	if (![viewController isKindOfClass:[IASKAppSettingsViewController class]] && ![viewController isKindOfClass:[IASKSpecifierValuesViewController class]] && ![viewController isKindOfClass:[IASKAppSettingsWebViewController class]]) {
 		[self dismiss:nil];
 	}
 }
@@ -465,7 +467,18 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = [specifier title];
 		cell.detailTextLabel.text = [[specifier defaultValue] description];
 		return cell;        
-	} else {
+    } else if ([[specifier type] isEqualToString:kIASKWebViewSpecifier]) {
+      UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
+      
+      if (!cell) {
+        cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+      }
+      
+      cell.textLabel.text = [specifier title];
+      cell.detailTextLabel.text = [[specifier defaultValue] description];
+      return cell;   
+    } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
 		
         if (!cell) {
@@ -550,6 +563,29 @@ CGRect IASKCGRectSwap(CGRect rect);
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:specifier.file]];    
+    } else if ([[specifier type] isEqualToString:kIASKWebViewSpecifier]) {
+      IASKAppSettingsWebViewController *targetViewController = [[_viewList objectAtIndex:kIASKAppSettingsWebViewControllerIndex] objectForKey:@"viewController"];
+      
+      if (targetViewController == nil) {
+        // the view controller has not been created yet, create it and set it to our viewList array
+        // create a new dictionary with the new view controller
+        NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
+        [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKAppSettingsWebViewControllerIndex]];	// copy the title and explain strings
+        
+        targetViewController = [[IASKAppSettingsWebViewController alloc] initWithNibName:@"IASKSettingsWebView" bundle:nil htmlFileName:@"settings_about.html"];
+        
+        // add the new view controller to the dictionary and then to the 'viewList' array
+        [newItemDict setObject:targetViewController forKey:@"viewController"];
+        [_viewList replaceObjectAtIndex:kIASKAppSettingsWebViewControllerIndex withObject:newItemDict];
+        [targetViewController release];
+        
+        // load the view controll back in to push it
+        targetViewController = [[_viewList objectAtIndex:kIASKAppSettingsWebViewControllerIndex] objectForKey:@"viewController"];
+      }
+      self.currentIndexPath = indexPath;
+      [[self navigationController] pushViewController:targetViewController animated:YES];
+      
+//      [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	} else {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }

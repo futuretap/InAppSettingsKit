@@ -1,0 +1,28 @@
+body {
+	font-family: Helvetica;
+	font-size: 12pt;
+	text-align: left;
+	background-color: rgb(191, 191, 191);
+}
+
+h1 {
+	color: #fff;
+	font-size: 18pt;
+	font-weight: bold;
+	margin-top: 18px;
+	margin-bottom: 0px;
+	text-align: center;
+}
+
+p {
+	color: #fff;
+	margin-top: 0px;
+	margin-bottom: 12px;
+}
+
+.centeredImage {
+  text-align:center;
+  margin-top:0px;
+  margin-bottom:0px;
+  padding:0px;
+}

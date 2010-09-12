@@ -34,6 +34,10 @@
 		DA33F5A210BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA33F59310BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib */; };
 		DA33F5A310BC2222004736E8 /* IASKSpecifierValuesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA33F59410BC2222004736E8 /* IASKSpecifierValuesView.xib */; };
 		DACD38AA10598A7600AC8E51 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DACD38A910598A7600AC8E51 /* Settings.bundle */; };
+		F48E09E4123D031500B67C05 /* settings_about.css in Resources */ = {isa = PBXBuildFile; fileRef = F48E09E2123D031500B67C05 /* settings_about.css */; };
+		F48E09E5123D031500B67C05 /* settings_about.html in Resources */ = {isa = PBXBuildFile; fileRef = F48E09E3123D031500B67C05 /* settings_about.html */; };
+		F48E09EA123D03E000B67C05 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */; };
+		F48E09FF123D0F7900B67C05 /* IASKSettingsWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F48E09FE123D0F7900B67C05 /* IASKSettingsWebView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +88,11 @@
 		DA33F59310BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKPSToggleSwitchSpecifierViewCell.xib; sourceTree = "<group>"; };
 		DA33F59410BC2222004736E8 /* IASKSpecifierValuesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKSpecifierValuesView.xib; sourceTree = "<group>"; };
 		DACD38A910598A7600AC8E51 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
+		F48E09E2123D031500B67C05 /* settings_about.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = settings_about.css; sourceTree = "<group>"; };
+		F48E09E3123D031500B67C05 /* settings_about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = settings_about.html; sourceTree = "<group>"; };
+		F48E09E8123D03E000B67C05 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
+		F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
+		F48E09FE123D0F7900B67C05 /* IASKSettingsWebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKSettingsWebView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +158,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F48E09E2123D031500B67C05 /* settings_about.css */,
+				F48E09E3123D031500B67C05 /* settings_about.html */,
 				6A1F35ED11490727003E6295 /* Icon.png */,
 				6A9BBF581148F1DA003D97FA /* 20-gear2.png */,
 				AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */,
@@ -187,6 +198,8 @@
 				DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */,
 				DA33F57B10BC2222004736E8 /* IASKSpecifierValuesViewController.h */,
 				DA33F57C10BC2222004736E8 /* IASKSpecifierValuesViewController.m */,
+				F48E09E8123D03E000B67C05 /* IASKAppSettingsWebViewController.h */,
+				F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */,
 			);
 			name = Controllers;
 			path = ../InAppSettingsKit/Controllers;
@@ -221,6 +234,7 @@
 				DA33F58C10BC2222004736E8 /* IASKSwitch.m */,
 				DA33F58D10BC2222004736E8 /* IASKTextField.h */,
 				DA33F58E10BC2222004736E8 /* IASKTextField.m */,
+				F48E09FE123D0F7900B67C05 /* IASKSettingsWebView.xib */,
 			);
 			name = Views;
 			path = ../InAppSettingsKit/Views;
@@ -313,6 +327,9 @@
 				6A9BBF591148F1DA003D97FA /* 20-gear2.png in Resources */,
 				6A1F35EE11490727003E6295 /* Icon.png in Resources */,
 				AA40952A1149663600C3BBFF /* Localizable.strings in Resources */,
+				F48E09E4123D031500B67C05 /* settings_about.css in Resources */,
+				F48E09E5123D031500B67C05 /* settings_about.html in Resources */,
+				F48E09FF123D0F7900B67C05 /* IASKSettingsWebView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +354,7 @@
 				DA33F59D10BC2222004736E8 /* IASKSwitch.m in Sources */,
 				DA33F59E10BC2222004736E8 /* IASKTextField.m in Sources */,
 				AA87D1DD113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
+				F48E09EA123D03E000B67C05 /* IASKAppSettingsWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
