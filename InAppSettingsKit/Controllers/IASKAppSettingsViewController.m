@@ -572,7 +572,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
         [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKAppSettingsWebViewControllerIndex]];	// copy the title and explain strings
         
-        targetViewController = [[IASKAppSettingsWebViewController alloc] initWithNibName:@"IASKSettingsWebView" bundle:nil htmlFileName:@"settings_about.html"];
+        targetViewController = [[IASKAppSettingsWebViewController alloc] initWithNibName:@"IASKSettingsWebView" bundle:nil htmlFileName:[specifier file]];
         
         // add the new view controller to the dictionary and then to the 'viewList' array
         [newItemDict setObject:targetViewController forKey:@"viewController"];
