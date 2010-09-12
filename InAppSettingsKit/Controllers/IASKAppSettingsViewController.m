@@ -583,6 +583,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         targetViewController = [[_viewList objectAtIndex:kIASKAppSettingsWebViewControllerIndex] objectForKey:@"viewController"];
       }
       self.currentIndexPath = indexPath;
+      [targetViewController setTitle:[specifier title]];
       [[self navigationController] pushViewController:targetViewController animated:YES];
       
 //      [tableView deselectRowAtIndexPath:indexPath animated:YES];
