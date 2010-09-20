@@ -139,6 +139,8 @@
 			<string>About</string>
 			<key>File</key>
 			<string>settings_about.html</string>
+			<key>BaseURL</key>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Title</key>

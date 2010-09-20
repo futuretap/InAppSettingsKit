@@ -205,4 +205,8 @@
     return UITextAutocorrectionTypeDefault;
 }
 
+- (NSString *)baseURL {
+  return [_specifierDict objectForKey:kIASKBaseURL];
+}
+
 @end

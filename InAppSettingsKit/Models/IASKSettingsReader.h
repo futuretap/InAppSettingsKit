@@ -46,6 +46,7 @@
 #define kIASKAutoCorrYes                      @"Yes"
 #define kIASKMinimumValueImage                @"MinimumValueImage"
 #define kIASKMaximumValueImage                @"MaximumValueImage"
+#define kIASKBaseURL                          @"BaseURL"
 
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
 #define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"

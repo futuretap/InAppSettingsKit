@@ -18,12 +18,14 @@
 
 @interface IASKAppSettingsWebViewController : UIViewController {
   UIWebView *webView;
-  NSString *_sourceFileName;
+  NSURL *_sourceFileURL;
+  NSURL *_baseURL;
 }
 
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil htmlFileName:(NSString*)htmlFileName;
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil sourceFileURL:(NSURL*)aSourceFileURL baseURL:(NSURL*)aBaseURL;
 
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
-@property (nonatomic, copy) NSString *sourceFileName;
+@property (nonatomic, retain) NSURL *sourceFileURL;
+@property (nonatomic, retain) NSURL *baseURL;
 
 @end

@@ -571,9 +571,21 @@ CGRect IASKCGRectSwap(CGRect rect);
         // create a new dictionary with the new view controller
         NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
         [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKAppSettingsWebViewControllerIndex]];	// copy the title and explain strings
+
+        NSURL *fileURL = nil;
+        if ([[NSBundle mainBundle] pathForResource:[[specifier file] stringByDeletingPathExtension] ofType:[[specifier file] pathExtension]]) {
+          fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:[[specifier file] stringByDeletingPathExtension] ofType:[[specifier file] pathExtension]]];
+        } else {
+          fileURL = [NSURL URLWithString:[specifier file]];
+        }
         
-        targetViewController = [[IASKAppSettingsWebViewController alloc] initWithNibName:@"IASKSettingsWebView" bundle:nil htmlFileName:[specifier file]];
-        
+        NSURL *baseURL = nil;
+        if ([specifier baseURL] && [[specifier baseURL] length] > 0)
+          baseURL = [NSURL URLWithString:[specifier baseURL]];
+        else if ([[NSBundle mainBundle] pathForResource:[[specifier file] stringByDeletingPathExtension] ofType:[[specifier file] pathExtension]])
+          baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+        targetViewController = [[IASKAppSettingsWebViewController alloc] initWithNibName:@"IASKSettingsWebView" bundle:nil sourceFileURL:fileURL baseURL:baseURL];
+
         // add the new view controller to the dictionary and then to the 'viewList' array
         [newItemDict setObject:targetViewController forKey:@"viewController"];
         [_viewList replaceObjectAtIndex:kIASKAppSettingsWebViewControllerIndex withObject:newItemDict];

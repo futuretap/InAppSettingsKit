@@ -19,28 +19,31 @@
 @implementation IASKAppSettingsWebViewController
 
 @synthesize webView;
-@synthesize sourceFileName = _sourceFileName;
+@synthesize sourceFileURL = _sourceFileURL;
+@synthesize baseURL = _baseURL;
 
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil htmlFileName:(NSString*)htmlFileName;
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil sourceFileURL:(NSURL*)aSourceFileURL baseURL:(NSURL*)aBaseURL;
 {
   if (!(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
     return nil;
   }
   
-  [self setSourceFileName:htmlFileName];
+  [self setSourceFileURL:aSourceFileURL];
+  [self setBaseURL:aBaseURL];
   
   return self;
 }
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil;
 {
-  return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil htmlFileName:nil];
+  return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil sourceFileURL:nil baseURL:nil];
 }
 
 - (void)dealloc;
 {
   [webView release];
-  [_sourceFileName release];
+  [_sourceFileURL release];
+  [_baseURL release];
   [super dealloc];
 }
 
@@ -60,17 +63,16 @@
     }
   }
   
-  NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:[[self sourceFileName] stringByDeletingPathExtension] ofType:[[self sourceFileName] pathExtension]]];
-  NSString *fileContents = [[NSString alloc] initWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
-  [webView loadHTMLString:fileContents baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
+  NSString *fileContents = [[NSString alloc] initWithContentsOfURL:[self sourceFileURL] encoding:NSUTF8StringEncoding error:nil];
+  [webView loadHTMLString:fileContents baseURL:[self baseURL]];
   [fileContents release], fileContents = nil;
-  [fileURL release], fileURL = nil;
 }
 
 - (void)viewDidUnload;
 {
   [super viewDidUnload];
-  _sourceFileName = nil;
+  _sourceFileURL = nil;
+  _baseURL = nil;
 }
 
 @end

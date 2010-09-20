@@ -3,6 +3,7 @@ body {
 	font-size: 12pt;
 	text-align: left;
 	background-color: rgb(191, 191, 191);
+	color: #fff;
 }
 
 h1 {
@@ -15,7 +16,6 @@ h1 {
 }
 
 p {
-	color: #fff;
 	margin-top: 0px;
 	margin-bottom: 12px;
 }
