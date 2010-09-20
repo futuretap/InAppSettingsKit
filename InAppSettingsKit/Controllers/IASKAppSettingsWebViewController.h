@@ -20,6 +20,7 @@
   UIWebView *webView;
   NSURL *_sourceFileURL;
   NSURL *_baseURL;
+  NSString *_contentString;
 }
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil sourceFileURL:(NSURL*)aSourceFileURL baseURL:(NSURL*)aBaseURL;
@@ -27,5 +28,6 @@
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
 @property (nonatomic, retain) NSURL *sourceFileURL;
 @property (nonatomic, retain) NSURL *baseURL;
+@property (nonatomic, retain) NSString *contentString;
 
 @end

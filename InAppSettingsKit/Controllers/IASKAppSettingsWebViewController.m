@@ -21,6 +21,7 @@
 @synthesize webView;
 @synthesize sourceFileURL = _sourceFileURL;
 @synthesize baseURL = _baseURL;
+@synthesize contentString = _contentString;
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil sourceFileURL:(NSURL*)aSourceFileURL baseURL:(NSURL*)aBaseURL;
 {
@@ -44,6 +45,7 @@
   [webView release];
   [_sourceFileURL release];
   [_baseURL release];
+  [_contentString release];
   [super dealloc];
 }
 
@@ -63,9 +65,9 @@
     }
   }
   
-  NSString *fileContents = [[NSString alloc] initWithContentsOfURL:[self sourceFileURL] encoding:NSUTF8StringEncoding error:nil];
-  [webView loadHTMLString:fileContents baseURL:[self baseURL]];
-  [fileContents release], fileContents = nil;
+  [self setContentString:[[NSString alloc] initWithContentsOfURL:[self sourceFileURL] encoding:NSUTF8StringEncoding error:nil]];
+  [self setContentString:[[self contentString] stringByReplacingOccurrencesOfString:@"%version%" withString:[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
+  [webView loadHTMLString:[self contentString] baseURL:[self baseURL]];
 }
 
 - (void)viewDidUnload;
@@ -73,6 +75,7 @@
   [super viewDidUnload];
   _sourceFileURL = nil;
   _baseURL = nil;
+  _contentString = nil;
 }
 
 @end
