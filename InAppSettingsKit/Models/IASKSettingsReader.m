@@ -20,12 +20,15 @@
 @interface IASKSettingsReader (private)
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle;
 - (BOOL)_sectionHasHeading:(NSInteger)section;
+
+- (NSString *)locateSettingsFile:(NSString *)file;
+
 @end
 
 @implementation IASKSettingsReader
 
 @synthesize path=_path,
-bundleFolder=_bundleFolder,
+bundlePath=_bundlePath,
 settingsBundle=_settingsBundle, 
 dataSource=_dataSource;
 
@@ -35,24 +38,12 @@ dataSource=_dataSource;
 
 - (id)initWithFile:(NSString*)file {
     if ((self=[super init])) {
-		[self setBundleFolder:kIASKBundleFolderAlt];
-		// Generate the settings bundle path
-		NSString *path = [self bundlePath];
-		
-		// Try both bundle folders
-		for (int i=0;i<2;i++) {			
-			[self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".inApp.plist"]]];
-			[self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:[self path]]];
-			if (!self.settingsBundle) {
-				[self setPath:[path stringByAppendingPathComponent:[file stringByAppendingString:@".plist"]]];
-				[self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:[self path]]];
-			}
-			if (self.settingsBundle)
-				break;
-			[self setBundleFolder:kIASKBundleFolder];
-			path = [self bundlePath];
-		}
-        _bundle = [[NSBundle bundleWithPath:path] retain];
+
+
+        self.path = [self locateSettingsFile: file];
+        [self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:self.path]];
+        self.bundlePath = [self.path stringByDeletingLastPathComponent];
+        _bundle = [[NSBundle bundleWithPath:[self bundlePath]] retain];
         
         if (_settingsBundle) {
             [self _reinterpretBundle:_settingsBundle];
@@ -153,13 +144,80 @@ dataSource=_dataSource;
     return [_bundle localizedStringForKey:stringId value:stringId table:@"Root"];
 }
 
-- (NSString*)bundlePath {
-    NSString *libDirectory  = [[NSBundle mainBundle] bundlePath];
-    return [libDirectory stringByAppendingPathComponent:_bundleFolder];
-}
-
 - (NSString*)pathForImageNamed:(NSString*)image {
     return [[self bundlePath] stringByAppendingPathComponent:image];
+}
+
+- (NSString *)platformSuffix {
+    BOOL isPad = NO;
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 30200)
+    isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+#endif
+    return isPad ? @"~ipad" : @"~iphone";
+}
+
+- (NSString *)file:(NSString *)file
+        withBundle:(NSString *)bundle
+            suffix:(NSString *)suffix
+         extension:(NSString *)extension {
+
+    NSString *appBundle = [[NSBundle mainBundle] bundlePath];
+    bundle = [appBundle stringByAppendingPathComponent:bundle];
+    file = [file stringByAppendingFormat:@"%@%@", suffix, extension];
+    return [bundle stringByAppendingPathComponent:file];
+
+}
+
+- (NSString *)locateSettingsFile: (NSString *)file {
+
+    // The file is searched in the following order:
+    //
+    // InAppSettings.bundle/FILE~DEVICE.inApp.plist
+    // InAppSettings.bundle/FILE.inApp.plist
+    // InAppSettings.bundle/FILE~DEVICE.plist
+    // InAppSettings.bundle/FILE.plist
+    // Settings.bundle/FILE~DEVICE.inApp.plist
+    // Settings.bundle/FILE.inApp.plist
+    // Settings.bundle/FILE~DEVICE.plist
+    // Settings.bundle/FILE.plist
+    //
+    // where DEVICE is either "iphone" or "ipad" depending on the current
+    // interface idiom.
+    //
+    // Settings.app uses the ~DEVICE suffixes since iOS 4.0.  There are some
+    // differences from this implementation:
+    // - For an iPhone-only app running on iPad, Settings.app will not use the
+    //   ~iphone suffix.  There is no point in using these suffixes outside
+    //   of universal apps anyway.
+    // - This implementation uses the device suffixes on iOS 3.x as well.
+
+    NSArray *bundles =
+        [NSArray arrayWithObjects:kIASKBundleFolderAlt, kIASKBundleFolder, nil];
+
+    NSArray *extensions =
+        [NSArray arrayWithObjects:@".inApp.plist", @".plist", nil];
+
+    NSArray *suffixes =
+        [NSArray arrayWithObjects:[self platformSuffix], @"", nil];
+
+    NSString *path = nil;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    for (NSString *bundle in bundles) {
+         for (NSString *extension in extensions) {
+            for (NSString *suffix in suffixes) {
+                path = [self file:file
+                       withBundle:bundle
+                           suffix:suffix
+                        extension:extension];
+                if ([fileManager fileExistsAtPath:path]) {
+                    break;
+                }
+            }
+         }
+    }
+
+    return path;
 }
 
 @end
