@@ -141,6 +141,14 @@ dataSource=_dataSource;
     return nil;
 }
 
+- (NSString*)footerTextForSection:(NSInteger)section {
+    if ([self _sectionHasHeading:section]) {
+        NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
+        return [_bundle localizedStringForKey:[dict objectForKey:kIASKFooterText] value:[dict objectForKey:kIASKFooterText] table:@"Root"];
+    }
+    return nil;
+}
+
 - (NSString*)titleForStringId:(NSString*)stringId {
     return [_bundle localizedStringForKey:stringId value:stringId table:@"Root"];
 }

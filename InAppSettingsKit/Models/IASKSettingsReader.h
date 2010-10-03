@@ -19,6 +19,7 @@
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
+#define kIASKFooterText                       @"FooterText"
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
 #define kIASKDefaultValue                     @"DefaultValue"
@@ -105,6 +106,7 @@ __VA_ARGS__ \
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
 - (IASKSpecifier*)specifierForKey:(NSString*)key;
 - (NSString*)titleForSection:(NSInteger)section;
+- (NSString*)footerTextForSection:(NSInteger)section;
 - (NSString*)titleForStringId:(NSString*)stringId;
 - (NSString*)bundlePath;
 - (NSString*)pathForImageNamed:(NSString*)image;
