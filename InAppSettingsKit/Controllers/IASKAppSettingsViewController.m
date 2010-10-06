@@ -517,6 +517,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             UIViewController * vc = [[vcClass alloc] performSelector:initSelector];
             assert(vc != nil);
+			self.navigationController.delegate = nil;
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
             return;

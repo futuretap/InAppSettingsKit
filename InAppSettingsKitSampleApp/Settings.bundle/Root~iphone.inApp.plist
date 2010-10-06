@@ -157,6 +157,16 @@
 			<string>Advanced</string>
 		</dict>
 		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Custom Subview</string>
+			<key>IASKViewControllerClass</key>
+			<string>CustomSubviewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>init</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>APPLICATION_INFO_TITLE</string>
 			<key>Type</key>
