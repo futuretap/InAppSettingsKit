@@ -119,6 +119,10 @@
 	[[cell textLabel] setTextColor:[UIColor darkTextColor]];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return [_currentSpecifier footerTitle];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell   = [tableView dequeueReusableCellWithIdentifier:kCellValue];
     NSArray *titles         = [_currentSpecifier multipleTitles];

@@ -507,6 +507,26 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[textFieldCell.textField becomeFirstResponder];
     }
     else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
+
+        
+        Class vcClass = [specifier viewControllerClass];
+        if (vcClass) {
+            SEL initSelector = [specifier viewControllerSelector];
+            if (!initSelector) {
+                initSelector = @selector(init);
+            }
+            UIViewController * vc = [[vcClass alloc] performSelector:initSelector];
+            assert(vc != nil);
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc release];
+            return;
+        }
+        
+        if (nil == [specifier file]) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            return;
+        }        
+        
         IASKAppSettingsViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {

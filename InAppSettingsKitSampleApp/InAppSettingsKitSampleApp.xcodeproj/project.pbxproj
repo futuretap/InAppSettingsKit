@@ -391,7 +391,7 @@
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -406,7 +406,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = "In App Settings Kit";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Debug;
 		};
@@ -420,7 +420,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = "In App Settings Kit";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Release;
 		};
