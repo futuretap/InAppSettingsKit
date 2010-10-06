@@ -282,14 +282,18 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [self.settingsReader titleForSection:section];
+    NSString *header = [self.settingsReader titleForSection:section];
+	if (0 == header.length) {
+		return nil;
+	}
+	return header;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
+	NSString *footerText = [self.settingsReader footerTextForSection:section];
 	if (_showCreditsFooter && (section == [self.settingsReader numberOfSections]-1)) {
 		// show credits since this is the last section
-		NSString *footerText = [self.settingsReader footerTextForSection:section];
 		if ((footerText == nil) || ([footerText length] == 0)) {
 			// show the credits on their own
 			return kIASKCredits;
@@ -298,6 +302,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 			return [NSString stringWithFormat:@"%@\n\n%@", footerText, kIASKCredits];
 		}
 	} else {
+		if ([footerText length] == 0) {
+			return nil;
+		}
 		return [self.settingsReader footerTextForSection:section];
 	}
 }
