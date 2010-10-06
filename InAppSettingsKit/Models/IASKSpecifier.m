@@ -69,6 +69,10 @@
     return [self.settingsReader titleForStringId:[_specifierDict objectForKey:kIASKTitle]];
 }
 
+- (NSString*)footerTitle {
+    return [_specifierDict objectForKey:kIASKFooterTitle];
+}
+
 - (NSString*)key {
     return [_specifierDict objectForKey:kIASKKey];
 }

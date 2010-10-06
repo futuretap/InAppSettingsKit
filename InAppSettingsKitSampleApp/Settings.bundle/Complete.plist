@@ -417,6 +417,8 @@
 				<string>Two</string>
 				<string>Three</string>
 			</array>
+            <key>FooterTitle</key>
+            <string>TestlaLala</string>
 		</dict>
 		<dict>
 			<key>Type</key>
