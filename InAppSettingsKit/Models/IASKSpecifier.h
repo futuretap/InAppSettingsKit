@@ -50,5 +50,7 @@
 - (UITextAutocapitalizationType)autocapitalizationType;
 - (UITextAutocorrectionType)autoCorrectionType;
 - (NSString*)footerTitle;
+- (Class)viewControllerClass;
+- (SEL)viewControllerSelector;
 
 @end
