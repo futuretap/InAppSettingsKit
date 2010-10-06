@@ -29,6 +29,8 @@
 "MUL_VAL_NO_TITLE_3"    = "Weiß nicht";
 "MUL_VAL_NO_TITLE_NIL"  = "";
 
+"MULTIVALUE_FOOTER"		= "Dies ist ein Footer-Text unter einer MultiValue-Liste.";
+
 "TEXT_FIELD_TITLE"      = "Textfeld";
 "TEXT_FIELD_SIG"        = "Signatur";
 

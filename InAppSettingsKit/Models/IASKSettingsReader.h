@@ -33,7 +33,6 @@
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
-#define kIASKFooterTitle                      @"FooterTitle"
 #define kIASKViewControllerClass              @"ViewControllerClass"
 #define kIASKViewControllerSelector           @"ViewControllerSelector"
 #define kIASKKeyboardAlphabet                 @"Alphabet"

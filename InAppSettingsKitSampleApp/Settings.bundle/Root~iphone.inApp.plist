@@ -97,6 +97,8 @@
 			<string>mulValueOther</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
+            <key>FooterText</key>
+            <string>MULTIVALUE_FOOTER</string>
 		</dict>
 		<dict>
 			<key>Type</key>

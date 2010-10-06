@@ -49,7 +49,7 @@
 - (UIKeyboardType)keyboardType;
 - (UITextAutocapitalizationType)autocapitalizationType;
 - (UITextAutocorrectionType)autoCorrectionType;
-- (NSString*)footerTitle;
+- (NSString*)footerText;
 - (Class)viewControllerClass;
 - (SEL)viewControllerSelector;
 
