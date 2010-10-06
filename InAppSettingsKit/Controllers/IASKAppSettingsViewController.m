@@ -524,6 +524,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[textFieldCell.textField becomeFirstResponder];
     }
     else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
+        if (nil == [specifier file]) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            return;
+        }
         IASKAppSettingsViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
