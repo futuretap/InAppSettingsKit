@@ -115,6 +115,8 @@
 			<string></string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>This is a Footer Text (supported by Settings.app in iOS 4 or higher)</string>
 		</dict>
 		<dict>
 			<key>Type</key>

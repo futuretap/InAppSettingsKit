@@ -113,6 +113,8 @@
 		<dict>
 			<key>Title</key>
 			<string>Open URL</string>
+			<key>FooterText</key>
+			<string>Open URL is only available in-app, not in Settings.app</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -131,6 +133,8 @@
 			<string></string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>This is a Footer Text (supported by Settings.app in iOS 4 or higher)</string>
 		</dict>
 		<dict>
 			<key>Type</key>
