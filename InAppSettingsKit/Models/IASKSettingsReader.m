@@ -202,21 +202,22 @@ dataSource=_dataSource;
 
     NSString *path = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
-
+	
     for (NSString *bundle in bundles) {
-         for (NSString *extension in extensions) {
-            for (NSString *suffix in suffixes) {
+		for (NSString *extension in extensions) {
+			for (NSString *suffix in suffixes) {
                 path = [self file:file
                        withBundle:bundle
                            suffix:suffix
                         extension:extension];
                 if ([fileManager fileExistsAtPath:path]) {
-                    break;
+                    goto exitFromNestedLoop;
                 }
             }
-         }
+		}
     }
-
+	
+exitFromNestedLoop:
     return path;
 }
 

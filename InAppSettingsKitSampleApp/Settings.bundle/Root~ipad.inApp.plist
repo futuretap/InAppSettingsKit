@@ -11,10 +11,10 @@
 		<dict>
 			<key>Title</key>
 			<string>TOGGLE_SWITCH_TITLE</string>
+			<key>FooterText</key>
+			<string>Root~ipad.plist is used in-App on iPad</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-			<key>FooterText</key>
-			<string>Root.inApp.plist is never used in this case</string>
 		</dict>
 		<dict>
 			<key>Type</key>

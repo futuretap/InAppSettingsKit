@@ -14,7 +14,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>Root.inApp.plist is never used in this case</string>
+			<string>Root~iphone.inApp.plist is used in-App on iPhone</string>
 		</dict>
 		<dict>
 			<key>Type</key>
