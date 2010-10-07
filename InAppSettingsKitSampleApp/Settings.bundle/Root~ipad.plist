@@ -11,10 +11,10 @@
 		<dict>
 			<key>Title</key>
 			<string>TOGGLE_SWITCH_TITLE</string>
+			<key>FooterText</key>
+			<string>Root~ipad.plist is used on iPad in Settings.app running iOS 4.2 or higher</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-			<key>FooterText</key>
-			<string>Root.inApp.plist is never used in this case</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -97,8 +97,6 @@
 			<string>mulValueOther</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
-            <key>FooterText</key>
-            <string>MULTIVALUE_FOOTER</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -113,24 +111,6 @@
 			<string>TEXT_FIELD_SIG</string>
 			<key>Key</key>
 			<string>signature</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Open URL</string>
-			<key>FooterText</key>
-			<string>Open URL is only available in-app, not in Settings.app</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>IASKOpenURLSpecifier</string>
-			<key>Title</key>
-			<string>Visit us at</string>
-			<key>DefaultValue</key>
-			<string>inappsettingskit.com</string>
-			<key>File</key>
-			<string>http://www.inappsettingskit.com/</string>
 		</dict>
 		<dict>
 			<key>Title</key>

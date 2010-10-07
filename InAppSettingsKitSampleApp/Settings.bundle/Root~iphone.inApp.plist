@@ -14,7 +14,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
-			<string>Root.inApp.plist is never used in this case</string>
+			<string>Root~iphone.inApp.plist is used in-App on iPhone</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -155,6 +155,16 @@
 			<string>ADVANCED_TITLE</string>
 			<key>File</key>
 			<string>Advanced</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Custom Subview</string>
+			<key>IASKViewControllerClass</key>
+			<string>CustomSubviewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>init</string>
 		</dict>
 		<dict>
 			<key>Title</key>

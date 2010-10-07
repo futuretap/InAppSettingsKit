@@ -26,6 +26,16 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Root.plist is used in Settings.app on iOS 3.x</string>
+			<key>Key</key>
+			<string>version</string>
+			<key>DefaultValue</key>
+			<string>1.0</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>MUL_VALUE_TITLE</string>
@@ -115,6 +125,8 @@
 			<string></string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>This is a Footer Text (supported by Settings.app in iOS 4 or higher)</string>
 		</dict>
 		<dict>
 			<key>Type</key>

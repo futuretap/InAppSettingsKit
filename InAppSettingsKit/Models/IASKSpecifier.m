@@ -69,6 +69,18 @@
     return [self.settingsReader titleForStringId:[_specifierDict objectForKey:kIASKTitle]];
 }
 
+- (NSString*)footerText {
+    return [self.settingsReader titleForStringId:[_specifierDict objectForKey:kIASKFooterText]];
+}
+
+-(Class) viewControllerClass {
+    return NSClassFromString([_specifierDict objectForKey:kIASKViewControllerClass]);
+}
+
+-(SEL) viewControllerSelector {
+    return NSSelectorFromString([_specifierDict objectForKey:kIASKViewControllerSelector]);
+}
+
 - (NSString*)key {
     return [_specifierDict objectForKey:kIASKKey];
 }

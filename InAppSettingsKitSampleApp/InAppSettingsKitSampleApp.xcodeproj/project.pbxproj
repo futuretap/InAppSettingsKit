@@ -18,6 +18,8 @@
 		AA40952A1149663600C3BBFF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA4095291149663600C3BBFF /* Localizable.strings */; };
 		AA87D1DD113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */; };
 		AA8D0ED51136E17600EEB1C6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */; };
+		AAA468D8125CD9680057A662 /* CustomSubviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA468D6125CD9680057A662 /* CustomSubviewController.m */; };
+		AAA468D9125CD9680057A662 /* CustomSubviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA468D7125CD9680057A662 /* CustomSubviewController.xib */; };
 		DA33F59510BC2222004736E8 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */; };
 		DA33F59610BC2222004736E8 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57C10BC2222004736E8 /* IASKSpecifierValuesViewController.m */; };
 		DA33F59710BC2222004736E8 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57F10BC2222004736E8 /* IASKSettingsReader.m */; };
@@ -58,6 +60,9 @@
 		AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
 		AA8D0ED41136E17600EEB1C6 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		AA8D0ED61136E18200EEB1C6 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		AAA468D5125CD9680057A662 /* CustomSubviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSubviewController.h; sourceTree = "<group>"; };
+		AAA468D6125CD9680057A662 /* CustomSubviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSubviewController.m; sourceTree = "<group>"; };
+		AAA468D7125CD9680057A662 /* CustomSubviewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomSubviewController.xib; sourceTree = "<group>"; };
 		DA33F57910BC2222004736E8 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		DA33F57B10BC2222004736E8 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
@@ -124,6 +129,8 @@
 			children = (
 				289233A80DB2D0DB0083E9F9 /* MainViewController.h */,
 				289233A90DB2D0DB0083E9F9 /* MainViewController.m */,
+				AAA468D5125CD9680057A662 /* CustomSubviewController.h */,
+				AAA468D6125CD9680057A662 /* CustomSubviewController.m */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -153,6 +160,7 @@
 				6A9BBF581148F1DA003D97FA /* 20-gear2.png */,
 				AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */,
+				AAA468D7125CD9680057A662 /* CustomSubviewController.xib */,
 				AA4095291149663600C3BBFF /* Localizable.strings */,
 			);
 			name = Resources;
@@ -279,6 +287,7 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "InAppSettingsKitSampleApp" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -313,6 +322,7 @@
 				6A9BBF591148F1DA003D97FA /* 20-gear2.png in Resources */,
 				6A1F35EE11490727003E6295 /* Icon.png in Resources */,
 				AA40952A1149663600C3BBFF /* Localizable.strings in Resources */,
+				AAA468D9125CD9680057A662 /* CustomSubviewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +347,7 @@
 				DA33F59D10BC2222004736E8 /* IASKSwitch.m in Sources */,
 				DA33F59E10BC2222004736E8 /* IASKTextField.m in Sources */,
 				AA87D1DD113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
+				AAA468D8125CD9680057A662 /* CustomSubviewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,7 +388,7 @@
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
@@ -390,7 +401,7 @@
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -405,7 +416,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = "In App Settings Kit";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Debug;
 		};
@@ -419,7 +430,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = "In App Settings Kit";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator4.1;
 			};
 			name = Release;
 		};

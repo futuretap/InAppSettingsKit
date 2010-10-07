@@ -282,48 +282,31 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [self.settingsReader titleForSection:section];
+    NSString *header = [self.settingsReader titleForSection:section];
+	if (0 == header.length) {
+		return nil;
+	}
+	return header;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if (!_showCreditsFooter || section != [self.settingsReader numberOfSections]-1) return nil;
-    
-    // Show the credits only in the last section's footer
-    UILabel *credits = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, kIASKCreditsViewWidth, 0)] autorelease];
-    [credits setOpaque:NO];
-    [credits setNumberOfLines:0];
-    [credits setFont:[UIFont systemFontOfSize:14.0f]];
-    [credits setTextAlignment:UITextAlignmentRight];
-    [credits setTextColor:[UIColor colorWithRed:77.0f/255.0f green:87.0f/255.0f blue:107.0f/255.0f alpha:1.0f]];
-    [credits setShadowColor:[UIColor whiteColor]];
-    [credits setShadowOffset:CGSizeMake(0, 1)];
-    [credits setBackgroundColor:[UIColor clearColor]];
-    [credits setText:kIASKCredits];
-    [credits sizeToFit];
-    
-    UIView* view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, kIASKCreditsViewWidth, credits.frame.size.height + 6 + 11)] autorelease];
-    [view setBackgroundColor:[UIColor clearColor]];
-    
-    CGRect frame = credits.frame;
-    frame.origin.y = 8;
-    frame.origin.x = 16;
-    frame.size.width = kIASKCreditsViewWidth;
-    credits.frame = frame;
-    
-    [view addSubview:credits];
-    [view sizeToFit];
-    
-    return view;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (!_showCreditsFooter || section != [self.settingsReader numberOfSections]-1) return 0.0f;
-    
-    UIView* view = [self tableView:tableView viewForFooterInSection:section];
-    if (view != nil) {
-      return view.frame.size.height;
-    }
-    return -1;
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+	NSString *footerText = [self.settingsReader footerTextForSection:section];
+	if (_showCreditsFooter && (section == [self.settingsReader numberOfSections]-1)) {
+		// show credits since this is the last section
+		if ((footerText == nil) || ([footerText length] == 0)) {
+			// show the credits on their own
+			return kIASKCredits;
+		} else {
+			// show the credits below the app's FooterText
+			return [NSString stringWithFormat:@"%@\n\n%@", footerText, kIASKCredits];
+		}
+	} else {
+		if ([footerText length] == 0) {
+			return nil;
+		}
+		return [self.settingsReader footerTextForSection:section];
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -524,6 +507,27 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[textFieldCell.textField becomeFirstResponder];
     }
     else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
+
+        
+        Class vcClass = [specifier viewControllerClass];
+        if (vcClass) {
+            SEL initSelector = [specifier viewControllerSelector];
+            if (!initSelector) {
+                initSelector = @selector(init);
+            }
+            UIViewController * vc = [[vcClass alloc] performSelector:initSelector];
+            assert(vc != nil);
+			self.navigationController.delegate = nil;
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc release];
+            return;
+        }
+        
+        if (nil == [specifier file]) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            return;
+        }        
+        
         IASKAppSettingsViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {

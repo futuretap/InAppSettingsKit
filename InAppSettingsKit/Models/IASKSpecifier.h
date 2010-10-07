@@ -49,5 +49,8 @@
 - (UIKeyboardType)keyboardType;
 - (UITextAutocapitalizationType)autocapitalizationType;
 - (UITextAutocorrectionType)autoCorrectionType;
+- (NSString*)footerText;
+- (Class)viewControllerClass;
+- (SEL)viewControllerSelector;
 
 @end

@@ -19,6 +19,7 @@
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
+#define kIASKFooterText                       @"FooterText"
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
 #define kIASKDefaultValue                     @"DefaultValue"
@@ -32,6 +33,8 @@
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
+#define kIASKViewControllerClass              @"IASKViewControllerClass"
+#define kIASKViewControllerSelector           @"IASKViewControllerSelector"
 #define kIASKKeyboardAlphabet                 @"Alphabet"
 #define kIASKKeyboardNumbersAndPunctuation    @"NumbersAndPunctuation"
 #define kIASKKeyboardNumberPad                @"NumberPad"
@@ -93,7 +96,7 @@ __VA_ARGS__ \
 
 @interface IASKSettingsReader : NSObject {
     NSString        *_path;
-    NSString        *_bundleFolder;
+    NSString        *_bundlePath;
     NSDictionary    *_settingsBundle;
     NSArray         *_dataSource;
     NSBundle        *_bundle;
@@ -105,12 +108,12 @@ __VA_ARGS__ \
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
 - (IASKSpecifier*)specifierForKey:(NSString*)key;
 - (NSString*)titleForSection:(NSInteger)section;
+- (NSString*)footerTextForSection:(NSInteger)section;
 - (NSString*)titleForStringId:(NSString*)stringId;
-- (NSString*)bundlePath;
 - (NSString*)pathForImageNamed:(NSString*)image;
 
 @property (nonatomic, retain) NSString      *path;
-@property (nonatomic, retain) NSString      *bundleFolder;
+@property (nonatomic, retain) NSString      *bundlePath;
 @property (nonatomic, retain) NSDictionary  *settingsBundle;
 @property (nonatomic, retain) NSArray       *dataSource;
 
