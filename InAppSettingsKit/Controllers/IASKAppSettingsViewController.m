@@ -583,30 +583,42 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
     } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-        mailViewController.mailComposeDelegate = self;
-        if ([[specifier specifierDict] objectForKey:kIASKMailComposeSubject]) {
-            [mailViewController setSubject:[[specifier specifierDict] objectForKey:kIASKMailComposeSubject]];
-        }
-        if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
-            [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
-        }
-        if ([[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]) {
-            [mailViewController setCcRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]];
-        }
-        if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
-            [mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
-        }
-        if ([[specifier specifierDict] objectForKey:kIASKMailComposeBody]) {
-            BOOL isHTML = NO;
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
-                isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
+        if ([MFMailComposeViewController canSendMail]) {
+            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+            mailViewController.mailComposeDelegate = self;
+            if ([[specifier specifierDict] objectForKey:kIASKMailComposeSubject]) {
+                [mailViewController setSubject:[[specifier specifierDict] objectForKey:kIASKMailComposeSubject]];
             }
-            [mailViewController setMessageBody:[[specifier specifierDict] objectForKey:kIASKMailComposeBody] isHTML:isHTML];
+            if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
+                [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
+            }
+            if ([[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]) {
+                [mailViewController setCcRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]];
+            }
+            if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
+                [mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
+            }
+            if ([[specifier specifierDict] objectForKey:kIASKMailComposeBody]) {
+                BOOL isHTML = NO;
+                if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
+                    isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
+                }
+                [mailViewController setMessageBody:[[specifier specifierDict] objectForKey:kIASKMailComposeBody] isHTML:isHTML];
+            }
+            
+            [self presentModalViewController:mailViewController animated:YES];
+            [mailViewController release];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle: @"Mail Cannot Send"
+                                  message: @"Mail is not configured to send on this device. The Mail Compose view cannot be opened at this time."
+                                  delegate: nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+            [alert release];
         }
-        
-        [self presentModalViewController:mailViewController animated:YES];
-        [mailViewController release];
+
 	} else {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
