@@ -457,6 +457,17 @@ CGRect IASKCGRectSwap(CGRect rect);
         cell.textLabel.text = [specifier title];
         cell.textLabel.textAlignment = UITextAlignmentCenter;
         return cell;
+    } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
+        
+        if (!cell) {
+            cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
+			[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        }
+        
+		cell.textLabel.text = [specifier title];
+		cell.detailTextLabel.text = [[specifier defaultValue] description];
+		return cell;
 	} else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
 		
@@ -570,11 +581,45 @@ CGRect IASKCGRectSwap(CGRect rect);
 		if ([buttonClass respondsToSelector:buttonAction]) {
 			[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
 		}
+    } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        mailViewController.mailComposeDelegate = self;
+        if ([[specifier specifierDict] objectForKey:kIASKMailComposeSubject]) {
+            [mailViewController setSubject:[[specifier specifierDict] objectForKey:kIASKMailComposeSubject]];
+        }
+        if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
+            [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
+        }
+        if ([[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]) {
+            [mailViewController setCcRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]];
+        }
+        if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
+            [mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
+        }
+        if ([[specifier specifierDict] objectForKey:kIASKMailComposeBody]) {
+            BOOL isHTML = NO;
+            if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
+                isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
+            }
+            [mailViewController setMessageBody:[[specifier specifierDict] objectForKey:kIASKMailComposeBody] isHTML:isHTML];
+        }
+        
+        [self presentModalViewController:mailViewController animated:YES];
+        [mailViewController release];
 	} else {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
 }
 
+
+#pragma mark -
+#pragma mark MFMailComposeViewControllerDelegate Function
+
+-(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    // NOTE: No error handling is done here
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 #pragma mark -
 #pragma mark UITextFieldDelegate Functions
