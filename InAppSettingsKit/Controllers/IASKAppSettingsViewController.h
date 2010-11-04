@@ -17,6 +17,7 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import "IASKSettingsWriter.h"
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
@@ -35,6 +36,7 @@
 	NSIndexPath				*_topmostRowBeforeKeyboardWasShown;
 	
 	IASKSettingsReader		*_settingsReader;
+    id<IASKSettingsWriter>  _settingsWriter;
 	NSString				*_file;
 	
 	id                      _currentFirstResponder;
@@ -46,11 +48,13 @@
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, retain) NSIndexPath   *currentIndexPath;
 @property (nonatomic, retain) IASKSettingsReader *settingsReader;
+@property (nonatomic, retain) id<IASKSettingsWriter> settingsWriter;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, retain) id currentFirstResponder;
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;
 
+- (void)synchronizeSettings;
 - (IBAction)dismiss:(id)sender;
 
 // subclassing: optionally override these methods to customize appearance and functionality
