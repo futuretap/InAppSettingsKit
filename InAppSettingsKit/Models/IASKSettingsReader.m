@@ -54,6 +54,7 @@ dataSource=_dataSource;
 
 - (void)dealloc {
     [_path release];
+	[_bundlePath release];
     [_settingsBundle release];
     [_dataSource release];
     [_bundle release];
