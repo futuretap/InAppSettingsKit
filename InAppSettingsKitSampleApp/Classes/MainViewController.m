@@ -51,6 +51,10 @@
 	// your code here to reconfigure the app for changed settings
 }
 
++ (void)buttonDemoAction:(IASKAppSettingsViewController*)sender key:(NSString*)key {
+	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action called" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+	[alert show];
+}
 
  - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	 // Return YES for supported orientations

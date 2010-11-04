@@ -81,6 +81,14 @@
     return NSSelectorFromString([_specifierDict objectForKey:kIASKViewControllerSelector]);
 }
 
+-(Class)buttonClass {
+    return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
+}
+
+-(SEL)buttonAction {
+    return NSSelectorFromString([_specifierDict objectForKey:kIASKButtonAction]);
+}
+
 - (NSString*)key {
     return [_specifierDict objectForKey:kIASKKey];
 }

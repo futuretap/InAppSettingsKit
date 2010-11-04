@@ -97,8 +97,8 @@
 			<string>mulValueOther</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
-            <key>FooterText</key>
-            <string>MULTIVALUE_FOOTER</string>
+			<key>FooterText</key>
+			<string>MULTIVALUE_FOOTER</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -134,6 +134,32 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string>Open Mail Compose View</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Mail Compose View</string>
+			<key>DefaultValue</key>
+			<string>Tell A Friend</string>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+			<key>IASKMailComposeToRecipents</key>
+			<array/>
+			<key>IASKMailComposeCcRecipents</key>
+			<array/>
+			<key>IASKMailComposeBccRecipents</key>
+			<array/>
+			<key>IASKMailComposeSubject</key>
+			<string>InAppSettingsKit</string>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>IASKMailComposeBodyIsHTML</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string></string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
@@ -155,6 +181,22 @@
 			<string>ADVANCED_TITLE</string>
 			<key>File</key>
 			<string>Advanced</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string></string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Button Action</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>IASKButtonClass</key>
+			<string>MainViewController</string>
+			<key>IASKButtonAction</key>
+			<string>buttonDemoAction:key:</string>
 		</dict>
 		<dict>
 			<key>Title</key>
