@@ -605,15 +605,15 @@ CGRect IASKCGRectSwap(CGRect rect);
                 }
                 [mailViewController setMessageBody:[[specifier specifierDict] objectForKey:kIASKMailComposeBody] isHTML:isHTML];
             }
-            
+
             [self presentModalViewController:mailViewController animated:YES];
             [mailViewController release];
         } else {
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle: @"Mail Cannot Send"
-                                  message: @"Mail is not configured to send on this device. The Mail Compose view cannot be opened at this time."
+                                  initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
+                                  message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
                                   delegate: nil
-                                  cancelButtonTitle:@"OK"
+                                  cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
                                   otherButtonTitles:nil];
             [alert show];
             [alert release];

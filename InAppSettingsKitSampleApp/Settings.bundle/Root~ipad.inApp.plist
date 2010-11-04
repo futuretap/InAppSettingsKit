@@ -97,8 +97,8 @@
 			<string>mulValueOther</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
-            <key>FooterText</key>
-            <string>MULTIVALUE_FOOTER</string>
+			<key>FooterText</key>
+			<string>MULTIVALUE_FOOTER</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -140,7 +140,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Mail Compse View</string>
+			<string>Mail Compose View</string>
 			<key>DefaultValue</key>
 			<string>Tell A Friend</string>
 			<key>Type</key>
