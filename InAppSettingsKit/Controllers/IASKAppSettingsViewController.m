@@ -448,6 +448,15 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = [specifier title];
 		cell.detailTextLabel.text = [[specifier defaultValue] description];
 		return cell;        
+    } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
+		
+        if (!cell) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[specifier type]] autorelease];
+        }
+        cell.textLabel.text = [specifier title];
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+        return cell;
 	} else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
 		
@@ -554,6 +563,13 @@ CGRect IASKCGRectSwap(CGRect rect);
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:specifier.file]];    
+    } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+		Class buttonClass = [specifier buttonClass];
+		SEL buttonAction = [specifier buttonAction];
+		if ([buttonClass respondsToSelector:buttonAction]) {
+			[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
+		}
 	} else {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }

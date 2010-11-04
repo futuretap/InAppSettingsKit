@@ -158,6 +158,22 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string></string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Button Action</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>IASKButtonClass</key>
+			<string>MainViewController</string>
+			<key>IASKButtonAction</key>
+			<string>buttonDemoAction:key:</string>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>APPLICATION_INFO_TITLE</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>

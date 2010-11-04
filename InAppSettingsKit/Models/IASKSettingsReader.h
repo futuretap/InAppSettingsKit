@@ -35,6 +35,8 @@
 #define kIASKTitles                           @"Titles"
 #define kIASKViewControllerClass              @"IASKViewControllerClass"
 #define kIASKViewControllerSelector           @"IASKViewControllerSelector"
+#define kIASKButtonClass                      @"IASKButtonClass"
+#define kIASKButtonAction                     @"IASKButtonAction"
 #define kIASKKeyboardAlphabet                 @"Alphabet"
 #define kIASKKeyboardNumbersAndPunctuation    @"NumbersAndPunctuation"
 #define kIASKKeyboardNumberPad                @"NumberPad"
@@ -58,6 +60,7 @@
 #define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"
 #define kIASKPSChildPaneSpecifier             @"PSChildPaneSpecifier"
 #define kIASKOpenURLSpecifier                 @"IASKOpenURLSpecifier"
+#define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 
 #define kIASKBundleFolder                     @"Settings.bundle"
 #define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
