@@ -630,8 +630,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.mailComposeDelegate = self;
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeSubject]) {
-                [mailViewController setSubject:[[specifier specifierDict] objectForKey:kIASKMailComposeSubject]];
+            if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
+                [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
             }
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
                 [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
@@ -642,12 +642,12 @@ CGRect IASKCGRectSwap(CGRect rect);
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
                 [mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
             }
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeBody]) {
+            if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
                 BOOL isHTML = NO;
                 if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
                     isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
                 }
-                [mailViewController setMessageBody:[[specifier specifierDict] objectForKey:kIASKMailComposeBody] isHTML:isHTML];
+                [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
             }
 
             [self presentModalViewController:mailViewController animated:YES];
