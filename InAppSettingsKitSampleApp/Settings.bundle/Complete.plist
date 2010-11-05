@@ -417,8 +417,8 @@
 				<string>Two</string>
 				<string>Three</string>
 			</array>
-            <key>FooterText</key>
-            <string>MULTIVALUE_FOOTER</string>
+			<key>FooterText</key>
+			<string>MULTIVALUE_FOOTER</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -477,6 +477,20 @@
 			<string>Advanced</string>
 			<key>File</key>
 			<string>Advanced</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Group with a multiline text that is word wrapped.</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Entry</string>
+			<key>Key</key>
+			<string>title_non_existing_lookup_entry2</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
 		</dict>
 	</array>
 </dict>

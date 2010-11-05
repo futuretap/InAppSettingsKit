@@ -281,12 +281,52 @@ CGRect IASKCGRectSwap(CGRect rect);
     return [self.settingsReader numberOfRowsForSection:section];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
+    if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
+		if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
+			return [self.delegate tableView:_tableView heightForSpecifier:specifier];
+		} else {
+			return 0;
+		}
+	}
+	return tableView.rowHeight;
+}
+
+- (NSString *)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
     NSString *header = [self.settingsReader titleForSection:section];
 	if (0 == header.length) {
 		return nil;
 	}
 	return header;
+}
+
+- (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+	NSString *key  = [self.settingsReader keyForSection:section];
+	if ([self.delegate respondsToSelector:@selector(tableView:viewForHeaderForKey:)]) {
+		return [self.delegate tableView:_tableView viewForHeaderForKey:key];
+	} else {
+		return nil;
+	}
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+	NSString *key  = [self.settingsReader keyForSection:section];
+	if ([self tableView:tableView viewForHeaderInSection:section] && [self.delegate respondsToSelector:@selector(tableView:heightForHeaderForKey:)]) {
+		CGFloat result;
+		if ((result = [self.delegate tableView:tableView heightForHeaderForKey:key])) {
+			return result;
+		}
+		
+	}
+	NSString *title;
+	if ((title = [self tableView:tableView titleForHeaderInSection:section])) {
+		CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]] 
+						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, tableView.frame.size.height)
+							lineBreakMode:UILineBreakModeWordWrap];
+		return size.height+kIASKVerticalPaddingGroupTitles;
+	}
+	return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
@@ -468,6 +508,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = [specifier title];
 		cell.detailTextLabel.text = [[specifier defaultValue] description];
 		return cell;
+    } else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(tableView:cellForSpecifier:)]) {
+		return [self.delegate tableView:_tableView cellForSpecifier:specifier];
+		
 	} else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
 		
@@ -557,6 +600,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
             
             targetViewController = [[[self class] alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+			targetViewController.delegate = self.delegate;
 			
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];

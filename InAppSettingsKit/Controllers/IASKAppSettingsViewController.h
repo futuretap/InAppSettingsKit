@@ -20,9 +20,16 @@
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
+@class IASKSpecifier;
 
 @protocol IASKSettingsDelegate
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
+@optional
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderForKey:(NSString*)key;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderForKey:(NSString*)key;
+
+- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 @end
 
 
@@ -43,7 +50,7 @@
     BOOL                    _showDoneButton;
 }
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, retain) NSIndexPath   *currentIndexPath;
 @property (nonatomic, retain) IASKSettingsReader *settingsReader;
 @property (nonatomic, copy) NSString *file;

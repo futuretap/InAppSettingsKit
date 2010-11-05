@@ -78,19 +78,30 @@
 			Type = PSTextFieldSpecifier;
 		},
 		{
-			FooterText = "Open URL is only available in-app, not in Settings.app";
-			Title = "Open URL";
+			Title = "";
 			Type = PSGroupSpecifier;
+			FooterText = "This is a Footer Text (supported by Settings.app in iOS 4 or higher)";
+		},
+		{
+			File = Complete;
+			Title = "Complete List";
+			Type = PSChildPaneSpecifier;
+		},
+		{
+			File = Advanced;
+			Title = "ADVANCED_TITLE";
+			Type = PSChildPaneSpecifier;
+		},
+		{
+			Title = "Extensions that are only available in-app, not in Settings.app:";
+			Type = PSGroupSpecifier;
+			FooterText = "custom segment header view:";
 		},
 		{
 			DefaultValue = "inappsettingskit.com";
 			File = "http://www.inappsettingskit.com/";
-			Title = "Visit us at";
+			Title = "Open URL";
 			Type = IASKOpenURLSpecifier;
-		},
-		{
-			Title = "Open Mail Compose View";
-			Type = PSGroupSpecifier;
 		},
 		{
 			DefaultValue = "Tell A Friend";
@@ -104,21 +115,6 @@
 			Type = "IASKMailComposeSpecifier";
 		},
 		{
-			FooterText = "This is a Footer Text (supported by Settings.app in iOS 4 or higher)";
-			Title = "";
-			Type = PSGroupSpecifier;
-		},
-		{
-			File = Complete;
-			Title = "Complete List";
-			Type = PSChildPaneSpecifier;
-		},
-		{
-			File = Advanced;
-			Title = "ADVANCED_TITLE";
-			Type = PSChildPaneSpecifier;
-		},
-		{
 			"IASKViewControllerClass" = "CustomSubviewController";
 			"IASKViewControllerSelector" = init;
 			Title = "Custom Subview";
@@ -127,12 +123,23 @@
 		{
 			Title = "";
 			Type = PSGroupSpecifier;
+			Key = IASKLogo;
 		},
 		{
 			IASKButtonAction = "buttonDemoAction:key:";
 			IASKButtonClass = MainViewController;
 			Title = "Button Action";
 			Type = IASKButtonSpecifier;
+		},
+		{
+			Title = "Custom View";
+			Type = PSGroupSpecifier;
+		},
+		{
+			Title = "Custom Field";
+			Type = "IASKCustomViewSpecifier";
+			Key = customCell;
+			DefaultValue = "As an example, we use a multiline UITextView here.";
 		},
 		{
 			Title = "APPLICATION_INFO_TITLE";
