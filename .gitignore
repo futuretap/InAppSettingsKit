@@ -1,3 +1,4 @@
 InAppSettingsKitSampleApp/build/**
-InAppSettingsKitSampleApp/InAppSettingsKitSampleApp.xcodeproj/*.pbxuser
-InAppSettingsKitSampleApp/InAppSettingsKitSampleApp.xcodeproj/*.perspectivev3
+**/*.xcodeproj/*.pbxuser
+**/*.xcodeproj/*.perspectivev3
+**/*.xcodeproj/*.mode1v3
