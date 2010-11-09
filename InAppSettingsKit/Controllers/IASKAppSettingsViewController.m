@@ -579,7 +579,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                 initSelector = @selector(init);
             }
             UIViewController * vc = [vcClass alloc];
-            [vc performSelector:initSelector];
+            [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
 			self.navigationController.delegate = nil;
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
