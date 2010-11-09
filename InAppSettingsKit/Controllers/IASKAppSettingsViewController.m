@@ -419,18 +419,28 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
     else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *cell = (IASKPSTextFieldSpecifierViewCell*)[tableView dequeueReusableCellWithIdentifier:[specifier type]];
-        
+
         if (!cell) {
             cell = (IASKPSTextFieldSpecifierViewCell*) [[[NSBundle mainBundle] loadNibNamed:@"IASKPSTextFieldSpecifierViewCell" 
-																					owner:self 
-																				  options:nil] objectAtIndex:0];
-			cell.textField.textAlignment = UITextAlignmentLeft;
-			cell.textField.returnKeyType = UIReturnKeyDone;
-			cell.accessoryType = UITableViewCellAccessoryNone;
+                                                                                      owner:self 
+                                                                                    options:nil] objectAtIndex:0];
+
+            cell.textField.textAlignment = UITextAlignmentLeft;
+            cell.textField.returnKeyType = UIReturnKeyDone;
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
+
         [[cell label] setText:[specifier title]];
-        [[cell textField] setText:[[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? 
-		 [[NSUserDefaults standardUserDefaults] objectForKey:key] : [specifier defaultStringValue]];
+      
+      
+        NSString *textValue = [[NSUserDefaults standardUserDefaults] objectForKey:key] != nil ? [[NSUserDefaults standardUserDefaults] objectForKey:key]
+                                                                                              : [specifier defaultStringValue];
+
+        if (![textValue isMemberOfClass:[NSString class]]) {
+            textValue = [NSString stringWithFormat:@"%@", textValue];
+        }
+
+        [[cell textField] setText:textValue];
         [[cell textField] setKey:key];
         [[cell textField] setDelegate:self];
         [[cell textField] addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -438,9 +448,9 @@ CGRect IASKCGRectSwap(CGRect rect);
         [[cell textField] setKeyboardType:[specifier keyboardType]];
         [[cell textField] setAutocapitalizationType:[specifier autocapitalizationType]];
         [[cell textField] setAutocorrectionType:[specifier autoCorrectionType]];
-		[cell setNeedsLayout];
-		return cell;
-	}
+        [cell setNeedsLayout];
+        return cell;
+    }
 	else if ([[specifier type] isEqualToString:kIASKPSSliderSpecifier]) {
         IASKPSSliderSpecifierViewCell *cell = (IASKPSSliderSpecifierViewCell*)[tableView dequeueReusableCellWithIdentifier:[specifier type]];
         
