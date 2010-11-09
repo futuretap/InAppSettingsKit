@@ -1,5 +1,5 @@
 //
-//  MainViewController.h
+//  CustomSubviewController.h
 //  InAppSettingsKitSampleApp
 //  http://www.inappsettingskit.com
 //
@@ -15,17 +15,11 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import "IASKAppSettingsViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface MainViewController : UIViewController <IASKSettingsDelegate, UITextViewDelegate> { 
-    IASKAppSettingsViewController *appSettingsViewController;
+
+@interface CustomSubviewController : UIViewController {
+
 }
-
-@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
-
-- (IBAction)showSettingsPush:(id)sender;
-- (IBAction)showSettingsModal:(id)sender;
-
-+ (void)buttonDemoAction:(IASKAppSettingsViewController*)sender key:(NSString*)key;
 
 @end

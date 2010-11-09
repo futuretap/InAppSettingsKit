@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>FooterText</key>
-			<string>Root.inApp.plist is never used in this case</string>
+			<string>Root~ipad.inApp.plist is used in-App on iPad</string>
 			<key>Title</key>
 			<string>TOGGLE_SWITCH_TITLE</string>
 			<key>Type</key>

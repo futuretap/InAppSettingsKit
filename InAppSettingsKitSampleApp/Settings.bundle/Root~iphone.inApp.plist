@@ -1,0 +1,163 @@
+{
+	PreferenceSpecifiers = (
+		{
+			FooterText = "Root~iphone.inApp.plist is used in-App on iPhone";
+			Title = "TOGGLE_SWITCH_TITLE";
+			Type = PSGroupSpecifier;
+		},
+		{
+			DefaultValue = YES;
+			Key = toggleSwitch;
+			Title = "TOGGLE_SWITCH";
+			Type = "PSToggleSwitchSpecifier";
+		},
+		{
+			Title = "MUL_VALUE_TITLE";
+			Type = PSGroupSpecifier;
+		},
+		{
+			DefaultValue = 0;
+			Key = mulValue;
+			Title = "MUL_VAL";
+			Titles = (
+				"MUL_VAL_1",
+				"MUL_VAL_2",
+				"MUL_VAL_3",
+				"MUL_VAL_4",
+				"MUL_VAL_5",
+				"MUL_VAL_6",
+				"MUL_VAL_7",
+				"MUL_VAL_8",
+				"MUL_VAL_9",
+				"MUL_VAL_10",
+				"MUL_VAL_11",
+			);
+			Type = "PSMultiValueSpecifier";
+			Values = (
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+			);
+		},
+		{
+			Title = "MUL_VAL_NO_TITLE";
+			Type = PSGroupSpecifier;
+		},
+		{
+			DefaultValue = 0;
+			FooterText = "MULTIVALUE_FOOTER";
+			Key = mulValueOther;
+			Title = "MUL_VAL_NO_TITLE_NIL";
+			Titles = (
+				"MUL_VAL_NO_TITLE_1",
+				"MUL_VAL_NO_TITLE_2",
+				"MUL_VAL_NO_TITLE_3",
+			);
+			Type = "PSMultiValueSpecifier";
+			Values = (
+				1,
+				0,
+				2,
+			);
+		},
+		{
+			Title = "TEXT_FIELD_TITLE";
+			Type = PSGroupSpecifier;
+		},
+		{
+			Key = signature;
+			Title = "TEXT_FIELD_SIG";
+			Type = PSTextFieldSpecifier;
+		},
+		{
+			Title = "";
+			Type = PSGroupSpecifier;
+			FooterText = "This is a Footer Text (supported by Settings.app in iOS 4 or higher)";
+		},
+		{
+			File = Complete;
+			Title = "Complete List";
+			Type = PSChildPaneSpecifier;
+		},
+		{
+			File = Advanced;
+			Title = "ADVANCED_TITLE";
+			Type = PSChildPaneSpecifier;
+		},
+		{
+			Title = "Extensions that are only available in-app, not in Settings.app:";
+			Type = PSGroupSpecifier;
+			FooterText = "custom segment header view:";
+		},
+		{
+			DefaultValue = "inappsettingskit.com";
+			File = "http://www.inappsettingskit.com/";
+			Title = "Open URL";
+			Type = IASKOpenURLSpecifier;
+		},
+		{
+			DefaultValue = "Tell A Friend";
+			"IASKMailComposeBccRecipents" = ();
+			IASKMailComposeBody = "InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.";
+			"IASKMailComposeBodyIsHTML" = NO;
+			"IASKMailComposeCcRecipents" = ();
+			"IASKMailComposeSubject" = InAppSettingsKit;
+			"IASKMailComposeToRecipents" = ();
+			Title = "Mail Compose View";
+			Type = "IASKMailComposeSpecifier";
+		},
+		{
+			"IASKViewControllerClass" = "CustomSubviewController";
+			"IASKViewControllerSelector" = init;
+			Title = "Custom Subview";
+			Type = PSChildPaneSpecifier;
+		},
+		{
+			Title = "";
+			Type = PSGroupSpecifier;
+			Key = IASKLogo;
+		},
+		{
+			IASKButtonAction = "buttonDemoAction:key:";
+			IASKButtonClass = MainViewController;
+			Title = "Button Action";
+			Type = IASKButtonSpecifier;
+		},
+		{
+			Title = "Custom View";
+			Type = PSGroupSpecifier;
+		},
+		{
+			Title = "Custom Field";
+			Type = "IASKCustomViewSpecifier";
+			Key = customCell;
+			DefaultValue = "As an example, we use a multiline UITextView here.";
+		},
+		{
+			Title = "APPLICATION_INFO_TITLE";
+			Type = PSGroupSpecifier;
+		},
+		{
+			DefaultValue = "1.0";
+			Key = version;
+			Title = VERSION;
+			Type = "PSTitleValueSpecifier";
+		},
+		{
+			DefaultValue = "Luc Vandal, Ortwin Gentz";
+			Key = copyright;
+			Title = Copyright;
+			Type = "PSTitleValueSpecifier";
+		},
+	);
+	StringsTable = Root;
+	Title = WhereTo;
+}

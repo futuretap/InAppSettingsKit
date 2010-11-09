@@ -11,6 +11,8 @@
 		<dict>
 			<key>Title</key>
 			<string>TOGGLE_SWITCH_TITLE</string>
+			<key>FooterText</key>
+			<string>Root~iphone.plist is used in Settings.app on iPhone running iOS 4 or higher</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -23,16 +25,6 @@
 			<string>toggleSwitch</string>
 			<key>DefaultValue</key>
 			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
-			<string>Root.plist is used in Settings.app on iOS 3.x</string>
-			<key>Key</key>
-			<string>version</string>
-			<key>DefaultValue</key>
-			<string>1.0</string>
 		</dict>
 		<dict>
 			<key>Type</key>

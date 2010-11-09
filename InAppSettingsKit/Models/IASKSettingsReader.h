@@ -19,6 +19,7 @@
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
+#define kIASKFooterText                       @"FooterText"
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
 #define kIASKDefaultValue                     @"DefaultValue"
@@ -32,6 +33,16 @@
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
+#define kIASKViewControllerClass              @"IASKViewControllerClass"
+#define kIASKViewControllerSelector           @"IASKViewControllerSelector"
+#define kIASKButtonClass                      @"IASKButtonClass"
+#define kIASKButtonAction                     @"IASKButtonAction"
+#define kIASKMailComposeToRecipents           @"IASKMailComposeToRecipents"
+#define kIASKMailComposeCcRecipents           @"IASKMailComposeCcRecipents"
+#define kIASKMailComposeBccRecipents          @"IASKMailComposeBccRecipents"
+#define kIASKMailComposeSubject               @"IASKMailComposeSubject"
+#define kIASKMailComposeBody                  @"IASKMailComposeBody"
+#define kIASKMailComposeBodyIsHTML            @"IASKMailComposeBodyIsHTML"
 #define kIASKKeyboardAlphabet                 @"Alphabet"
 #define kIASKKeyboardNumbersAndPunctuation    @"NumbersAndPunctuation"
 #define kIASKKeyboardNumberPad                @"NumberPad"
@@ -55,6 +66,9 @@
 #define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"
 #define kIASKPSChildPaneSpecifier             @"PSChildPaneSpecifier"
 #define kIASKOpenURLSpecifier                 @"IASKOpenURLSpecifier"
+#define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
+#define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
+#define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
 
 #define kIASKBundleFolder                     @"Settings.bundle"
 #define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
@@ -64,11 +78,9 @@
 
 #define kIASKSectionHeaderIndex               0
 
-#define kIASKSliderNoImagesX                  21
-#define kIASKSliderNoImagesWidth              278
-#define kIASKSliderBothImagesX                53
-#define kIASKSliderBothImagesWidth            214
-#define kIASKSliderOneImageWidth              246
+#define kIASKSliderNoImagesPadding            11
+#define kIASKSliderImagesPadding              43
+
 
 #define kIASKTableWidth                       320
 #define kIASKSpacing                          5
@@ -76,14 +88,28 @@
 #define kIASKMinValueWidth                    35
 #define kIASKPaddingLeft                      9
 #define kIASKPaddingRight                     10
+#define kIASKHorizontalPaddingGroupTitles     19
+#define kIASKVerticalPaddingGroupTitles       15
 
 #define kIASKLabelFontSize                    17
+#define kIASKgrayBlueColor                    [UIColor colorWithRed:0.318 green:0.4 blue:0.569 alpha:1.0]
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_4_0
+#define kCFCoreFoundationVersionNumber_iPhoneOS_4_0 550.32
+#endif
+
+#define IASK_IF_IOS4_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iPhoneOS_4_0) \
+{ \
+__VA_ARGS__ \
+}
+
 
 @class IASKSpecifier;
 
 @interface IASKSettingsReader : NSObject {
     NSString        *_path;
-    NSString        *_bundleFolder;
+    NSString        *_bundlePath;
     NSDictionary    *_settingsBundle;
     NSArray         *_dataSource;
     NSBundle        *_bundle;
@@ -95,12 +121,13 @@
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
 - (IASKSpecifier*)specifierForKey:(NSString*)key;
 - (NSString*)titleForSection:(NSInteger)section;
+- (NSString*)keyForSection:(NSInteger)section;
+- (NSString*)footerTextForSection:(NSInteger)section;
 - (NSString*)titleForStringId:(NSString*)stringId;
-- (NSString*)bundlePath;
 - (NSString*)pathForImageNamed:(NSString*)image;
 
 @property (nonatomic, retain) NSString      *path;
-@property (nonatomic, retain) NSString      *bundleFolder;
+@property (nonatomic, retain) NSString      *bundlePath;
 @property (nonatomic, retain) NSDictionary  *settingsBundle;
 @property (nonatomic, retain) NSArray       *dataSource;
 

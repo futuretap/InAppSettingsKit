@@ -64,9 +64,32 @@
     
     [self setMultipleValuesDict:multipleValuesDict];
 }
+- (NSString*)localizedObjectForKey:(NSString*)key {
+	return [self.settingsReader titleForStringId:[_specifierDict objectForKey:key]];
+}
 
 - (NSString*)title {
-    return [self.settingsReader titleForStringId:[_specifierDict objectForKey:kIASKTitle]];
+    return [self localizedObjectForKey:kIASKTitle];
+}
+
+- (NSString*)footerText {
+    return [self localizedObjectForKey:kIASKFooterText];
+}
+
+-(Class) viewControllerClass {
+    return NSClassFromString([_specifierDict objectForKey:kIASKViewControllerClass]);
+}
+
+-(SEL) viewControllerSelector {
+    return NSSelectorFromString([_specifierDict objectForKey:kIASKViewControllerSelector]);
+}
+
+-(Class)buttonClass {
+    return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
+}
+
+-(SEL)buttonAction {
+    return NSSelectorFromString([_specifierDict objectForKey:kIASKButtonAction]);
 }
 
 - (NSString*)key {

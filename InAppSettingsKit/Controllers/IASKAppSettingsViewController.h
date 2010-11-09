@@ -15,16 +15,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
+@class IASKSpecifier;
 
 @protocol IASKSettingsDelegate
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
+@optional
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderForKey:(NSString*)key;
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderForKey:(NSString*)key;
+
+- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 @end
 
 
-@interface IASKAppSettingsViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate> {
+@interface IASKAppSettingsViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate> {
 	id<IASKSettingsDelegate>  _delegate;
     IBOutlet UITableView    *_tableView;
     
@@ -41,7 +50,7 @@
     BOOL                    _showDoneButton;
 }
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, retain) NSIndexPath   *currentIndexPath;
 @property (nonatomic, retain) IASKSettingsReader *settingsReader;
 @property (nonatomic, copy) NSString *file;
@@ -55,5 +64,5 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-
+- (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section;
 @end

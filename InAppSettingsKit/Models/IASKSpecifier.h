@@ -15,6 +15,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class IASKSettingsReader;
 
@@ -27,6 +28,7 @@
 @property (nonatomic, assign) IASKSettingsReader *settingsReader;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
+- (NSString*)localizedObjectForKey:(NSString*)key;
 - (NSString*)title;
 - (NSString*)key;
 - (NSString*)type;
@@ -48,5 +50,10 @@
 - (UIKeyboardType)keyboardType;
 - (UITextAutocapitalizationType)autocapitalizationType;
 - (UITextAutocorrectionType)autoCorrectionType;
-
+- (NSString*)footerText;
+- (Class)viewControllerClass;
+- (SEL)viewControllerSelector;
+-(Class)buttonClass;
+-(SEL)buttonAction;
+	
 @end
