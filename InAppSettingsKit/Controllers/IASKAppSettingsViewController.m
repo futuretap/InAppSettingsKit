@@ -136,19 +136,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
 	self.navigationItem.rightBarButtonItem = nil;
 	self.navigationController.delegate = nil;
-	if ([self.file isEqualToString:@"Root"]) {
-		self.navigationController.delegate = self;
-        if (_showDoneButton) {
-            UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
-                                                                                        target:self 
-                                                                                        action:@selector(dismiss:)];
-            self.navigationItem.rightBarButtonItem = buttonItem;
-            [buttonItem release];
-		} 
-		if (!self.title) {
-			self.title = NSLocalizedString(@"Settings", @"");
-		}
-	}
+    self.navigationController.delegate = self;
+    if (_showDoneButton) {
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+                                                                                    target:self 
+                                                                                    action:@selector(dismiss:)];
+        self.navigationItem.rightBarButtonItem = buttonItem;
+        [buttonItem release];
+    } 
+    if (!self.title) {
+        self.title = NSLocalizedString(@"Settings", @"");
+    }
 	
 	if (self.currentIndexPath) {
 		if (animated) {
