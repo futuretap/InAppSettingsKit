@@ -17,6 +17,8 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
+#import "IASKSettingsStore.h"
+
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
 @class IASKSpecifier;
@@ -41,6 +43,7 @@
 	NSIndexPath				*_topmostRowBeforeKeyboardWasShown;
 	
 	IASKSettingsReader		*_settingsReader;
+    id<IASKSettingsStore>  _settingsStore;
 	NSString				*_file;
 	
 	id                      _currentFirstResponder;
@@ -52,11 +55,13 @@
 @property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, retain) NSIndexPath   *currentIndexPath;
 @property (nonatomic, retain) IASKSettingsReader *settingsReader;
+@property (nonatomic, retain) id<IASKSettingsStore> settingsStore;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, retain) id currentFirstResponder;
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;
 
+- (void)synchronizeSettings;
 - (IBAction)dismiss:(id)sender;
 
 // subclassing: optionally override these methods to customize appearance and functionality
