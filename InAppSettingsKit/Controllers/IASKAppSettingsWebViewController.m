@@ -2,7 +2,7 @@
 //  IASKAppSettingsWebViewController.h
 //  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -18,59 +18,122 @@
 
 @implementation IASKAppSettingsWebViewController
 
+@synthesize url;
 @synthesize webView;
-@synthesize sourceFileName = _sourceFileName;
 
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil htmlFileName:(NSString*)htmlFileName;
-{
-  if (!(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-    return nil;
-  }
-  
-  [self setSourceFileName:htmlFileName];
-  
-  return self;
+- (id)initWithFile:(NSString*)urlString key:(NSString*)key {
+	if (!(self = [super initWithNibName:nil bundle:nil])) {
+		return nil;
+	}
+	
+	self.url = [NSURL URLWithString:urlString];
+	if (!self.url || ![self.url scheme]) {
+		self.url = [NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:urlString]];
+	}
+	return self;
 }
 
-- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil;
-{
-  return [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil htmlFileName:nil];
+
+- (void)dealloc {
+	[webView release], webView = nil;
+	[url release], url = nil;
+	
+	[super dealloc];
 }
 
-- (void)dealloc;
-{
-  [webView release];
-  [_sourceFileName release];
-  [super dealloc];
+- (void)viewWillAppear:(BOOL)animated {  
+	[webView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
 
-#pragma mark -
-
-- (void)viewDidLoad;
-{
-  [[self view] setBackgroundColor:[UIColor colorWithWhite:0.750 alpha:1.000]];
-  
-  [webView setOpaque:NO];
-  [webView setBackgroundColor:[UIColor colorWithWhite:0.750 alpha:1.000]];
-
-  for (id subview in [webView subviews]) {
-    if ([[subview class] isSubclassOfClass:[UIScrollView class]]) {
-      [subview setBackgroundColor:[UIColor colorWithWhite:0.750 alpha:1.000]];
-      break;
-    }
-  }
-  
-  NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:[[self sourceFileName] stringByDeletingPathExtension] ofType:[[self sourceFileName] pathExtension]]];
-  NSString *fileContents = [[NSString alloc] initWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
-  [webView loadHTMLString:fileContents baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]]];
-  [fileContents release], fileContents = nil;
-  [fileURL release], fileURL = nil;
+- (void)viewDidUnload {
+	[super viewDidUnload];
+	self.url = nil;
 }
 
-- (void)viewDidUnload;
-{
-  [super viewDidUnload];
-  _sourceFileName = nil;
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+	self.navigationItem.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+	NSURL *newURL = [request URL];
+	
+	// intercept mailto URL and send it to an in-app Mail compose view instead
+	if ([[newURL scheme] isEqualToString:@"mailto"]) {
+		MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+		mailViewController.mailComposeDelegate = self;
+
+		NSArray *rawURLparts = [[newURL resourceSpecifier] componentsSeparatedByString:@"?"];
+		if (rawURLparts.count > 2) {
+			return NO; // invalid URL
+		}
+		
+		NSMutableArray *toRecipients = [NSMutableArray array];
+		NSString *defaultRecipient = [rawURLparts objectAtIndex:0];
+		if (defaultRecipient.length) {
+			[toRecipients addObject:defaultRecipient];
+		}
+		
+		if (rawURLparts.count == 2) {
+			NSString *queryString = [rawURLparts objectAtIndex:1];
+			
+			NSArray *params = [queryString componentsSeparatedByString:@"&"];
+			for (NSString *param in params) {
+				NSArray *keyValue = [param componentsSeparatedByString:@"="];
+				if (keyValue.count != 2) {
+					continue;
+				}
+				NSString *key = [[keyValue objectAtIndex:0] lowercaseString];
+				NSString *value = [keyValue objectAtIndex:1];
+				
+				value =  (NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+																							 (CFStringRef)value,
+																							 CFSTR(""),
+																							 kCFStringEncodingUTF8);
+				[value autorelease];
+				
+				if ([key isEqualToString:@"subject"]) {
+					[mailViewController setSubject:value];
+				}
+				
+				if ([key isEqualToString:@"body"]) {
+					[mailViewController setMessageBody:value isHTML:NO];
+				}
+				
+				if ([key isEqualToString:@"to"]) {
+					[toRecipients addObjectsFromArray:[value componentsSeparatedByString:@","]];
+				}
+				
+				if ([key isEqualToString:@"cc"]) {
+					NSArray *recipients = [value componentsSeparatedByString:@","];
+					[mailViewController setCcRecipients:recipients];
+				}
+				
+				if ([key isEqualToString:@"bcc"]) {
+					NSArray *recipients = [value componentsSeparatedByString:@","];
+					[mailViewController setBccRecipients:recipients];
+				}
+			}
+		}
+		
+		[mailViewController setToRecipients:toRecipients];
+
+		[self presentModalViewController:mailViewController animated:YES];
+		[mailViewController release];
+		return NO;
+	}
+	
+	// open inline if host is the same, otherwise, pass to the system
+	if (![newURL host] || [[newURL host] isEqualToString:[self.url host]]) {
+		return YES;
+	}
+	[[UIApplication sharedApplication] openURL:newURL];
+	return NO;
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+
 
 @end

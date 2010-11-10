@@ -15,7 +15,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MessageUI/MFMailComposeViewController.h>
+#import <MessageUI/MessageUI.h>
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
