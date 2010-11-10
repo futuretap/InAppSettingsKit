@@ -294,12 +294,52 @@ CGRect IASKCGRectSwap(CGRect rect);
     return [self.settingsReader numberOfRowsForSection:section];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
+    if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
+		if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
+			return [self.delegate tableView:_tableView heightForSpecifier:specifier];
+		} else {
+			return 0;
+		}
+	}
+	return tableView.rowHeight;
+}
+
+- (NSString *)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
     NSString *header = [self.settingsReader titleForSection:section];
 	if (0 == header.length) {
 		return nil;
 	}
 	return header;
+}
+
+- (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+	NSString *key  = [self.settingsReader keyForSection:section];
+	if ([self.delegate respondsToSelector:@selector(tableView:viewForHeaderForKey:)]) {
+		return [self.delegate tableView:_tableView viewForHeaderForKey:key];
+	} else {
+		return nil;
+	}
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+	NSString *key  = [self.settingsReader keyForSection:section];
+	if ([self tableView:tableView viewForHeaderInSection:section] && [self.delegate respondsToSelector:@selector(tableView:heightForHeaderForKey:)]) {
+		CGFloat result;
+		if ((result = [self.delegate tableView:tableView heightForHeaderForKey:key])) {
+			return result;
+		}
+		
+	}
+	NSString *title;
+	if ((title = [self tableView:tableView titleForHeaderInSection:section])) {
+		CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]] 
+						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, tableView.frame.size.height)
+							lineBreakMode:UILineBreakModeWordWrap];
+		return size.height+kIASKVerticalPaddingGroupTitles;
+	}
+	return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
@@ -392,18 +432,27 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
     else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *cell = (IASKPSTextFieldSpecifierViewCell*)[tableView dequeueReusableCellWithIdentifier:[specifier type]];
-        
+
         if (!cell) {
             cell = (IASKPSTextFieldSpecifierViewCell*) [[[NSBundle mainBundle] loadNibNamed:@"IASKPSTextFieldSpecifierViewCell" 
-																					owner:self 
-																				  options:nil] objectAtIndex:0];
-			cell.textField.textAlignment = UITextAlignmentLeft;
-			cell.textField.returnKeyType = UIReturnKeyDone;
-			cell.accessoryType = UITableViewCellAccessoryNone;
+                                                                                      owner:self 
+                                                                                    options:nil] objectAtIndex:0];
+
+            cell.textField.textAlignment = UITextAlignmentLeft;
+            cell.textField.returnKeyType = UIReturnKeyDone;
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
+
         [[cell label] setText:[specifier title]];
-        [[cell textField] setText:[self.settingsWriter objectForKey:key] != nil ? 
-		 [self.settingsWriter objectForKey:key] : [specifier defaultStringValue]];
+      
+        NSString *textValue = [self.settingsWriter objectForKey:key] != nil ? [self.settingsWriter objectForKey:key]
+                                                                            : [specifier defaultStringValue];
+
+        if (![textValue isMemberOfClass:[NSString class]]) {
+            textValue = [NSString stringWithFormat:@"%@", textValue];
+        }
+
+        [[cell textField] setText:textValue];
         [[cell textField] setKey:key];
         [[cell textField] setDelegate:self];
         [[cell textField] addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -411,9 +460,9 @@ CGRect IASKCGRectSwap(CGRect rect);
         [[cell textField] setKeyboardType:[specifier keyboardType]];
         [[cell textField] setAutocapitalizationType:[specifier autocapitalizationType]];
         [[cell textField] setAutocorrectionType:[specifier autoCorrectionType]];
-		[cell setNeedsLayout];
-		return cell;
-	}
+        [cell setNeedsLayout];
+        return cell;
+    }
 	else if ([[specifier type] isEqualToString:kIASKPSSliderSpecifier]) {
         IASKPSSliderSpecifierViewCell *cell = (IASKPSSliderSpecifierViewCell*)[tableView dequeueReusableCellWithIdentifier:[specifier type]];
         
@@ -481,6 +530,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = [specifier title];
 		cell.detailTextLabel.text = [[specifier defaultValue] description];
 		return cell;
+    } else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(tableView:cellForSpecifier:)]) {
+		return [self.delegate tableView:_tableView cellForSpecifier:specifier];
+		
 	} else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
 		
@@ -549,7 +601,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                 initSelector = @selector(init);
             }
             UIViewController * vc = [vcClass alloc];
-            [vc performSelector:initSelector];
+            [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
 			self.navigationController.delegate = nil;
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
@@ -570,6 +622,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
             
             targetViewController = [[[self class] alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+			targetViewController.delegate = self.delegate;
 			
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
@@ -599,8 +652,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.mailComposeDelegate = self;
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeSubject]) {
-                [mailViewController setSubject:[[specifier specifierDict] objectForKey:kIASKMailComposeSubject]];
+            if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
+                [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
             }
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
                 [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
@@ -611,12 +664,12 @@ CGRect IASKCGRectSwap(CGRect rect);
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
                 [mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
             }
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeBody]) {
+            if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
                 BOOL isHTML = NO;
                 if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
                     isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
                 }
-                [mailViewController setMessageBody:[[specifier specifierDict] objectForKey:kIASKMailComposeBody] isHTML:isHTML];
+                [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
             }
 
             [self presentModalViewController:mailViewController animated:YES];

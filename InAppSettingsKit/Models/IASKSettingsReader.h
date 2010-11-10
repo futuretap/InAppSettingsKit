@@ -68,6 +68,7 @@
 #define kIASKOpenURLSpecifier                 @"IASKOpenURLSpecifier"
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
+#define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
 
 #define kIASKBundleFolder                     @"Settings.bundle"
 #define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
@@ -87,6 +88,8 @@
 #define kIASKMinValueWidth                    35
 #define kIASKPaddingLeft                      9
 #define kIASKPaddingRight                     10
+#define kIASKHorizontalPaddingGroupTitles     19
+#define kIASKVerticalPaddingGroupTitles       15
 
 #define kIASKLabelFontSize                    17
 #define kIASKgrayBlueColor                    [UIColor colorWithRed:0.318 green:0.4 blue:0.569 alpha:1.0]
@@ -118,6 +121,7 @@ __VA_ARGS__ \
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
 - (IASKSpecifier*)specifierForKey:(NSString*)key;
 - (NSString*)titleForSection:(NSInteger)section;
+- (NSString*)keyForSection:(NSInteger)section;
 - (NSString*)footerTextForSection:(NSInteger)section;
 - (NSString*)titleForStringId:(NSString*)stringId;
 - (NSString*)pathForImageNamed:(NSString*)image;

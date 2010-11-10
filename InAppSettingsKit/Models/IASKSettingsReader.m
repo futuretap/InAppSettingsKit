@@ -133,6 +133,13 @@ dataSource=_dataSource;
     return nil;
 }
 
+- (NSString*)keyForSection:(NSInteger)section {
+    if ([self _sectionHasHeading:section]) {
+        return [[[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex] objectForKey:kIASKKey];
+    }
+    return nil;
+}
+
 - (NSString*)footerTextForSection:(NSInteger)section {
     if ([self _sectionHasHeading:section]) {
         NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];

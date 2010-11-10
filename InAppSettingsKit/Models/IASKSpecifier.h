@@ -28,6 +28,7 @@
 @property (nonatomic, assign) IASKSettingsReader *settingsReader;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
+- (NSString*)localizedObjectForKey:(NSString*)key;
 - (NSString*)title;
 - (NSString*)key;
 - (NSString*)type;

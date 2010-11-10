@@ -1,9 +1,8 @@
 //
-//  MainViewController.h
-//  InAppSettingsKitSampleApp
+//  IASKAppSettingsWebViewController.h
 //  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009-2010:
+//  Copyright (c) 2009:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -15,17 +14,16 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import "IASKAppSettingsViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface MainViewController : UIViewController <IASKSettingsDelegate, UITextViewDelegate> { 
-    IASKAppSettingsViewController *appSettingsViewController;
+@interface IASKAppSettingsWebViewController : UIViewController {
+  UIWebView *webView;
+  NSString *_sourceFileName;
 }
 
-@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
+- (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil htmlFileName:(NSString*)htmlFileName;
 
-- (IBAction)showSettingsPush:(id)sender;
-- (IBAction)showSettingsModal:(id)sender;
-
-+ (void)buttonDemoAction:(IASKAppSettingsViewController*)sender key:(NSString*)key;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
+@property (nonatomic, copy) NSString *sourceFileName;
 
 @end

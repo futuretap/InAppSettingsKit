@@ -17,6 +17,11 @@
 
 #import "MainViewController.h"
 
+#import "IASKSpecifier.h"
+#import "IASKSettingsReader.h"
+
+#import "CustomViewCell.h"
+
 @implementation MainViewController
 
 @synthesize appSettingsViewController;
@@ -45,12 +50,59 @@
     [aNavController release];
 }
 
+#pragma mark -
+#pragma mark IASKAppSettingsViewControllerDelegate protocol
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
     [self dismissModalViewControllerAnimated:YES];
 	
 	// your code here to reconfigure the app for changed settings
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderForKey:(NSString*)key {
+	if ([key isEqualToString:@"IASKLogo"]) {
+		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
+	}
+	return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderForKey:(NSString*)key {
+	if ([key isEqualToString:@"IASKLogo"]) {
+		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
+		imageView.contentMode = UIViewContentModeCenter;
+		return imageView;
+	}
+	return nil;
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.key isEqualToString:@"customCell"]) {
+		return 44*3;
+	}
+	return 0;
+}
+
+- (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
+	CustomViewCell *cell = (CustomViewCell*)[tableView dequeueReusableCellWithIdentifier:specifier.key];
+	
+	if (!cell) {
+		cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell" 
+															   owner:self 
+															 options:nil] objectAtIndex:0];
+	}
+	cell.textView.text= [[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] != nil ? 
+	 [[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] : [specifier defaultStringValue];
+	cell.textView.delegate = self;
+	[cell setNeedsLayout];
+	return cell;
+}
+
+#pragma mark UITextViewDelegate (for CustomViewCell)
+- (void)textViewDidChange:(UITextView *)textView {
+    [[NSUserDefaults standardUserDefaults] setObject:textView.text forKey:@"customCell"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:@"customCell"];
+}
+
+#pragma mark -
 + (void)buttonDemoAction:(IASKAppSettingsViewController*)sender key:(NSString*)key {
 	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action called" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 	[alert show];

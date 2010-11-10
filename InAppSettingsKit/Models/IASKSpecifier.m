@@ -64,13 +64,16 @@
     
     [self setMultipleValuesDict:multipleValuesDict];
 }
+- (NSString*)localizedObjectForKey:(NSString*)key {
+	return [self.settingsReader titleForStringId:[_specifierDict objectForKey:key]];
+}
 
 - (NSString*)title {
-    return [self.settingsReader titleForStringId:[_specifierDict objectForKey:kIASKTitle]];
+    return [self localizedObjectForKey:kIASKTitle];
 }
 
 - (NSString*)footerText {
-    return [self.settingsReader titleForStringId:[_specifierDict objectForKey:kIASKFooterText]];
+    return [self localizedObjectForKey:kIASKFooterText];
 }
 
 -(Class) viewControllerClass {
