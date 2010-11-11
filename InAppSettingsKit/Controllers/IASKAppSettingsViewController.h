@@ -15,8 +15,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MessageUI/MFMailComposeViewController.h>
-#import "IASKSettingsWriter.h"
+#import <MessageUI/MessageUI.h>
+
+#import "IASKSettingsStore.h"
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
@@ -42,7 +43,7 @@
 	NSIndexPath				*_topmostRowBeforeKeyboardWasShown;
 	
 	IASKSettingsReader		*_settingsReader;
-    id<IASKSettingsWriter>  _settingsWriter;
+    id<IASKSettingsStore>  _settingsStore;
 	NSString				*_file;
 	
 	id                      _currentFirstResponder;
@@ -54,7 +55,7 @@
 @property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, retain) NSIndexPath   *currentIndexPath;
 @property (nonatomic, retain) IASKSettingsReader *settingsReader;
-@property (nonatomic, retain) id<IASKSettingsWriter> settingsWriter;
+@property (nonatomic, retain) id<IASKSettingsStore> settingsStore;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, retain) id currentFirstResponder;
 @property (nonatomic, assign) BOOL showCreditsFooter;

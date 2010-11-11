@@ -1,5 +1,5 @@
 //
-//  IASKSettingsWriterToFile.h
+//  IASKSettingsStoreUserDefaults.h
 //  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
@@ -16,13 +16,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IASKSettingsWriter.h"
+#import "IASKSettingsStore.h"
 
-@interface IASKSettingsWriterToFile : IASKAbstractSettingsWriter {
-    NSString * _filePath;
-    NSMutableDictionary * _dict;
+@interface IASKSettingsStoreUserDefaults : IASKAbstractSettingsStore {
+
 }
-
-- (id)initWithPath:(NSString*)path;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  IASKSettingsWriterUserDefaults.m
+//  IASKSettingsStoreUserDefaults.m
 //  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
@@ -15,10 +15,10 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import "IASKSettingsWriterUserDefaults.h"
+#import "IASKSettingsStoreUserDefaults.h"
 
 
-@implementation IASKSettingsWriterUserDefaults
+@implementation IASKSettingsStoreUserDefaults
 
 - (void)setBool:(BOOL)value forKey:(NSString*)key {
     [[NSUserDefaults standardUserDefaults] setBool:value forKey:key];

@@ -1,5 +1,5 @@
 //
-//  IASKSettingsWriter.m
+//  IASKSettingsStore.m
 //  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
@@ -15,18 +15,18 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import "IASKSettingsWriter.h"
+#import "IASKSettingsStore.h"
 
-@implementation IASKAbstractSettingsWriter
+@implementation IASKAbstractSettingsStore
 
 - (void)setObject:(id)value forKey:(NSString*)key {
     [NSException raise:@"Unimplemented"
-                format:@"setObject:forKey: must be implemented in subclasses of IASKAbstractSettingsWriter"];
+                format:@"setObject:forKey: must be implemented in subclasses of IASKAbstractSettingsStore"];
 }
 
 - (id)objectForKey:(NSString*)key {
     [NSException raise:@"Unimplemented"
-                format:@"objectForKey: must be implemented in subclasses of IASKAbstractSettingsWriter"];
+                format:@"objectForKey: must be implemented in subclasses of IASKAbstractSettingsStore"];
     return nil;
 }
 

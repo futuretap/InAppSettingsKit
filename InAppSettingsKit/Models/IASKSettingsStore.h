@@ -1,5 +1,5 @@
 //
-//  IASKSettingsWriter.h
+//  IASKSettingsStore.h
 //  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
@@ -17,7 +17,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol IASKSettingsWriter <NSObject>
+@protocol IASKSettingsStore <NSObject>
 @required
 - (void)setBool:(BOOL)value      forKey:(NSString*)key;
 - (void)setFloat:(float)value    forKey:(NSString*)key;
@@ -33,7 +33,7 @@
 @end
 
 
-@interface IASKAbstractSettingsWriter : NSObject <IASKSettingsWriter> {
+@interface IASKAbstractSettingsStore : NSObject <IASKSettingsStore> {
 }
 
 @end

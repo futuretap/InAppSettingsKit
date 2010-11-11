@@ -1,5 +1,5 @@
 //
-//  IASKSettingsWriterToFile.m
+//  IASKSettingsStoreFile.m
 //  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
@@ -15,10 +15,10 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import "IASKSettingsWriterToFile.h"
+#import "IASKSettingsStoreFile.h"
 
 
-@implementation IASKSettingsWriterToFile
+@implementation IASKSettingsStoreFile
 
 - (id)initWithPath:(NSString*)path {
     if([super init]) {

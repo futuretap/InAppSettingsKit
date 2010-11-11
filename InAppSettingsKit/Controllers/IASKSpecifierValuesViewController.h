@@ -15,7 +15,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IASKSettingsWriter.h"
+#import "IASKSettingsStore.h"
 
 @class IASKSpecifier;
 @class IASKSettingsReader;
@@ -26,12 +26,12 @@
     IASKSpecifier             *_currentSpecifier;
     NSIndexPath             *_checkedItem;
 	IASKSettingsReader		*_settingsReader;
-    id<IASKSettingsWriter>  _settingsWriter;
+    id<IASKSettingsStore>  _settingsStore;
 }
 
 @property (nonatomic, retain) NSIndexPath *checkedItem;
 @property (nonatomic, retain) IASKSpecifier *currentSpecifier;
 @property (nonatomic, retain) IASKSettingsReader *settingsReader;
-@property (nonatomic, retain) id<IASKSettingsWriter> settingsWriter;
+@property (nonatomic, retain) id<IASKSettingsStore> settingsStore;
 
 @end
