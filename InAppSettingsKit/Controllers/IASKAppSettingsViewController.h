@@ -31,6 +31,9 @@
 
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
+
+- (NSString*)mailComposeBody;
+- (UIViewController<MFMailComposeViewControllerDelegate>*)viewControllerForMailComposeView;
 @end
 
 

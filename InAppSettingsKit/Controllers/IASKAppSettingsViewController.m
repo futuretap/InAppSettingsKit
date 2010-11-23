@@ -136,19 +136,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
 	self.navigationItem.rightBarButtonItem = nil;
 	self.navigationController.delegate = nil;
-	if ([self.file isEqualToString:@"Root"]) {
-		self.navigationController.delegate = self;
-        if (_showDoneButton) {
-            UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
-                                                                                        target:self 
-                                                                                        action:@selector(dismiss:)];
-            self.navigationItem.rightBarButtonItem = buttonItem;
-            [buttonItem release];
-		} 
-		if (!self.title) {
-			self.title = NSLocalizedString(@"Settings", @"");
-		}
-	}
+    self.navigationController.delegate = self;
+    if (_showDoneButton) {
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+                                                                                    target:self 
+                                                                                    action:@selector(dismiss:)];
+        self.navigationItem.rightBarButtonItem = buttonItem;
+        [buttonItem release];
+    } 
+    if (!self.title) {
+        self.title = NSLocalizedString(@"Settings", @"");
+    }
 	
 	if (self.currentIndexPath) {
 		if (animated) {
@@ -160,6 +158,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	
 	[super viewWillAppear:animated];
+}
+
+- (CGSize)contentSizeForViewInPopover {
+    return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -571,7 +573,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
             
             targetViewController = [[IASKSpecifierValuesViewController alloc] initWithNibName:@"IASKSpecifierValuesView" bundle:nil];
-			
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
             [_viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
@@ -653,7 +654,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-            mailViewController.mailComposeDelegate = self;
+            
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
                 [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
             }
@@ -671,10 +672,27 @@ CGRect IASKCGRectSwap(CGRect rect);
                 if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
                     isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
                 }
-                [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
+                
+                if ([self.delegate respondsToSelector:@selector(mailComposeBody)]) {
+                    [mailViewController setMessageBody:[self.delegate mailComposeBody] isHTML:isHTML];
+                }
+                else {
+                    [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
+                }
             }
 
-            [self presentModalViewController:mailViewController animated:YES];
+            UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
+            
+            if ([self.delegate respondsToSelector:@selector(viewControllerForMailComposeView)]) {
+                vc = [self.delegate viewControllerForMailComposeView];
+            }
+            
+            if (vc == nil) {
+                vc = self;
+            }
+            
+            mailViewController.mailComposeDelegate = vc;
+            [vc presentModalViewController:mailViewController animated:YES];
             [mailViewController release];
         } else {
             UIAlertView *alert = [[UIAlertView alloc]
