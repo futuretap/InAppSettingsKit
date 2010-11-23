@@ -101,7 +101,7 @@
 - (void)dealloc {
     [_currentSpecifier release];
 	[_settingsReader release];
-    [self.settingsStore release];
+    [_settingsStore release];
 	
     [super dealloc];
 }

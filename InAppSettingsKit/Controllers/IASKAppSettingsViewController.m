@@ -227,7 +227,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[_currentFirstResponder release];
 	_currentFirstResponder = nil;
 	
-    self.settingsReader = nil;
+    [_settingsReader release];
+    [_settingsStore release];
 	_delegate = nil;
 
     [super dealloc];
