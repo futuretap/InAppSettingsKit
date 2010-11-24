@@ -135,7 +135,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
 	
 	self.navigationItem.rightBarButtonItem = nil;
-	self.navigationController.delegate = nil;
     self.navigationController.delegate = self;
     if (_showDoneButton) {
         UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
