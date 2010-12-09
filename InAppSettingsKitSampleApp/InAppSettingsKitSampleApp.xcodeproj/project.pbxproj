@@ -22,6 +22,7 @@
 		AA8746D2128B02B600CACD4C /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8746C9128B02B600CACD4C /* IASKSettingsStore.m */; };
 		AA87D1DD113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */; };
 		AA8D0ED51136E17600EEB1C6 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */; };
+		AA8FA6EB12B0DBC300E7D1D1 /* settings_about.html in Resources */ = {isa = PBXBuildFile; fileRef = AA8FA6EA12B0DBC300E7D1D1 /* settings_about.html */; };
 		AAA468D8125CD9680057A662 /* CustomSubviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA468D6125CD9680057A662 /* CustomSubviewController.m */; };
 		AAA468D9125CD9680057A662 /* CustomSubviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA468D7125CD9680057A662 /* CustomSubviewController.xib */; };
 		AAB8389B12846D110042FF80 /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB8389A12846D110042FF80 /* CustomViewCell.xib */; };
@@ -43,7 +44,6 @@
 		DA33F5A210BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA33F59310BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib */; };
 		DA33F5A310BC2222004736E8 /* IASKSpecifierValuesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA33F59410BC2222004736E8 /* IASKSpecifierValuesView.xib */; };
 		DACD38AA10598A7600AC8E51 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DACD38A910598A7600AC8E51 /* Settings.bundle */; };
-		F48E09E5123D031500B67C05 /* settings_about.html in Resources */ = {isa = PBXBuildFile; fileRef = F48E09E3123D031500B67C05 /* settings_about.html */; };
 		F48E09EA123D03E000B67C05 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +76,7 @@
 		AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
 		AA8D0ED41136E17600EEB1C6 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		AA8D0ED61136E18200EEB1C6 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		AA8FA6EC12B0DBC800E7D1D1 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = German; path = German.lproj/settings_about.html; sourceTree = "<group>"; };
 		AAA468D5125CD9680057A662 /* CustomSubviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSubviewController.h; sourceTree = "<group>"; };
 		AAA468D6125CD9680057A662 /* CustomSubviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSubviewController.m; sourceTree = "<group>"; };
 		AAA468D7125CD9680057A662 /* CustomSubviewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomSubviewController.xib; sourceTree = "<group>"; };
@@ -109,7 +110,7 @@
 		DA33F59310BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKPSToggleSwitchSpecifierViewCell.xib; sourceTree = "<group>"; };
 		DA33F59410BC2222004736E8 /* IASKSpecifierValuesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKSpecifierValuesView.xib; sourceTree = "<group>"; };
 		DACD38A910598A7600AC8E51 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
-		F48E09E3123D031500B67C05 /* settings_about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = settings_about.html; sourceTree = "<group>"; };
+		F48E09E3123D031500B67C05 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/settings_about.html; sourceTree = "<group>"; };
 		F48E09E8123D03E000B67C05 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
 		F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,7 +183,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F48E09E3123D031500B67C05 /* settings_about.html */,
+				AA8FA6EA12B0DBC300E7D1D1 /* settings_about.html */,
 				6A1F35ED11490727003E6295 /* Icon.png */,
 				6A9BBF581148F1DA003D97FA /* 20-gear2.png */,
 				AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */,
@@ -362,7 +363,7 @@
 				AA40952A1149663600C3BBFF /* Localizable.strings in Resources */,
 				AAA468D9125CD9680057A662 /* CustomSubviewController.xib in Resources */,
 				AAB8389B12846D110042FF80 /* CustomViewCell.xib in Resources */,
-				F48E09E5123D031500B67C05 /* settings_about.html in Resources */,
+				AA8FA6EB12B0DBC300E7D1D1 /* settings_about.html in Resources */,
 				AAB83F2F12884E760042FF80 /* IASKAppSettingsWebView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +421,15 @@
 			name = MainWindow.xib;
 			sourceTree = "<group>";
 		};
+		AA8FA6EA12B0DBC300E7D1D1 /* settings_about.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F48E09E3123D031500B67C05 /* English */,
+				AA8FA6EC12B0DBC800E7D1D1 /* German */,
+			);
+			name = settings_about.html;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -434,7 +444,7 @@
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
