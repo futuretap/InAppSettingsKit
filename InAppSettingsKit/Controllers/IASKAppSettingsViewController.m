@@ -604,6 +604,12 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             UIViewController * vc = [vcClass alloc];
             [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
+			if ([vc respondsToSelector:@selector(setDelegate:)]) {
+				[vc performSelector:@selector(setDelegate:) withObject:self.delegate];
+			}
+			if ([vc respondsToSelector:@selector(setSettingsStore:)]) {
+				[vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
+			}
 			self.navigationController.delegate = nil;
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
@@ -625,8 +631,9 @@ CGRect IASKCGRectSwap(CGRect rect);
             
             targetViewController = [[[self class] alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
 			targetViewController.showDoneButton = NO;
+			targetViewController.settingsStore = self.settingsStore; 
 			targetViewController.delegate = self.delegate;
-			
+
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
             [_viewList replaceObjectAtIndex:kIASKSpecifierChildViewControllerIndex withObject:newItemDict];
