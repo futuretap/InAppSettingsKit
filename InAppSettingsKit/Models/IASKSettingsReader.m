@@ -20,7 +20,7 @@
 @interface IASKSettingsReader (private)
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle;
 - (BOOL)_sectionHasHeading:(NSInteger)section;
-
+- (NSString *)platformSuffix;
 - (NSString *)locateSettingsFile:(NSString *)file;
 
 @end
@@ -28,6 +28,7 @@
 @implementation IASKSettingsReader
 
 @synthesize path=_path,
+localizationTable=_localizationTable,
 bundlePath=_bundlePath,
 settingsBundle=_settingsBundle, 
 dataSource=_dataSource;
@@ -45,6 +46,16 @@ dataSource=_dataSource;
         self.bundlePath = [self.path stringByDeletingLastPathComponent];
         _bundle = [[NSBundle bundleWithPath:[self bundlePath]] retain];
         
+		// Look for localization file
+		self.localizationTable = [[[[self.path stringByDeletingPathExtension] // removes '.plist'
+									stringByDeletingPathExtension] // removes potential '.inApp'
+								   lastPathComponent] // strip absolute path
+								  stringByReplacingOccurrencesOfString:[self platformSuffix] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
+		if([_bundle URLForResource:self.localizationTable withExtension:@"strings"] == nil){
+			// Could not find the specified localization: use default
+			self.localizationTable = @"Root";
+		}
+
         if (_settingsBundle) {
             [self _reinterpretBundle:_settingsBundle];
         }
@@ -54,6 +65,7 @@ dataSource=_dataSource;
 
 - (void)dealloc {
     [_path release];
+	[_localizationTable release];
 	[_bundlePath release];
     [_settingsBundle release];
     [_dataSource release];
@@ -128,7 +140,7 @@ dataSource=_dataSource;
 - (NSString*)titleForSection:(NSInteger)section {
     if ([self _sectionHasHeading:section]) {
         NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-        return [_bundle localizedStringForKey:[dict objectForKey:kIASKTitle] value:[dict objectForKey:kIASKTitle] table:@"Root"];
+        return [_bundle localizedStringForKey:[dict objectForKey:kIASKTitle] value:[dict objectForKey:kIASKTitle] table:self.localizationTable];
     }
     return nil;
 }
@@ -143,13 +155,13 @@ dataSource=_dataSource;
 - (NSString*)footerTextForSection:(NSInteger)section {
     if ([self _sectionHasHeading:section]) {
         NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-        return [_bundle localizedStringForKey:[dict objectForKey:kIASKFooterText] value:[dict objectForKey:kIASKFooterText] table:@"Root"];
+        return [_bundle localizedStringForKey:[dict objectForKey:kIASKFooterText] value:[dict objectForKey:kIASKFooterText] table:self.localizationTable];
     }
     return nil;
 }
 
 - (NSString*)titleForStringId:(NSString*)stringId {
-    return [_bundle localizedStringForKey:stringId value:stringId table:@"Root"];
+    return [_bundle localizedStringForKey:stringId value:stringId table:self.localizationTable];
 }
 
 - (NSString*)pathForImageNamed:(NSString*)image {

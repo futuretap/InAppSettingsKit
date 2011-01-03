@@ -109,6 +109,7 @@ __VA_ARGS__ \
 
 @interface IASKSettingsReader : NSObject {
     NSString        *_path;
+    NSString        *_localizationTable;
     NSString        *_bundlePath;
     NSDictionary    *_settingsBundle;
     NSArray         *_dataSource;
@@ -127,6 +128,7 @@ __VA_ARGS__ \
 - (NSString*)pathForImageNamed:(NSString*)image;
 
 @property (nonatomic, retain) NSString      *path;
+@property (nonatomic, retain) NSString      *localizationTable;
 @property (nonatomic, retain) NSString      *bundlePath;
 @property (nonatomic, retain) NSDictionary  *settingsBundle;
 @property (nonatomic, retain) NSArray       *dataSource;
