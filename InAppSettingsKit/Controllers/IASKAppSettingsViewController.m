@@ -244,6 +244,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[self.currentFirstResponder resignFirstResponder];
 	}
 	
+	[self.settingsStore synchronize];
 	self.navigationController.delegate = nil;
 	
 	if (self.delegate && [self.delegate conformsToProtocol:@protocol(IASKSettingsDelegate)]) {
