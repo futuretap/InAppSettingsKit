@@ -244,6 +244,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[self.currentFirstResponder resignFirstResponder];
 	}
 	
+	[self.settingsStore synchronize];
 	self.navigationController.delegate = nil;
 	
 	if (self.delegate && [self.delegate conformsToProtocol:@protocol(IASKSettingsDelegate)]) {
@@ -339,7 +340,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	NSString *title;
 	if ((title = [self tableView:tableView titleForHeaderInSection:section])) {
 		CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]] 
-						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, tableView.frame.size.height)
+						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
 							lineBreakMode:UILineBreakModeWordWrap];
 		return size.height+kIASKVerticalPaddingGroupTitles;
 	}

@@ -20,7 +20,7 @@
 @interface IASKSettingsReader (private)
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle;
 - (BOOL)_sectionHasHeading:(NSInteger)section;
-
+- (NSString *)platformSuffix;
 - (NSString *)locateSettingsFile:(NSString *)file;
 
 @end
