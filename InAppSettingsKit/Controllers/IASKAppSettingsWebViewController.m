@@ -28,7 +28,11 @@
 	
 	self.url = [NSURL URLWithString:urlString];
 	if (!self.url || ![self.url scheme]) {
-		self.url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:[urlString stringByDeletingPathExtension] ofType:[urlString pathExtension]]];
+		NSString *path = [[NSBundle mainBundle] pathForResource:[urlString stringByDeletingPathExtension] ofType:[urlString pathExtension]];
+		if(path)
+			self.url = [NSURL fileURLWithPath:path];
+		else
+			self.url = nil;
 	}
 	return self;
 }
