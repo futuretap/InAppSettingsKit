@@ -51,7 +51,7 @@ dataSource=_dataSource;
 									stringByDeletingPathExtension] // removes potential '.inApp'
 								   lastPathComponent] // strip absolute path
 								  stringByReplacingOccurrencesOfString:[self platformSuffix] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
-		if([_bundle URLForResource:self.localizationTable withExtension:@"strings"] == nil){
+		if([_bundle pathForResource:self.localizationTable ofType:@"strings"] == nil){
 			// Could not find the specified localization: use default
 			self.localizationTable = @"Root";
 		}
