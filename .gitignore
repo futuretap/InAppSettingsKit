@@ -2,3 +2,5 @@ InAppSettingsKitSampleApp/build/**
 **/*.xcodeproj/*.pbxuser
 **/*.xcodeproj/*.perspectivev3
 **/*.xcodeproj/*.mode1v3
+**/*.xcodeproj/project.xcworkspace/
+**/*.xcodeproj/xcuserdata/
