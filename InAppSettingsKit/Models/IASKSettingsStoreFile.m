@@ -21,7 +21,7 @@
 @implementation IASKSettingsStoreFile
 
 - (id)initWithPath:(NSString*)path {
-    if([super init]) {
+    if((self = [super init])) {
         _filePath = [path retain];
         _dict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
         if(_dict == nil) {
