@@ -93,7 +93,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 #pragma mark standard view controller methods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ([super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // If set to YES, will display credits for InAppSettingsKit creators
         _showCreditsFooter = YES;
         

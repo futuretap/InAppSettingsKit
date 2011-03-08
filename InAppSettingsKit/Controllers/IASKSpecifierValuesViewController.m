@@ -100,6 +100,7 @@
 
 - (void)dealloc {
     [_currentSpecifier release];
+    [_checkedItem release];
 	[_settingsReader release];
     [_settingsStore release];
 	

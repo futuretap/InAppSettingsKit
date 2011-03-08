@@ -29,7 +29,7 @@
 @synthesize settingsReader = _settingsReader;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier {
-    if ([super init]) {
+    if ((self = [super init])) {
         [self setSpecifierDict:specifier];
         
         if ([[self type] isEqualToString:kIASKPSMultiValueSpecifier] ||
