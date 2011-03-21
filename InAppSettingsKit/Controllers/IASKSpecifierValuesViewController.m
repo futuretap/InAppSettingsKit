@@ -17,6 +17,7 @@
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
+#import "IASKSettingsStoreUserDefaults.h"
 
 #define kCellValue      @"kCellValue"
 
@@ -29,13 +30,14 @@
 @synthesize currentSpecifier=_currentSpecifier;
 @synthesize checkedItem=_checkedItem;
 @synthesize settingsReader = _settingsReader;
+@synthesize settingsStore = _settingsStore;
 
 - (void) updateCheckedItem {
     NSInteger index;
 	
 	// Find the currently checked item
-    if([[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]]) {
-      index = [[_currentSpecifier multipleValues] indexOfObject:[[NSUserDefaults standardUserDefaults] objectForKey:[_currentSpecifier key]]];
+    if([self.settingsStore objectForKey:[_currentSpecifier key]]) {
+      index = [[_currentSpecifier multipleValues] indexOfObject:[self.settingsStore objectForKey:[_currentSpecifier key]]];
     } else {
       index = [[_currentSpecifier multipleValues] indexOfObject:[_currentSpecifier defaultValue]];
     }
@@ -46,6 +48,13 @@
 {
 	[_tableView reloadData];
 	return _tableView.contentSize;
+}
+
+- (id<IASKSettingsStore>)settingsStore {
+    if(_settingsStore == nil) {
+        _settingsStore = [[IASKSettingsStoreUserDefaults alloc] init];
+    }
+    return _settingsStore;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -98,7 +107,7 @@
 - (void)dealloc {
     [_currentSpecifier release];
 	[_settingsReader release];
-	_settingsReader = nil;
+    [_settingsStore release];
 	
     [super dealloc];
 }
@@ -164,9 +173,12 @@
     [self selectCell:[tableView cellForRowAtIndexPath:indexPath]];
     [self setCheckedItem:indexPath];
 	
-    [[NSUserDefaults standardUserDefaults] setObject:[values objectAtIndex:indexPath.row] forKey:[_currentSpecifier key]];
-	[[NSUserDefaults standardUserDefaults] synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:[_currentSpecifier key]];
+    [self.settingsStore setObject:[values objectAtIndex:indexPath.row] forKey:[_currentSpecifier key]];
+	[self.settingsStore synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
+                                                        object:[_currentSpecifier key]
+                                                      userInfo:[NSDictionary dictionaryWithObject:[values objectAtIndex:indexPath.row]
+                                                                                           forKey:[_currentSpecifier key]]];
 }
 
 #pragma mark Notifications

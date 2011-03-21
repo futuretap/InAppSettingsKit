@@ -184,6 +184,18 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string>WebView</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>File</key>
+			<string>settings_about.html</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:key:</string>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string></string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
