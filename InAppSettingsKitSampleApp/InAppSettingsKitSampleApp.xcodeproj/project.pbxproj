@@ -16,6 +16,7 @@
 		575C01E8127CE845009FBEA2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575C01E7127CE845009FBEA2 /* MessageUI.framework */; };
 		6A1F35EE11490727003E6295 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F35ED11490727003E6295 /* Icon.png */; };
 		6A9BBF591148F1DA003D97FA /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A9BBF581148F1DA003D97FA /* 20-gear2.png */; };
+		AA0717B4134C708F0043D610 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0717B0134C708F0043D610 /* MainWindow-iPad.xib */; };
 		AA40952A1149663600C3BBFF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA4095291149663600C3BBFF /* Localizable.strings */; };
 		AA8746D0128B02B600CACD4C /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8746C5128B02B600CACD4C /* IASKSettingsStoreUserDefaults.m */; };
 		AA8746D1128B02B600CACD4C /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8746C7128B02B600CACD4C /* IASKSettingsStoreFile.m */; };
@@ -63,6 +64,9 @@
 		6A9BBEE11148EE4B003D97FA /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		6A9BBF581148F1DA003D97FA /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitSampleApp-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AA0717B1134C708F0043D610 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = "iPad/English.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		AA0717B2134C708F0043D610 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = "iPad/German.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		AA0717B3134C708F0043D610 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = "iPad/French.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		AA4095271149662F00C3BBFF /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA40952B1149664400C3BBFF /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA40952C1149664600C3BBFF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				AA0717AF134C708C0043D610 /* iPad */,
 				DA5F27A010BC29C000F983BD /* Sample App */,
 				DA33F57710BC2222004736E8 /* InAppSettingsKit */,
 			);
@@ -204,6 +209,14 @@
 				575C01E7127CE845009FBEA2 /* MessageUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA0717AF134C708C0043D610 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				AA0717B0134C708F0043D610 /* MainWindow-iPad.xib */,
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 		DA33F57710BC2222004736E8 /* InAppSettingsKit */ = {
@@ -365,6 +378,7 @@
 				AAB8389B12846D110042FF80 /* CustomViewCell.xib in Resources */,
 				AA8FA6EB12B0DBC300E7D1D1 /* settings_about.html in Resources */,
 				AAB83F2F12884E760042FF80 /* IASKAppSettingsWebView.xib in Resources */,
+				AA0717B4134C708F0043D610 /* MainWindow-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +415,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		AA0717B0134C708F0043D610 /* MainWindow-iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA0717B1134C708F0043D610 /* English */,
+				AA0717B2134C708F0043D610 /* German */,
+				AA0717B3134C708F0043D610 /* French */,
+			);
+			name = "MainWindow-iPad.xib";
+			sourceTree = "<group>";
+		};
 		AA4095291149663600C3BBFF /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -443,8 +467,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -456,9 +481,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
