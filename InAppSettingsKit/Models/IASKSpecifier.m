@@ -190,6 +190,9 @@
     else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardNumberPad]) {
         return UIKeyboardTypeNumberPad;
     }
+    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardDecimalPad]) {
+        return UIKeyboardTypeDecimalPad;
+    }
     else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:KIASKKeyboardURL]) {
         return UIKeyboardTypeURL;
     }

@@ -46,6 +46,7 @@
 #define kIASKKeyboardAlphabet                 @"Alphabet"
 #define kIASKKeyboardNumbersAndPunctuation    @"NumbersAndPunctuation"
 #define kIASKKeyboardNumberPad                @"NumberPad"
+#define kIASKKeyboardDecimalPad               @"DecimalPad"
 #define KIASKKeyboardURL                      @"URL"
 #define kIASKKeyboardEmailAddress             @"EmailAddress"
 #define kIASKAutoCapNone                      @"None"
