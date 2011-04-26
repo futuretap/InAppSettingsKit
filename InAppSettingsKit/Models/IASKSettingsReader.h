@@ -46,6 +46,11 @@
 #define kIASKKeyboardAlphabet                 @"Alphabet"
 #define kIASKKeyboardNumbersAndPunctuation    @"NumbersAndPunctuation"
 #define kIASKKeyboardNumberPad                @"NumberPad"
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_1
+#define kIASKKeyboardDecimalPad               @"DecimalPad"
+#endif
+
 #define KIASKKeyboardURL                      @"URL"
 #define kIASKKeyboardEmailAddress             @"EmailAddress"
 #define kIASKAutoCapNone                      @"None"

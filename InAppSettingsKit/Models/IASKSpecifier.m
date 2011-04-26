@@ -190,6 +190,11 @@
     else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardNumberPad]) {
         return UIKeyboardTypeNumberPad;
     }
+    #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_4_1
+    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardDecimalPad]) {
+        return UIKeyboardTypeDecimalPad;
+    }
+    #endif
     else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:KIASKKeyboardURL]) {
         return UIKeyboardTypeURL;
     }

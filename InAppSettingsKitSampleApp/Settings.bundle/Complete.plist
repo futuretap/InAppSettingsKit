@@ -74,6 +74,22 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
+			<string>DecimalPad</string>
+			<key>Key</key>
+			<string>text_DecimalPad</string>
+			<key>DefaultValue</key>
+			<string>26.08</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>DecimalPad</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
 			<string>URL</string>
 			<key>Key</key>
 			<string>text_URL</string>
