@@ -19,11 +19,11 @@
 @class IASKSwitch;
 
 @interface IASKPSToggleSwitchSpecifierViewCell : UITableViewCell {
-    IBOutlet UILabel    *_label;
-    IBOutlet IASKSwitch   *_toggle;
+    UILabel *_label;
+    IASKSwitch *_toggle;
 }
 
-@property (nonatomic, readonly) UILabel     *label;
-@property (nonatomic, readonly) IASKSwitch    *toggle;
+@property (nonatomic, assign) IBOutlet UILabel *label;
+@property (nonatomic, assign) IBOutlet IASKSwitch *toggle;
 
 @end

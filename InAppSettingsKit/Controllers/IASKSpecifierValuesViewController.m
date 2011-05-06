@@ -27,6 +27,7 @@
 
 @implementation IASKSpecifierValuesViewController
 
+@synthesize tableView=_tableView;
 @synthesize currentSpecifier=_currentSpecifier;
 @synthesize checkedItem=_checkedItem;
 @synthesize settingsReader = _settingsReader;
@@ -95,6 +96,7 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
+	self.tableView = nil;
 }
 
 
@@ -103,7 +105,7 @@
     [_checkedItem release];
 	[_settingsReader release];
     [_settingsStore release];
-	
+	[_tableView release], _tableView = nil;
     [super dealloc];
 }
 

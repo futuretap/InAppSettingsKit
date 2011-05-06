@@ -69,7 +69,7 @@
 	if ([key isEqualToString:@"IASKLogo"]) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;
-		return imageView;
+		return [imageView autorelease];
 	}
 	return nil;
 }

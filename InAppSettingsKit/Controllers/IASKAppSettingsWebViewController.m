@@ -51,7 +51,7 @@
 
 - (void)viewDidUnload {
 	[super viewDidUnload];
-	self.url = nil;
+	self.webView = nil;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

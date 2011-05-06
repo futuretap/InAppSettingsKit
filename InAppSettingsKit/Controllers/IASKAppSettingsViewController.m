@@ -52,6 +52,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @implementation IASKAppSettingsViewController
 
 @synthesize delegate = _delegate;
+@synthesize tableView = _tableView;
 @synthesize currentIndexPath=_currentIndexPath;
 @synthesize settingsReader = _settingsReader;
 @synthesize file = _file;
@@ -126,6 +127,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
+	self.tableView = nil;
+	[_viewList release], _viewList = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -230,6 +233,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
     [_settingsReader release];
     [_settingsStore release];
+	
+	[_tableView release], _tableView = nil;
 	_delegate = nil;
 
     [super dealloc];
