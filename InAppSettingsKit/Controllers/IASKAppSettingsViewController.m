@@ -223,18 +223,15 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [_viewList release];
-    [_currentIndexPath release];
-	[_file release];
-	_file = nil;
-	
-	[_currentFirstResponder release];
-	_currentFirstResponder = nil;
-	
-    [_settingsReader release];
-    [_settingsStore release];
-	
+
+    [_viewList release], _viewList = nil;
+    [_currentIndexPath release], _currentIndexPath = nil;
+	[_file release], _file = nil;
+	[_currentFirstResponder release], _currentFirstResponder = nil;
+	[_settingsReader release], _settingsReader = nil;
+    [_settingsStore release], _settingsStore = nil;
 	[_tableView release], _tableView = nil;
+	
 	_delegate = nil;
 
     [super dealloc];

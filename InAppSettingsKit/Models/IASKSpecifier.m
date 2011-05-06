@@ -41,10 +41,11 @@
 }
 
 - (void)dealloc {
-    [_specifierDict release];
-    [_multipleValuesDict release];
-	_settingsReader = nil;
+    [_specifierDict release], _specifierDict = nil;
+    [_multipleValuesDict release], _multipleValuesDict = nil;
 	
+	_settingsReader = nil;
+
     [super dealloc];
 }
 

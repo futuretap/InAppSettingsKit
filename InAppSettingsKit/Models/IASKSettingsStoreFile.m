@@ -32,8 +32,9 @@
 }
 
 - (void)dealloc {
-    [_dict release];
-    [_filePath release];
+    [_dict release], _dict = nil;
+    [_filePath release], _filePath = nil;
+
     [super dealloc];
 }
 
