@@ -658,10 +658,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:specifier.file]];    
     } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-		Class buttonClass = [specifier buttonClass];
-		SEL buttonAction = [specifier buttonAction];
-		if ([buttonClass respondsToSelector:buttonAction]) {
-			[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForKey:)]) {
+			[self.delegate settingsViewController:self buttonTappedForKey:[specifier key]];
+		} else {
+			// legacy code, provided for backward compatibility
+			// the delegate mechanism above is much cleaner and doesn't leak
+			Class buttonClass = [specifier buttonClass];
+			SEL buttonAction = [specifier buttonAction];
+			if ([buttonClass respondsToSelector:buttonAction]) {
+				[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
+				NSLog(@"InAppSettingsKit Warning: Using IASKButtonSpecifier without implementing the delegate method is deprecated");
+			}
 		}
     } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];

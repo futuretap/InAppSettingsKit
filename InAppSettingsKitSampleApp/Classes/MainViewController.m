@@ -103,9 +103,14 @@
 }
 
 #pragma mark -
-+ (void)buttonDemoAction:(IASKAppSettingsViewController*)sender key:(NSString*)key {
-	UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action called" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
-	[alert show];
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key {
+	if ([key isEqualToString:@"ButtonDemoAction1"]) {
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+		[alert show];
+	} else {
+		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action 2 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+		[alert show];
+	}
 }
 
  - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

@@ -26,6 +26,4 @@
 - (IBAction)showSettingsPush:(id)sender;
 - (IBAction)showSettingsModal:(id)sender;
 
-+ (void)buttonDemoAction:(IASKAppSettingsViewController*)sender key:(NSString*)key;
-
 @end

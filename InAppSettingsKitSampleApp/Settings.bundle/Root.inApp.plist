@@ -111,12 +111,12 @@
 			<string>PSTextFieldSpecifier</string>
 		</dict>
 		<dict>
+			<key>FooterText</key>
+			<string>This is a Footer Text (supported by Settings.app in iOS 4 or higher)</string>
 			<key>Title</key>
 			<string></string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-			<key>FooterText</key>
-			<string>This is a Footer Text (supported by Settings.app in iOS 4 or higher)</string>
 		</dict>
 		<dict>
 			<key>File</key>
@@ -135,12 +135,12 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
+			<key>FooterText</key>
+			<string>custom segment header view:</string>
 			<key>Title</key>
 			<string>Extensions that are only available in-app, not in Settings.app:</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-			<key>FooterText</key>
-			<string>custom segment header view:</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -183,32 +183,38 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>WebView</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
 			<key>File</key>
 			<string>settings_about.html</string>
 			<key>IASKViewControllerClass</key>
 			<string>IASKAppSettingsWebViewController</string>
 			<key>IASKViewControllerSelector</key>
 			<string>initWithFile:key:</string>
+			<key>Title</key>
+			<string>WebView</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>IASKLogo</string>
 			<key>Title</key>
 			<string></string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-			<key>Key</key>
-			<string>IASKLogo</string>
 		</dict>
 		<dict>
-			<key>IASKButtonAction</key>
-			<string>buttonDemoAction:key:</string>
-			<key>IASKButtonClass</key>
-			<string>MainViewController</string>
+			<key>Key</key>
+			<string>ButtonDemoAction1</string>
 			<key>Title</key>
-			<string>Button Action</string>
+			<string>Button Action 1</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>ButtonDemoAction2</string>
+			<key>Title</key>
+			<string>Button Action 2</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
@@ -219,14 +225,14 @@
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<string>As an example, we use a multiline UITextView here.</string>
+			<key>Key</key>
+			<string>customCell</string>
 			<key>Title</key>
 			<string>Custom Field</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
-			<key>Key</key>
-			<string>customCell</string>
-			<key>DefaultValue</key>
-			<string>As an example, we use a multiline UITextView here.</string>
 		</dict>
 		<dict>
 			<key>Title</key>

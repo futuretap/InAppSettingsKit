@@ -34,6 +34,8 @@
 
 - (NSString*)mailComposeBody;
 - (UIViewController<MFMailComposeViewControllerDelegate>*)viewControllerForMailComposeView;
+
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key;
 @end
 
 
