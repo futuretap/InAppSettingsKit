@@ -194,6 +194,18 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
+        <dict>
+            <key>Title</key>
+            <string>WebView with URL</string>
+            <key>Type</key>
+            <string>PSChildPaneSpecifier</string>
+            <key>File</key>
+            <string>https://github.com/x2on/InAppSettingsKit</string>
+            <key>IASKViewControllerClass</key>
+            <string>IASKAppSettingsWebViewController</string>
+            <key>IASKViewControllerSelector</key>
+            <string>initWithURL:key:</string>
+        </dict>
 		<dict>
 			<key>Key</key>
 			<string>IASKLogo</string>

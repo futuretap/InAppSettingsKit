@@ -37,6 +37,15 @@
 	return self;
 }
 
+- (id)initWithURL:(NSString *)urlString key:(NSString *)key {
+	if (!(self = [super initWithNibName:nil bundle:nil])) {
+		return nil;
+	}
+	self.url = [NSURL URLWithString:urlString];
+    
+    return self;
+    
+}
 
 - (void)dealloc {
 	[webView release], webView = nil;
