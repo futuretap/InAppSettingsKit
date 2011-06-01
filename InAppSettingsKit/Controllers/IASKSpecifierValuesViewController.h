@@ -35,4 +35,7 @@
 @property (nonatomic, retain) IASKSettingsReader *settingsReader;
 @property (nonatomic, retain) id<IASKSettingsStore> settingsStore;
 
+// HANDELABRA: Custom override background color.
+@property (nonatomic, retain) UIColor *backgroundColor;
+
 @end

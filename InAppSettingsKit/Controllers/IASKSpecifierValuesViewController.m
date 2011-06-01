@@ -33,6 +33,9 @@
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
 
+// HANDELABRA: Custom override background color.
+@synthesize backgroundColor;
+
 - (void) updateCheckedItem {
     NSInteger index;
 	
@@ -58,7 +61,15 @@
         [self updateCheckedItem];
     }
     
+    // HANDELABRA: Custom override background color.
+    self.view.backgroundColor = self.backgroundColor;
+    
     if (_tableView) {
+        
+        // HANDELABRA: Custom override background color.
+        _tableView.backgroundColor = self.backgroundColor;
+        [_tableView setNeedsDisplay];
+        
         [_tableView reloadData];
 
 		// Make sure the currently checked item is visible

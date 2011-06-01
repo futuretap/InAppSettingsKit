@@ -122,6 +122,12 @@ CGRect IASKCGRectSwap(CGRect rect);
     [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
     [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
 
+    // HANDELABRA: Set background color from delegate.
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(backgroundColor)]) 
+    {
+        self.view.backgroundColor = [self.delegate backgroundColor];
+        _tableView.backgroundColor = [self.delegate backgroundColor];
+    }
 }
 
 - (void)viewDidUnload {
@@ -400,6 +406,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 		
         [[cell toggle] addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
         [[cell toggle] setKey:key];
+        
+        // HANDELABRA: Set the accessibility value and hint for the cell and disable accessibility for the toggle switch itself 
+        cell.toggle.isAccessibilityElement = NO; 
+        cell.accessibilityValue = toggleState ? NSLocalizedString(@"ON", @"ON") : NSLocalizedString(@"OFF", @"OFF");
+        cell.accessibilityHint = NSLocalizedString(@"Double tap to toggle setting", @"Double tap to toggle setting");
+        
         return cell;
     }
     else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
@@ -503,6 +515,22 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
 
         [[cell textLabel] setText:[specifier title]];
+        
+        // HANDELABRA: Support value display on custom child pane cells
+        if (key != nil)
+        {
+            id value = [[NSUserDefaults standardUserDefaults] objectForKey:key] ? : [specifier defaultValue];
+            
+            NSString *stringValue;
+            if ([specifier multipleValues] || [specifier multipleTitles]) {
+                stringValue = [specifier titleForCurrentValue:value];
+            } else {
+                stringValue = [value description];
+            }
+            
+            cell.detailTextLabel.text = stringValue;
+        }
+        
         return cell;
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
@@ -552,7 +580,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
 	
-	if ([[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]) {
+	if ([[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]) 
+    {
+        // HANDELABRA: Toggle the switch if voiceover is running
+        if (UIAccessibilityIsVoiceOverRunning())
+        {
+            IASKPSToggleSwitchSpecifierViewCell *cell = (IASKPSToggleSwitchSpecifierViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+            cell.accessibilityValue = !cell.toggle.on ? NSLocalizedString(@"ON", @"ON") : NSLocalizedString(@"OFF", @"OFF");
+            [cell.toggle setOn:!cell.toggle.on animated:NO];
+            [cell.toggle sendActionsForControlEvents:UIControlEventValueChanged];
+        }
+        
 		return nil;
 	} else {
 		return indexPath;
@@ -582,11 +620,21 @@ CGRect IASKCGRectSwap(CGRect rect);
             
             // load the view controll back in to push it
             targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
+            
+            // HANDELABRA: Set the background color from delegate
+            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(backgroundColor)]) 
+            {
+                targetViewController.backgroundColor = [self.delegate backgroundColor];
+            }
         }
         self.currentIndexPath = indexPath;
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
+        
+        // HANDELABRA: Fix popover size problem on iPad
+        targetViewController.contentSizeForViewInPopover = self.contentSizeForViewInPopover;
+        
         [[self navigationController] pushViewController:targetViewController animated:YES];
     }
     else if ([[specifier type] isEqualToString:kIASKPSSliderSpecifier]) {
@@ -614,6 +662,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 				[vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
 			}
 			self.navigationController.delegate = nil;
+            
+            // HANDELABRA: Fix popover size problem on iPad
+            vc.contentSizeForViewInPopover = self.contentSizeForViewInPopover;
+            
             [self.navigationController pushViewController:vc animated:YES];
             [vc release];
             return;
@@ -649,6 +701,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		targetViewController.file = specifier.file;
 		targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;
+        
+        // HANDELABRA: Fix popover size problem on iPad
+        targetViewController.contentSizeForViewInPopover = self.contentSizeForViewInPopover;
+        
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
