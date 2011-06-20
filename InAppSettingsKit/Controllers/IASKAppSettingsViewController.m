@@ -191,6 +191,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if ([self.currentFirstResponder canResignFirstResponder]) {
 		[self.currentFirstResponder resignFirstResponder];
 	}
+	[NSObject cancelPreviousPerformRequestsWithTarget:self];
 	[super viewWillDisappear:animated];
 }
 
