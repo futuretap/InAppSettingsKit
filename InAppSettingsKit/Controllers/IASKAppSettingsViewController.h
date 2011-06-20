@@ -36,6 +36,9 @@
 - (UIViewController<MFMailComposeViewControllerDelegate>*)viewControllerForMailComposeView;
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key;
+
+// HANDELABRA: Custom override background color.
+- (UIColor*)backgroundColor;
 @end
 
 
