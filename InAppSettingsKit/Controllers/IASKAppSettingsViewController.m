@@ -53,7 +53,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 @synthesize delegate = _delegate;
 @synthesize tableView = _tableView;
-@synthesize currentIndexPath=_currentIndexPath;
+@synthesize currentIndexPath = _currentIndexPath;
 @synthesize settingsReader = _settingsReader;
 @synthesize file = _file;
 @synthesize currentFirstResponder = _currentFirstResponder;
