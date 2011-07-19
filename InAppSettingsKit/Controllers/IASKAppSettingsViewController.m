@@ -465,7 +465,11 @@ CGRect IASKCGRectSwap(CGRect rect);
         [[cell textField] setSecureTextEntry:[specifier isSecure]];
         [[cell textField] setKeyboardType:[specifier keyboardType]];
         [[cell textField] setAutocapitalizationType:[specifier autocapitalizationType]];
-        [[cell textField] setAutocorrectionType:[specifier autoCorrectionType]];
+        if([specifier isSecure]){
+            [[cell textField] setAutocorrectionType:UITextAutocorrectionTypeNo];
+        } else {
+            [[cell textField] setAutocorrectionType:[specifier autoCorrectionType]];
+        }
         [cell setNeedsLayout];
         return cell;
     }
