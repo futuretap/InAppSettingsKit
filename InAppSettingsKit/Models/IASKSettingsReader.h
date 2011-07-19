@@ -132,6 +132,7 @@ __VA_ARGS__ \
 - (NSString*)footerTextForSection:(NSInteger)section;
 - (NSString*)titleForStringId:(NSString*)stringId;
 - (NSString*)pathForImageNamed:(NSString*)image;
+- (NSString *)platformSuffix;
 
 @property (nonatomic, retain) NSString      *path;
 @property (nonatomic, retain) NSString      *localizationTable;
