@@ -228,7 +228,7 @@ dataSource=_dataSource;
     [NSArray arrayWithObjects:[self platformSuffix], @"", nil];
     
     NSArray *languages =
-    [NSArray arrayWithObjects:[[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode] stringByAppendingString:KIASKBundleLocaleFolderExtension], @"", nil];
+    [NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:KIASKBundleLocaleFolderExtension], @"", nil];
     
     NSString *path = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
