@@ -195,7 +195,7 @@ dataSource=_dataSource;
 }
 
 - (NSString *)locateSettingsFile: (NSString *)file {
-
+    
     // The file is searched in the following order:
     //
     // InAppSettings.bundle/FILE~DEVICE.inApp.plist
@@ -216,28 +216,34 @@ dataSource=_dataSource;
     //   ~iphone suffix.  There is no point in using these suffixes outside
     //   of universal apps anyway.
     // - This implementation uses the device suffixes on iOS 3.x as well.
-
+    // - also check current locale (short only)
+    
     NSArray *bundles =
-        [NSArray arrayWithObjects:kIASKBundleFolderAlt, kIASKBundleFolder, nil];
-
+    [NSArray arrayWithObjects:kIASKBundleFolderAlt, kIASKBundleFolder, nil];
+    
     NSArray *extensions =
-        [NSArray arrayWithObjects:@".inApp.plist", @".plist", nil];
-
+    [NSArray arrayWithObjects:@".inApp.plist", @".plist", nil];
+    
     NSArray *suffixes =
-        [NSArray arrayWithObjects:[self platformSuffix], @"", nil];
-
+    [NSArray arrayWithObjects:[self platformSuffix], @"", nil];
+    
+    NSArray *languages =
+    [NSArray arrayWithObjects:[[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode] stringByAppendingString:KIASKBundleLocaleFolderExtension], @"", nil];
+    
     NSString *path = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
 	
     for (NSString *bundle in bundles) {
 		for (NSString *extension in extensions) {
 			for (NSString *suffix in suffixes) {
-                path = [self file:file
-                       withBundle:bundle
-                           suffix:suffix
-                        extension:extension];
-                if ([fileManager fileExistsAtPath:path]) {
-                    goto exitFromNestedLoop;
+                for (NSString *language in languages) {
+                    path = [self file:file
+                           withBundle:[bundle stringByAppendingPathComponent:language]
+                               suffix:suffix
+                            extension:extension];
+                    if ([fileManager fileExistsAtPath:path]) {
+                        goto exitFromNestedLoop;
+                    }
                 }
             }
 		}
