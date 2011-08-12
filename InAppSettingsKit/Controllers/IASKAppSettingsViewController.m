@@ -605,7 +605,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             if (!initSelector) {
                 initSelector = @selector(init);
             }
-            UIViewController * vc = [vcClass alloc];
+            UIViewController * vc = [vcClass performSelector:@selector(alloc)];
             [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
 			if ([vc respondsToSelector:@selector(setDelegate:)]) {
 				[vc performSelector:@selector(setDelegate:) withObject:self.delegate];
@@ -615,7 +615,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			}
 			self.navigationController.delegate = nil;
             [self.navigationController pushViewController:vc animated:YES];
-            [vc release];
+            [vc performSelector:@selector(release)];
             return;
         }
         
