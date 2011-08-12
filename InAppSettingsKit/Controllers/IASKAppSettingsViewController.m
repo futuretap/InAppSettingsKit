@@ -42,6 +42,10 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 CGRect IASKCGRectSwap(CGRect rect);
 
 @interface IASKAppSettingsViewController ()
+@property (nonatomic, retain) NSIndexPath   *currentIndexPath;
+@property (nonatomic, retain) NSIndexPath *topmostRowBeforeKeyboardWasShown;
+@property (nonatomic, retain) id currentFirstResponder;
+
 - (void)_textChanged:(id)sender;
 - (void)_keyboardWillShow:(NSNotification*)notification;
 - (void)_keyboardWillHide:(NSNotification*)notification;
@@ -54,6 +58,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize delegate = _delegate;
 @synthesize tableView = _tableView;
 @synthesize currentIndexPath=_currentIndexPath;
+@synthesize topmostRowBeforeKeyboardWasShown = _topmostRowBeforeKeyboardWasShown;
 @synthesize settingsReader = _settingsReader;
 @synthesize file = _file;
 @synthesize currentFirstResponder = _currentFirstResponder;
@@ -227,6 +232,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
     [_viewList release], _viewList = nil;
     [_currentIndexPath release], _currentIndexPath = nil;
+    [_topmostRowBeforeKeyboardWasShown release], _topmostRowBeforeKeyboardWasShown = nil;
 	[_file release], _file = nil;
 	[_currentFirstResponder release], _currentFirstResponder = nil;
 	[_settingsReader release], _settingsReader = nil;
@@ -763,10 +769,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
 	self.currentFirstResponder = textField;
 	if ([_tableView indexPathsForVisibleRows].count) {
-		_topmostRowBeforeKeyboardWasShown = (NSIndexPath*)[[_tableView indexPathsForVisibleRows] objectAtIndex:0];
+		self.topmostRowBeforeKeyboardWasShown = (NSIndexPath*)[[_tableView indexPathsForVisibleRows] objectAtIndex:0];
 	} else {
 		// this should never happen
-		_topmostRowBeforeKeyboardWasShown = [NSIndexPath indexPathForRow:0 inSection:0];
+		self.topmostRowBeforeKeyboardWasShown = [NSIndexPath indexPathForRow:0 inSection:0];
 		[textField resignFirstResponder];
 	}
 }
@@ -822,7 +828,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 
 - (void) scrollToOldPosition {
-  [_tableView scrollToRowAtIndexPath:_topmostRowBeforeKeyboardWasShown atScrollPosition:UITableViewScrollPositionTop animated:YES];
+  [_tableView scrollToRowAtIndexPath:self.topmostRowBeforeKeyboardWasShown atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void)_keyboardWillHide:(NSNotification*)notification {
