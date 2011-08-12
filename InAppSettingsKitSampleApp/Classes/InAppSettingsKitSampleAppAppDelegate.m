@@ -18,7 +18,6 @@
 //	Settings Icon (also used in App Icon) thanks to http://glyphish.com/ 
 
 #import "InAppSettingsKitSampleAppAppDelegate.h"
-#import "MainViewController.h"
 
 @implementation InAppSettingsKitSampleAppAppDelegate
 
@@ -28,10 +27,8 @@
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	NSLog(@"App Started");
 	[window addSubview:tabBarController.view];
 }
-
 
 - (void)dealloc {
     [window release];

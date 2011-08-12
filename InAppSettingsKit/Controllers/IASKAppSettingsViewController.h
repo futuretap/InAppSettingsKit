@@ -39,9 +39,8 @@
 @end
 
 
-@interface IASKAppSettingsViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate> {
+@interface IASKAppSettingsViewController : UITableViewController <UITextFieldDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate> {
 	id<IASKSettingsDelegate>  _delegate;
-    UITableView    			*_tableView;
     
     NSMutableArray          *_viewList;
     NSIndexPath             *_currentIndexPath;
@@ -58,7 +57,6 @@
 }
 
 @property (nonatomic, assign) IBOutlet id delegate;
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IASKSettingsReader *settingsReader;
 @property (nonatomic, retain) id<IASKSettingsStore> settingsStore;
 @property (nonatomic, copy) NSString *file;
@@ -68,9 +66,4 @@
 - (void)synchronizeSettings;
 - (IBAction)dismiss:(id)sender;
 
-// subclassing: optionally override these methods to customize appearance and functionality
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
-- (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section;
 @end
