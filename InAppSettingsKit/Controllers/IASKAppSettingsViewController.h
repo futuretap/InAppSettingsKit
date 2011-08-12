@@ -44,7 +44,6 @@
     
     NSMutableArray          *_viewList;
     NSIndexPath             *_currentIndexPath;
-	NSIndexPath				*_topmostRowBeforeKeyboardWasShown;
 	
 	IASKSettingsReader		*_settingsReader;
     id<IASKSettingsStore>  _settingsStore;

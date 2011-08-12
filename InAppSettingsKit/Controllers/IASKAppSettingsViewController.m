@@ -42,8 +42,8 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 CGRect IASKCGRectSwap(CGRect rect);
 
 @interface IASKAppSettingsViewController ()
-@property (nonatomic, retain) NSIndexPath   *currentIndexPath;
-@property (nonatomic, retain) NSIndexPath *topmostRowBeforeKeyboardWasShown;
+@property (nonatomic, retain) NSMutableArray *viewList;
+@property (nonatomic, retain) NSIndexPath *currentIndexPath;
 @property (nonatomic, retain) id currentFirstResponder;
 
 - (void)_textChanged:(id)sender;
@@ -54,8 +54,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 @implementation IASKAppSettingsViewController
 
 @synthesize delegate = _delegate;
-@synthesize currentIndexPath=_currentIndexPath;
-@synthesize topmostRowBeforeKeyboardWasShown = _topmostRowBeforeKeyboardWasShown;
+@synthesize viewList = _viewList;
+@synthesize currentIndexPath = _currentIndexPath;
 @synthesize settingsReader = _settingsReader;
 @synthesize file = _file;
 @synthesize currentFirstResponder = _currentFirstResponder;
@@ -116,26 +116,25 @@ CGRect IASKCGRectSwap(CGRect rect);
 	_showDoneButton = NO;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Add views
-    _viewList = [[NSMutableArray alloc] init];
-    [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
-    [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
-
+- (NSMutableArray *)viewList {
+    if (!_viewList) {
+		_viewList = [[NSMutableArray alloc] init];
+		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
+		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
+	}
+	return _viewList;
 }
 
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-	self.tableView = nil;
-	[_viewList release], _viewList = nil;
+	self.view = nil;
+	self.viewList = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[self.tableView reloadData];
-	
+
 	self.navigationItem.rightBarButtonItem = nil;
     self.navigationController.delegate = self;
     if (_showDoneButton) {
@@ -175,21 +174,18 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-	if ([self.currentFirstResponder canResignFirstResponder]) {
-		[self.currentFirstResponder resignFirstResponder];
-	}
 	[NSObject cancelPreviousPerformRequestsWithTarget:self];
 	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
-	IASK_IF_IOS4_OR_GREATER([dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];);
-	IASK_IF_IOS4_OR_GREATER([dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];);
-	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
-	[dc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
+	if (!self.navigationController.delegate) {
+		// hide the keyboard when we're popping from the navigation controller
+		[self.currentFirstResponder resignFirstResponder];
+	}
+	
 	[super viewDidDisappear:animated];
 }
 
@@ -215,7 +211,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 
     [_viewList release], _viewList = nil;
     [_currentIndexPath release], _currentIndexPath = nil;
-    [_topmostRowBeforeKeyboardWasShown release], _topmostRowBeforeKeyboardWasShown = nil;
 	[_file release], _file = nil;
 	[_currentFirstResponder release], _currentFirstResponder = nil;
 	[_settingsReader release], _settingsReader = nil;
@@ -231,10 +226,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark Actions
 
 - (IBAction)dismiss:(id)sender {
-	if ([self.currentFirstResponder canResignFirstResponder]) {
-		[self.currentFirstResponder resignFirstResponder];
-	}
-	
 	[self.settingsStore synchronize];
 	self.navigationController.delegate = nil;
 	
@@ -566,22 +557,22 @@ CGRect IASKCGRectSwap(CGRect rect);
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
-        IASKSpecifierValuesViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
+        IASKSpecifierValuesViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
             // the view controller has not been created yet, create it and set it to our viewList array
             // create a new dictionary with the new view controller
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
-            [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
+            [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
             
             targetViewController = [[IASKSpecifierValuesViewController alloc] initWithNibName:@"IASKSpecifierValuesView" bundle:nil];
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
-            [_viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
+            [self.viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
             [targetViewController release];
             
             // load the view controll back in to push it
-            targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
+            targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
         }
         self.currentIndexPath = indexPath;
         [targetViewController setCurrentSpecifier:specifier];
@@ -624,26 +615,26 @@ CGRect IASKCGRectSwap(CGRect rect);
             return;
         }        
         
-        IASKAppSettingsViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
+        IASKAppSettingsViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
             // the view controller has not been created yet, create it and set it to our viewList array
             // create a new dictionary with the new view controller
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
-            [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
+            [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
             
-            targetViewController = [[[self class] alloc] init];
+            targetViewController = [[[self class] alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
 			targetViewController.showDoneButton = NO;
 			targetViewController.settingsStore = self.settingsStore; 
 			targetViewController.delegate = self.delegate;
 
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
-            [_viewList replaceObjectAtIndex:kIASKSpecifierChildViewControllerIndex withObject:newItemDict];
+            [self.viewList replaceObjectAtIndex:kIASKSpecifierChildViewControllerIndex withObject:newItemDict];
             [targetViewController release];
             
             // load the view controll back in to push it
-            targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
+            targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
         }
         self.currentIndexPath = indexPath;
 		targetViewController.file = specifier.file;
@@ -740,6 +731,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark -
 #pragma mark UITextFieldDelegate Functions
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+	self.currentFirstResponder = textField;
+	return YES;
+}
+
 - (void)_textChanged:(id)sender {
     IASKTextField *text = (IASKTextField*)sender;
     [_settingsStore setObject:[text text] forKey:[text key]];
@@ -750,7 +746,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
+	[textField resignFirstResponder];
+	self.currentFirstResponder = nil;
 	return YES;
 }
 
