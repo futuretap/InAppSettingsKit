@@ -454,7 +454,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [[cell label] setText:[specifier title]];      
       
         NSString *textValue = [self.settingsStore objectForKey:key] != nil ? [self.settingsStore objectForKey:key] : [specifier defaultStringValue];
-        if (![textValue isMemberOfClass:[NSString class]]) {
+        if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
             textValue = [NSString stringWithFormat:@"%@", textValue];
         }
         [[cell textField] setText:textValue];
