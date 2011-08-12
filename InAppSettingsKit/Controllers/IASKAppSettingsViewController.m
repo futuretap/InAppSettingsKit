@@ -676,7 +676,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-            
+            mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
+			
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
                 [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
             }
