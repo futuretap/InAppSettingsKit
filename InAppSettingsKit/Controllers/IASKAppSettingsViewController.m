@@ -690,6 +690,17 @@ CGRect IASKCGRectSwap(CGRect rect);
                     [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
                 }
             }
+            if ([[specifier specifierDict] objectForKey:kIASKMailComposeModalPresentationStyle]) {
+                if ([[[specifier specifierDict] objectForKey:kIASKMailComposeModalPresentationStyle] isEqualToString:@"UIModalPresentationFullScreen"]) {
+                    [mailViewController setModalPresentationStyle:UIModalPresentationFullScreen];
+                } else if ([[[specifier specifierDict] objectForKey:kIASKMailComposeModalPresentationStyle] isEqualToString:@"UIModalPresentationPageSheet"]) {
+                    [mailViewController setModalPresentationStyle:UIModalPresentationPageSheet];
+                } else if ([[[specifier specifierDict] objectForKey:kIASKMailComposeModalPresentationStyle] isEqualToString:@"UIModalPresentationFormSheet"]) {
+                    [mailViewController setModalPresentationStyle:UIModalPresentationFormSheet];
+                } else if ([[[specifier specifierDict] objectForKey:kIASKMailComposeModalPresentationStyle] isEqualToString:@"UIModalPresentationCurrentContext"]) {
+                    [mailViewController setModalPresentationStyle:UIModalPresentationCurrentContext];
+                } 
+            }
 
             UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
             

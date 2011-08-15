@@ -167,6 +167,8 @@
 			<string>InAppSettingsKit</string>
 			<key>IASKMailComposeToRecipents</key>
 			<array/>
+			<key>IASKMailComposeModalPresentationStyle</key>
+			<string>UIModalPresentationFormSheet</string>
 			<key>Title</key>
 			<string>Mail Compose View</string>
 			<key>Type</key>
