@@ -42,9 +42,11 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 CGRect IASKCGRectSwap(CGRect rect);
 
 @interface IASKAppSettingsViewController ()
+@property (nonatomic, retain) NSMutableArray *viewList;
+@property (nonatomic, retain) NSIndexPath *currentIndexPath;
+@property (nonatomic, retain) id currentFirstResponder;
+
 - (void)_textChanged:(id)sender;
-- (void)_keyboardWillShow:(NSNotification*)notification;
-- (void)_keyboardWillHide:(NSNotification*)notification;
 - (void)synchronizeSettings;
 - (void)reload;
 @end
@@ -52,8 +54,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 @implementation IASKAppSettingsViewController
 
 @synthesize delegate = _delegate;
-@synthesize tableView = _tableView;
-@synthesize currentIndexPath=_currentIndexPath;
+@synthesize viewList = _viewList;
+@synthesize currentIndexPath = _currentIndexPath;
 @synthesize settingsReader = _settingsReader;
 @synthesize file = _file;
 @synthesize currentFirstResponder = _currentFirstResponder;
@@ -116,29 +118,25 @@ CGRect IASKCGRectSwap(CGRect rect);
 	_showDoneButton = NO;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Add views
-    _viewList = [[NSMutableArray alloc] init];
-    [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
-    [_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
-
+- (NSMutableArray *)viewList {
+    if (!_viewList) {
+		_viewList = [[NSMutableArray alloc] init];
+		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
+		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
+	}
+	return _viewList;
 }
 
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
-	self.tableView = nil;
-	[_viewList release], _viewList = nil;
+	self.view = nil;
+	self.viewList = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if (_tableView) {
-        [_tableView reloadData];
-		_tableView.frame = self.view.bounds;
-    }
-	
+	[self.tableView reloadData];
+
 	self.navigationItem.rightBarButtonItem = nil;
     self.navigationController.delegate = self;
     if (_showDoneButton) {
@@ -155,8 +153,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if (self.currentIndexPath) {
 		if (animated) {
 			// animate deselection of previously selected row
-			[_tableView selectRowAtIndexPath:self.currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-			[_tableView deselectRowAtIndexPath:self.currentIndexPath animated:YES];
+			[self.tableView selectRowAtIndexPath:self.currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+			[self.tableView deselectRowAtIndexPath:self.currentIndexPath animated:YES];
 		}
 		self.currentIndexPath = nil;
 	}
@@ -169,41 +167,27 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-	[_tableView flashScrollIndicators];
-//	_tableView.frame = self.view.bounds;
 	[super viewDidAppear:animated];
 
 	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
 	IASK_IF_IOS4_OR_GREATER([dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];);
 	IASK_IF_IOS4_OR_GREATER([dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];);
 	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
-
-	[dc addObserver:self
-											 selector:@selector(_keyboardWillShow:)
-												 name:UIKeyboardWillShowNotification
-											   object:nil];
-	[dc addObserver:self
-											 selector:@selector(_keyboardWillHide:)
-												 name:UIKeyboardWillHideNotification
-											   object:nil];		
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-	if ([self.currentFirstResponder canResignFirstResponder]) {
-		[self.currentFirstResponder resignFirstResponder];
-	}
 	[NSObject cancelPreviousPerformRequestsWithTarget:self];
 	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
-	IASK_IF_IOS4_OR_GREATER([dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];);
-	IASK_IF_IOS4_OR_GREATER([dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];);
-	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
-	[dc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
+	if (!self.navigationController.delegate) {
+		// hide the keyboard when we're popping from the navigation controller
+		[self.currentFirstResponder resignFirstResponder];
+	}
+	
 	[super viewDidDisappear:animated];
 }
 
@@ -233,7 +217,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[_currentFirstResponder release], _currentFirstResponder = nil;
 	[_settingsReader release], _settingsReader = nil;
     [_settingsStore release], _settingsStore = nil;
-	[_tableView release], _tableView = nil;
 	
 	_delegate = nil;
 
@@ -245,10 +228,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark Actions
 
 - (IBAction)dismiss:(id)sender {
-	if ([self.currentFirstResponder canResignFirstResponder]) {
-		[self.currentFirstResponder resignFirstResponder];
-	}
-	
 	[self.settingsStore synchronize];
 	self.navigationController.delegate = nil;
 	
@@ -308,7 +287,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
     if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
 		if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
-			return [self.delegate tableView:_tableView heightForSpecifier:specifier];
+			return [self.delegate tableView:tableView heightForSpecifier:specifier];
 		} else {
 			return 0;
 		}
@@ -327,7 +306,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
 	NSString *key  = [self.settingsReader keyForSection:section];
 	if ([self.delegate respondsToSelector:@selector(tableView:viewForHeaderForKey:)]) {
-		return [self.delegate tableView:_tableView viewForHeaderForKey:key];
+		return [self.delegate tableView:tableView viewForHeaderForKey:key];
 	} else {
 		return nil;
 	}
@@ -411,6 +390,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			cell.backgroundColor = [UIColor whiteColor];
 		}
         [[cell textLabel] setText:[specifier title]];
 		[[cell detailTextLabel] setText:[[specifier titleForCurrentValue:[self.settingsStore objectForKey:key] != nil ? 
@@ -423,6 +403,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			cell.accessoryType = UITableViewCellAccessoryNone;
+			cell.backgroundColor = [UIColor whiteColor];
         }
 		
 		cell.textLabel.text = [specifier title];
@@ -456,7 +437,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [[cell label] setText:[specifier title]];      
       
         NSString *textValue = [self.settingsStore objectForKey:key] != nil ? [self.settingsStore objectForKey:key] : [specifier defaultStringValue];
-        if (![textValue isMemberOfClass:[NSString class]]) {
+        if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
             textValue = [NSString stringWithFormat:@"%@", textValue];
         }
         [[cell textField] setText:textValue];
@@ -507,6 +488,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+			cell.backgroundColor = [UIColor whiteColor];
         }
 
         [[cell textLabel] setText:[specifier title]];
@@ -517,6 +499,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+			cell.backgroundColor = [UIColor whiteColor];
         }
 
 		cell.textLabel.text = [specifier title];
@@ -527,6 +510,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		
         if (!cell) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[specifier type]] autorelease];
+			cell.backgroundColor = [UIColor whiteColor];
         }
         cell.textLabel.text = [specifier title];
         cell.textLabel.textAlignment = UITextAlignmentCenter;
@@ -537,19 +521,21 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+			cell.backgroundColor = [UIColor whiteColor];
         }
         
 		cell.textLabel.text = [specifier title];
 		cell.detailTextLabel.text = [[specifier defaultValue] description];
 		return cell;
     } else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(tableView:cellForSpecifier:)]) {
-		return [self.delegate tableView:_tableView cellForSpecifier:specifier];
+		return [self.delegate tableView:tableView cellForSpecifier:specifier];
 		
 	} else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
 		
         if (!cell) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[specifier type]] autorelease];
+			cell.backgroundColor = [UIColor whiteColor];
         }
         [[cell textLabel] setText:[specifier title]];
         return cell;
@@ -573,22 +559,22 @@ CGRect IASKCGRectSwap(CGRect rect);
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
-        IASKSpecifierValuesViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
+        IASKSpecifierValuesViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
             // the view controller has not been created yet, create it and set it to our viewList array
             // create a new dictionary with the new view controller
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
-            [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
+            [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
             
             targetViewController = [[IASKSpecifierValuesViewController alloc] initWithNibName:@"IASKSpecifierValuesView" bundle:nil];
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
-            [_viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
+            [self.viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
             [targetViewController release];
             
             // load the view controll back in to push it
-            targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
+            targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
         }
         self.currentIndexPath = indexPath;
         [targetViewController setCurrentSpecifier:specifier];
@@ -612,7 +598,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             if (!initSelector) {
                 initSelector = @selector(init);
             }
-            UIViewController * vc = [vcClass alloc];
+            UIViewController * vc = [vcClass performSelector:@selector(alloc)];
             [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
 			if ([vc respondsToSelector:@selector(setDelegate:)]) {
 				[vc performSelector:@selector(setDelegate:) withObject:self.delegate];
@@ -622,7 +608,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			}
 			self.navigationController.delegate = nil;
             [self.navigationController pushViewController:vc animated:YES];
-            [vc release];
+            [vc performSelector:@selector(release)];
             return;
         }
         
@@ -631,13 +617,13 @@ CGRect IASKCGRectSwap(CGRect rect);
             return;
         }        
         
-        IASKAppSettingsViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
+        IASKAppSettingsViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
             // the view controller has not been created yet, create it and set it to our viewList array
             // create a new dictionary with the new view controller
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
-            [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
+            [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
             
             targetViewController = [[[self class] alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
 			targetViewController.showDoneButton = NO;
@@ -646,11 +632,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
-            [_viewList replaceObjectAtIndex:kIASKSpecifierChildViewControllerIndex withObject:newItemDict];
+            [self.viewList replaceObjectAtIndex:kIASKSpecifierChildViewControllerIndex withObject:newItemDict];
             [targetViewController release];
             
             // load the view controll back in to push it
-            targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
+            targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
         }
         self.currentIndexPath = indexPath;
 		targetViewController.file = specifier.file;
@@ -678,7 +664,9 @@ CGRect IASKCGRectSwap(CGRect rect);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-            
+            mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
+			mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+			
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
                 [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
             }
@@ -746,6 +734,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark -
 #pragma mark UITextFieldDelegate Functions
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+	self.currentFirstResponder = textField;
+	return YES;
+}
+
 - (void)_textChanged:(id)sender {
     IASKTextField *text = (IASKTextField*)sender;
     [_settingsStore setObject:[text text] forKey:[text key]];
@@ -755,90 +748,12 @@ CGRect IASKCGRectSwap(CGRect rect);
                                                                                            forKey:[text key]]];
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-	[textField setTextAlignment:UITextAlignmentLeft];
-	self.currentFirstResponder = textField;
-    return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-	self.currentFirstResponder = textField;
-	if ([_tableView indexPathsForVisibleRows].count) {
-		_topmostRowBeforeKeyboardWasShown = (NSIndexPath*)[[_tableView indexPathsForVisibleRows] objectAtIndex:0];
-	} else {
-		// this should never happen
-		_topmostRowBeforeKeyboardWasShown = [NSIndexPath indexPathForRow:0 inSection:0];
-		[textField resignFirstResponder];
-	}
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-	self.currentFirstResponder = nil;
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
+	[textField resignFirstResponder];
+	self.currentFirstResponder = nil;
 	return YES;
 }
 
-#pragma mark Keyboard Management
-- (void)_keyboardWillShow:(NSNotification*)notification {
-	if (self.navigationController.topViewController == self) {
-		NSDictionary* userInfo = [notification userInfo];
-
-		// we don't use SDK constants here to be universally compatible with all SDKs ≥ 3.0
-		NSValue* keyboardFrameValue = [userInfo objectForKey:@"UIKeyboardBoundsUserInfoKey"];
-		if (!keyboardFrameValue) {
-			keyboardFrameValue = [userInfo objectForKey:@"UIKeyboardFrameEndUserInfoKey"];
-		}
-		
-		// Reduce the tableView height by the part of the keyboard that actually covers the tableView
-		CGRect windowRect = [[UIApplication sharedApplication] keyWindow].bounds;
-		if (UIInterfaceOrientationLandscapeLeft == self.interfaceOrientation ||UIInterfaceOrientationLandscapeRight == self.interfaceOrientation ) {
-			windowRect = IASKCGRectSwap(windowRect);
-		}
-		CGRect viewRectAbsolute = [_tableView convertRect:_tableView.bounds toView:[[UIApplication sharedApplication] keyWindow]];
-		if (UIInterfaceOrientationLandscapeLeft == self.interfaceOrientation ||UIInterfaceOrientationLandscapeRight == self.interfaceOrientation ) {
-			viewRectAbsolute = IASKCGRectSwap(viewRectAbsolute);
-		}
-		CGRect frame = _tableView.frame;
-		frame.size.height -= [keyboardFrameValue CGRectValue].size.height - CGRectGetMaxY(windowRect) + CGRectGetMaxY(viewRectAbsolute);
-
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
-		[UIView setAnimationCurve:[[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
-		_tableView.frame = frame;
-		[UIView commitAnimations];
-		
-		UITableViewCell *textFieldCell = (id)((UITextField *)self.currentFirstResponder).superview.superview;
-		NSIndexPath *textFieldIndexPath = [_tableView indexPathForCell:textFieldCell];
-
-		// iOS 3 sends hide and show notifications right after each other
-		// when switching between textFields, so cancel -scrollToOldPosition requests
-		[NSObject cancelPreviousPerformRequestsWithTarget:self];
-		
-		[_tableView scrollToRowAtIndexPath:textFieldIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-	}
-}
-
-
-- (void) scrollToOldPosition {
-  [_tableView scrollToRowAtIndexPath:_topmostRowBeforeKeyboardWasShown atScrollPosition:UITableViewScrollPositionTop animated:YES];
-}
-
-- (void)_keyboardWillHide:(NSNotification*)notification {
-	if (self.navigationController.topViewController == self) {
-		NSDictionary* userInfo = [notification userInfo];
-		
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
-		[UIView setAnimationCurve:[[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
-		_tableView.frame = self.view.bounds;
-		[UIView commitAnimations];
-		
-		[self performSelector:@selector(scrollToOldPosition) withObject:nil afterDelay:0.1];
-	}
-}	
 
 #pragma mark Notifications
 
@@ -848,7 +763,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)reload {
 	// wait 0.5 sec until UI is available after applicationWillEnterForeground
-	[_tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
+	[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
 }
 
 #pragma mark CGRect Utility function
