@@ -85,10 +85,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)setFile:(NSString *)file {
 	if (file != _file) {
+        
 		[_file release];
 		_file = [file copy];
 	}
 	
+    self.tableView.contentOffset = CGPointMake(0, 0);
 	self.settingsReader = nil; // automatically initializes itself
 }
 
