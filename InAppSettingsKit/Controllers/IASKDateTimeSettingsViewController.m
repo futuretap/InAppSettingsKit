@@ -92,6 +92,8 @@
         
         [self updateCheckedItem];
     }    
+    CGSize size = CGSizeMake(320, 420);
+    self.contentSizeForViewInPopover = size;
 	[super viewWillAppear:animated];
 }
 
