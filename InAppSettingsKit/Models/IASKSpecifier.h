@@ -32,6 +32,8 @@
 - (NSString*)title;
 - (NSString*)key;
 - (NSString*)type;
+- (NSString*)dateFormat;
+- (NSString*)dateTimeType;
 - (NSString*)titleForCurrentValue:(id)currentValue;
 - (NSInteger)multipleValuesCount;
 - (NSArray*)multipleValues;

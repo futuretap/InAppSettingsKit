@@ -101,6 +101,14 @@
     return [_specifierDict objectForKey:kIASKType];
 }
 
+- (NSString*)dateFormat {
+    return [_specifierDict objectForKey:kIASKDateFormat];
+}
+- (NSString*)dateTimeType {
+    return [_specifierDict objectForKey:kIASKDateTimeType];
+}
+
+
 - (NSString*)titleForCurrentValue:(id)currentValue {
 	NSArray *values = [self multipleValues];
 	NSArray *titles = [self multipleTitles];

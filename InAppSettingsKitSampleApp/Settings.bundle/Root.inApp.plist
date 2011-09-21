@@ -23,6 +23,51 @@
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
 		<dict>
+			<key>FooterText</key>
+			<string>This group shows different date settings</string>
+			<key>Title</key>
+			<string>Date and Time</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>dateTimeFullSetting</string>
+			<key>Title</key>
+			<string>Full date + time</string>
+			<key>Type</key>
+			<string>IASKDateTimeValueSpecifier</string>
+			<key>DateFormat</key>
+			<string>yyyy-MM-dd HH:mm</string>
+			<key>DateTimeType</key>
+			<string>DateTimeFull</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>dateTimeDateSetting</string>
+			<key>Title</key>
+			<string>Date only</string>
+			<key>Type</key>
+			<string>IASKDateTimeValueSpecifier</string>
+			<key>DateFormat</key>
+			<string>yyyy-MM-dd</string>
+			<key>DateTimeType</key>
+			<string>DateTimeDate</string>            
+        </dict>
+		<dict>
+			<key>Key</key>
+			<string>dateTimeTimeSetting</string>
+			<key>Title</key>
+			<string>Time only</string>
+			<key>Type</key>
+			<string>IASKDateTimeValueSpecifier</string>
+			<key>DateFormat</key>
+			<string>HH:mm</string>
+			<key>DateTimeType</key>
+			<string>DateTimeTime</string>        
+        </dict>
+        
+		<dict>
 			<key>Title</key>
 			<string>MUL_VALUE_TITLE</string>
 			<key>Type</key>
