@@ -206,7 +206,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-	if (![viewController isKindOfClass:[IASKAppSettingsViewController class]] && ![viewController isKindOfClass:[IASKSpecifierValuesViewController class]]) {
+	if (![viewController isKindOfClass:[IASKAppSettingsViewController class]] && ![viewController isKindOfClass:[IASKSpecifierValuesViewController class]] && ![viewController isKindOfClass:[IASKDateTimeSettingsViewController class]]) {
 		[self dismiss:nil];
 	}
 }
