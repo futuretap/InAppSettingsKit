@@ -97,6 +97,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 #pragma mark standard view controller methods
+- (id)init {
+    return [self initWithNibName:@"IASKAppSettingsView" bundle:nil];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // If set to YES, will display credits for InAppSettingsKit creators
