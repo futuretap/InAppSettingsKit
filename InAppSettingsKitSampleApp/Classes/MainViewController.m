@@ -58,14 +58,13 @@
 	// your code here to reconfigure the app for changed settings
 }
 
-- (void)mailDidFinishWithResult:(NSNumber*)resultNumber error:(NSError*)error {
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
        
     if ( error != nil ) {
         // handle error here
     }
     
 #import <MessageUI/MessageUI.h>
-    enum MFMailComposeResult result = (MFMailComposeResult)[resultNumber intValue];
     
     if ( result == MFMailComposeResultSent ) {
         // your code here to handle this result
