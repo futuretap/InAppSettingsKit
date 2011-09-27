@@ -34,7 +34,7 @@
 
 - (NSString*)mailComposeBody;
 - (UIViewController<MFMailComposeViewControllerDelegate>*)viewControllerForMailComposeView;
-- (void)mailDidFinishWithResult:(NSNumber*)resultNumber error:(NSError*)error;
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error;
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key;
 @end
