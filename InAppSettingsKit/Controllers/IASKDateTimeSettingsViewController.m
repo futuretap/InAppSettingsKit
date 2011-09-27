@@ -89,9 +89,10 @@
         else if([dateTimeType isEqualToString:kIASKDateTimeTypeTime]){
             self.datePicker.datePickerMode = UIDatePickerModeTime;
         }
-        
+        self.datePicker.timeZone = [_currentSpecifier timeZone];
+        self.datePicker.locale =[_currentSpecifier locale];
         [self updateCheckedItem];
-    }    
+    }
     CGSize size = CGSizeMake(320, 420);
     self.contentSizeForViewInPopover = size;
 	[super viewWillAppear:animated];

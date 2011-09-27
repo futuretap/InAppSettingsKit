@@ -23,6 +23,8 @@
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
 #define kIASKDateFormat                       @"DateFormat"
+#define kIASKTimeZone                         @"TimeZone"
+#define kIASKLocale                           @"Locale"
 #define kIASKDateTimeType                     @"DateTimeType"
 #define kIASKDefaultValue                     @"DefaultValue"
 #define kIASKMinimumValue                     @"MinimumValue"

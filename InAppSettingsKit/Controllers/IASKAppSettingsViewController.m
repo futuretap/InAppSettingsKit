@@ -415,9 +415,13 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
         if(date != nil) {
             NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-            [dateFormatter setLocale:[[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease]];
-            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-            [dateFormatter setDateFormat:[specifier dateFormat]];
+            [dateFormatter setLocale:[specifier locale]];
+            [dateFormatter setTimeZone:[specifier timeZone]];
+            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            if([specifier dateFormat] != nil) {
+                [dateFormatter setDateFormat:[specifier dateFormat]];
+            }
             [[cell detailTextLabel] setText:[dateFormatter stringFromDate:date]];
         }
         
