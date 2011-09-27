@@ -58,6 +58,29 @@
 	// your code here to reconfigure the app for changed settings
 }
 
+// optional delegate method for handling mail sending result
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+       
+    if ( error != nil ) {
+        // handle error here
+    }
+    
+#import <MessageUI/MessageUI.h>
+    
+    if ( result == MFMailComposeResultSent ) {
+        // your code here to handle this result
+    }
+    else if ( result == MFMailComposeResultCancelled ) {
+        // ...
+    }
+    else if ( result == MFMailComposeResultSaved ) {
+        // ...
+    }
+    else if ( result == MFMailComposeResultFailed ) {
+        // ...
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderForKey:(NSString*)key {
 	if ([key isEqualToString:@"IASKLogo"]) {
 		return [UIImage imageNamed:@"Icon.png"].size.height + 25;

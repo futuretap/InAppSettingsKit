@@ -730,6 +730,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark MFMailComposeViewControllerDelegate Function
 
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    
+    // Forward the mail compose delegate
+    if ([self.delegate respondsToSelector:@selector(mailComposeController: didFinishWithResult: error:)]) {
+         [self.delegate mailComposeController:controller didFinishWithResult:result error:error];
+     }
+    
     // NOTE: No error handling is done here
     [self dismissModalViewControllerAnimated:YES];
 }
