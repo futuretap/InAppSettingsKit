@@ -128,6 +128,10 @@ CGRect IASKCGRectSwap(CGRect rect);
         self.view.backgroundColor = [self.delegate backgroundColor];
         _tableView.backgroundColor = [self.delegate backgroundColor];
     }
+    
+    // UIAutomation cannot see the settings table view without this
+    // although VoiceOver works just fine without it.
+    _tableView.isAccessibilityElement = YES;
 }
 
 - (void)viewDidUnload {
