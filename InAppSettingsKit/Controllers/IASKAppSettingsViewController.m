@@ -45,6 +45,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @property (nonatomic, retain) NSMutableArray *viewList;
 @property (nonatomic, retain) NSIndexPath *currentIndexPath;
 @property (nonatomic, retain) id currentFirstResponder;
+@property (nonatomic, retain) UIBarButtonItem *doneButton;
 
 - (void)_textChanged:(id)sender;
 - (void)synchronizeSettings;
@@ -62,6 +63,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize showCreditsFooter = _showCreditsFooter;
 @synthesize showDoneButton = _showDoneButton;
 @synthesize settingsStore = _settingsStore;
+@synthesize doneButton = _doneButton;
+@synthesize doneButtonImage = _doneButtonImage;
 
 #pragma mark accessors
 - (IASKSettingsReader*)settingsReader {
@@ -117,6 +120,12 @@ CGRect IASKCGRectSwap(CGRect rect);
         // If set to YES, will add a DONE button at the right of the navigation bar
         _showDoneButton = YES;
 		
+        // Definition of default Done Button
+        _doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+                                                                    target:self 
+                                                                    action:@selector(dismiss:)];
+        _doneButtonImage = nil;
+
 		if ([self isPad]) {
 			self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
 		}
@@ -160,11 +169,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 	self.navigationItem.rightBarButtonItem = nil;
     self.navigationController.delegate = self;
     if (_showDoneButton) {
-        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
-                                                                                    target:self 
-                                                                                    action:@selector(dismiss:)];
+        if (_doneButtonImage != nil) {
+            UIButton *save =  [UIButton buttonWithType:UIButtonTypeCustom];
+            [save setImage: _doneButtonImage forState: UIControlStateNormal];
+            [save addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
+            save.frame = CGRectMake(0.f, 0.f, _doneButtonImage.size.width, _doneButtonImage.size.height);
+            UIBarButtonItem *saveButtonItem = [[[UIBarButtonItem alloc] initWithCustomView: save] autorelease];
+            _doneButton = saveButtonItem;
+        }
+        
         self.navigationItem.rightBarButtonItem = buttonItem;
-        [buttonItem release];
     } 
     if (!self.title) {
         self.title = NSLocalizedString(@"Settings", @"");
@@ -237,6 +251,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[_currentFirstResponder release], _currentFirstResponder = nil;
 	[_settingsReader release], _settingsReader = nil;
     [_settingsStore release], _settingsStore = nil;
+    [_doneButton release], _doneButton = nil;
 	
 	_delegate = nil;
 
