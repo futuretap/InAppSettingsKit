@@ -178,7 +178,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             _doneButton = saveButtonItem;
         }
         
-        self.navigationItem.rightBarButtonItem = buttonItem;
+        self.navigationItem.rightBarButtonItem = _doneButton;
     } 
     if (!self.title) {
         self.title = NSLocalizedString(@"Settings", @"");
