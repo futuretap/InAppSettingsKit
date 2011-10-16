@@ -122,7 +122,7 @@
 
 // Antigluk: Popover size fitting
 - (CGSize)contentSizeForViewInPopover {
-    return [[self view] sizeThatFits:CGSizeMake(400, 2000)];
+    return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 
 #pragma mark -
