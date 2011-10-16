@@ -120,6 +120,10 @@
     [super dealloc];
 }
 
+// Antigluk: Popover size fitting
+- (CGSize)contentSizeForViewInPopover {
+    return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
+}
 
 #pragma mark -
 #pragma mark UITableView delegates
