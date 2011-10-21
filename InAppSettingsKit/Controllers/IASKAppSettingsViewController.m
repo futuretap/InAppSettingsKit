@@ -412,7 +412,6 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			cell.backgroundColor = [UIColor whiteColor];
 		}
         [[cell textLabel] setText:[specifier title]];
 		[[cell detailTextLabel] setText:[[specifier titleForCurrentValue:[self.settingsStore objectForKey:key] != nil ? 
@@ -423,7 +422,6 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			cell.accessoryType = UITableViewCellAccessoryNone;
-			cell.backgroundColor = [UIColor whiteColor];
         }
 		
 		cell.textLabel.text = [specifier title];
@@ -502,7 +500,6 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-			cell.backgroundColor = [UIColor whiteColor];
         }
 
         [[cell textLabel] setText:[specifier title]];
@@ -511,7 +508,6 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-			cell.backgroundColor = [UIColor whiteColor];
         }
 
 		cell.textLabel.text = [specifier title];
@@ -520,7 +516,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
         if (!cell) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[specifier type]] autorelease];
-			cell.backgroundColor = [UIColor whiteColor];
         }
         cell.textLabel.text = [specifier title];
         cell.textLabel.textAlignment = UITextAlignmentCenter;
@@ -529,7 +524,6 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
 			[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-			cell.backgroundColor = [UIColor whiteColor];
         }
         
 		cell.textLabel.text = [specifier title];
@@ -538,7 +532,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else {
         if (!cell) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[specifier type]] autorelease];
-			cell.backgroundColor = [UIColor whiteColor];
         }
         [[cell textLabel] setText:[specifier title]];
         return cell;
