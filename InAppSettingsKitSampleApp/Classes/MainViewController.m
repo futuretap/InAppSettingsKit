@@ -17,6 +17,8 @@
 
 #import "MainViewController.h"
 
+#import <MessageUI/MessageUI.h>
+
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
 
@@ -64,8 +66,6 @@
     if ( error != nil ) {
         // handle error here
     }
-    
-#import <MessageUI/MessageUI.h>
     
     if ( result == MFMailComposeResultSent ) {
         // your code here to handle this result

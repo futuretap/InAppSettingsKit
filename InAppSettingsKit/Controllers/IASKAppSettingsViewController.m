@@ -486,7 +486,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
 		
         if ([[specifier maximumValueImage] length] > 0) {
-            ((IASKPSSliderSpecifierViewCell*)cell).maxImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:[specifier minimumValueImage]]];
+            ((IASKPSSliderSpecifierViewCell*)cell).maxImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:[specifier maximumValueImage]]];
 		}
         
 		IASKSlider *slider = ((IASKPSSliderSpecifierViewCell*)cell).slider;
