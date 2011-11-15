@@ -43,7 +43,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 @interface IASKAppSettingsViewController ()
 @property (nonatomic, retain) NSMutableArray *viewList;
-@property (nonatomic, retain) NSIndexPath *currentIndexPath;
 @property (nonatomic, retain) id currentFirstResponder;
 
 - (void)_textChanged:(id)sender;
@@ -55,7 +54,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 @synthesize delegate = _delegate;
 @synthesize viewList = _viewList;
-@synthesize currentIndexPath = _currentIndexPath;
 @synthesize settingsReader = _settingsReader;
 @synthesize file = _file;
 @synthesize currentFirstResponder = _currentFirstResponder;
@@ -155,7 +153,15 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[self.tableView reloadData];
+  //if there's something selected, the value might have changed
+  //so reload that row
+  NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+  if(selectedIndexPath) {
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath] 
+                          withRowAnimation:UITableViewRowAnimationNone];
+    //and reselect it, so we get the nice default deselect animation from UITableViewController
+    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+  }
 
 	self.navigationItem.rightBarButtonItem = nil;
     self.navigationController.delegate = self;
@@ -169,16 +175,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     if (!self.title) {
         self.title = NSLocalizedString(@"Settings", @"");
     }
-	
-	if (self.currentIndexPath) {
-		if (animated) {
-			// animate deselection of previously selected row
-			[self.tableView selectRowAtIndexPath:self.currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-			[self.tableView deselectRowAtIndexPath:self.currentIndexPath animated:YES];
-		}
-		self.currentIndexPath = nil;
-	}
-	
+		
 	[super viewWillAppear:animated];
 }
 
@@ -232,7 +229,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [_viewList release], _viewList = nil;
-    [_currentIndexPath release], _currentIndexPath = nil;
 	[_file release], _file = nil;
 	[_currentFirstResponder release], _currentFirstResponder = nil;
 	[_settingsReader release], _settingsReader = nil;
@@ -579,7 +575,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             // load the view controll back in to push it
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
         }
-        self.currentIndexPath = indexPath;
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
@@ -641,7 +636,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             // load the view controll back in to push it
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
         }
-        self.currentIndexPath = indexPath;
 		targetViewController.file = specifier.file;
 		targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;

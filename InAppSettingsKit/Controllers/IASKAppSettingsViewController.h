@@ -44,7 +44,6 @@
 	id<IASKSettingsDelegate>  _delegate;
     
     NSMutableArray          *_viewList;
-    NSIndexPath             *_currentIndexPath;
 	
 	IASKSettingsReader		*_settingsReader;
     id<IASKSettingsStore>  _settingsStore;
