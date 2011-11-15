@@ -80,15 +80,18 @@
         // ...
     }
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderForKey:(NSString*)key {
+- (CGFloat)settingsViewController:(IASKAppSettingsViewController *)settingsViewContoller 
+                        tableView:(UITableView *)tableView 
+            heightForHeaderForKey:(NSString *)key {
 	if ([key isEqualToString:@"IASKLogo"]) {
 		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
 	}
-	return 0;
+	return 0;  
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderForKey:(NSString*)key {
+- (UIView *)settingsViewController:(IASKAppSettingsViewController *)settingsViewContoller 
+                         tableView:(UITableView *)tableView 
+               viewForHeaderForKey:(NSString *)key {
 	if ([key isEqualToString:@"IASKLogo"]) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;

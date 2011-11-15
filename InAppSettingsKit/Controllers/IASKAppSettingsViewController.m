@@ -325,8 +325,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
 	NSString *key  = [self.settingsReader keyForSection:section];
-	if ([self.delegate respondsToSelector:@selector(tableView:viewForHeaderForKey:)]) {
-		return [self.delegate tableView:tableView viewForHeaderForKey:key];
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForHeaderForKey:)]) {
+		return [self.delegate settingsViewController:self tableView:tableView viewForHeaderForKey:key];
 	} else {
 		return nil;
 	}
@@ -334,9 +334,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
 	NSString *key  = [self.settingsReader keyForSection:section];
-	if ([self tableView:tableView viewForHeaderInSection:section] && [self.delegate respondsToSelector:@selector(tableView:heightForHeaderForKey:)]) {
+	if ([self tableView:tableView viewForHeaderInSection:section] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForHeaderForKey:)]) {
 		CGFloat result;
-		if ((result = [self.delegate tableView:tableView heightForHeaderForKey:key])) {
+		if ((result = [self.delegate settingsViewController:self tableView:tableView heightForHeaderForKey:key])) {
 			return result;
 		}
 		

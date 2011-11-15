@@ -28,8 +28,12 @@
 
 @optional
 #pragma mark - UITableView header customization
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderForKey:(NSString*)key;
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderForKey:(NSString*)key;
+- (CGFloat) settingsViewController:(IASKAppSettingsViewController*) settingsViewContoller
+                         tableView:(UITableView *)tableView 
+             heightForHeaderForKey:(NSString*)key;
+- (UIView *) settingsViewController:(IASKAppSettingsViewController*) settingsViewContoller
+                          tableView:(UITableView *)tableView 
+                viewForHeaderForKey:(NSString*)key;
 
 #pragma mark - UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
