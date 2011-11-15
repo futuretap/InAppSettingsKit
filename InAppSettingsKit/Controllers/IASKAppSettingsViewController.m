@@ -153,10 +153,15 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-  //store before reloading the tableview
-	NSIndexPath* currentIndexPath = [self.tableView indexPathForSelectedRow];
-
-  [self.tableView reloadData];
+  //if there's something selected, the value might have changed
+  //so reload that row
+  NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+  if(selectedIndexPath) {
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath] 
+                          withRowAnimation:UITableViewRowAnimationNone];
+    //and reselect it, so we get the nice default deselect animation from UITableViewController
+    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+  }
 
 	self.navigationItem.rightBarButtonItem = nil;
     self.navigationController.delegate = self;
@@ -170,15 +175,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     if (!self.title) {
         self.title = NSLocalizedString(@"Settings", @"");
     }
-	
-	if (currentIndexPath) {
-		if (animated) {
-			// animate deselection of previously selected row
-			[self.tableView selectRowAtIndexPath:currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-			[self.tableView deselectRowAtIndexPath:currentIndexPath animated:YES];
-		}
-	}
-	
+		
 	[super viewWillAppear:animated];
 }
 
