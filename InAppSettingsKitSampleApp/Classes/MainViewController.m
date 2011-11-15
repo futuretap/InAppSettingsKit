@@ -86,8 +86,10 @@
   NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
-	}
-	return 0;  
+	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
+		return 55.f;    
+  }
+	return 0;
 }
 
 - (UIView *)settingsViewController:(IASKAppSettingsViewController *)settingsViewContoller 
@@ -98,7 +100,21 @@
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;
 		return [imageView autorelease];
-	}
+	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor redColor];
+    label.shadowColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(0, 1);
+    label.numberOfLines = 0;
+    label.font = [UIFont boldSystemFontOfSize:16.f];
+    
+    //figure out the title from settingsbundle
+    label.text = [settingsViewContoller.settingsReader titleForSection:section];
+    
+    return [label autorelease];
+  }
 	return nil;
 }
 
