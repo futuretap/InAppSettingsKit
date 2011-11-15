@@ -560,10 +560,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
     
-    if ([[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    }
-    else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
+    //switches can't be selected (should be captured by tableView:willSelectRowAtIndexPath: delegate method)
+    assert(![[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]);
+
+    if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
         IASKSpecifierValuesViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
