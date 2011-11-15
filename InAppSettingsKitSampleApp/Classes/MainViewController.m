@@ -82,7 +82,8 @@
 }
 - (CGFloat)settingsViewController:(IASKAppSettingsViewController *)settingsViewContoller 
                         tableView:(UITableView *)tableView 
-            heightForHeaderForKey:(NSString *)key {
+        heightForHeaderForSection:(NSInteger)section {
+  NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
 	}
@@ -91,7 +92,8 @@
 
 - (UIView *)settingsViewController:(IASKAppSettingsViewController *)settingsViewContoller 
                          tableView:(UITableView *)tableView 
-               viewForHeaderForKey:(NSString *)key {
+               viewForHeaderForSection:(NSInteger)section {
+  NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;
