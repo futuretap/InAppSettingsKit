@@ -46,6 +46,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 @property (nonatomic, retain) NSIndexPath *currentIndexPath;
 @property (nonatomic, retain) id currentFirstResponder;
 
+- (void) setup;
+
 - (void)_textChanged:(id)sender;
 - (void)synchronizeSettings;
 - (void)reload;
@@ -110,32 +112,32 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        // If set to YES, will display credits for InAppSettingsKit creators
-        _showCreditsFooter = YES;
-        
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {        
         // If set to YES, will add a DONE button at the right of the navigation bar
-        _showDoneButton = YES;
-		
-		if ([self isPad]) {
-			self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-		}
+      _showDoneButton = YES;
+
+      [self setup];
     }
     return self;
 }
 
-- (void)awakeFromNib {
-	// If set to YES, will display credits for InAppSettingsKit creators
-	_showCreditsFooter = YES;
-	
+- (void)awakeFromNib {	
 	// If set to YES, will add a DONE button at the right of the navigation bar
 	// if loaded via NIB, it's likely we sit in a TabBar- or NavigationController
 	// and thus don't need the Done button
 	_showDoneButton = NO;
+  
+  [self setup];
+}
 
-	if ([self isPad]) {
-		self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-	}
+//common (NIB & code based) initialization
+- (void) setup {
+  // If set to YES, will display credits for InAppSettingsKit creators
+  _showCreditsFooter = YES;
+  
+  if ([self isPad]) {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+  }
 }
 
 - (NSMutableArray *)viewList {
