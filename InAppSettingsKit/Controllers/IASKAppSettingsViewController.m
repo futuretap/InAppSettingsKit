@@ -548,9 +548,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  //create a set of specifier types that can't be selected
+	static NSSet* noSelectionTypes = nil;
+  if(nil == noSelectionTypes) {
+    noSelectionTypes = [[NSSet setWithObjects:kIASKPSToggleSwitchSpecifier, kIASKPSSliderSpecifier, nil] retain];
+  }
+  
 	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
-	
-	if ([[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]) {
+  if([noSelectionTypes containsObject:[specifier type]]) {
 		return nil;
 	} else {
 		return indexPath;
@@ -560,8 +565,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
     
-    //switches can't be selected (should be captured by tableView:willSelectRowAtIndexPath: delegate method)
+    //switches and sliders can't be selected (should be captured by tableView:willSelectRowAtIndexPath: delegate method)
     assert(![[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]);
+    assert(![[specifier type] isEqualToString:kIASKPSSliderSpecifier]);
 
     if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
         IASKSpecifierValuesViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
@@ -586,9 +592,6 @@ CGRect IASKCGRectSwap(CGRect rect);
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
         [[self navigationController] pushViewController:targetViewController animated:YES];
-    }
-    else if ([[specifier type] isEqualToString:kIASKPSSliderSpecifier]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
 		IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
