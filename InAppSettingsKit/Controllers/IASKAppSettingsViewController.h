@@ -18,6 +18,7 @@
 #import <MessageUI/MessageUI.h>
 
 #import "IASKSettingsStore.h"
+#import "IASKViewController.h"
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
@@ -28,10 +29,10 @@
 
 @optional
 #pragma mark - UITableView header customization
-- (CGFloat) settingsViewController:(IASKAppSettingsViewController*) settingsViewContoller
+- (CGFloat) settingsViewController:(id<IASKViewController>) settingsViewContoller
                          tableView:(UITableView *)tableView 
          heightForHeaderForSection:(NSInteger)section;
-- (UIView *) settingsViewController:(IASKAppSettingsViewController*) settingsViewContoller
+- (UIView *) settingsViewController:(id<IASKViewController>) settingsViewContoller
                           tableView:(UITableView *)tableView 
             viewForHeaderForSection:(NSInteger)section;
 
@@ -49,7 +50,7 @@
 @end
 
 
-@interface IASKAppSettingsViewController : UITableViewController <UITextFieldDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate> {
+@interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate> {
 	id<IASKSettingsDelegate>  _delegate;
     
     NSMutableArray          *_viewList;

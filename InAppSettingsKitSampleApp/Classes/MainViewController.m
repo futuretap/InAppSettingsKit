@@ -80,7 +80,7 @@
         // ...
     }
 }
-- (CGFloat)settingsViewController:(IASKAppSettingsViewController *)settingsViewContoller 
+- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewContoller 
                         tableView:(UITableView *)tableView 
         heightForHeaderForSection:(NSInteger)section {
   NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
@@ -92,7 +92,7 @@
 	return 0;
 }
 
-- (UIView *)settingsViewController:(IASKAppSettingsViewController *)settingsViewContoller 
+- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewContoller 
                          tableView:(UITableView *)tableView 
                viewForHeaderForSection:(NSInteger)section {
   NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
