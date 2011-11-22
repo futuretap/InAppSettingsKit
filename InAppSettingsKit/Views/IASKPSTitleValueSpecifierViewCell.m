@@ -33,19 +33,22 @@
 	[super layoutSubviews];
 	
 	CGSize viewSize =  [self.textLabel superview].frame.size;
-	
+
+  //if there's an image, make room for it
+	CGFloat imageOffset = self.imageView.image ? self.imageView.bounds.size.width + self.imageView.frame.origin.x : 0;
+  
 	// set the left title label frame
 	CGFloat labelWidth = [self.textLabel sizeThatFits:CGSizeZero].width;
 	CGFloat minValueWidth = (self.detailTextLabel.text.length) ? kIASKMinValueWidth + kIASKSpacing : 0;
-	labelWidth = MIN(labelWidth, viewSize.width - minValueWidth - kIASKPaddingLeft -kIASKPaddingRight);
-	CGRect labelFrame = CGRectMake(kIASKPaddingLeft, 0, labelWidth, viewSize.height -2);
+	labelWidth = MIN(labelWidth, viewSize.width - minValueWidth - kIASKPaddingLeft -kIASKPaddingRight - imageOffset);
+	CGRect labelFrame = CGRectMake(kIASKPaddingLeft + imageOffset, 0, labelWidth, viewSize.height -2);
 	self.textLabel.frame = labelFrame;
 	
 	// set the right value label frame
 	if (self.detailTextLabel.text.length) {
-		CGRect valueFrame = CGRectMake(kIASKPaddingLeft + labelWidth + kIASKSpacing,
+		CGRect valueFrame = CGRectMake(kIASKPaddingLeft + labelWidth + kIASKSpacing + imageOffset,
 									   0,
-									   viewSize.width - (kIASKPaddingLeft + labelWidth + kIASKSpacing) - kIASKPaddingRight,
+									   viewSize.width - (kIASKPaddingLeft + labelWidth + kIASKSpacing + imageOffset) - kIASKPaddingRight,
 									   viewSize.height -2);
 		self.detailTextLabel.frame = valueFrame;
 	}

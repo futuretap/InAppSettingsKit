@@ -16,6 +16,7 @@
 
 #import "IASKPSToggleSwitchSpecifierViewCell.h"
 #import "IASKSwitch.h"
+#import "IASKSettingsReader.h"
 
 @implementation IASKPSToggleSwitchSpecifierViewCell
 
@@ -42,5 +43,15 @@
     [super dealloc];
 }
 
+- (void)layoutSubviews {
+  [super layoutSubviews];
+  if(self.imageView.image) {
+    //resize the label to make room for the image
+    self.label.frame = CGRectMake(CGRectGetWidth(self.imageView.bounds) + self.imageView.frame.origin.x + kIASKSpacing, 
+                                  self.label.frame.origin.y, 
+                                  self.toggle.frame.origin.x - CGRectGetWidth(self.imageView.bounds) - 2.f * kIASKSpacing, 
+                                  self.label.frame.size.height);    
+  }
+}
 
 @end
