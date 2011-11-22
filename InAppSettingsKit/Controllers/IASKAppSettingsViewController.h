@@ -41,9 +41,16 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
 #pragma mark - mail composing customization
-- (NSString*)mailComposeBody;
-- (UIViewController<MFMailComposeViewControllerDelegate>*)viewControllerForMailComposeView;
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error;
+- (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController 
+         mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
+
+- (UIViewController<MFMailComposeViewControllerDelegate>*) settingsViewController:(id<IASKViewController>)settingsViewController
+                                     viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*) specifier;
+
+- (void) settingsViewController:(id<IASKViewController>) settingsViewController
+          mailComposeController:(MFMailComposeViewController*)controller 
+            didFinishWithResult:(MFMailComposeResult)result 
+                          error:(NSError*)error;
 
 #pragma mark - respond to button taps
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key;
