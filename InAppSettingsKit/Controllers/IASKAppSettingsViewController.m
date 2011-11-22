@@ -723,6 +723,11 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if([self.delegate respondsToSelector:@selector(settingsViewController:willDisplayCell:forRowAtIndexPath:)]) {
+    [self.delegate settingsViewController:self willDisplayCell:cell forRowAtIndexPath:indexPath];
+  }
+}
 
 #pragma mark -
 #pragma mark MFMailComposeViewControllerDelegate Function

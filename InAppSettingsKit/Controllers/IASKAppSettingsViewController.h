@@ -40,6 +40,10 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
+- (void) settingsViewController:(IASKAppSettingsViewController *)settingsViewController
+                willDisplayCell:(UITableViewCell*) cell
+              forRowAtIndexPath:(NSIndexPath*) indexPath;
+
 #pragma mark - mail composing customization
 - (NSString*)mailComposeBody;
 - (UIViewController<MFMailComposeViewControllerDelegate>*)viewControllerForMailComposeView;
