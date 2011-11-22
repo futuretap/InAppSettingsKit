@@ -40,7 +40,7 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
-- (void) settingsViewController:(IASKAppSettingsViewController *)settingsViewController
+- (void) settingsViewController:(id<IASKViewController>)settingsViewController
                 willDisplayCell:(UITableViewCell*) cell
               forRowAtIndexPath:(NSIndexPath*) indexPath;
 
