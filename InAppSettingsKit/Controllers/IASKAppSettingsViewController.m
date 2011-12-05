@@ -65,6 +65,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize settingsStore = _settingsStore;
 @synthesize doneButton = _doneButton;
 @synthesize doneButtonImage = _doneButtonImage;
+@synthesize doneButtonColor = _doneButtonColor;
 
 #pragma mark accessors
 - (IASKSettingsReader*)settingsReader {
@@ -176,6 +177,8 @@ CGRect IASKCGRectSwap(CGRect rect);
             save.frame = CGRectMake(0.f, 0.f, _doneButtonImage.size.width, _doneButtonImage.size.height);
             UIBarButtonItem *saveButtonItem = [[[UIBarButtonItem alloc] initWithCustomView: save] autorelease];
             _doneButton = saveButtonItem;
+        } else if (_doneButtonColor != nil) {
+            _doneButton.tintColor = _doneButtonColor;
         }
         
         self.navigationItem.rightBarButtonItem = _doneButton;

@@ -57,6 +57,7 @@
     
     UIBarButtonItem         *_doneButton;
     UIImage                 *_doneButtonImage;
+    UIColor                 *_doneButtonColor;
 }
 
 @property (nonatomic, assign) IBOutlet id delegate;
@@ -66,6 +67,7 @@
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;
 @property (nonatomic, assign) UIImage *doneButtonImage;
+@property (nonatomic, assign) UIColor *doneButtonColor;
 
 - (void)synchronizeSettings;
 - (IBAction)dismiss:(id)sender;
