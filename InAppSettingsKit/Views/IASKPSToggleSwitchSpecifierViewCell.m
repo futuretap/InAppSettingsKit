@@ -51,6 +51,11 @@
                                   self.label.frame.origin.y, 
                                   self.toggle.frame.origin.x - CGRectGetWidth(self.imageView.bounds) - 2.f * kIASKSpacing, 
                                   self.label.frame.size.height);    
+  } else {
+    self.label.frame = CGRectMake(kIASKPaddingLeft,
+                                  self.label.frame.origin.y,
+                                  self.toggle.frame.origin.x - kIASKSpacing - kIASKPaddingLeft,
+                                  self.label.frame.size.height);
   }
 }
 
