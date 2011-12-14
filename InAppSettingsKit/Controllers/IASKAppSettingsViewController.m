@@ -134,10 +134,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void) setup {
   // If set to YES, will display credits for InAppSettingsKit creators
   _showCreditsFooter = YES;
-  
-  if ([self isPad]) {
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-  }
 }
 
 - (NSMutableArray *)viewList {
@@ -147,6 +143,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
 	}
 	return _viewList;
+}
+
+- (void) viewDidLoad {
+  [super viewDidLoad];
+  if ([self isPad]) {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+  }
 }
 
 - (void)viewDidUnload {
