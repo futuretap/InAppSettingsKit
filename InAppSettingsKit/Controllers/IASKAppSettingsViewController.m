@@ -464,7 +464,24 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.delegate = self;
 		textField.secureTextEntry = [specifier isSecure];
 		textField.keyboardType = [specifier keyboardType];
-		textField.autocapitalizationType = [specifier autocapitalizationType];
+
+    if(textField.keyboardType == UIKeyboardTypeDecimalPad || textField.keyboardType == UIKeyboardTypeNumberPad)
+    {
+			UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+			UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTyping:)];
+			UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+				
+			[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleSpace, doneButton, nil]];
+			keyboardToolbar.tintColor = self.navigationController.navigationBar.tintColor;
+			[doneButton release];
+			[flexibleSpace release];
+				
+			textField.inputAccessoryView = keyboardToolbar;
+			[keyboardToolbar release];
+		}
+
+      
+    textField.autocapitalizationType = [specifier autocapitalizationType];
         [textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
         if([specifier isSecure]){
 			textField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -543,6 +560,11 @@ CGRect IASKCGRectSwap(CGRect rect);
         [[cell textLabel] setText:[specifier title]];
         return cell;
     }
+}
+
+-(void)doneTyping:(id)sender
+{
+	[self.currentFirstResponder resignFirstResponder];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
