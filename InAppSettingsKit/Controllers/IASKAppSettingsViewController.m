@@ -608,7 +608,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
-        IASKSpecifierValuesViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
+        IASKSpecifierValuesViewController *targetViewController = [(NSDictionary*)[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
             // the view controller has not been created yet, create it and set it to our viewList array
@@ -623,7 +623,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             [targetViewController release];
             
             // load the view controll back in to push it
-            targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
+            targetViewController = [(NSDictionary*)[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
             
             // HANDELABRA: Set the background color from delegate
             if (self.delegate != nil && [self.delegate respondsToSelector:@selector(backgroundColor)]) 
@@ -680,7 +680,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             return;
         }        
         
-        IASKAppSettingsViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
+        IASKAppSettingsViewController *targetViewController = [(NSDictionary*)[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
             // the view controller has not been created yet, create it and set it to our viewList array
@@ -699,7 +699,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             [targetViewController release];
             
             // load the view controll back in to push it
-            targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
+            targetViewController = [(NSDictionary*)[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
         }
         self.currentIndexPath = indexPath;
 		targetViewController.file = specifier.file;

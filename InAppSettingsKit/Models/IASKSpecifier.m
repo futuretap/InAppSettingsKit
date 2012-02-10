@@ -119,7 +119,7 @@
 }
 
 - (NSInteger)multipleValuesCount {
-    return [[_multipleValuesDict objectForKey:kIASKValues] count];
+    return [(NSArray*)[_multipleValuesDict objectForKey:kIASKValues] count];
 }
 
 - (NSArray*)multipleValues {

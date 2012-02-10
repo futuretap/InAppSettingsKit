@@ -153,7 +153,7 @@ dataSource=_dataSource;
 
 - (NSString*)keyForSection:(NSInteger)section {
     if ([self _sectionHasHeading:section]) {
-        return [[[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex] objectForKey:kIASKKey];
+        return [(NSDictionary*)[[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex] objectForKey:kIASKKey];
     }
     return nil;
 }
