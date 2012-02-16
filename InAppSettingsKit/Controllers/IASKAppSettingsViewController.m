@@ -126,6 +126,9 @@ CGRect IASKCGRectSwap(CGRect rect);
     if (self.delegate != nil && [self.delegate respondsToSelector:@selector(backgroundColor)]) 
     {
         self.view.backgroundColor = [self.delegate backgroundColor];
+        // Set table view backgroundView to nil so that backgroundColor is used
+        // when presented via popover controller.
+        _tableView.backgroundView = nil;
         _tableView.backgroundColor = [self.delegate backgroundColor];
     }
     
