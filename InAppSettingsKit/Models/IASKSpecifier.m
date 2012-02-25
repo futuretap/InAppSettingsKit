@@ -237,4 +237,14 @@
     return UITextAutocorrectionTypeDefault;
 }
 
+// HANDELABRA: conditional loading
+-(Class)enableClass {
+    return NSClassFromString([_specifierDict objectForKey:kIASKEnableClass]);
+}
+
+-(SEL)enableAction {
+    return NSSelectorFromString([_specifierDict objectForKey:kIASKEnableAction]);
+}
+
+
 @end

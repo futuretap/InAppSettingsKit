@@ -72,6 +72,10 @@
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
 
+// HANDELABRA: conditional loading
+#define kIASKEnableClass                      @"IASKEnableClass"
+#define kIASKEnableAction                     @"IASKEnableAction"
+
 #define kIASKBundleFolder                     @"Settings.bundle"
 #define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
 #define kIASKBundleFilename                   @"Root.plist"

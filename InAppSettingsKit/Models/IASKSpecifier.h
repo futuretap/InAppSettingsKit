@@ -55,5 +55,9 @@
 - (SEL)viewControllerSelector;
 -(Class)buttonClass;
 -(SEL)buttonAction;
+
+// HANDELABRA: conditional loading
+-(Class)enableClass;
+-(SEL)enableAction;
 	
 @end

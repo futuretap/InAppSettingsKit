@@ -102,10 +102,48 @@ dataSource=_dataSource;
 			}
 
             IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier];
-            [(NSMutableArray*)[dataSource objectAtIndex:sectionCount] addObject:newSpecifier];
+            
+            // HANDELABRA: conditional loading
+            Class enableClass = [newSpecifier enableClass];
+			SEL enableAction = [newSpecifier enableAction];
+            BOOL enable = YES;
+			if ([enableClass respondsToSelector:enableAction])
+            {
+				enable = (BOOL)[enableClass performSelector:enableAction withObject:self withObject:newSpecifier.key];
+            }
+            if (enable)
+            {
+                [(NSMutableArray*)[dataSource objectAtIndex:sectionCount] addObject:newSpecifier];
+            }
             [newSpecifier release];
         }
     }
+    
+    // HANDELABRA: conditonal loading
+    // Filter dataSource for empty groups.
+    NSMutableArray *newDataSource = [NSMutableArray arrayWithCapacity:dataSource.count];
+    for (NSArray *group in dataSource)
+    {
+        BOOL addGroup = NO;
+        if (group.count > 1)
+        {
+            addGroup = YES;
+        }
+        else if (group.count == 1)
+        {
+            id specifier = [group objectAtIndex:0];
+            if ([specifier isKindOfClass:[IASKSpecifier class]])
+            {
+                addGroup = YES;
+            }
+        }
+        if (addGroup)
+        {
+            [newDataSource addObject:group];
+        }
+    }
+    dataSource = newDataSource;
+    
     [self setDataSource:dataSource];
 }
 
