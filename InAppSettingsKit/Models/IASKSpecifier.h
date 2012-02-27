@@ -22,10 +22,10 @@
 @interface IASKSpecifier : NSObject {
     NSDictionary    *_specifierDict;
     NSDictionary    *_multipleValuesDict;
-	IASKSettingsReader *_settingsReader;
+	IASKSettingsReader *__unsafe_unretained _settingsReader;
 }
-@property (nonatomic, retain) NSDictionary  *specifierDict;
-@property (nonatomic, assign) IASKSettingsReader *settingsReader;
+@property (nonatomic, strong) NSDictionary  *specifierDict;
+@property (nonatomic, unsafe_unretained) IASKSettingsReader *settingsReader;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
 - (NSString*)localizedObjectForKey:(NSString*)key;
