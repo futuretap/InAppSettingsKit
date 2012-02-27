@@ -19,11 +19,11 @@
 @class IASKSwitch;
 
 @interface IASKPSToggleSwitchSpecifierViewCell : UITableViewCell {
-    UILabel *_label;
-    IASKSwitch *_toggle;
+    UILabel *__unsafe_unretained _label;
+    IASKSwitch *__unsafe_unretained _toggle;
 }
 
-@property (nonatomic, assign) IBOutlet UILabel *label;
-@property (nonatomic, assign) IBOutlet IASKSwitch *toggle;
+@property (nonatomic, unsafe_unretained) IBOutlet UILabel *label;
+@property (nonatomic, unsafe_unretained) IBOutlet IASKSwitch *toggle;
 
 @end
