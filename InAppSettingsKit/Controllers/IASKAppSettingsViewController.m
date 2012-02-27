@@ -597,8 +597,12 @@ CGRect IASKCGRectSwap(CGRect rect);
             if (!initSelector) {
                 initSelector = @selector(init);
             }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             UIViewController * vc = [vcClass alloc];//performSelector:@selector(alloc)];
             [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
+#pragma clang diagnostic pop
+
 			if ([vc respondsToSelector:@selector(setDelegate:)]) {
 				[vc performSelector:@selector(setDelegate:) withObject:self.delegate];
 			}
@@ -654,7 +658,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 			Class buttonClass = [specifier buttonClass];
 			SEL buttonAction = [specifier buttonAction];
 			if ([buttonClass respondsToSelector:buttonAction]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 				[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
+#pragma clang diagnostic pop                
 				NSLog(@"InAppSettingsKit Warning: Using IASKButtonSpecifier without implementing the delegate method is deprecated");
 			}
 		}
