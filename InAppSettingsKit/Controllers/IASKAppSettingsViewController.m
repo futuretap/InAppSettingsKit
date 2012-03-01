@@ -561,6 +561,10 @@ CGRect IASKCGRectSwap(CGRect rect);
     if ([[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
+    else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
+        [self.delegate tableView:tableView didSelectRowForSpecifier:specifier];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
     else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
         IASKSpecifierValuesViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
 		
