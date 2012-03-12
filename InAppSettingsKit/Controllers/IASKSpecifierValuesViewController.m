@@ -140,7 +140,6 @@
 	
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue];
-		cell.backgroundColor = [UIColor whiteColor];
     }
 	
 	if ([indexPath isEqual:[self checkedItem]]) {
