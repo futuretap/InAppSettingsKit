@@ -26,6 +26,7 @@
 #import "IASKSlider.h"
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
+#import "IASKDateTimeSettingsViewController.h"
 #import "IASKTextField.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
@@ -36,6 +37,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
 #define kIASKSpecifierValuesViewControllerIndex       0
 #define kIASKSpecifierChildViewControllerIndex        1
+#define kIASKDateTimeSelectViewControllerIndex        2
 
 #define kIASKCreditsViewWidth                         285
 
@@ -141,6 +143,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		_viewList = [[NSMutableArray alloc] init];
 		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
 		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
+		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKDateTimeSettingsView", @"ViewName",nil]];        
 	}
 	return _viewList;
 }
@@ -220,7 +223,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-	if (![viewController isKindOfClass:[IASKAppSettingsViewController class]] && ![viewController isKindOfClass:[IASKSpecifierValuesViewController class]]) {
+	if (![viewController isKindOfClass:[IASKAppSettingsViewController class]] && ![viewController isKindOfClass:[IASKSpecifierValuesViewController class]] && ![viewController isKindOfClass:[IASKDateTimeSettingsViewController class]]) {
 		[self dismiss:nil];
 	}
 }
@@ -415,6 +418,33 @@ CGRect IASKCGRectSwap(CGRect rect);
 										 [self.settingsStore objectForKey:key] : [specifier defaultValue]] description]];
         return cell;
     }
+    else if ([[specifier type] isEqualToString:kIASKPSDateTimeValueSpecifier]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
+        
+        if (!cell) {
+            cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			cell.backgroundColor = [UIColor whiteColor];
+		}
+        [[cell textLabel] setText:[specifier title]];
+        NSDate* date = [self.settingsStore objectForKey:key];
+        if(date == nil) {
+            date = [specifier defaultValue];
+        }
+        if(date != nil) {
+            NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+            [dateFormatter setLocale:[specifier locale]];
+            [dateFormatter setTimeZone:[specifier timeZone]];
+            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+            if([specifier dateFormat] != nil) {
+                [dateFormatter setDateFormat:[specifier dateFormat]];
+            }
+            [[cell detailTextLabel] setText:[dateFormatter stringFromDate:date]];
+        }
+        
+        return cell;
+    }
     else if ([[specifier type] isEqualToString:kIASKPSTitleValueSpecifier]) {
         if (!cell) {
             cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:[specifier type]] autorelease];
@@ -575,6 +605,30 @@ CGRect IASKCGRectSwap(CGRect rect);
             // load the view controll back in to push it
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
         }
+        [targetViewController setCurrentSpecifier:specifier];
+        targetViewController.settingsReader = self.settingsReader;
+        targetViewController.settingsStore = self.settingsStore;
+        [[self navigationController] pushViewController:targetViewController animated:YES];
+    }
+    else if ([[specifier type] isEqualToString:kIASKPSDateTimeValueSpecifier]) {
+        IASKDateTimeSettingsViewController *targetViewController = [[self.viewList objectAtIndex:kIASKDateTimeSelectViewControllerIndex] objectForKey:@"viewController"];
+		
+        if (targetViewController == nil) {
+            // the view controller has not been created yet, create it and set it to our viewList array
+            // create a new dictionary with the new view controller
+            NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
+            [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKDateTimeSelectViewControllerIndex]];	// copy the title and explain strings
+            
+            targetViewController = [[IASKDateTimeSettingsViewController alloc] initWithNibName:@"IASKDateTimeSettingsView" bundle:nil];
+            // add the new view controller to the dictionary and then to the 'viewList' array
+            [newItemDict setObject:targetViewController forKey:@"viewController"];
+            [self.viewList replaceObjectAtIndex:kIASKDateTimeSelectViewControllerIndex withObject:newItemDict];
+            [targetViewController release];
+            
+            // load the view controll back in to push it
+            targetViewController = [[self.viewList objectAtIndex:kIASKDateTimeSelectViewControllerIndex] objectForKey:@"viewController"];
+        }
+        self.currentIndexPath = indexPath;
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;

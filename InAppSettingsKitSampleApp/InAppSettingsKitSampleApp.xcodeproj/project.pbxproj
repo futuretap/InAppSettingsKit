@@ -29,6 +29,8 @@
 		AAB8389B12846D110042FF80 /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB8389A12846D110042FF80 /* CustomViewCell.xib */; };
 		AAB838A012846D850042FF80 /* CustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8389F12846D850042FF80 /* CustomViewCell.m */; };
 		AAB83F2F12884E760042FF80 /* IASKAppSettingsWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB83F2E12884E760042FF80 /* IASKAppSettingsWebView.xib */; };
+		C9140C941428A26B00C234BE /* IASKDateTimeSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9140C921428A26B00C234BE /* IASKDateTimeSettingsViewController.m */; };
+		C9140CB61429DA7700C234BE /* IASKDateTimeSettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9140CB51429DA7700C234BE /* IASKDateTimeSettingsView.xib */; };
 		DA33F59510BC2222004736E8 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */; };
 		DA33F59610BC2222004736E8 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57C10BC2222004736E8 /* IASKSpecifierValuesViewController.m */; };
 		DA33F59710BC2222004736E8 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57F10BC2222004736E8 /* IASKSettingsReader.m */; };
@@ -88,6 +90,9 @@
 		AAB8389E12846D850042FF80 /* CustomViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewCell.h; sourceTree = "<group>"; };
 		AAB8389F12846D850042FF80 /* CustomViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewCell.m; sourceTree = "<group>"; };
 		AAB83F2E12884E760042FF80 /* IASKAppSettingsWebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKAppSettingsWebView.xib; sourceTree = "<group>"; };
+		C9140C911428A26B00C234BE /* IASKDateTimeSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKDateTimeSettingsViewController.h; sourceTree = "<group>"; };
+		C9140C921428A26B00C234BE /* IASKDateTimeSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKDateTimeSettingsViewController.m; sourceTree = "<group>"; };
+		C9140CB51429DA7700C234BE /* IASKDateTimeSettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IASKDateTimeSettingsView.xib; sourceTree = "<group>"; };
 		DA33F57910BC2222004736E8 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		DA33F57B10BC2222004736E8 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
@@ -240,6 +245,8 @@
 				DA33F57C10BC2222004736E8 /* IASKSpecifierValuesViewController.m */,
 				F48E09E8123D03E000B67C05 /* IASKAppSettingsWebViewController.h */,
 				F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */,
+				C9140C911428A26B00C234BE /* IASKDateTimeSettingsViewController.h */,
+				C9140C921428A26B00C234BE /* IASKDateTimeSettingsViewController.m */,
 			);
 			name = Controllers;
 			path = ../InAppSettingsKit/Controllers;
@@ -288,6 +295,7 @@
 		DA33F58F10BC2222004736E8 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				C9140CB51429DA7700C234BE /* IASKDateTimeSettingsView.xib */,
 				DA33F59010BC2222004736E8 /* IASKAppSettingsView.xib */,
 				DA33F59110BC2222004736E8 /* IASKPSSliderSpecifierViewCell.xib */,
 				DA33F59210BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.xib */,
@@ -382,6 +390,7 @@
 				AA8FA6EB12B0DBC300E7D1D1 /* settings_about.html in Resources */,
 				AAB83F2F12884E760042FF80 /* IASKAppSettingsWebView.xib in Resources */,
 				AA0717B4134C708F0043D610 /* MainWindow-iPad.xib in Resources */,
+				C9140CB61429DA7700C234BE /* IASKDateTimeSettingsView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +421,7 @@
 				AA8746D0128B02B600CACD4C /* IASKSettingsStoreUserDefaults.m in Sources */,
 				AA8746D1128B02B600CACD4C /* IASKSettingsStoreFile.m in Sources */,
 				AA8746D2128B02B600CACD4C /* IASKSettingsStore.m in Sources */,
+				C9140C941428A26B00C234BE /* IASKDateTimeSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

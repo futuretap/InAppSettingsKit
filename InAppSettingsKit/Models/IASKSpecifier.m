@@ -101,6 +101,32 @@
     return [_specifierDict objectForKey:kIASKType];
 }
 
+- (NSString*)dateFormat {
+    return [_specifierDict objectForKey:kIASKDateFormat];
+}
+- (NSString*)dateTimeType {
+    return [_specifierDict objectForKey:kIASKDateTimeType];
+}
+
+- (NSTimeZone*)timeZone {
+    NSString * timeZoneString = [_specifierDict objectForKey:kIASKTimeZone];
+    if(timeZoneString!=nil){
+        return [NSTimeZone timeZoneWithAbbreviation:timeZoneString];
+    } else {
+        return [NSTimeZone defaultTimeZone];
+    }
+}
+
+- (NSLocale*)locale {
+    NSString* localeString = [_specifierDict objectForKey:kIASKLocale];
+    if(localeString!=nil){
+        return [[[NSLocale alloc] initWithLocaleIdentifier:localeString] autorelease];
+    } else {
+        return [NSLocale currentLocale];
+    }
+}
+
+
 - (NSString*)titleForCurrentValue:(id)currentValue {
 	NSArray *values = [self multipleValues];
 	NSArray *titles = [self multipleTitles];

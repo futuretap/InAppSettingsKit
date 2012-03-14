@@ -22,6 +22,10 @@
 #define kIASKFooterText                       @"FooterText"
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
+#define kIASKDateFormat                       @"DateFormat"
+#define kIASKTimeZone                         @"TimeZone"
+#define kIASKLocale                           @"Locale"
+#define kIASKDateTimeType                     @"DateTimeType"
 #define kIASKDefaultValue                     @"DefaultValue"
 #define kIASKMinimumValue                     @"MinimumValue"
 #define kIASKMaximumValue                     @"MaximumValue"
@@ -71,6 +75,7 @@
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
+#define kIASKPSDateTimeValueSpecifier         @"IASKDateTimeValueSpecifier"
 
 #define kIASKBundleFolder                     @"Settings.bundle"
 #define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
@@ -78,6 +83,10 @@
 #define KIASKBundleLocaleFolderExtension      @".lproj"
 
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
+
+#define kIASKDateTimeTypeFull                 @"DateTimeFull"
+#define kIASKDateTimeTypeDate                 @"DateTimeDate"
+#define kIASKDateTimeTypeTime                 @"DateTimeTime"
 
 #define kIASKSectionHeaderIndex               0
 

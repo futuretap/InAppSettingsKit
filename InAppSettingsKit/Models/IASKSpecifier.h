@@ -32,6 +32,10 @@
 - (NSString*)title;
 - (NSString*)key;
 - (NSString*)type;
+- (NSString*)dateFormat;
+- (NSString*)dateTimeType;
+- (NSTimeZone*)timeZone;
+- (NSLocale*)locale;
 - (NSString*)titleForCurrentValue:(id)currentValue;
 - (NSInteger)multipleValuesCount;
 - (NSArray*)multipleValues;
