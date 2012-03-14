@@ -327,19 +327,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
-	NSString *key  = [self.settingsReader keyForSection:section];
-	if ([self.delegate respondsToSelector:@selector(tableView:viewForHeaderForKey:)]) {
-		return [self.delegate tableView:tableView viewForHeaderForKey:key];
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForHeaderForSection:)]) {
+		return [self.delegate settingsViewController:self tableView:tableView viewForHeaderForSection:section];
 	} else {
 		return nil;
 	}
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
-	NSString *key  = [self.settingsReader keyForSection:section];
-	if ([self tableView:tableView viewForHeaderInSection:section] && [self.delegate respondsToSelector:@selector(tableView:heightForHeaderForKey:)]) {
+	if ([self tableView:tableView viewForHeaderInSection:section] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForHeaderForSection:)]) {
 		CGFloat result;
-		if ((result = [self.delegate tableView:tableView heightForHeaderForKey:key])) {
+		if ((result = [self.delegate settingsViewController:self tableView:tableView heightForHeaderForSection:section])) {
 			return result;
 		}
 		
@@ -692,8 +690,9 @@ CGRect IASKCGRectSwap(CGRect rect);
                     isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
                 }
                 
-                if ([self.delegate respondsToSelector:@selector(mailComposeBody)]) {
-                    [mailViewController setMessageBody:[self.delegate mailComposeBody] isHTML:isHTML];
+              if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
+                    [mailViewController setMessageBody:[self.delegate settingsViewController:self
+                                                                 mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
                 }
                 else {
                     [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
@@ -702,8 +701,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 
             UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
             
-            if ([self.delegate respondsToSelector:@selector(viewControllerForMailComposeView)]) {
-                vc = [self.delegate viewControllerForMailComposeView];
+          if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
+            vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
             }
             
             if (vc == nil) {
@@ -736,8 +735,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
     // Forward the mail compose delegate
-    if ([self.delegate respondsToSelector:@selector(mailComposeController: didFinishWithResult: error:)]) {
-         [self.delegate mailComposeController:controller didFinishWithResult:result error:error];
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeController:didFinishWithResult:error:)]) {
+         [self.delegate settingsViewController:self 
+                         mailComposeController:controller 
+                           didFinishWithResult:result 
+                                         error:error];
      }
     
     // NOTE: No error handling is done here
