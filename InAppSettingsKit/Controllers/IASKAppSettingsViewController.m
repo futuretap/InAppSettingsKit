@@ -377,7 +377,9 @@ CGRect IASKCGRectSwap(CGRect rect);
     NSString *key           = [specifier key];
 
     if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(tableView:cellForSpecifier:)]) {
-        return [self.delegate tableView:tableView cellForSpecifier:specifier];
+      UITableViewCell* cell = [self.delegate tableView:tableView cellForSpecifier:specifier];
+      assert(nil != cell && "delegate must return a UITableViewCell for custom cell types");
+      return cell;
     }
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[specifier type]];
