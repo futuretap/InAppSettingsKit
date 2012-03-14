@@ -45,6 +45,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 @property (nonatomic, retain) NSMutableArray *viewList;
 @property (nonatomic, retain) id currentFirstResponder;
 
+- (void) setup;
+
 - (void)_textChanged:(id)sender;
 - (void)synchronizeSettings;
 - (void)reload;
@@ -108,32 +110,28 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        // If set to YES, will display credits for InAppSettingsKit creators
-        _showCreditsFooter = YES;
-        
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {        
         // If set to YES, will add a DONE button at the right of the navigation bar
-        _showDoneButton = YES;
-		
-		if ([self isPad]) {
-			self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-		}
+      _showDoneButton = YES;
+
+      [self setup];
     }
     return self;
 }
 
-- (void)awakeFromNib {
-	// If set to YES, will display credits for InAppSettingsKit creators
-	_showCreditsFooter = YES;
-	
+- (void)awakeFromNib {	
 	// If set to YES, will add a DONE button at the right of the navigation bar
 	// if loaded via NIB, it's likely we sit in a TabBar- or NavigationController
 	// and thus don't need the Done button
 	_showDoneButton = NO;
+  
+  [self setup];
+}
 
-	if ([self isPad]) {
-		self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-	}
+//common (NIB & code based) initialization
+- (void) setup {
+  // If set to YES, will display credits for InAppSettingsKit creators
+  _showCreditsFooter = YES;
 }
 
 - (NSMutableArray *)viewList {
@@ -145,7 +143,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 	return _viewList;
 }
 
+- (void) viewDidLoad {
+  [super viewDidLoad];
+  if ([self isPad]) {
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+  }
+}
+
 - (void)viewDidUnload {
+  [super viewDidUnload];
+
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 	self.view = nil;
@@ -542,9 +549,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  //create a set of specifier types that can't be selected
+	static NSSet* noSelectionTypes = nil;
+  if(nil == noSelectionTypes) {
+    noSelectionTypes = [[NSSet setWithObjects:kIASKPSToggleSwitchSpecifier, kIASKPSSliderSpecifier, nil] retain];
+  }
+  
 	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
-	
-	if ([[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]) {
+  if([noSelectionTypes containsObject:[specifier type]]) {
 		return nil;
 	} else {
 		return indexPath;
@@ -554,10 +566,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
     
-    if ([[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    }
-    else if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
+    //switches and sliders can't be selected (should be captured by tableView:willSelectRowAtIndexPath: delegate method)
+    assert(![[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]);
+    assert(![[specifier type] isEqualToString:kIASKPSSliderSpecifier]);
+
+    if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
         IASKSpecifierValuesViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
@@ -579,9 +592,6 @@ CGRect IASKCGRectSwap(CGRect rect);
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
         [[self navigationController] pushViewController:targetViewController animated:YES];
-    }
-    else if ([[specifier type] isEqualToString:kIASKPSSliderSpecifier]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
     else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
 		IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
