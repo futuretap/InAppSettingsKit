@@ -61,7 +61,7 @@
 }
 
 // optional delegate method for handling mail sending result
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+- (void)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
        
     if ( error != nil ) {
         // handle error here
@@ -80,20 +80,41 @@
         // ...
     }
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderForKey:(NSString*)key {
+- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewContoller 
+                        tableView:(UITableView *)tableView 
+        heightForHeaderForSection:(NSInteger)section {
+  NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
-	}
+	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
+		return 55.f;    
+  }
 	return 0;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderForKey:(NSString*)key {
+- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewContoller 
+                         tableView:(UITableView *)tableView 
+               viewForHeaderForSection:(NSInteger)section {
+  NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;
 		return [imageView autorelease];
-	}
+	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor redColor];
+    label.shadowColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(0, 1);
+    label.numberOfLines = 0;
+    label.font = [UIFont boldSystemFontOfSize:16.f];
+    
+    //figure out the title from settingsbundle
+    label.text = [settingsViewContoller.settingsReader titleForSection:section];
+    
+    return [label autorelease];
+  }
 	return nil;
 }
 
