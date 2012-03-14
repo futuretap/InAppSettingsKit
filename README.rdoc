@@ -1,3 +1,0 @@
-= InAppSettingsKit
-
-Check out <http://www.inappsettingskit.com> for more info.
