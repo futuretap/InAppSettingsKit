@@ -49,6 +49,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)_textChanged:(id)sender;
 - (void)synchronizeSettings;
+- (void)userDefaultsDidChange;
 - (void)reload;
 @end
 
@@ -160,29 +161,36 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-  //if there's something selected, the value might have changed
-  //so reload that row
-  NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-  if(selectedIndexPath) {
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath] 
-                          withRowAnimation:UITableViewRowAnimationNone];
-    //and reselect it, so we get the nice default deselect animation from UITableViewController
-    [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-  }
-
+	// if there's something selected, the value might have changed
+	// so reload that row
+	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+	if(selectedIndexPath) {
+		[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath] 
+							  withRowAnimation:UITableViewRowAnimationNone];
+		// and reselect it, so we get the nice default deselect animation from UITableViewController
+		[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+	}
+	
 	self.navigationItem.rightBarButtonItem = nil;
-    self.navigationController.delegate = self;
-    if (_showDoneButton) {
-        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
-                                                                                    target:self 
-                                                                                    action:@selector(dismiss:)];
-        self.navigationItem.rightBarButtonItem = buttonItem;
-        [buttonItem release];
-    } 
-    if (!self.title) {
-        self.title = NSLocalizedString(@"Settings", @"");
-    }
-		
+	self.navigationController.delegate = self;
+	if (_showDoneButton) {
+		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+																					target:self 
+																					action:@selector(dismiss:)];
+		self.navigationItem.rightBarButtonItem = buttonItem;
+		[buttonItem release];
+	} 
+	if (!self.title) {
+		self.title = NSLocalizedString(@"Settings", @"");
+	}
+	
+	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(userDefaultsDidChange)
+													 name:NSUserDefaultsDidChangeNotification
+												   object:[NSUserDefaults standardUserDefaults]];
+		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
+	}
 	[super viewWillAppear:animated];
 }
 
@@ -740,6 +748,31 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)synchronizeSettings {
     [_settingsStore synchronize];
+}
+
+static NSDictionary *oldUserDefaults = nil;
+- (void)userDefaultsDidChange {
+	NSDictionary *currentDict = [NSUserDefaults standardUserDefaults].dictionaryRepresentation;
+	NSMutableArray *indexPathsToUpdate = [NSMutableArray array];
+	for (NSString *key in currentDict.allKeys) {
+		if (![[oldUserDefaults valueForKey:key] isEqual:[currentDict valueForKey:key]]) {
+			NSIndexPath *path = [self.settingsReader indexPathForKey:key];
+			if (path && ![[self.settingsReader specifierForKey:key].type isEqualToString:kIASKCustomViewSpecifier]) {
+				[indexPathsToUpdate addObject:path];
+			}
+		}
+	}
+	[oldUserDefaults release], oldUserDefaults = [currentDict retain];
+	
+	
+	for (UITableViewCell *cell in self.tableView.visibleCells) {
+		if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder]) {
+			[indexPathsToUpdate removeObject:[self.tableView indexPathForCell:cell]];
+		}
+	}
+	if (indexPathsToUpdate.count) {
+		[self.tableView reloadRowsAtIndexPaths:indexPathsToUpdate withRowAnimation:UITableViewRowAnimationNone];
+	}
 }
 
 - (void)reload {

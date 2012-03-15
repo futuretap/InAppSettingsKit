@@ -130,6 +130,20 @@ dataSource=_dataSource;
 	return specifier;
 }
 
+- (NSIndexPath*)indexPathForKey:(NSString *)key {
+	for (NSUInteger sectionIndex = 0; sectionIndex < self.dataSource.count; sectionIndex++) {
+		NSArray *section = [self.dataSource objectAtIndex:sectionIndex];
+		for (NSUInteger rowIndex = 0; rowIndex < section.count; rowIndex++) {
+			IASKSpecifier *specifier = (IASKSpecifier*)[section objectAtIndex:rowIndex];
+			if ([specifier isKindOfClass:[IASKSpecifier class]] && [specifier.key isEqualToString:key]) {
+				NSUInteger correctedRowIndex = rowIndex - [self _sectionHasHeading:sectionIndex];
+				return [NSIndexPath indexPathForRow:correctedRowIndex inSection:sectionIndex];
+			}
+		}
+	}
+	return nil;
+}
+
 - (IASKSpecifier*)specifierForKey:(NSString*)key {
 	for (NSArray *specifiers in _dataSource) {
 		for (id sp in specifiers) {
