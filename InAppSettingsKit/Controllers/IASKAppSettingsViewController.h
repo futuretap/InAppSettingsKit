@@ -29,10 +29,10 @@
 
 @optional
 #pragma mark - UITableView header customization
-- (CGFloat) settingsViewController:(id<IASKViewController>) settingsViewContoller
+- (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView 
          heightForHeaderForSection:(NSInteger)section;
-- (UIView *) settingsViewController:(id<IASKViewController>) settingsViewContoller
+- (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
                           tableView:(UITableView *)tableView 
             viewForHeaderForSection:(NSInteger)section;
 
@@ -54,6 +54,7 @@
 
 #pragma mark - respond to button taps
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key;
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
 @end
 
 

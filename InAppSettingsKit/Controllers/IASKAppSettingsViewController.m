@@ -725,7 +725,9 @@ CGRect IASKCGRectSwap(CGRect rect);
             [alert release];
         }
 
-	} else {
+	} else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:didSelectCustomViewSpecifier:)]) {
+        [self.delegate settingsViewController:self tableView:tableView didSelectCustomViewSpecifier:specifier];
+    } else {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
     }
 }

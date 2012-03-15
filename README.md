@@ -73,7 +73,7 @@ InAppSettingsKit adds a `IASKButtonSpecifier` element that allows to call a cust
 
     - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key:
 
-The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller`. The key corresponds to the `Key` attribute in the Settings plist (useful if you wanna call the same method for different keys). See the sample app for details.  
+The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. The key corresponds to the `Key` attribute in the Settings plist (useful if you wanna call the same method for different keys). See the sample app for details.  
 
 FooterText
 ----------
@@ -88,6 +88,12 @@ You can specify your own `UITableViewCell` within InAppSettingsKit by using the 
     - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
 Both methods are called for all your `IASKCustomViewSpecifier` entries. To differentiate them, you can access the `Key` attribute using `specifier.key`. In the first method you return the height of the cell, in the second method the cell itself. You should use reusable `UITableViewCell` objects as usual in table view programming. There's an example in the Demo app.
+Optionally you can implement
+
+    - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
+
+to catch tap events for your custom view.
+
 
 
 Custom Group Header Views
