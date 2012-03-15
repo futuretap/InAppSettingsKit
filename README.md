@@ -73,7 +73,7 @@ InAppSettingsKit adds a `IASKButtonSpecifier` element that allows to call a cust
 
     - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key:
 
-The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. The key corresponds to the `Key` attribute in the Settings plist (useful if you wanna call the same method for different keys). See the sample app for details.  
+The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. The key corresponds to the `Key` attribute in the Settings plist (useful if you wanna call the same method for different keys). Another nifty feature is that the title of IASK buttons can be overriden by the (localizable) value from `NSUserDefaults` (or any other settings store - see below). This comes in handy for toggle buttons (e.g. Login/Logout). See the sample app for details.  
 
 FooterText
 ----------

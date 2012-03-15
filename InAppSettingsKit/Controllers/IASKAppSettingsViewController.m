@@ -501,7 +501,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = specifier.title;
 		cell.detailTextLabel.text = [specifier.defaultValue description];
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
-		cell.textLabel.text = specifier.title;
+		NSString *value = [self.settingsStore objectForKey:specifier.key];
+		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForStringId:value] : specifier.title;
 		cell.textLabel.textAlignment = UITextAlignmentCenter;
 	} else {
 		cell.textLabel.text = specifier.title;

@@ -146,7 +146,7 @@ dataSource=_dataSource;
 - (NSString*)titleForSection:(NSInteger)section {
 	if ([self _sectionHasHeading:section]) {
 		NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-		return [_bundle localizedStringForKey:[dict objectForKey:kIASKTitle] value:[dict objectForKey:kIASKTitle] table:self.localizationTable];
+		return [self titleForStringId:[dict objectForKey:kIASKTitle]];
 	}
 	return nil;
 }
@@ -161,7 +161,7 @@ dataSource=_dataSource;
 - (NSString*)footerTextForSection:(NSInteger)section {
 	if ([self _sectionHasHeading:section]) {
 		NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-		return [_bundle localizedStringForKey:[dict objectForKey:kIASKFooterText] value:[dict objectForKey:kIASKFooterText] table:self.localizationTable];
+		return [self titleForStringId:[dict objectForKey:kIASKFooterText]];
 	}
 	return nil;
 }
