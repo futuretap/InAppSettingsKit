@@ -95,6 +95,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
     self.tableView.contentOffset = CGPointMake(0, 0);
 	self.settingsReader = nil; // automatically initializes itself
+	[self.tableView reloadData];
 }
 
 - (BOOL)isPad {
