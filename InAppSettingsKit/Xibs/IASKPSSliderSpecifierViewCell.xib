@@ -58,12 +58,14 @@
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<float key="IBUIValue">0.5</float>
+								<bool key="IBUIContinuous">NO</bool>
 							</object>
 							<object class="IBUIImageView" id="343121076">
 								<reference key="NSNextResponder" ref="833157797"/>
 								<int key="NSvFlags">289</int>
 								<string key="NSFrame">{{289, 13}, {21, 21}}</string>
 								<reference key="NSSuperview" ref="833157797"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<int key="IBUIContentMode">8</int>
