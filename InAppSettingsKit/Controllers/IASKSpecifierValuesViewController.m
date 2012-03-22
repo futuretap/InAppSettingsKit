@@ -187,7 +187,7 @@
 	}
 	
 	// only reload the table if it had changed; prevents animation cancellation
-	if (self.checkedItem != oldCheckedItem) {
+	if (![self.checkedItem isEqual:oldCheckedItem]) {
 		[_tableView reloadData];
 	}
 }
