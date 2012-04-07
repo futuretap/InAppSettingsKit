@@ -642,8 +642,13 @@ CGRect IASKCGRectSwap(CGRect rect);
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-            mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
-			mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+
+            // modifications by mman
+            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                mailViewController.navigationBar.barStyle = UIBarStyleDefault;
+                mailViewController.navigationBar.tintColor = nil;
+                mailViewController.navigationBar.titleTextAttributes = nil;
+            }
 			
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
                 [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
