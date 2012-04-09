@@ -42,8 +42,8 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 CGRect IASKCGRectSwap(CGRect rect);
 
 @interface IASKAppSettingsViewController ()
-@property (nonatomic, retain) NSMutableArray *viewList;
-@property (nonatomic, retain) id currentFirstResponder;
+@property (nonatomic, strong) NSMutableArray *viewList;
+@property (nonatomic, strong) id currentFirstResponder;
 
 - (void) setup;
 
@@ -83,13 +83,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if (!_file) {
 		return @"Root";
 	}
-	return [[_file retain] autorelease];
+	return _file;
 }
 
 - (void)setFile:(NSString *)file {
 	if (file != _file) {
         
-		[_file release];
 		_file = [file copy];
 	}
 	
@@ -179,7 +178,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 																					target:self 
 																					action:@selector(dismiss:)];
 		self.navigationItem.rightBarButtonItem = buttonItem;
-		[buttonItem release];
 	} 
 	if (!self.title) {
 		self.title = NSLocalizedString(@"Settings", @"");
@@ -244,15 +242,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-    [_viewList release], _viewList = nil;
-	[_file release], _file = nil;
-	[_currentFirstResponder release], _currentFirstResponder = nil;
-	[_settingsReader release], _settingsReader = nil;
-    [_settingsStore release], _settingsStore = nil;
+    _viewList = nil;
+	_file = nil;
+	_currentFirstResponder = nil;
+	_settingsReader = nil;
+    _settingsStore = nil;
 	
 	_delegate = nil;
 
-    [super dealloc];
 }
 
 
@@ -389,7 +386,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 											options:nil] objectAtIndex:0];
 	}
 	else if ([identifier isEqualToString:kIASKPSMultiValueSpecifier] || [identifier isEqualToString:kIASKPSTitleValueSpecifier]) {
-		cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
+		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = [identifier isEqualToString:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSTextFieldSpecifier]) {
@@ -402,15 +399,15 @@ CGRect IASKCGRectSwap(CGRect rect);
 																			   owner:self 
 																			 options:nil] objectAtIndex:0];
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
-		cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
+		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if ([identifier isEqualToString:kIASKButtonSpecifier]) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
-		cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
+		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	} else {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
 	return cell;
 }
@@ -523,7 +520,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	//create a set of specifier types that can't be selected
 	static NSSet* noSelectionTypes = nil;
 	if(nil == noSelectionTypes) {
-		noSelectionTypes = [[NSSet setWithObjects:kIASKPSToggleSwitchSpecifier, kIASKPSSliderSpecifier, nil] retain];
+		noSelectionTypes = [NSSet setWithObjects:kIASKPSToggleSwitchSpecifier, kIASKPSSliderSpecifier, nil];
 	}
   
 	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
@@ -554,7 +551,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
             [self.viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
-            [targetViewController release];
             
             // load the view controll back in to push it
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
@@ -577,8 +573,11 @@ CGRect IASKCGRectSwap(CGRect rect);
             if (!initSelector) {
                 initSelector = @selector(init);
             }
-            UIViewController * vc = [vcClass performSelector:@selector(alloc)];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            UIViewController * vc = [vcClass alloc];//performSelector:@selector(alloc)];
             [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
+#pragma clang diagnostic pop
 			if ([vc respondsToSelector:@selector(setDelegate:)]) {
 				[vc performSelector:@selector(setDelegate:) withObject:self.delegate];
 			}
@@ -587,7 +586,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			}
 			self.navigationController.delegate = nil;
             [self.navigationController pushViewController:vc animated:YES];
-            [vc performSelector:@selector(release)];
+
             return;
         }
         
@@ -612,7 +611,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
             [self.viewList replaceObjectAtIndex:kIASKSpecifierChildViewControllerIndex withObject:newItemDict];
-            [targetViewController release];
             
             // load the view controll back in to push it
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
@@ -634,7 +632,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 			Class buttonClass = [specifier buttonClass];
 			SEL buttonAction = [specifier buttonAction];
 			if ([buttonClass respondsToSelector:buttonAction]) {
-				[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                [buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
+#pragma clang diagnostic pop                
 				NSLog(@"InAppSettingsKit Warning: Using IASKButtonSpecifier without implementing the delegate method is deprecated");
 			}
 		}
@@ -684,7 +685,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             
             mailViewController.mailComposeDelegate = vc;
             [vc presentModalViewController:mailViewController animated:YES];
-            [mailViewController release];
         } else {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
@@ -693,7 +693,6 @@ CGRect IASKCGRectSwap(CGRect rect);
                                   cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
                                   otherButtonTitles:nil];
             [alert show];
-            [alert release];
         }
 
 	} else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:didSelectCustomViewSpecifier:)]) {
@@ -763,7 +762,7 @@ static NSDictionary *oldUserDefaults = nil;
 			}
 		}
 	}
-	[oldUserDefaults release], oldUserDefaults = [currentDict retain];
+	oldUserDefaults = currentDict;
 	
 	
 	for (UITableViewCell *cell in self.tableView.visibleCells) {

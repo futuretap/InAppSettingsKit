@@ -29,8 +29,8 @@
     id<IASKSettingsStore>	_settingsStore;
 }
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) NSIndexPath *checkedItem;
-@property (nonatomic, retain) IASKSpecifier *currentSpecifier;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSIndexPath *checkedItem;
+@property (nonatomic, strong) IASKSpecifier *currentSpecifier;
 
 @end

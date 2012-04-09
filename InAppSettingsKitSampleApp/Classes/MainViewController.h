@@ -21,7 +21,7 @@
     IASKAppSettingsViewController *appSettingsViewController;
 }
 
-@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
+@property (nonatomic, strong) IASKAppSettingsViewController *appSettingsViewController;
 
 - (IBAction)showSettingsPush:(id)sender;
 - (IBAction)showSettingsModal:(id)sender;
