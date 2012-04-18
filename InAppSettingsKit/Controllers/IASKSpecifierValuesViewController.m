@@ -181,7 +181,7 @@
 #pragma mark Notifications
 
 - (void)userDefaultsDidChange {
-	NSIndexPath *oldCheckedItem = self.checkedItem;
+	NSIndexPath *oldCheckedItem = [[self.checkedItem retain] autorelease];
 	if(_currentSpecifier) {
 		[self updateCheckedItem];
 	}
