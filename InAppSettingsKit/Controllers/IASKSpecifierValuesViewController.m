@@ -181,7 +181,7 @@
 #pragma mark Notifications
 
 - (void)userDefaultsDidChange {
-	NSIndexPath *oldCheckedItem = self.checkedItem;
+	NSIndexPath *oldCheckedItem = [self.checkedItem retain];
 	if(_currentSpecifier) {
 		[self updateCheckedItem];
 	}
@@ -190,6 +190,7 @@
 	if (![self.checkedItem isEqual:oldCheckedItem]) {
 		[_tableView reloadData];
 	}
+	[oldCheckedItem release];
 }
 
 @end
