@@ -18,7 +18,7 @@
 #import "IASKSettingsReader.h"
 
 @interface IASKSpecifier ()
-@property (nonatomic, retain) NSDictionary  *multipleValuesDict;
+@property (nonatomic, strong) NSDictionary  *multipleValuesDict;
 - (void)_reinterpretValues:(NSDictionary*)specifierDict;
 @end
 
@@ -41,19 +41,18 @@
 }
 
 - (void)dealloc {
-    [_specifierDict release], _specifierDict = nil;
-    [_multipleValuesDict release], _multipleValuesDict = nil;
+    _specifierDict = nil;
+    _multipleValuesDict = nil;
 	
 	_settingsReader = nil;
 
-    [super dealloc];
 }
 
 - (void)_reinterpretValues:(NSDictionary*)specifierDict {
     NSArray *values = [_specifierDict objectForKey:kIASKValues];
     NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
     
-    NSMutableDictionary *multipleValuesDict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *multipleValuesDict = [[NSMutableDictionary alloc] init];
     
     if (values) {
 		[multipleValuesDict setObject:values forKey:kIASKValues];

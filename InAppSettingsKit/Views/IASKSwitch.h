@@ -21,6 +21,6 @@
     NSString *_key;
 }
 
-@property (nonatomic, retain) NSString *key;
+@property (nonatomic, strong) NSString *key;
 
 @end

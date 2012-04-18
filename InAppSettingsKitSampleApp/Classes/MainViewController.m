@@ -49,7 +49,6 @@
     // But we encourage you not to uncomment. Thank you!
     self.appSettingsViewController.showDoneButton = YES;
     [self presentModalViewController:aNavController animated:YES];
-    [aNavController release];
 }
 
 #pragma mark -
@@ -99,7 +98,7 @@
 	if ([key isEqualToString:@"IASKLogo"]) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;
-		return [imageView autorelease];
+		return imageView;
 	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.backgroundColor = [UIColor clearColor];
@@ -113,7 +112,7 @@
     //figure out the title from settingsbundle
     label.text = [settingsViewContoller.settingsReader titleForSection:section];
     
-    return [label autorelease];
+    return label;
   }
 	return nil;
 }
@@ -149,7 +148,7 @@
 #pragma mark -
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key {
 	if ([key isEqualToString:@"ButtonDemoAction1"]) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	} else {
 		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
@@ -169,12 +168,6 @@
 	self.appSettingsViewController = nil;
 }
 
-- (void)dealloc {
-	[appSettingsViewController release];
-	appSettingsViewController = nil;
-	
-    [super dealloc];
-}
 
 
 @end
