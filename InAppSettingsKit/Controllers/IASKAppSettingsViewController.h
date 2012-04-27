@@ -58,7 +58,7 @@
 @end
 
 
-@interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate> {
+@interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate> {
 	id<IASKSettingsDelegate>  _delegate;
     
     NSMutableArray          *_viewList;
