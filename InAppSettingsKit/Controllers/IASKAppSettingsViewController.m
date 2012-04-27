@@ -237,6 +237,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
 	if (![viewController isKindOfClass:[IASKAppSettingsViewController class]] && ![viewController isKindOfClass:[IASKSpecifierValuesViewController class]]) {
+		if (navigationController.delegate == self)
+			// Clear the navController's reference here, since our reference to the navController already be invalid
+			navigationController.delegate = nil;
 		[self dismiss:nil];
 	}
 }
