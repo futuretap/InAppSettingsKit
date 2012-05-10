@@ -8,6 +8,30 @@
 	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
+        <dict>
+			<key>Key</key>
+			<string>FacebookButton</string>
+			<key>Title</key>
+			<string>Facebook</string>
+            <key>CellImage</key>
+            <string>facebook</string>
+            <key>TextAlignment</key>
+            <string>UITextAlignmentLeft</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+        <dict>
+			<key>Key</key>
+			<string>TwitterButton</string>
+			<key>Title</key>
+			<string>Twitter</string>
+            <key>CellImage</key>
+            <string>twitter</string>
+            <key>TextAlignment</key>
+            <string>UITextAlignmentLeft</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
 		<dict>
 			<key>Title</key>
 			<string>TOGGLE_SWITCH_TITLE</string>

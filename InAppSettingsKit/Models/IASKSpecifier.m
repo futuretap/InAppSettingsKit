@@ -237,4 +237,20 @@
     return UITextAutocorrectionTypeDefault;
 }
 
+- (UIImage *)cellImage
+{
+    return [UIImage imageNamed:[_specifierDict objectForKey:kIASKCellImage]];
+}
+
+- (UITextAlignment)textAlignment
+{
+    if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentLeft]) {
+        return UITextAlignmentLeft;
+    } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentCenter]) {
+        return UITextAlignmentCenter;
+    } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentRight]) {
+        return UITextAlignmentRight;
+    }
+    return UITextAlignmentLeft;
+}
 @end

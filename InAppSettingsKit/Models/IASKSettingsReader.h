@@ -17,6 +17,8 @@
 #import <Foundation/Foundation.h>
 
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
+#define kIASKCellImage                        @"CellImage"
+
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
 #define kIASKFooterText                       @"FooterText"
@@ -59,6 +61,11 @@
 #define kIASKAutoCorrYes                      @"Yes"
 #define kIASKMinimumValueImage                @"MinimumValueImage"
 #define kIASKMaximumValueImage                @"MaximumValueImage"
+
+#define kIASKTextLabelAlignment               @"TextAlignment"
+#define kIASKTextLabelAlignmentLeft           @"UITextAlignmentLeft"
+#define kIASKTextLabelAlignmentCenter         @"UITextAlignmentCenter"
+#define kIASKTextLabelAlignmentRight          @"UITextAlignmentRight"
 
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
 #define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"

@@ -46,6 +46,10 @@
 		DA33F5A310BC2222004736E8 /* IASKSpecifierValuesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA33F59410BC2222004736E8 /* IASKSpecifierValuesView.xib */; };
 		DACD38AA10598A7600AC8E51 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DACD38A910598A7600AC8E51 /* Settings.bundle */; };
 		F48E09EA123D03E000B67C05 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */; };
+		FB81CA08155BC7C900CEF887 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA04155BC7C900CEF887 /* facebook.png */; };
+		FB81CA09155BC7C900CEF887 /* facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA05155BC7C900CEF887 /* facebook@2x.png */; };
+		FB81CA0A155BC7C900CEF887 /* twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA06155BC7C900CEF887 /* twitter.png */; };
+		FB81CA0B155BC7C900CEF887 /* twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA07155BC7C900CEF887 /* twitter@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +121,10 @@
 		F48E09E3123D031500B67C05 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = English; path = English.lproj/settings_about.html; sourceTree = "<group>"; };
 		F48E09E8123D03E000B67C05 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
 		F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
+		FB81CA04155BC7C900CEF887 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
+		FB81CA05155BC7C900CEF887 /* facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "facebook@2x.png"; sourceTree = "<group>"; };
+		FB81CA06155BC7C900CEF887 /* twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter.png; sourceTree = "<group>"; };
+		FB81CA07155BC7C900CEF887 /* twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +196,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FB81CA03155BC7C900CEF887 /* Images */,
 				AA8FA6EA12B0DBC300E7D1D1 /* settings_about.html */,
 				6A1F35ED11490727003E6295 /* Icon.png */,
 				6A9BBF581148F1DA003D97FA /* 20-gear2.png */,
@@ -312,6 +321,17 @@
 			name = "Sample App";
 			sourceTree = "<group>";
 		};
+		FB81CA03155BC7C900CEF887 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				FB81CA04155BC7C900CEF887 /* facebook.png */,
+				FB81CA05155BC7C900CEF887 /* facebook@2x.png */,
+				FB81CA06155BC7C900CEF887 /* twitter.png */,
+				FB81CA07155BC7C900CEF887 /* twitter@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -382,6 +402,10 @@
 				AA8FA6EB12B0DBC300E7D1D1 /* settings_about.html in Resources */,
 				AAB83F2F12884E760042FF80 /* IASKAppSettingsWebView.xib in Resources */,
 				AA0717B4134C708F0043D610 /* MainWindow-iPad.xib in Resources */,
+				FB81CA08155BC7C900CEF887 /* facebook.png in Resources */,
+				FB81CA09155BC7C900CEF887 /* facebook@2x.png in Resources */,
+				FB81CA0A155BC7C900CEF887 /* twitter.png in Resources */,
+				FB81CA0B155BC7C900CEF887 /* twitter@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
