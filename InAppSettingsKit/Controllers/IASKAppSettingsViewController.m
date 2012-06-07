@@ -447,7 +447,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                                                                                       owner:self 
                                                                                     options:nil] objectAtIndex:0];
 
-            ((IASKPSTextFieldSpecifierViewCell*)cell).textField.textAlignment = UITextAlignmentLeft;
+            ((IASKPSTextFieldSpecifierViewCell*)cell).textField.textAlignment = UITextAlignmentRight;
             ((IASKPSTextFieldSpecifierViewCell*)cell).textField.returnKeyType = UIReturnKeyDone;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
