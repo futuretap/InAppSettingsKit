@@ -467,6 +467,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 
     if(textField.keyboardType == UIKeyboardTypeDecimalPad || textField.keyboardType == UIKeyboardTypeNumberPad)
     {
+      if([self isPad])textField.keyboardType = UIKeyboardTypeNumberPad;
+      
 			UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 			UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTyping:)];
 			UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
