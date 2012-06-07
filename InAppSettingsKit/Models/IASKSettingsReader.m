@@ -239,7 +239,7 @@ dataSource=_dataSource;
 	[NSArray arrayWithObjects:@".inApp.plist", @".plist", nil];
 	
 	NSArray *suffixes =
-	[NSArray arrayWithObjects:[self platformSuffix], @"", nil];
+	[NSArray arrayWithObjects:@"", nil];
 	
 	NSArray *languages =
 	[NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:KIASKBundleLocaleFolderExtension], @"", nil];

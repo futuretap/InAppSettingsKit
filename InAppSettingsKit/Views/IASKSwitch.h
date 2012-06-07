@@ -15,9 +15,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DCRoundSwitch.h"
 
-
-@interface IASKSwitch : UISwitch {
+@interface IASKSwitch : DCRoundSwitch {
     NSString *_key;
 }
 

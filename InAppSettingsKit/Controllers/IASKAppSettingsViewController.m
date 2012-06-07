@@ -467,10 +467,29 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.key = specifier.key;
 		textField.delegate = self;
 		textField.secureTextEntry = [specifier isSecure];
-		textField.keyboardType = specifier.keyboardType;
-		textField.autocapitalizationType = specifier.autocapitalizationType;
-		[textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
-		if([specifier isSecure]){
+		textField.keyboardType = [specifier keyboardType];
+
+    if(textField.keyboardType == UIKeyboardTypeDecimalPad || textField.keyboardType == UIKeyboardTypeNumberPad)
+    {
+      if([self isPad])textField.keyboardType = UIKeyboardTypeNumberPad;
+      
+			UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+			UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTyping:)];
+			UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+				
+			[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleSpace, doneButton, nil]];
+			keyboardToolbar.tintColor = self.navigationController.navigationBar.tintColor;
+			[doneButton release];
+			[flexibleSpace release];
+				
+			textField.inputAccessoryView = keyboardToolbar;
+			[keyboardToolbar release];
+		}
+
+      
+        textField.autocapitalizationType = [specifier autocapitalizationType];
+        [textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
+        if([specifier isSecure]){
 			textField.autocorrectionType = UITextAutocorrectionTypeNo;
 		} else {
 			textField.autocorrectionType = specifier.autoCorrectionType;
@@ -507,6 +526,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = specifier.title;
 	}
 	return cell;
+}
+
+-(void)doneTyping:(id)sender
+{
+	[self.currentFirstResponder resignFirstResponder];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -672,6 +696,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             
             mailViewController.mailComposeDelegate = vc;
+            mailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
             [vc presentModalViewController:mailViewController animated:YES];
             [mailViewController release];
         } else {
