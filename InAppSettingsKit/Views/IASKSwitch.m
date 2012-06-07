@@ -21,6 +21,11 @@
 
 @synthesize key=_key;
 
+-(void) drawRect:(CGRect)rect
+{
+  self.onTintColor = APPLICATION_TINT;  
+}
+
 - (void)dealloc {
     [_key release], _key = nil;
 	

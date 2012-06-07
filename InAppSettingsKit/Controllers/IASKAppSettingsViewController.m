@@ -469,8 +469,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.secureTextEntry = [specifier isSecure];
 		textField.keyboardType = [specifier keyboardType];
 
-        if(textField.keyboardType == UIKeyboardTypeDecimalPad || textField.keyboardType == UIKeyboardTypeNumberPad)
-        {
+    if(textField.keyboardType == UIKeyboardTypeDecimalPad || textField.keyboardType == UIKeyboardTypeNumberPad)
+    {
+      if([self isPad])textField.keyboardType = UIKeyboardTypeNumberPad;
+      
 			UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 			UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneTyping:)];
 			UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -694,6 +696,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             
             mailViewController.mailComposeDelegate = vc;
+            mailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
             [vc presentModalViewController:mailViewController animated:YES];
             [mailViewController release];
         } else {
