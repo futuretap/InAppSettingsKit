@@ -130,6 +130,20 @@ dataSource=_dataSource;
 	return specifier;
 }
 
+- (NSIndexPath*)indexPathForKey:(NSString *)key {
+	for (NSUInteger sectionIndex = 0; sectionIndex < self.dataSource.count; sectionIndex++) {
+		NSArray *section = [self.dataSource objectAtIndex:sectionIndex];
+		for (NSUInteger rowIndex = 0; rowIndex < section.count; rowIndex++) {
+			IASKSpecifier *specifier = (IASKSpecifier*)[section objectAtIndex:rowIndex];
+			if ([specifier isKindOfClass:[IASKSpecifier class]] && [specifier.key isEqualToString:key]) {
+				NSUInteger correctedRowIndex = rowIndex - [self _sectionHasHeading:sectionIndex];
+				return [NSIndexPath indexPathForRow:correctedRowIndex inSection:sectionIndex];
+			}
+		}
+	}
+	return nil;
+}
+
 - (IASKSpecifier*)specifierForKey:(NSString*)key {
 	for (NSArray *specifiers in _dataSource) {
 		for (id sp in specifiers) {
@@ -146,7 +160,7 @@ dataSource=_dataSource;
 - (NSString*)titleForSection:(NSInteger)section {
 	if ([self _sectionHasHeading:section]) {
 		NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-		return [_bundle localizedStringForKey:[dict objectForKey:kIASKTitle] value:[dict objectForKey:kIASKTitle] table:self.localizationTable];
+		return [self titleForStringId:[dict objectForKey:kIASKTitle]];
 	}
 	return nil;
 }
@@ -161,7 +175,7 @@ dataSource=_dataSource;
 - (NSString*)footerTextForSection:(NSInteger)section {
 	if ([self _sectionHasHeading:section]) {
 		NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-		return [_bundle localizedStringForKey:[dict objectForKey:kIASKFooterText] value:[dict objectForKey:kIASKFooterText] table:self.localizationTable];
+		return [self titleForStringId:[dict objectForKey:kIASKFooterText]];
 	}
 	return nil;
 }

@@ -1,5 +1,5 @@
 //
-//  IASKSpecifierValuesViewController.h
+//  IASKAppSettingsViewController.h
 //  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2009:
@@ -14,23 +14,13 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import <UIKit/UIKit.h>
-#import "IASKSettingsStore.h"
-#import "IASKViewController.h"
-@class IASKSpecifier;
 @class IASKSettingsReader;
+@protocol IASKSettingsStore;
 
-@interface IASKSpecifierValuesViewController : UIViewController<IASKViewController> {
-    UITableView				*_tableView;
-    
-    IASKSpecifier			*_currentSpecifier;
-    NSIndexPath             *_checkedItem;
-	IASKSettingsReader		*_settingsReader;
-    id<IASKSettingsStore>	_settingsStore;
-}
+// protocol all IASK view controllers implement
+@protocol IASKViewController <NSObject>
 
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) NSIndexPath *checkedItem;
-@property (nonatomic, retain) IASKSpecifier *currentSpecifier;
+@property (nonatomic, retain) IASKSettingsReader* settingsReader;
+@property (nonatomic, retain) id<IASKSettingsStore> settingsStore;
 
 @end

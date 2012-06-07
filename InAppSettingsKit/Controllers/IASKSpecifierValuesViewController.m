@@ -141,7 +141,6 @@
 	
     if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue] autorelease];
-		cell.backgroundColor = [UIColor whiteColor];
     }
 	
 	if ([indexPath isEqual:[self checkedItem]]) {
@@ -182,13 +181,13 @@
 #pragma mark Notifications
 
 - (void)userDefaultsDidChange {
-	NSIndexPath *oldCheckedItem = self.checkedItem;
+	NSIndexPath *oldCheckedItem = [[self.checkedItem retain] autorelease];
 	if(_currentSpecifier) {
 		[self updateCheckedItem];
 	}
 	
 	// only reload the table if it had changed; prevents animation cancellation
-	if (self.checkedItem != oldCheckedItem) {
+	if (![self.checkedItem isEqual:oldCheckedItem]) {
 		[_tableView reloadData];
 	}
 }

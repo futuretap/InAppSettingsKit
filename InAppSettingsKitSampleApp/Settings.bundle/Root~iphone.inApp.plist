@@ -214,7 +214,7 @@
 			<key>Key</key>
 			<string>ButtonDemoAction2</string>
 			<key>Title</key>
-			<string>Button Action 2</string>
+			<string>Login</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
