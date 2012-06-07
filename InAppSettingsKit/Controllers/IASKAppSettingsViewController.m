@@ -729,6 +729,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             
             mailViewController.mailComposeDelegate = vc;
+            mailViewController.modalPresentationStyle = UIModalPresentationFormSheet;
             [vc presentModalViewController:mailViewController animated:YES];
             [mailViewController release];
         } else {
