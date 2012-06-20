@@ -21,10 +21,6 @@
 
 #import "IASKSettingsStoreiCloud.h"
 
-@interface IASKSettingsStoreiCloud ()
--(BOOL) iCloudEnabled;
-@end
-
 @implementation IASKSettingsStoreiCloud
 
 - (void)setBool:(BOOL)value forKey:(NSString*)key {

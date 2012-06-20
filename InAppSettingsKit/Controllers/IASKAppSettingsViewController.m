@@ -186,11 +186,19 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreiCloud class]]) {
-		DLog(@"Setting up iCloud notification listener.");
-        [[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(iCloudStoreDidChange:)
-													 name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
-												   object:[NSUbiquitousKeyValueStore defaultStore]];
+        
+        if ([(IASKSettingsStoreiCloud *)self.settingsStore iCloudEnabled]) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(iCloudStoreDidChange:)
+                                                         name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
+                                                       object:[NSUbiquitousKeyValueStore defaultStore]];
+        } else {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(userDefaultsDidChange)
+                                                         name:NSUserDefaultsDidChangeNotification
+                                                       object:[NSUserDefaults standardUserDefaults]];
+        }
+        
 		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
 	}
 	else if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {

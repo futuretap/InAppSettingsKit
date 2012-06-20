@@ -26,4 +26,6 @@
 
 }
 
+-(BOOL) iCloudEnabled;
+
 @end
