@@ -18,6 +18,7 @@
 #import "IASKAppSettingsViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKSettingsStoreUserDefaults.h"
+#import "IASKSettingsStoreiCloud.h"
 #import "IASKPSToggleSwitchSpecifierViewCell.h"
 #import "IASKPSSliderSpecifierViewCell.h"
 #import "IASKPSTextFieldSpecifierViewCell.h"
@@ -184,7 +185,15 @@ CGRect IASKCGRectSwap(CGRect rect);
 		self.title = NSLocalizedString(@"Settings", @"");
 	}
 	
-	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
+	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreiCloud class]]) {
+		DLog(@"Setting up iCloud notification listener.");
+        [[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(iCloudStoreDidChange:)
+													 name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
+												   object:[NSUbiquitousKeyValueStore defaultStore]];
+		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
+	}
+	else if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(userDefaultsDidChange)
 													 name:NSUserDefaultsDidChangeNotification
@@ -764,6 +773,33 @@ static NSDictionary *oldUserDefaults = nil;
 		[self.tableView reloadRowsAtIndexPaths:indexPathsToUpdate withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
+
+
+- (void)iCloudStoreDidChange:(NSNotification*)notification {
+
+    NSArray *keysChanged = [notification.userInfo objectForKey:NSUbiquitousKeyValueStoreChangedKeysKey];
+    
+    DLog(@"keysChanged: %@", keysChanged);
+
+	NSMutableArray *indexPathsToUpdate = [NSMutableArray array];
+	for (NSString *key in keysChanged) {
+        NSIndexPath *path = [self.settingsReader indexPathForKey:key];
+        if (path && ![[self.settingsReader specifierForKey:key].type isEqualToString:kIASKCustomViewSpecifier]) {
+            [indexPathsToUpdate addObject:path];
+        }
+	}	
+	
+	for (UITableViewCell *cell in self.tableView.visibleCells) {
+		if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder]) {
+			[indexPathsToUpdate removeObject:[self.tableView indexPathForCell:cell]];
+		}
+	}
+	if (indexPathsToUpdate.count) {
+		[self.tableView reloadRowsAtIndexPaths:indexPathsToUpdate withRowAnimation:UITableViewRowAnimationNone];
+	}
+
+}
+
 
 - (void)reload {
 	// wait 0.5 sec until UI is available after applicationWillEnterForeground
