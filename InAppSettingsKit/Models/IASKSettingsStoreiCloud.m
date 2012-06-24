@@ -59,35 +59,37 @@
 }
 
 - (BOOL)boolForKey:(NSString*)key {
-    if([self iCloudEnabled])
+
+    
+    if([self iCloudEnabled] && [[NSUbiquitousKeyValueStore defaultStore] boolForKey:key])
         return [[NSUbiquitousKeyValueStore defaultStore] boolForKey:key];
     else
         return [super boolForKey:key];
 }
 
 - (float)floatForKey:(NSString*)key {
-    if([self iCloudEnabled])
+    if([self iCloudEnabled] && [[NSUbiquitousKeyValueStore defaultStore] objectForKey:key])
         return [[[NSUbiquitousKeyValueStore defaultStore] objectForKey:key] floatValue];
     else 
         return [super floatForKey:key];
 }
 
 - (double)doubleForKey:(NSString*)key {
-    if([self iCloudEnabled])
+    if([self iCloudEnabled] && [[NSUbiquitousKeyValueStore defaultStore] doubleForKey:key])
         return [[NSUbiquitousKeyValueStore defaultStore] doubleForKey:key];
     else
         return [super doubleForKey:key];
 }
 
 - (int)integerForKey:(NSString*)key {
-    if([self iCloudEnabled])
+    if([self iCloudEnabled] && [[NSUbiquitousKeyValueStore defaultStore] objectForKey:key])
         return [[[NSUbiquitousKeyValueStore defaultStore] objectForKey:key] intValue];
     else
         return [super integerForKey:key];
 }
 
 - (id)objectForKey:(NSString*)key {
-    if([self iCloudEnabled])
+    if([self iCloudEnabled] && [[NSUbiquitousKeyValueStore defaultStore] objectForKey:key])
         return [[NSUbiquitousKeyValueStore defaultStore] objectForKey:key];
     else
         return [super objectForKey:key];
