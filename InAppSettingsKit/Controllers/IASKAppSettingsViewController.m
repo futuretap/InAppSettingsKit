@@ -575,7 +575,21 @@ CGRect IASKCGRectSwap(CGRect rect);
 			if ([vc respondsToSelector:@selector(setSettingsStore:)]) {
 				[vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
 			}
-            [self.navigationController pushViewController:vc animated:YES];
+
+            
+            NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"CustomSubviewController" owner:vc options:nil];
+            
+            if ([specifier showAsModal]) {                
+                UIView *mainView = [subviewArray objectAtIndex:1];
+                [vc setView:mainView];
+                [self presentModalViewController:vc animated:YES];   
+            } else {
+
+                UIView *mainView = [subviewArray objectAtIndex:0];
+                [vc setView:mainView];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            
             [vc performSelector:@selector(release)];
             return;
         }

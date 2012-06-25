@@ -183,6 +183,18 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
+			<key>IASKViewControllerClass</key>
+			<string>CustomSubviewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>init</string>
+			<key>Title</key>
+			<string>Custom Subview Modal</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>ShowAsModal</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>File</key>
 			<string>settings_about.html</string>
 			<key>IASKViewControllerClass</key>

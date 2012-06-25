@@ -37,6 +37,7 @@
 - (NSArray*)multipleValues;
 - (NSArray*)multipleTitles;
 - (NSString*)file;
+- (BOOL)showAsModal;
 - (id)defaultValue;
 - (id)defaultStringValue;
 - (BOOL)defaultBoolValue;

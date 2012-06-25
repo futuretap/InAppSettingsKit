@@ -134,6 +134,10 @@
     return [_specifierDict objectForKey:kIASKFile];
 }
 
+- (BOOL)showAsModal {
+    return [[_specifierDict objectForKey:kIASKShowAsModal] boolValue];
+}
+
 - (id)defaultValue {
     return [_specifierDict objectForKey:kIASKDefaultValue];
 }
