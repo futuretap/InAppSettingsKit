@@ -183,6 +183,8 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
+			<key>File</key>
+			<string>CustomModalSubviewController</string>
 			<key>IASKViewControllerClass</key>
 			<string>CustomSubviewController</string>
 			<key>IASKViewControllerSelector</key>
