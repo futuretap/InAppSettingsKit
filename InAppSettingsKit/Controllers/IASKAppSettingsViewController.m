@@ -150,6 +150,10 @@ CGRect IASKCGRectSwap(CGRect rect);
   if ([self isPad]) {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
   }
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToEndEdit:)];   
+    tapGesture.cancelsTouchesInView = NO;
+    [self.tableView addGestureRecognizer:tapGesture];
+    [tapGesture release];
 }
 
 - (void)viewDidUnload {
@@ -733,6 +737,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	return YES;
 }
 
+- (void)singleTapToEndEdit:(UIGestureRecognizer *)sender {
+    [self.tableView endEditing:NO];
+}
 
 #pragma mark Notifications
 
