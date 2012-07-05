@@ -121,6 +121,21 @@ Notifications
 There's a `kIASKAppSettingChanged` notification that is sent for every changed settings key. The `object` of the notification is the userDefaults key (NSString*). The `userInfo` dictionary contains the new value of the key.
 
 
+Dynamic cell hiding
+-------------------
+Sometimes, options depend on each other. For instance, you might want to have an "Auto Connect" switch, and let the user set username and password if enabled. To react on changes of a specific setting, use the `kIASKAppSettingChanged` notification explained above.
+
+To hide a set of cells use:
+
+    - (void)[settingsViewController setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated;
+
+or the non-animated version:
+
+	@property (nonatomic, retain) NSSet *hiddenKeys;
+
+See the sample app for more details.
+
+
 Subclassing notes
 -----------------
 If you'd like to customize the appearance of InAppSettingsKit, you might want to subclass `IASKAppSettingsViewController` and override some `UITableViewDataSource` or `UITableViewDelegate` methods. If you do subclass, make sure to override the `-initWithNibName:bundle:` method in any case:

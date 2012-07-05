@@ -71,14 +71,17 @@
     
     BOOL                    _showCreditsFooter;
     BOOL                    _showDoneButton;
+	
+    NSSet                   *_hiddenKeys;
 }
 
 @property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;
+@property (nonatomic, retain) NSSet *hiddenKeys;
 
 - (void)synchronizeSettings;
 - (IBAction)dismiss:(id)sender;
-
+- (void)setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated;
 @end

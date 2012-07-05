@@ -214,7 +214,7 @@
 			<key>Key</key>
 			<string>ButtonDemoAction2</string>
 			<key>Title</key>
-			<string>Button Action 2</string>
+			<string>Login</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
@@ -233,6 +233,40 @@
 			<string>Custom Field</string>
 			<key>Type</key>
 			<string>IASKCustomViewSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Dynamic cell hiding</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>AutoConnect</string>
+			<key>Title</key>
+			<string>AUTO_CONNECT</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>AutoConnectLogin</string>
+			<key>Title</key>
+			<string>Login</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>IsSecure</key>
+			<true/>
+			<key>Title</key>
+			<string>TEXT_FIELD_PWD</string>
+			<key>Key</key>
+			<string>AutoConnectPassword</string>
 		</dict>
 		<dict>
 			<key>Title</key>

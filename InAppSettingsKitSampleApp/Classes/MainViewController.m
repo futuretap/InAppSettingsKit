@@ -24,6 +24,10 @@
 
 #import "CustomViewCell.h"
 
+@interface MainViewController() 
+- (void)settingDidChange:(NSNotification*)notification;
+@end
+
 @implementation MainViewController
 
 @synthesize appSettingsViewController;
@@ -32,6 +36,11 @@
 	if (!appSettingsViewController) {
 		appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
 		appSettingsViewController.delegate = self;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+
+		BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
+		appSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
 	}
 	return appSettingsViewController;
 }
@@ -138,6 +147,14 @@
 	cell.textView.delegate = self;
 	[cell setNeedsLayout];
 	return cell;
+}
+
+#pragma mark kIASKAppSettingChanged notification
+- (void)settingDidChange:(NSNotification*)notification {
+	if ([notification.object isEqual:@"AutoConnect"]) {
+		BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"AutoConnect"] intValue];
+		[self.appSettingsViewController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil] animated:YES];
+	}
 }
 
 #pragma mark UITextViewDelegate (for CustomViewCell)

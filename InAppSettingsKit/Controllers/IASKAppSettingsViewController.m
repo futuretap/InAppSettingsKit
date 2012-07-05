@@ -63,6 +63,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize showCreditsFooter = _showCreditsFooter;
 @synthesize showDoneButton = _showDoneButton;
 @synthesize settingsStore = _settingsStore;
+@synthesize hiddenKeys = _hiddenKeys;
 
 #pragma mark accessors
 - (IASKSettingsReader*)settingsReader {
@@ -95,6 +96,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
     self.tableView.contentOffset = CGPointMake(0, 0);
 	self.settingsReader = nil; // automatically initializes itself
+	[_hiddenKeys release], _hiddenKeys = nil;
 	[self.tableView reloadData];
 }
 
@@ -232,6 +234,90 @@ CGRect IASKCGRectSwap(CGRect rect);
 	// Release any cached data, images, etc that aren't in use.
 }
 
+- (void)setHiddenKeys:(NSSet *)theHiddenKeys {
+	[self setHiddenKeys:theHiddenKeys animated:NO];
+}
+
+
+- (void)setHiddenKeys:(NSSet*)theHiddenKeys animated:(BOOL)animated {
+    if (_hiddenKeys != theHiddenKeys) {
+        NSSet *oldHiddenKeys = _hiddenKeys;
+        _hiddenKeys = [theHiddenKeys retain];
+        
+        if (animated) {			
+            [self.tableView beginUpdates];
+            
+            NSMutableSet *showKeys = [NSMutableSet setWithSet:oldHiddenKeys];
+            [showKeys minusSet:theHiddenKeys];
+            
+            NSMutableSet *hideKeys = [NSMutableSet setWithSet:theHiddenKeys];
+            [hideKeys minusSet:oldHiddenKeys];
+            
+            // calculate rows to be deleted
+            NSMutableArray *hideIndexPaths = [NSMutableArray array];
+            for (NSString *key in hideKeys) {
+                NSIndexPath *indexPath = [self.settingsReader indexPathForKey:key];
+                if (indexPath) {
+                    [hideIndexPaths addObject:indexPath];
+                }
+            }
+            
+            // calculate sections to be deleted
+            NSMutableIndexSet *hideSections = [NSMutableIndexSet indexSet];
+            for (NSInteger section = 0; section < [self numberOfSectionsInTableView:self.tableView ]; section++) {
+                NSUInteger rowsInSection = 0;
+                for (NSIndexPath *indexPath in hideIndexPaths) {
+                    if (indexPath.section == section) {
+                        rowsInSection++;
+                    }
+                }
+                if (rowsInSection >= [self.settingsReader numberOfRowsForSection:section]) {
+                    [hideSections addIndex:section];
+                }
+            }
+			
+            // set the datasource
+            self.settingsReader.hiddenKeys = theHiddenKeys;
+            
+            
+            // calculate rows to be inserted
+            NSMutableArray *showIndexPaths = [NSMutableArray array];
+            for (NSString *key in showKeys) {
+                NSIndexPath *indexPath = [self.settingsReader indexPathForKey:key];
+                if (indexPath) {
+                    [showIndexPaths addObject:indexPath];
+                }
+            }
+            
+            // calculate sections to be inserted
+            NSMutableIndexSet *showSections = [NSMutableIndexSet indexSet];
+            for (NSInteger section = 0; section < [self.settingsReader numberOfSections]; section++) {
+                NSUInteger rowsInSection = 0;
+                for (NSIndexPath *indexPath in showIndexPaths) {
+                    if (indexPath.section == section) {
+                        rowsInSection++;
+                    }
+                }
+                if (rowsInSection >= [self.settingsReader numberOfRowsForSection:section]) {
+                    [showSections addIndex:section];
+                }
+            }
+            
+            UITableViewRowAnimation animation = animated ? UITableViewRowAnimationTop : UITableViewRowAnimationNone;
+            [self.tableView deleteSections:hideSections withRowAnimation:animation];
+            [self.tableView deleteRowsAtIndexPaths:hideIndexPaths withRowAnimation:animation];
+            [self.tableView insertSections:showSections withRowAnimation:animation];
+            [self.tableView insertRowsAtIndexPaths:showIndexPaths withRowAnimation:animation];
+            [self.tableView endUpdates];
+        } else {
+            self.settingsReader.hiddenKeys = theHiddenKeys;
+            [self.tableView reloadData];
+        }
+        [oldHiddenKeys release];
+    }
+}
+
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
@@ -240,6 +326,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[_currentFirstResponder release], _currentFirstResponder = nil;
 	[_settingsReader release], _settingsReader = nil;
     [_settingsStore release], _settingsStore = nil;
+    [_hiddenKeys release], _hiddenKeys = nil;
 	
 	_delegate = nil;
 
