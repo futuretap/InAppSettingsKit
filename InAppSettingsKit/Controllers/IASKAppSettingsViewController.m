@@ -152,6 +152,18 @@ CGRect IASKCGRectSwap(CGRect rect);
   if ([self isPad]) {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
   }
+
+  if (_showDoneButton) {
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
+                                                                                target:self 
+                                                                                action:@selector(dismiss:)];
+    self.navigationItem.rightBarButtonItem = buttonItem;
+    [buttonItem release];
+  }
+
+  if (!self.title) {
+    self.title = NSLocalizedString(@"Settings", @"");
+  }
 }
 
 - (void)viewDidUnload {
@@ -172,18 +184,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 							  withRowAnimation:UITableViewRowAnimationNone];
 		// and reselect it, so we get the nice default deselect animation from UITableViewController
 		[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-	}
-	
-	self.navigationItem.rightBarButtonItem = nil;
-	if (_showDoneButton) {
-		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
-																					target:self 
-																					action:@selector(dismiss:)];
-		self.navigationItem.rightBarButtonItem = buttonItem;
-		[buttonItem release];
-	} 
-	if (!self.title) {
-		self.title = NSLocalizedString(@"Settings", @"");
 	}
 	
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
