@@ -22,6 +22,7 @@
 #define kIASKFooterText                       @"FooterText"
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
+#define kIASKShowAsModal                      @"ShowAsModal"
 #define kIASKDefaultValue                     @"DefaultValue"
 #define kIASKMinimumValue                     @"MinimumValue"
 #define kIASKMaximumValue                     @"MaximumValue"

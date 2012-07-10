@@ -29,6 +29,7 @@
 		AAB8389B12846D110042FF80 /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB8389A12846D110042FF80 /* CustomViewCell.xib */; };
 		AAB838A012846D850042FF80 /* CustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8389F12846D850042FF80 /* CustomViewCell.m */; };
 		AAB83F2F12884E760042FF80 /* IASKAppSettingsWebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB83F2E12884E760042FF80 /* IASKAppSettingsWebView.xib */; };
+		AF298BE51599DFAC0079C862 /* CustomModalSubviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF298BE41599DFAC0079C862 /* CustomModalSubviewController.xib */; };
 		DA33F59510BC2222004736E8 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */; };
 		DA33F59610BC2222004736E8 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57C10BC2222004736E8 /* IASKSpecifierValuesViewController.m */; };
 		DA33F59710BC2222004736E8 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57F10BC2222004736E8 /* IASKSettingsReader.m */; };
@@ -88,6 +89,7 @@
 		AAB8389E12846D850042FF80 /* CustomViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewCell.h; sourceTree = "<group>"; };
 		AAB8389F12846D850042FF80 /* CustomViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewCell.m; sourceTree = "<group>"; };
 		AAB83F2E12884E760042FF80 /* IASKAppSettingsWebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKAppSettingsWebView.xib; sourceTree = "<group>"; };
+		AF298BE41599DFAC0079C862 /* CustomModalSubviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomModalSubviewController.xib; sourceTree = "<group>"; };
 		DA33F57910BC2222004736E8 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		DA33F57B10BC2222004736E8 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				AA8D0ED31136E17600EEB1C6 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */,
 				AAA468D7125CD9680057A662 /* CustomSubviewController.xib */,
+				AF298BE41599DFAC0079C862 /* CustomModalSubviewController.xib */,
 				AA4095291149663600C3BBFF /* Localizable.strings */,
 				AAB8389A12846D110042FF80 /* CustomViewCell.xib */,
 			);
@@ -382,6 +385,7 @@
 				AA8FA6EB12B0DBC300E7D1D1 /* settings_about.html in Resources */,
 				AAB83F2F12884E760042FF80 /* IASKAppSettingsWebView.xib in Resources */,
 				AA0717B4134C708F0043D610 /* MainWindow-iPad.xib in Resources */,
+				AF298BE51599DFAC0079C862 /* CustomModalSubviewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
