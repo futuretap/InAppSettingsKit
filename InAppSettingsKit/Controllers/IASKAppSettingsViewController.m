@@ -458,7 +458,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 }
 
-- (UITableViewCell*)dequeueReusableCellWithIdentifier:(NSString*)identifier {
+- (UITableViewCell*)createCellForIdentifier:(NSString*)identifier {
 	UITableViewCell *cell = nil;
 	if ([identifier isEqualToString:kIASKPSToggleSwitchSpecifier]) {
 		cell = [[[NSBundle mainBundle] loadNibNamed:@"IASKPSToggleSwitchSpecifierViewCell" 
@@ -500,7 +500,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		return cell;
 	}
 	
-	UITableViewCell *cell = [self dequeueReusableCellWithIdentifier:specifier.type];
+	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:specifier.type];
+	if(nil == cell) {
+		cell = [self createCellForIdentifier:specifier.type];
+	}
 	
 	if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
 		((IASKPSToggleSwitchSpecifierViewCell*)cell).label.text = specifier.title;
