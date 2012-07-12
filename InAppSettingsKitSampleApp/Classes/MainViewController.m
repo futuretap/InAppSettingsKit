@@ -164,13 +164,13 @@
 }
 
 #pragma mark -
-- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key {
-	if ([key isEqualToString:@"ButtonDemoAction1"]) {
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.key isEqualToString:@"ButtonDemoAction1"]) {
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 		[alert show];
 	} else {
-		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
-		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:key];
+		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
+		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:specifier.key];
 	}
 }
 
