@@ -45,8 +45,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 @property (nonatomic, retain) NSMutableArray *viewList;
 @property (nonatomic, retain) id currentFirstResponder;
 
-- (void) setup;
-
 - (void)_textChanged:(id)sender;
 - (void)synchronizeSettings;
 - (void)userDefaultsDidChange;
@@ -110,32 +108,32 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 #pragma mark standard view controller methods
 - (id)init {
-    return [self initWithNibName:@"IASKAppSettingsView" bundle:nil];
+    return [self initWithStyle:UITableViewStyleGrouped];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {        
-        // If set to YES, will add a DONE button at the right of the navigation bar
-      _showDoneButton = YES;
-
-      [self setup];
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    if (style != UITableViewStyleGrouped) {
+        NSLog(@"only UITableViewStyleGrouped style is supported, forcing it.");
+    }
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        _showDoneButton = YES;
+        // If set to YES, will display credits for InAppSettingsKit creators
+        _showCreditsFooter = YES;
     }
     return self;
 }
 
-- (void)awakeFromNib {	
-	// If set to YES, will add a DONE button at the right of the navigation bar
-	// if loaded via NIB, it's likely we sit in a TabBar- or NavigationController
-	// and thus don't need the Done button
-	_showDoneButton = NO;
-  
-  [self setup];
-}
-
-//common (NIB & code based) initialization
-- (void) setup {
-  // If set to YES, will display credits for InAppSettingsKit creators
-  _showCreditsFooter = YES;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if (!nibNameOrNil) {
+        return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    }
+    NSLog (@"%@ is now deprecated, we are moving away from nibs.", NSStringFromSelector(_cmd));
+    return [self initWithStyle:UITableViewStyleGrouped];
 }
 
 - (NSMutableArray *)viewList {
@@ -341,7 +339,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)dismiss:(id)sender {
+- (void)dismiss:(id)sender {
 	[self.settingsStore synchronize];
 	
 	if (self.delegate && [self.delegate conformsToProtocol:@protocol(IASKSettingsDelegate)]) {
@@ -465,23 +463,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (UITableViewCell*)createCellForIdentifier:(NSString*)identifier {
 	UITableViewCell *cell = nil;
 	if ([identifier isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-		cell = [[[NSBundle mainBundle] loadNibNamed:@"IASKPSToggleSwitchSpecifierViewCell" 
-											  owner:self 
-											options:nil] objectAtIndex:0];
+		cell = [[IASKPSToggleSwitchSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSToggleSwitchSpecifier];
 	}
 	else if ([identifier isEqualToString:kIASKPSMultiValueSpecifier] || [identifier isEqualToString:kIASKPSTitleValueSpecifier]) {
 		cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 		cell.accessoryType = [identifier isEqualToString:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSTextFieldSpecifier]) {
-		cell = (IASKPSTextFieldSpecifierViewCell*) [[[NSBundle mainBundle] loadNibNamed:@"IASKPSTextFieldSpecifierViewCell" 
-																				  owner:self 
-																				options:nil] objectAtIndex:0];
+		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 	}
 	else if ([identifier isEqualToString:kIASKPSSliderSpecifier]) {
-		cell = (IASKPSSliderSpecifierViewCell*) [[[NSBundle mainBundle] loadNibNamed:@"IASKPSSliderSpecifierViewCell" 
-																			   owner:self 
-																			 options:nil] objectAtIndex:0];
+        cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
 		cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -634,7 +626,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
             [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
             
-            targetViewController = [[IASKSpecifierValuesViewController alloc] initWithNibName:@"IASKSpecifierValuesView" bundle:nil];
+            targetViewController = [[IASKSpecifierValuesViewController alloc] init];
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
             [self.viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
@@ -687,7 +679,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
             [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
             
-            targetViewController = [[[self class] alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+            targetViewController = [[[self class] alloc] init];
 			targetViewController.showDoneButton = NO;
 			targetViewController.settingsStore = self.settingsStore; 
 			targetViewController.delegate = self.delegate;

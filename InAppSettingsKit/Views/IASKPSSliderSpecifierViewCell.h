@@ -24,8 +24,8 @@
     UIImageView *_maxImage;
 }
 
-@property (nonatomic, assign) IBOutlet IASKSlider *slider;
-@property (nonatomic, assign) IBOutlet UIImageView *minImage;
-@property (nonatomic, assign) IBOutlet UIImageView *maxImage;
+@property (nonatomic, assign) IASKSlider *slider;
+@property (nonatomic, assign) UIImageView *minImage;
+@property (nonatomic, assign) UIImageView *maxImage;
 
 @end
