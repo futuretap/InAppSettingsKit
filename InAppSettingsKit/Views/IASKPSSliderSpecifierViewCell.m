@@ -47,6 +47,8 @@
         _maxImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin |
         UIViewAutoresizingFlexibleBottomMargin;
         [self.contentView addSubview:_maxImage];
+
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }

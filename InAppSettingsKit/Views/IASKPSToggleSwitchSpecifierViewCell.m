@@ -40,6 +40,8 @@
         _toggle.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
         UIViewAutoresizingFlexibleLeftMargin;
         [self.contentView addSubview:_toggle];
+		
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
