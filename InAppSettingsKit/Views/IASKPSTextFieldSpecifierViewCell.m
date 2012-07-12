@@ -23,11 +23,45 @@
 @synthesize label=_label,
             textField=_textField;
 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Label
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 21)];
+        _label.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+        UIViewAutoresizingFlexibleBottomMargin |
+        UIViewAutoresizingFlexibleRightMargin;
+        _label.backgroundColor = [UIColor clearColor];
+        _label.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0f];
+        _label.textColor = [UIColor darkTextColor];
+        [self.contentView addSubview:_label];
+        
+        // TextField
+        _textField = [[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
+        _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+        UIViewAutoresizingFlexibleBottomMargin |
+        UIViewAutoresizingFlexibleLeftMargin;
+        _textField.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
+        _textField.textColor = [UIColor colorWithRed:0.275 green:0.376 blue:0.522 alpha:1.000];
+        [self.contentView addSubview:_textField];
+        
+        // Others
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return self;
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
-	CGSize labelSize = [_label sizeThatFits:CGSizeZero];
+    
+    // Label
+    CGSize labelSize = [_label sizeThatFits:CGSizeZero];
 	labelSize.width = MIN(labelSize.width, _label.bounds.size.width);
-
+    _label.center = CGPointMake(kIASKPaddingLeft + _label.bounds.size.width / 2,
+                                self.contentView.center.y);
+    // TextField
+    _textField.center = CGPointMake(_textField.center.x, self.contentView.center.y);
 	CGRect textFieldFrame = _textField.frame;
 	textFieldFrame.origin.x = _label.frame.origin.x + MAX(kIASKMinLabelWidth, labelSize.width) + kIASKSpacing;
 	if (!_label.text.length)

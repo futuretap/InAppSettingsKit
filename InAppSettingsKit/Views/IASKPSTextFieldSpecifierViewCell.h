@@ -23,7 +23,7 @@
     IASKTextField *_textField;
 }
 
-@property (nonatomic, assign) IBOutlet UILabel *label;
-@property (nonatomic, assign) IBOutlet IASKTextField *textField;
+@property (nonatomic, assign) UILabel *label;
+@property (nonatomic, assign) IASKTextField *textField;
 
 @end

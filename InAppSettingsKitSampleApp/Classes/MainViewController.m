@@ -34,7 +34,7 @@
 
 - (IASKAppSettingsViewController*)appSettingsViewController {
 	if (!appSettingsViewController) {
-		appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+		appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
 		appSettingsViewController.delegate = self;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];

@@ -52,6 +52,17 @@
     return _settingsStore;
 }
 
+- (void)loadView
+{
+    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+    UIViewAutoresizingFlexibleHeight;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    
+    self.view = _tableView;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     if (_currentSpecifier) {
         [self setTitle:[_currentSpecifier title]];
