@@ -21,7 +21,7 @@ How to include it?
 
 The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). Usually, you copy the `InAppSettingsKit` subfolder into your project. Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
 
-Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKSettingsViewController`.
+Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
 
 Goodies
@@ -127,7 +127,7 @@ Sometimes, options depend on each other. For instance, you might want to have an
 
 To hide a set of cells use:
 
-    - (void)[settingsViewController setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated;
+    - (void)[IASKAppSettingsViewController setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated];
 
 or the non-animated version:
 
