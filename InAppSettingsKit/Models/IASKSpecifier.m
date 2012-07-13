@@ -242,6 +242,11 @@
     return [UIImage imageNamed:[_specifierDict objectForKey:kIASKCellImage]];
 }
 
+- (UIImage *)highlightedCellImage
+{
+    return [UIImage imageNamed:[[_specifierDict objectForKey:kIASKCellImage ] stringByAppendingString:@"Highlighted"]];
+}
+
 - (UITextAlignment)textAlignment
 {
     if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentLeft]) {
@@ -251,6 +256,11 @@
     } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentRight]) {
         return UITextAlignmentRight;
     }
-    return UITextAlignmentLeft;
+    if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
+		return UITextAlignmentCenter;
+	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier]) {
+		return UITextAlignmentRight;
+	}
+	return UITextAlignmentLeft;
 }
 @end

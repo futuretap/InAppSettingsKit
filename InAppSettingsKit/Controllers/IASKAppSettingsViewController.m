@@ -477,8 +477,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
 		cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	} else if ([identifier isEqualToString:kIASKButtonSpecifier]) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
 		cell = [[[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier] autorelease];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
@@ -562,6 +560,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			textField.autocorrectionType = specifier.autoCorrectionType;
 		}
 		[cell setNeedsLayout];
+		textField.textAlignment = specifier.textAlignment;
 	}
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
@@ -588,15 +587,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
 		NSString *value = [self.settingsStore objectForKey:specifier.key];
 		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForStringId:value] : specifier.title;
-		//cell.textLabel.textAlignment = specifier.textAlignment;
 	} else {
 		cell.textLabel.text = specifier.title;
 	}
     
-    if (specifier.cellImage) {
-        cell.imageView.image = specifier.cellImage;
-    }
-    cell.textLabel.textAlignment = specifier.textAlignment;
+	cell.imageView.image = specifier.cellImage;
+	cell.imageView.highlightedImage = specifier.highlightedCellImage;
+    
+	if (![specifier.type isEqualToString:kIASKPSMultiValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTitleValueSpecifier]) {
+		cell.textLabel.textAlignment = specifier.textAlignment;
+	}
+	cell.detailTextLabel.textAlignment = specifier.textAlignment;
     return cell;
 }
 

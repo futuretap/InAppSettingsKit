@@ -72,7 +72,7 @@
         //resize the label to make room for the image
         self.label.frame = CGRectMake(CGRectGetWidth(self.imageView.bounds) + self.imageView.frame.origin.x + kIASKSpacing, 
                                       self.contentView.center.y - self.label.bounds.size.height / 2, 
-                                      self.toggle.frame.origin.x - CGRectGetWidth(self.imageView.bounds) - 2.f * kIASKSpacing, 
+                                      self.toggle.frame.origin.x - self.imageView.frame.origin.x - CGRectGetWidth(self.imageView.bounds) - 2.f * kIASKSpacing,
                                       self.label.frame.size.height);
     } else {
         self.label.frame = CGRectMake(kIASKPaddingLeft,

@@ -26,6 +26,30 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
+			<string>Right</string>
+			<key>Key</key>
+			<string>text_plain_right</string>
+			<key>DefaultValue</key>
+			<string>Plain Text</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>With image</string>
+			<key>Key</key>
+			<string>text_plain_pic</string>
+			<key>DefaultValue</key>
+			<string>Plain Text</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
 			<string>Secure</string>
 			<key>Key</key>
 			<string>text_secure</string>
@@ -226,6 +250,30 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string>Title with image</string>
+			<key>Key</key>
+			<string>title_pic</string>
+			<key>DefaultValue</key>
+			<string>Value</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Title</string>
+			<key>Key</key>
+			<string>title_elft</string>
+			<key>DefaultValue</key>
+			<string>Value left aligned</string>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>Title with Lookup Table</string>
 			<key>Key</key>
 			<string>title_lookup</string>
@@ -301,6 +349,18 @@
 			<string>toggle_boolean</string>
 			<key>DefaultValue</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Toggle w/ image</string>
+			<key>Key</key>
+			<string>toggle_pic</string>
+			<key>DefaultValue</key>
+			<true/>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -440,6 +500,32 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
+			<string>Multi Value w/ pic</string>
+			<key>Key</key>
+			<string>multivalue_pic</string>
+			<key>DefaultValue</key>
+			<integer>2</integer>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>One</string>
+				<string>Two</string>
+				<string>Three</string>
+			</array>
+			<key>FooterText</key>
+			<string>MULTIVALUE_FOOTER</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
 			<string>Multi Value with a long title</string>
 			<key>Key</key>
 			<string>multivalue_long</string>
@@ -482,6 +568,30 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>EMPTY</string>
+			<key>Key</key>
+			<string>multivalue_notitle</string>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Left One</string>
+				<string>Left Two</string>
+				<string>Left Three</string>
+			</array>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Child Pane</string>
@@ -493,6 +603,26 @@
 			<string>Advanced</string>
 			<key>File</key>
 			<string>Advanced</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Advanced (right)</string>
+			<key>File</key>
+			<string>Advanced</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Separate highlighted image</string>
+			<key>File</key>
+			<string>Advanced</string>
+			<key>IASKCellImage</key>
+			<string>20-gear2</string>
 		</dict>
 		<dict>
 			<key>Type</key>

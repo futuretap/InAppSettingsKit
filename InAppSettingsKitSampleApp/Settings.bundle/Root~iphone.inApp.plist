@@ -4,30 +4,6 @@
 <dict>
 	<key>PreferenceSpecifiers</key>
 	<array>
-        <dict>
-			<key>Key</key>
-			<string>FacebookButton</string>
-			<key>Title</key>
-			<string>Facebook</string>
-            <key>IASKCellImage</key>
-            <string>facebook</string>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentCenter</string>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-		</dict>
-        <dict>
-			<key>Key</key>
-			<string>TwitterButton</string>
-			<key>Title</key>
-			<string>Twitter</string>
-            <key>IASKCellImage</key>
-            <string>twitter</string>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentLeft</string>
-			<key>Type</key>
-			<string>IASKButtonSpecifier</string>
-		</dict>
 		<dict>
 			<key>FooterText</key>
 			<string>Root~iphone.inApp.plist is used in-App on iPhone</string>
@@ -119,6 +95,8 @@
 				<string>0</string>
 				<string>2</string>
 			</array>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -178,6 +156,18 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
+			<string>inappsettingskit.com</string>
+			<key>File</key>
+			<string>http://www.inappsettingskit.com/</string>
+			<key>Title</key>
+			<string>Open URL (centered)</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentCenter</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
 			<string>Tell A Friend</string>
 			<key>IASKMailComposeBccRecipents</key>
 			<array/>
@@ -195,6 +185,26 @@
 			<string>Mail Compose View</string>
 			<key>Type</key>
 			<string>IASKMailComposeSpecifier</string>
+		</dict>
+		<dict>
+			<key>IASKMailComposeBccRecipents</key>
+			<array/>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>IASKMailComposeBodyIsHTML</key>
+			<string>NO</string>
+			<key>IASKMailComposeCcRecipents</key>
+			<array/>
+			<key>IASKMailComposeSubject</key>
+			<string>InAppSettingsKit</string>
+			<key>IASKMailComposeToRecipents</key>
+			<array/>
+			<key>Title</key>
+			<string>Mail Compose View (right)</string>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
 			<key>IASKViewControllerClass</key>
@@ -239,6 +249,78 @@
 			<string>ButtonDemoAction2</string>
 			<key>Title</key>
 			<string>Login</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>ButtonDemoAction3</string>
+			<key>Title</key>
+			<string>Left Aligned</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Image Buttons</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>FacebookButton</string>
+			<key>Title</key>
+			<string>Facebook</string>
+			<key>IASKCellImage</key>
+			<string>facebook</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>TwitterButton</string>
+			<key>Title</key>
+			<string>Twitter</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>Left Aligned</string>
+			<key>Title</key>
+			<string>Left Aligned</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>Centered</string>
+			<key>Title</key>
+			<string>Centered</string>
+			<key>IASKCellImage</key>
+			<string>facebook</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentCenter</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>Right Aligned</string>
+			<key>Title</key>
+			<string>Right Aligned</string>
+			<key>IASKCellImage</key>
+			<string>facebook</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>

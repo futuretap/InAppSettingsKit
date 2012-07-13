@@ -58,16 +58,22 @@
     // Label
     CGSize labelSize = [_label sizeThatFits:CGSizeZero];
 	labelSize.width = MIN(labelSize.width, _label.bounds.size.width);
-    _label.center = CGPointMake(kIASKPaddingLeft + _label.bounds.size.width / 2,
-                                self.contentView.center.y);
+	CGFloat pictureWithSpace = self.imageView.image ? self.imageView.bounds.size.width + kIASKSpacing : 0;
+    _label.center = CGPointMake(kIASKPaddingLeft + pictureWithSpace + _label.bounds.size.width / 2, self.contentView.center.y);
     // TextField
     _textField.center = CGPointMake(_textField.center.x, self.contentView.center.y);
 	CGRect textFieldFrame = _textField.frame;
-	textFieldFrame.origin.x = _label.frame.origin.x + MAX(kIASKMinLabelWidth, labelSize.width) + kIASKSpacing;
+	textFieldFrame.origin.x = _label.frame.origin.x + MAX(kIASKMinLabelWidth - pictureWithSpace, labelSize.width) + kIASKSpacing;
 	if (!_label.text.length)
 		textFieldFrame.origin.x = _label.frame.origin.x;
-	textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - _label.frame.origin.x;
+	textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
 	_textField.frame = textFieldFrame;
+	
+	if (_textField.textAlignment == UITextAlignmentRight) {
+		textFieldFrame.origin.x = _label.frame.origin.x + labelSize.width + kIASKSpacing;
+		textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
+		_textField.frame = textFieldFrame;
+	}
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

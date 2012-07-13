@@ -48,11 +48,6 @@ In summary, the plists are searched in this order:
 Different in-app settings are useful in a variety of situations. For example, [Where To?](http://www.futuretap.com/whereto) uses this mechanism to change the wording of "At next start" (for resetting confirmation dialogs) to be appropriate if the app is already running.
 
 
-Variable font size
-------------------
-The labels in the settings table are displayed in a variable font size, especially handy to squeeze-in long localizations (beware: this might break the look in Settings.app if labels are too long!).
-
-
 IASKOpenURLSpecifier
 --------------------
 InAppSettingsKit adds a new element that allows to open a specified URL using an external application (i.e. Safari or Mail). See the sample `Root.inApp.plist` for details.
@@ -78,7 +73,10 @@ InAppSettingsKit adds a `IASKButtonSpecifier` element that allows to call a cust
 
     - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier;
 
-The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. Another nifty feature is that the title of IASK buttons can be overriden by the (localizable) value from `NSUserDefaults` (or any other settings store - see below). This comes in handy for toggle buttons (e.g. Login/Logout). See the sample app for details.  
+The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. Another nifty feature is that the title of IASK buttons can be overriden by the (localizable) value from `NSUserDefaults` (or any other settings store - see below). This comes in handy for toggle buttons (e.g. Login/Logout). See the sample app for details.
+
+By default, Buttons are aligned centered except if an image is specified (default: left-aligned). The default alignment may be overridden.
+
 
 FooterText
 ----------
@@ -114,6 +112,20 @@ The behaviour is similar to the custom cells except that the methods get the key
 Custom ViewControllers
 ----------------------
 For child pane elements (`PSChildPaneSpecifier`), Apple requires a `file` key that specifies the child plist. InAppSettingsKit allow to alternatively specify `IASKViewControllerClass` and `IASKViewControllerSelector`. In this case, the child pane is displayed by instantiating a UIViewController subclass of the specified class and initializing it using the init method specified in the `IASKViewControllerSelector`. The custom view controller is then pushed onto the navigation stack. See the sample app for more details.
+
+
+Text alignment
+--------------
+For some element types, a `IASKTextAlignment` attribute may be added with the following values to override the default alignment:
+
+- `IASKUITextAlignmentLeft` (Buttons, TitleValue, MultiValue, OpenURL, TextField)
+- `IASKUITextAlignmentCenter` (Buttons, OpenURL)
+- `IASKUITextAlignmentRight` (Buttons, TitleValue, MultiValue, OpenURL, TextField)
+
+
+Icons
+-----
+All element types (except sliders which already have a `MinimumValueImage`) support an icon image on the left side of the cell. You can specify the image name in an optional `IASKCellImage` attribute. The ".png" or "@2x.png" suffix is automatically appended and will be searched in the project. Optionally, you can add an image with suffix "Highlighted.png" or "Highlighted@2x.png" to the project and it will be automatically used as a highlight image when the cell is selected (for Buttons and ChildPanes).
 
 
 Settings Storage
