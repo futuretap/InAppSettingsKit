@@ -9,10 +9,10 @@
 			<string>FacebookButton</string>
 			<key>Title</key>
 			<string>Facebook</string>
-            <key>CellImage</key>
+            <key>IASKCellImage</key>
             <string>facebook</string>
-            <key>TextAlignment</key>
-            <string>UITextAlignmentLeft</string>
+            <key>IASKTextAlignment</key>
+            <string>IASKUITextAlignmentCenter</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
@@ -21,10 +21,10 @@
 			<string>TwitterButton</string>
 			<key>Title</key>
 			<string>Twitter</string>
-            <key>CellImage</key>
+            <key>IASKCellImage</key>
             <string>twitter</string>
-            <key>TextAlignment</key>
-            <string>UITextAlignmentLeft</string>
+            <key>IASKTextAlignment</key>
+            <string>IASKUITextAlignmentLeft</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
