@@ -223,6 +223,16 @@
 		<dict>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
+			<key>Key</key>
+			<string>text_noTitle_image</string>
+			<key>DefaultValue</key>
+			<string>Textfield without title with image</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
 			<string>Very long titles lead to smaller font</string>
 			<key>Key</key>
@@ -230,6 +240,20 @@
 			<key>DefaultValue</key>
 			<string>foo bar</string>
 			<key>IsSecure</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Disabled adjustsFontSizeToFitWidth</string>
+			<key>Key</key>
+			<string>text_longtitle_ adjustsFontSizeToFitWidth_disabled</string>
+			<key>DefaultValue</key>
+			<string>foo bar</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>IASKAdjustsFontSizeToFitWidth</key>
 			<false/>
 		</dict>
 		<dict>

@@ -35,7 +35,6 @@
 		DA33F59810BC2222004736E8 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58110BC2222004736E8 /* IASKSpecifier.m */; };
 		DA33F59910BC2222004736E8 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58410BC2222004736E8 /* IASKPSSliderSpecifierViewCell.m */; };
 		DA33F59A10BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58610BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.m */; };
-		DA33F59B10BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58810BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.m */; };
 		DA33F59C10BC2222004736E8 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58A10BC2222004736E8 /* IASKSlider.m */; };
 		DA33F59D10BC2222004736E8 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58C10BC2222004736E8 /* IASKSwitch.m */; };
 		DA33F59E10BC2222004736E8 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58E10BC2222004736E8 /* IASKTextField.m */; };
@@ -99,8 +98,6 @@
 		DA33F58410BC2222004736E8 /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
 		DA33F58510BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
 		DA33F58610BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
-		DA33F58710BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSToggleSwitchSpecifierViewCell.h; sourceTree = "<group>"; };
-		DA33F58810BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSToggleSwitchSpecifierViewCell.m; sourceTree = "<group>"; };
 		DA33F58910BC2222004736E8 /* IASKSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSlider.h; sourceTree = "<group>"; };
 		DA33F58A10BC2222004736E8 /* IASKSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSlider.m; sourceTree = "<group>"; };
 		DA33F58B10BC2222004736E8 /* IASKSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSwitch.h; sourceTree = "<group>"; };
@@ -269,8 +266,6 @@
 				DA33F58410BC2222004736E8 /* IASKPSSliderSpecifierViewCell.m */,
 				DA33F58510BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.h */,
 				DA33F58610BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.m */,
-				DA33F58710BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.h */,
-				DA33F58810BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.m */,
 				AA87D1DB113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.h */,
 				AA87D1DC113FB0FA00101881 /* IASKPSTitleValueSpecifierViewCell.m */,
 				DA33F58910BC2222004736E8 /* IASKSlider.h */,
@@ -396,7 +391,6 @@
 				DA33F59810BC2222004736E8 /* IASKSpecifier.m in Sources */,
 				DA33F59910BC2222004736E8 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				DA33F59A10BC2222004736E8 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
-				DA33F59B10BC2222004736E8 /* IASKPSToggleSwitchSpecifierViewCell.m in Sources */,
 				DA33F59C10BC2222004736E8 /* IASKSlider.m in Sources */,
 				DA33F59D10BC2222004736E8 /* IASKSwitch.m in Sources */,
 				DA33F59E10BC2222004736E8 /* IASKTextField.m in Sources */,

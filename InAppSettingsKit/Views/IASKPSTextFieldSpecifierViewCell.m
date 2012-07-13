@@ -20,33 +20,24 @@
 
 @implementation IASKPSTextFieldSpecifierViewCell
 
-@synthesize label=_label,
-            textField=_textField;
+@synthesize textField=_textField;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Label
-        _label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 240, 21)];
-        _label.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-        UIViewAutoresizingFlexibleBottomMargin |
-        UIViewAutoresizingFlexibleRightMargin;
-        _label.backgroundColor = [UIColor clearColor];
-        _label.font = [UIFont fontWithName:@"Helvetica-Bold" size:17.0f];
-        _label.textColor = [UIColor darkTextColor];
-        [self.contentView addSubview:_label];
-        
+		self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
+
         // TextField
-        _textField = [[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
+        _textField = [[[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)] autorelease];
         _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth |
         UIViewAutoresizingFlexibleBottomMargin |
         UIViewAutoresizingFlexibleLeftMargin;
-        _textField.font = [UIFont fontWithName:@"Helvetica" size:17.0f];
+        _textField.font = [UIFont systemFontOfSize:17.0f];
+		_textField.minimumFontSize = kIASKMinimumFontSize;
         _textField.textColor = [UIColor colorWithRed:0.275 green:0.376 blue:0.522 alpha:1.000];
         [self.contentView addSubview:_textField];
         
-        // Others
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
@@ -56,35 +47,30 @@
     [super layoutSubviews];
     
     // Label
-    CGSize labelSize = [_label sizeThatFits:CGSizeZero];
-	labelSize.width = MIN(labelSize.width, _label.bounds.size.width);
-	CGFloat pictureWithSpace = self.imageView.image ? self.imageView.bounds.size.width + kIASKSpacing : 0;
-    _label.center = CGPointMake(kIASKPaddingLeft + pictureWithSpace + _label.bounds.size.width / 2, self.contentView.center.y);
+	CGFloat imageOffset = self.imageView.image ? self.imageView.bounds.size.width + kIASKPaddingLeft : 0;
+    CGSize labelSize = [self.textLabel sizeThatFits:CGSizeZero];
+	labelSize.width = MAX(labelSize.width, kIASKMinLabelWidth - imageOffset);
+    self.textLabel.frame = (CGRect){self.textLabel.frame.origin, {MIN(kIASKMaxLabelWidth, labelSize.width), self.textLabel.frame.size.height}} ;
+
     // TextField
     _textField.center = CGPointMake(_textField.center.x, self.contentView.center.y);
 	CGRect textFieldFrame = _textField.frame;
-	textFieldFrame.origin.x = _label.frame.origin.x + MAX(kIASKMinLabelWidth - pictureWithSpace, labelSize.width) + kIASKSpacing;
-	if (!_label.text.length)
-		textFieldFrame.origin.x = _label.frame.origin.x;
+	textFieldFrame.origin.x = self.textLabel.frame.origin.x + MAX(kIASKMinLabelWidth - imageOffset, self.textLabel.frame.size.width) + kIASKSpacing;
 	textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
-	_textField.frame = textFieldFrame;
 	
-	if (_textField.textAlignment == UITextAlignmentRight) {
-		textFieldFrame.origin.x = _label.frame.origin.x + labelSize.width + kIASKSpacing;
+	if (!self.textLabel.text.length) {
+		textFieldFrame.origin.x = kIASKPaddingLeft + imageOffset;
+		textFieldFrame.size.width = self.contentView.bounds.size.width - 2* kIASKPaddingLeft - imageOffset;
+	} else if (_textField.textAlignment == UITextAlignmentRight) {
+		textFieldFrame.origin.x = self.textLabel.frame.origin.x + labelSize.width + kIASKSpacing;
 		textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
-		_textField.frame = textFieldFrame;
 	}
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+	_textField.frame = textFieldFrame;
 }
 
 
 - (void)dealloc {
+    [_textField release], _textField = nil;
     [super dealloc];
 }
 

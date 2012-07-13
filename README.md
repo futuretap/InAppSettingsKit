@@ -123,6 +123,12 @@ For some element types, a `IASKTextAlignment` attribute may be added with the fo
 - `IASKUITextAlignmentRight` (Buttons, TitleValue, MultiValue, OpenURL, TextField)
 
 
+Variable font size
+------------------
+By default, the labels in the settings table are displayed in a variable font size, especially handy to squeeze-in long localizations (beware: this might break the look in Settings.app if labels are too long!).
+To disable this behavior, add a `IASKAdjustsFontSizeToFitWidth` Boolean attribute with value `NO`.
+
+
 Icons
 -----
 All element types (except sliders which already have a `MinimumValueImage`) support an icon image on the left side of the cell. You can specify the image name in an optional `IASKCellImage` attribute. The ".png" or "@2x.png" suffix is automatically appended and will be searched in the project. Optionally, you can add an image with suffix "Highlighted.png" or "Highlighted@2x.png" to the project and it will be automatically used as a highlight image when the cell is selected (for Buttons and ChildPanes).

@@ -57,5 +57,6 @@
 -(SEL)buttonAction;
 - (UIImage *)cellImage;
 - (UIImage *)highlightedCellImage;
+- (BOOL)adjustsFontSizeToFitWidth;
 - (UITextAlignment)textAlignment;
 @end
