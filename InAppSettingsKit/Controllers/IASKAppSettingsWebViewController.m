@@ -22,21 +22,29 @@
 @synthesize webView;
 
 - (id)initWithFile:(NSString*)urlString key:(NSString*)key {
-	if (!(self = [super initWithNibName:nil bundle:nil])) {
-		return nil;
-	}
-	
-	self.url = [NSURL URLWithString:urlString];
-	if (!self.url || ![self.url scheme]) {
-		NSString *path = [[NSBundle mainBundle] pathForResource:[urlString stringByDeletingPathExtension] ofType:[urlString pathExtension]];
-		if(path)
-			self.url = [NSURL fileURLWithPath:path];
-		else
-			self.url = nil;
-	}
-	return self;
+    self = [super init];
+    if (self) {
+        self.url = [NSURL URLWithString:urlString];
+        if (!self.url || ![self.url scheme]) {
+            NSString *path = [[NSBundle mainBundle] pathForResource:[urlString stringByDeletingPathExtension] ofType:[urlString pathExtension]];
+            if(path)
+                self.url = [NSURL fileURLWithPath:path];
+            else
+                self.url = nil;
+        }
+    }
+    return self;
 }
 
+- (void)loadView
+{
+    webView = [[UIWebView alloc] init];
+    webView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+    UIViewAutoresizingFlexibleHeight;
+    webView.delegate = self;
+    
+    self.view = webView;
+}
 
 - (void)dealloc {
 	[webView release], webView = nil;

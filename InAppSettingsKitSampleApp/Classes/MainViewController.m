@@ -24,14 +24,23 @@
 
 #import "CustomViewCell.h"
 
+@interface MainViewController() 
+- (void)settingDidChange:(NSNotification*)notification;
+@end
+
 @implementation MainViewController
 
 @synthesize appSettingsViewController;
 
 - (IASKAppSettingsViewController*)appSettingsViewController {
 	if (!appSettingsViewController) {
-		appSettingsViewController = [[IASKAppSettingsViewController alloc] initWithNibName:@"IASKAppSettingsView" bundle:nil];
+		appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
 		appSettingsViewController.delegate = self;
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+
+		BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
+		appSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
 	}
 	return appSettingsViewController;
 }
@@ -140,6 +149,14 @@
 	return cell;
 }
 
+#pragma mark kIASKAppSettingChanged notification
+- (void)settingDidChange:(NSNotification*)notification {
+	if ([notification.object isEqual:@"AutoConnect"]) {
+		BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"AutoConnect"] intValue];
+		[self.appSettingsViewController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil] animated:YES];
+	}
+}
+
 #pragma mark UITextViewDelegate (for CustomViewCell)
 - (void)textViewDidChange:(UITextView *)textView {
     [[NSUserDefaults standardUserDefaults] setObject:textView.text forKey:@"customCell"];
@@ -147,13 +164,13 @@
 }
 
 #pragma mark -
-- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key {
-	if ([key isEqualToString:@"ButtonDemoAction1"]) {
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.key isEqualToString:@"ButtonDemoAction1"]) {
 		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
 		[alert show];
 	} else {
-		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
-		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:key];
+		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
+		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:specifier.key];
 	}
 }
 

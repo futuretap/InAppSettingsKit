@@ -21,7 +21,7 @@ How to include it?
 
 The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). Usually, you copy the `InAppSettingsKit` subfolder into your project. Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
 
-Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKSettingsViewController`.
+Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
 
 Goodies
@@ -64,16 +64,21 @@ The custom `IASKMailComposeSpecifier` element allows to send mail from within th
 
     - (NSString*)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeBodyForSpecifier:(IASKSpecifier*)specifier;
 
-in your delegate to pre-fill the body with dynamic content (great to add device-specific data in support mails for example). An alert is displayed if Email is not configured on the device.
+in your delegate to pre-fill the body with dynamic content (great to add device-specific data in support mails for example). An alert is displayed if Email is not configured on the device. `IASKSpecifier` is the internal model object defining a single settings cell. Important IASKSpecifier properties:
+
+- `key`: corresponds to the `Key` in the Settings plist
+- `title`: the localized title of settings key
+- `type`: corresponds to the `Type` in the Settings plist
+- `defaultValue`: corresponds to the `DefaultValue` in the Settings plist
 
 
 IASKButtonSpecifier
 -------------------
 InAppSettingsKit adds a `IASKButtonSpecifier` element that allows to call a custom action. Just add the following delegate method:
 
-    - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key:
+    - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier;
 
-The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. The key corresponds to the `Key` attribute in the Settings plist (useful if you wanna call the same method for different keys). Another nifty feature is that the title of IASK buttons can be overriden by the (localizable) value from `NSUserDefaults` (or any other settings store - see below). This comes in handy for toggle buttons (e.g. Login/Logout). See the sample app for details.  
+The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. Another nifty feature is that the title of IASK buttons can be overriden by the (localizable) value from `NSUserDefaults` (or any other settings store - see below). This comes in handy for toggle buttons (e.g. Login/Logout). See the sample app for details.  
 
 FooterText
 ----------
@@ -119,6 +124,21 @@ The default behaviour of IASK is to store the settings in `[NSUserDefaults stand
 Notifications
 -------------
 There's a `kIASKAppSettingChanged` notification that is sent for every changed settings key. The `object` of the notification is the userDefaults key (NSString*). The `userInfo` dictionary contains the new value of the key.
+
+
+Dynamic cell hiding
+-------------------
+Sometimes, options depend on each other. For instance, you might want to have an "Auto Connect" switch, and let the user set username and password if enabled. To react on changes of a specific setting, use the `kIASKAppSettingChanged` notification explained above.
+
+To hide a set of cells use:
+
+    - (void)[IASKAppSettingsViewController setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated];
+
+or the non-animated version:
+
+	@property (nonatomic, retain) NSSet *hiddenKeys;
+
+See the sample app for more details.
 
 
 Subclassing notes

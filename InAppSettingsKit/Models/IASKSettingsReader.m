@@ -31,7 +31,8 @@
 localizationTable=_localizationTable,
 bundlePath=_bundlePath,
 settingsBundle=_settingsBundle, 
-dataSource=_dataSource;
+dataSource=_dataSource,
+hiddenKeys = _hiddenKeys;
 
 - (id)init {
 	return [self initWithFile:@"Root"];
@@ -75,9 +76,24 @@ dataSource=_dataSource;
 	[_settingsBundle release], _settingsBundle = nil;
 	[_dataSource release], _dataSource = nil;
 	[_bundle release], _bundle = nil;
+    [_hiddenKeys release], _hiddenKeys = nil;
 
 	[super dealloc];
 }
+
+
+- (void)setHiddenKeys:(NSSet *)anHiddenKeys {
+	if (_hiddenKeys != anHiddenKeys) {
+		id old = _hiddenKeys;
+		_hiddenKeys = [anHiddenKeys retain];
+		[old release];
+		
+		if (_settingsBundle) {
+			[self _reinterpretBundle:_settingsBundle];
+		}
+	}
+}
+
 
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
 	NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
@@ -85,6 +101,9 @@ dataSource=_dataSource;
 	NSMutableArray *dataSource		= [[[NSMutableArray alloc] init] autorelease];
 	
 	for (NSDictionary *specifier in preferenceSpecifiers) {
+		if ([self.hiddenKeys containsObject:[specifier objectForKey:kIASKKey]]) {
+			continue;
+		}
 		if ([(NSString*)[specifier objectForKey:kIASKType] isEqualToString:kIASKPSGroupSpecifier]) {
 			NSMutableArray *newArray = [[NSMutableArray alloc] init];
 			

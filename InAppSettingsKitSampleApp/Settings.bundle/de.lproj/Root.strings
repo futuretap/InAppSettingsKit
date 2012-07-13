@@ -14,7 +14,7 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-"TOGGLE_SWITCH"         = "Automatisch Verbinden";
+"TOGGLE_SWITCH"         = "Toggle Schalter";
 "TOGGLE_SWITCH_TITLE"   = "Toggle Schalter";
 
 "MUL_VALUE_TITLE"       = "Mehrere Werte";
@@ -50,5 +50,6 @@
 
 "Complete List"         = "Komplette Liste";
 
+"AUTO_CONNECT"			= "Automatisch Verbinden";
 
 "EMPTY"                 = "";
