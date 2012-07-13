@@ -61,6 +61,22 @@
     [aNavController release];
 }
 
+- (void)showSettingsPopover:(id)sender {
+	self.appSettingsViewController.showDoneButton = NO;
+	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController] autorelease];
+	UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:navController];
+	[popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)] autorelease];
+	}
+}
+
+
 #pragma mark -
 #pragma mark IASKAppSettingsViewControllerDelegate protocol
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {

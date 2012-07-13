@@ -189,6 +189,11 @@
                                                                                            forKey:[_currentSpecifier key]]];
 }
 
+- (CGSize)contentSizeForViewInPopover {
+    return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
+}
+
+
 #pragma mark Notifications
 
 - (void)userDefaultsDidChange {
