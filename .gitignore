@@ -4,5 +4,10 @@ InAppSettingsKitSampleApp/build/**
 **/*.xcodeproj/*.mode1v3
 **/*.xcodeproj/project.xcworkspace/
 **/*.xcodeproj/xcuserdata/
+**/*.xcworkspace/*.pbxuser
+**/*.xcworkspace/*.perspectivev3
+**/*.xcworkspace/*.mode1v3
+**/*.xcworkspace/project.xcworkspace/
+**/*.xcworkspace/xcuserdata/
 .DS_Store
 .svn
