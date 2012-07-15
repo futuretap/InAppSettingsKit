@@ -15,7 +15,7 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import "IASKAppSettingsViewController.h"
+#import <InAppSettingsKit/IASKAppSettingsViewController.h>
 
 @interface MainViewController : UIViewController <IASKSettingsDelegate, UITextViewDelegate> { 
     IASKAppSettingsViewController *appSettingsViewController;
