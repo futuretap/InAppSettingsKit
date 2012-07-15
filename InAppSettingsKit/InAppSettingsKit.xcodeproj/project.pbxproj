@@ -8,34 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		24B21E9415B34BB5009F284E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24B21E9215B34BB5009F284E /* InfoPlist.strings */; };
-		24B21EC415B34C40009F284E /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21E9C15B34C40009F284E /* IASKAppSettingsViewController.h */; };
+		24B21EC415B34C40009F284E /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21E9C15B34C40009F284E /* IASKAppSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21EC515B34C40009F284E /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21E9D15B34C40009F284E /* IASKAppSettingsViewController.m */; };
-		24B21EC615B34C40009F284E /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21E9E15B34C40009F284E /* IASKAppSettingsWebViewController.h */; };
+		24B21EC615B34C40009F284E /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21E9E15B34C40009F284E /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21EC715B34C40009F284E /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21E9F15B34C40009F284E /* IASKAppSettingsWebViewController.m */; };
-		24B21EC815B34C40009F284E /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA015B34C40009F284E /* IASKSpecifierValuesViewController.h */; };
+		24B21EC815B34C40009F284E /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA015B34C40009F284E /* IASKSpecifierValuesViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21EC915B34C40009F284E /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EA115B34C40009F284E /* IASKSpecifierValuesViewController.m */; };
-		24B21ECA15B34C40009F284E /* IASKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA215B34C40009F284E /* IASKViewController.h */; };
-		24B21ECB15B34C40009F284E /* IASKSettingsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA415B34C40009F284E /* IASKSettingsReader.h */; };
+		24B21ECA15B34C40009F284E /* IASKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA215B34C40009F284E /* IASKViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		24B21ECB15B34C40009F284E /* IASKSettingsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA415B34C40009F284E /* IASKSettingsReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21ECC15B34C40009F284E /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EA515B34C40009F284E /* IASKSettingsReader.m */; };
-		24B21ECD15B34C40009F284E /* IASKSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA615B34C40009F284E /* IASKSettingsStore.h */; };
+		24B21ECD15B34C40009F284E /* IASKSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA615B34C40009F284E /* IASKSettingsStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21ECE15B34C40009F284E /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EA715B34C40009F284E /* IASKSettingsStore.m */; };
-		24B21ECF15B34C40009F284E /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA815B34C40009F284E /* IASKSettingsStoreFile.h */; };
+		24B21ECF15B34C40009F284E /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EA815B34C40009F284E /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21ED015B34C40009F284E /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EA915B34C40009F284E /* IASKSettingsStoreFile.m */; };
-		24B21ED115B34C40009F284E /* IASKSettingsStoreUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EAA15B34C40009F284E /* IASKSettingsStoreUserDefaults.h */; };
+		24B21ED115B34C40009F284E /* IASKSettingsStoreUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EAA15B34C40009F284E /* IASKSettingsStoreUserDefaults.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21ED215B34C40009F284E /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EAB15B34C40009F284E /* IASKSettingsStoreUserDefaults.m */; };
-		24B21ED315B34C40009F284E /* IASKSpecifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EAC15B34C40009F284E /* IASKSpecifier.h */; };
+		24B21ED315B34C40009F284E /* IASKSpecifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EAC15B34C40009F284E /* IASKSpecifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21ED415B34C40009F284E /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EAD15B34C40009F284E /* IASKSpecifier.m */; };
-		24B21ED515B34C40009F284E /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EAF15B34C40009F284E /* IASKPSSliderSpecifierViewCell.h */; };
+		24B21ED515B34C40009F284E /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EAF15B34C40009F284E /* IASKPSSliderSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21ED615B34C40009F284E /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EB015B34C40009F284E /* IASKPSSliderSpecifierViewCell.m */; };
-		24B21ED715B34C40009F284E /* IASKPSTextFieldSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EB115B34C40009F284E /* IASKPSTextFieldSpecifierViewCell.h */; };
+		24B21ED715B34C40009F284E /* IASKPSTextFieldSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EB115B34C40009F284E /* IASKPSTextFieldSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21ED815B34C40009F284E /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EB215B34C40009F284E /* IASKPSTextFieldSpecifierViewCell.m */; };
-		24B21ED915B34C40009F284E /* IASKPSTitleValueSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EB315B34C40009F284E /* IASKPSTitleValueSpecifierViewCell.h */; };
+		24B21ED915B34C40009F284E /* IASKPSTitleValueSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EB315B34C40009F284E /* IASKPSTitleValueSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21EDA15B34C40009F284E /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EB415B34C40009F284E /* IASKPSTitleValueSpecifierViewCell.m */; };
-		24B21EDD15B34C40009F284E /* IASKSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EB715B34C40009F284E /* IASKSlider.h */; };
+		24B21EDD15B34C40009F284E /* IASKSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EB715B34C40009F284E /* IASKSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21EDE15B34C40009F284E /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EB815B34C40009F284E /* IASKSlider.m */; };
-		24B21EDF15B34C40009F284E /* IASKSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EB915B34C40009F284E /* IASKSwitch.h */; };
+		24B21EDF15B34C40009F284E /* IASKSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EB915B34C40009F284E /* IASKSwitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21EE015B34C40009F284E /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EBA15B34C40009F284E /* IASKSwitch.m */; };
-		24B21EE115B34C40009F284E /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EBB15B34C40009F284E /* IASKTextField.h */; };
+		24B21EE115B34C40009F284E /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 24B21EBB15B34C40009F284E /* IASKTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24B21EE215B34C40009F284E /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B21EBC15B34C40009F284E /* IASKTextField.m */; };
 /* End PBXBuildFile section */
 
