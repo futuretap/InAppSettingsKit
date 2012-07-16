@@ -70,7 +70,6 @@
 
 
 - (void)dealloc {
-    [_textField release], _textField = nil;
     [super dealloc];
 }
 
