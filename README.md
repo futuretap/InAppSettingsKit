@@ -19,7 +19,27 @@ We released the code under the liberal BSD license in order to make it possible 
 How to include it?
 ==================
 
-The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). Usually, you copy the `InAppSettingsKit` subfolder into your project. Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
+The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). You can compile InAppSettingsKit into your app in these three ways:
+
+1 - Workspace
+-------------
+If you have a Workspace set up, add InAppSettingsKit.xcodeproj to the workspace. Drag InAppSettingsKit.framework from "Products" into your project. Verify it is linked under "Build Phases", "Link Binary With Libraries" for each relevant target. If the file can't be found, check that your project's "Framework Search Paths" includes your build output directory.
+
+This is how the InAppSettingsKitSampleApp workspace is set up. Make sure to open the xcworkspace file instead of xcodeproj.
+
+2 - InAppSettingsKit.framework
+------------------------------
+If you have a build of InAppSettingsKit.framework, simply drag it into your project or add it with the "Add files to ..." menu entry. Verify it is linked under "Build Phases", "Link Binary With Libraries" for each relevant target.
+
+3 - Just the files
+------------------
+Alternatively, you can copy the `InAppSettingsKit` subfolder into your project. Make sure to add the files to your app target and to [disable ARC for these files](http://stackoverflow.com/questions/6646052/how-can-i-disable-arc-for-a-single-file-in-a-project) if you have it enabled.
+
+Code
+----
+If you include the code as a framework (options 1 and 2), headers need to include the framework path like this: `#import <InAppSettingsKit/IASKSpecifier.h>` If you include the files directly (option 3), use: `#import "IASKSpecifier.h"`
+
+Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit.
 
 Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
