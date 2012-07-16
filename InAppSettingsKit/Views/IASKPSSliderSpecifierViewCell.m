@@ -88,7 +88,6 @@
 }	
 
 - (void)dealloc {
-    [_slider release], _slider = nil;
 	_minImage.image = nil;
 	_maxImage.image = nil;
     [super dealloc];
