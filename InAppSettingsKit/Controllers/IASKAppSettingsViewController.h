@@ -76,7 +76,7 @@
     NSSet                   *_hiddenKeys;
 }
 
-@property (nonatomic, assign) id delegate;
+@property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;
