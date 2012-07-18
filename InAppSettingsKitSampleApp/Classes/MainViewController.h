@@ -19,9 +19,11 @@
 
 @interface MainViewController : UIViewController <IASKSettingsDelegate, UITextViewDelegate> { 
     IASKAppSettingsViewController *appSettingsViewController;
+    IASKAppSettingsViewController *tabAppSettingsViewController;
 }
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
+@property (nonatomic, retain) IBOutlet IASKAppSettingsViewController *tabAppSettingsViewController;
 
 - (IBAction)showSettingsPush:(id)sender;
 - (IBAction)showSettingsModal:(id)sender;
