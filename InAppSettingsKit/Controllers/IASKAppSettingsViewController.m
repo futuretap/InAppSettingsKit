@@ -316,6 +316,10 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
         [oldHiddenKeys release];
     }
+	IASKAppSettingsViewController *childViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
+	if(childViewController) {
+		[childViewController setHiddenKeys:theHiddenKeys animated:animated];
+	}
 }
 
 
@@ -704,6 +708,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
         }
 		targetViewController.file = specifier.file;
+		targetViewController.hiddenKeys = self.hiddenKeys;
 		targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;
         [[self navigationController] pushViewController:targetViewController animated:YES];
