@@ -45,6 +45,7 @@
 #define kIASKMailComposeSubject               @"IASKMailComposeSubject"
 #define kIASKMailComposeBody                  @"IASKMailComposeBody"
 #define kIASKMailComposeBodyIsHTML            @"IASKMailComposeBodyIsHTML"
+#define kIASKMailComposeModalPresentationStyle @"IASKMailComposeModalPresentationStyle"
 #define kIASKKeyboardAlphabet                 @"Alphabet"
 #define kIASKKeyboardNumbersAndPunctuation    @"NumbersAndPunctuation"
 #define kIASKKeyboardNumberPad                @"NumberPad"
