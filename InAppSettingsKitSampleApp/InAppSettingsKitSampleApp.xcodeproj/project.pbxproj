@@ -35,6 +35,8 @@
 		AAA53E8F15B057FD00C6558B /* 20-gear2Highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = AAA53E8E15B057FD00C6558B /* 20-gear2Highlighted.png */; };
 		AAB8389B12846D110042FF80 /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB8389A12846D110042FF80 /* CustomViewCell.xib */; };
 		AAB838A012846D850042FF80 /* CustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8389F12846D850042FF80 /* CustomViewCell.m */; };
+		B3BDAFED15D8E79F00894778 /* IASKTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BDAFEC15D8E79F00894778 /* IASKTextEditorViewController.m */; };
+		B3BDB02315D8F37800894778 /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BDB02215D8F37800894778 /* IASKTextViewCell.m */; };
 		DA33F59510BC2222004736E8 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */; };
 		DA33F59610BC2222004736E8 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57C10BC2222004736E8 /* IASKSpecifierValuesViewController.m */; };
 		DA33F59710BC2222004736E8 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F57F10BC2222004736E8 /* IASKSettingsReader.m */; };
@@ -90,6 +92,10 @@
 		AAB8389A12846D110042FF80 /* CustomViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomViewCell.xib; sourceTree = "<group>"; };
 		AAB8389E12846D850042FF80 /* CustomViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewCell.h; sourceTree = "<group>"; };
 		AAB8389F12846D850042FF80 /* CustomViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewCell.m; sourceTree = "<group>"; };
+		B3BDAFEB15D8E79F00894778 /* IASKTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextEditorViewController.h; sourceTree = "<group>"; };
+		B3BDAFEC15D8E79F00894778 /* IASKTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextEditorViewController.m; sourceTree = "<group>"; };
+		B3BDB02115D8F37800894778 /* IASKTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextViewCell.h; sourceTree = "<group>"; };
+		B3BDB02215D8F37800894778 /* IASKTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextViewCell.m; sourceTree = "<group>"; };
 		DA33F57910BC2222004736E8 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		DA33F57B10BC2222004736E8 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
@@ -226,6 +232,8 @@
 			children = (
 				DA33F57910BC2222004736E8 /* IASKAppSettingsViewController.h */,
 				DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */,
+				B3BDAFEB15D8E79F00894778 /* IASKTextEditorViewController.h */,
+				B3BDAFEC15D8E79F00894778 /* IASKTextEditorViewController.m */,
 				DA33F57B10BC2222004736E8 /* IASKSpecifierValuesViewController.h */,
 				DA33F57C10BC2222004736E8 /* IASKSpecifierValuesViewController.m */,
 				F48E09E8123D03E000B67C05 /* IASKAppSettingsWebViewController.h */,
@@ -268,6 +276,8 @@
 				DA33F58C10BC2222004736E8 /* IASKSwitch.m */,
 				DA33F58D10BC2222004736E8 /* IASKTextField.h */,
 				DA33F58E10BC2222004736E8 /* IASKTextField.m */,
+				B3BDB02115D8F37800894778 /* IASKTextViewCell.h */,
+				B3BDB02215D8F37800894778 /* IASKTextViewCell.m */,
 			);
 			name = Views;
 			path = ../InAppSettingsKit/Views;
@@ -402,6 +412,8 @@
 				AA8746D0128B02B600CACD4C /* IASKSettingsStoreUserDefaults.m in Sources */,
 				AA8746D1128B02B600CACD4C /* IASKSettingsStoreFile.m in Sources */,
 				AA8746D2128B02B600CACD4C /* IASKSettingsStore.m in Sources */,
+				B3BDAFED15D8E79F00894778 /* IASKTextEditorViewController.m in Sources */,
+				B3BDB02315D8F37800894778 /* IASKTextViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

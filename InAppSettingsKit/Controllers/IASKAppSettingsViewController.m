@@ -25,6 +25,7 @@
 #import "IASKSlider.h"
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
+#import "IASKTextEditorViewController.h"
 #import "IASKTextField.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
@@ -35,6 +36,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
 #define kIASKSpecifierValuesViewControllerIndex       0
 #define kIASKSpecifierChildViewControllerIndex        1
+#define kIASKSpecifierEditorViewControllerIndex       2
 
 #define kIASKCreditsViewWidth                         285
 
@@ -140,6 +142,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		_viewList = [[NSMutableArray alloc] init];
 		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
 		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
+		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKEditorView", @"ViewName",nil]];
 	}
 	return _viewList;
 }
@@ -476,8 +479,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.accessoryType = [identifier isEqualToString:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSTextFieldSpecifier]) {
-		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
+		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
+	}
+	else if ([identifier isEqualToString:kIASKTextViewSpecifier]) {
+		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	else if ([identifier isEqualToString:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
@@ -569,6 +576,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.textAlignment = specifier.textAlignment;
 		textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	}
+	else if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
+		cell.textLabel.text = specifier.title;
+		NSString *textValue = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
+		if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
+			textValue = [NSString stringWithFormat:@"%@", textValue];
+		}
+		cell.detailTextLabel.text = textValue;
+	}
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
 			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.minimumValueImage]];
@@ -601,7 +616,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	cell.imageView.image = specifier.cellImage;
 	cell.imageView.highlightedImage = specifier.highlightedCellImage;
     
-	if (![specifier.type isEqualToString:kIASKPSMultiValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTitleValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
+	if (![specifier.type isEqualToString:kIASKPSMultiValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTitleValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTextFieldSpecifier] && ![specifier.type isEqualToString:kIASKTextViewSpecifier]) {
 		cell.textLabel.textAlignment = specifier.textAlignment;
 	}
 	cell.detailTextLabel.textAlignment = specifier.textAlignment;
@@ -659,6 +674,31 @@ CGRect IASKCGRectSwap(CGRect rect);
 		IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
 		[textFieldCell.textField becomeFirstResponder];
     }
+	else if ([[specifier type] isEqualToString:kIASKTextViewSpecifier]) {
+		IASKTextEditorViewController *targetViewController =
+		[[self.viewList objectAtIndex:kIASKSpecifierEditorViewControllerIndex] objectForKey:@"viewController"];
+		
+        if (targetViewController == nil) {
+            // the view controller has not been created yet, create it and set it to our viewList array
+            // create a new dictionary with the new view controller
+            NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
+            [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierEditorViewControllerIndex]];	// copy the title and explain strings
+            
+            targetViewController = [[IASKTextEditorViewController alloc] init];
+            // add the new view controller to the dictionary and then to the 'viewList' array
+            [newItemDict setObject:targetViewController forKey:@"viewController"];
+            [self.viewList replaceObjectAtIndex:kIASKSpecifierEditorViewControllerIndex withObject:newItemDict];
+            [targetViewController release];
+            
+            // load the view control back in to push it
+            targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierEditorViewControllerIndex] objectForKey:@"viewController"];
+        }
+        [targetViewController setCurrentSpecifier:specifier];
+        targetViewController.settingsReader = self.settingsReader;
+        targetViewController.settingsStore = self.settingsStore;
+        [[self navigationController] pushViewController:targetViewController animated:YES];
+		
+	}
     else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
 
         
