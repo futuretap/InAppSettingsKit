@@ -33,6 +33,7 @@
 		UITextView *textView = [[UITextView alloc] initWithFrame:frame];
 		textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		textView.font = [UIFont systemFontOfSize:17.0];
+		textView.backgroundColor = [UIColor clearColor];
 		_textView = textView;
 		[self addSubview:textView];
 		[textView release];
