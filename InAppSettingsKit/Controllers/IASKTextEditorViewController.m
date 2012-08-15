@@ -49,6 +49,7 @@
     UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
+	_tableView.allowsSelection = NO;
     
     self.view = _tableView;
 }

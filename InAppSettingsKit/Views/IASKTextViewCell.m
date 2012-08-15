@@ -37,7 +37,8 @@
 		_textView = textView;
 		[self addSubview:textView];
 		[textView release];
-        // Initialization code
+
+		self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
