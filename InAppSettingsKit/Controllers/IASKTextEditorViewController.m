@@ -131,9 +131,9 @@
     UIViewAnimationCurve animationCurve;
     CGRect keyboardEndFrame;
 	
-	[userInfo[@"UIKeyboardAnimationCurveUserInfoKey"] getValue:&animationCurve];
-	[userInfo[@"UIKeyboardAnimationDurationUserInfoKey"] getValue:&animationDuration];
-	[userInfo[@"UIKeyboardFrameEndUserInfoKey"] getValue:&keyboardEndFrame];
+	[[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
+	[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
+	[[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
 	
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
