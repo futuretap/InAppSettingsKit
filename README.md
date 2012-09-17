@@ -156,7 +156,7 @@ or the non-animated version:
 
 	@property (nonatomic, retain) NSSet *hiddenKeys;
 
-See the sample app for more details.
+See the sample app for more details. Note that InAppSettingsKit uses Settings schema, not TableView semantics: If you want to hide a group of cells, you have to include the Group entry as well as the member entries.
 
 
 Subclassing notes
