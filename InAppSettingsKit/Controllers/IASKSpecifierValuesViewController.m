@@ -61,14 +61,15 @@
         [self updateCheckedItem];
     }
     
-    // HANDELABRA: Custom override background color.
-    self.view.backgroundColor = self.backgroundColor;
-    
     if (_tableView) {
         
         // HANDELABRA: Custom override background color.
-        _tableView.backgroundColor = self.backgroundColor;
-        [_tableView setNeedsDisplay];
+        if (self.backgroundColor != nil)
+        {
+            _tableView.backgroundColor = self.backgroundColor;
+            // Setting backgroundView to nil seems to be required to get this to work on iOS 6.
+            _tableView.backgroundView = nil;
+        }
         
         [_tableView reloadData];
 
