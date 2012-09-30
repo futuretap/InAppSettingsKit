@@ -17,6 +17,7 @@
 #import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKTextField.h"
 #import "IASKSettingsReader.h"
+#import "IASKTextAlignment.h"
 
 @implementation IASKPSTextFieldSpecifierViewCell
 
@@ -61,7 +62,7 @@
 	if (!self.textLabel.text.length) {
 		textFieldFrame.origin.x = kIASKPaddingLeft + imageOffset;
 		textFieldFrame.size.width = self.contentView.bounds.size.width - 2* kIASKPaddingLeft - imageOffset;
-	} else if (_textField.textAlignment == UITextAlignmentRight) {
+	} else if (_textField.textAlignment == IOS_UITextAlignmentRight) {
 		textFieldFrame.origin.x = self.textLabel.frame.origin.x + labelSize.width + kIASKSpacing;
 		textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
 	}

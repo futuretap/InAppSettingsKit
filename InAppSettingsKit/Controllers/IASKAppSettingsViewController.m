@@ -26,6 +26,7 @@
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
+#import "IASKTextAlignment.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -437,7 +438,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if ((title = [self tableView:tableView titleForHeaderInSection:section])) {
 		CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]] 
 						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
-							lineBreakMode:UILineBreakModeWordWrap];
+							lineBreakMode:IOS_UILineBreakModeWordWrap];
 		return size.height+kIASKVerticalPaddingGroupTitles;
 	}
 	return 0;
@@ -490,8 +491,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
-	cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
-	cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
+    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)   // Support IOS6 in IOS6 and above project
+        if( [UIFont labelFontSize] < kIASKMinimumFontSize )
+        {
+            cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize / [UIFont labelFontSize];
+            cell.detailTextLabel.minimumScaleFactor = kIASKMinimumFontSize / [UIFont labelFontSize];
+        }
+    #else
+        cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
+        cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
+    #endif
 	return cell;
 }
 
@@ -778,7 +787,12 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             
             mailViewController.mailComposeDelegate = vc;
-            [vc presentModalViewController:mailViewController animated:YES];
+            
+            #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)   // Support IOS6 in IOS6 and above project
+                [vc presentViewController:mailViewController animated:YES completion:nil];
+            #else
+                [vc presentModalViewController:mailViewController animated:YES];
+            #endif
             [mailViewController release];
         } else {
             UIAlertView *alert = [[UIAlertView alloc]
@@ -813,7 +827,11 @@ CGRect IASKCGRectSwap(CGRect rect);
      }
     
     // NOTE: No error handling is done here
-    [self dismissModalViewControllerAnimated:YES];
+    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)   // Support IOS6 in IOS6 and above project
+        [self dismissViewControllerAnimated:YES completion:nil];
+    #else
+        [self dismissModalViewControllerAnimated:YES];
+    #endif
 }
 
 #pragma mark -
