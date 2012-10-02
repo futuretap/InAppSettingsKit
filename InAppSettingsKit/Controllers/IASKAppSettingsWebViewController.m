@@ -134,7 +134,7 @@
 		
 		[mailViewController setToRecipients:toRecipients];
 
-        #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)   // Support IOS6 in IOS6 and above project
+        #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
             [self presentViewController:mailViewController animated:YES completion:nil];
         #else
             [self presentModalViewController:mailViewController animated:YES];
@@ -153,7 +153,7 @@
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)   // Support IOS6 in IOS6 and above project
+    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
         [self dismissViewControllerAnimated:YES completion:nil];
     #else
         [self dismissModalViewControllerAnimated:YES];

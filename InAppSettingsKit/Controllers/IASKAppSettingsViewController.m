@@ -491,7 +491,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
-    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)   // Support IOS6 in IOS6 and above project
+    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
         if( [UIFont labelFontSize] < kIASKMinimumFontSize )
         {
             cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize / [UIFont labelFontSize];
@@ -788,7 +788,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             
             mailViewController.mailComposeDelegate = vc;
             
-            #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)   // Support IOS6 in IOS6 and above project
+            #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
                 [vc presentViewController:mailViewController animated:YES completion:nil];
             #else
                 [vc presentModalViewController:mailViewController animated:YES];
@@ -827,7 +827,7 @@ CGRect IASKCGRectSwap(CGRect rect);
      }
     
     // NOTE: No error handling is done here
-    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)   // Support IOS6 in IOS6 and above project
+    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
         [self dismissViewControllerAnimated:YES completion:nil];
     #else
         [self dismissModalViewControllerAnimated:YES];

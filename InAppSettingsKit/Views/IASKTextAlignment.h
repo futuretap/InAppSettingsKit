@@ -13,7 +13,7 @@
 // The IOS5 text alignment constants where deprecated in IOS 6 (iPhone 5).  These
 // constants allow us to compile without warnings in IOS 6 projects
 //
-#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_5_0)
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)
     #define IOS_UITextAlignmentLeft   NSTextAlignmentLeft
     #define IOS_UITextAlignmentCenter NSTextAlignmentCenter
     #define IOS_UITextAlignmentRight  NSTextAlignmentRight
