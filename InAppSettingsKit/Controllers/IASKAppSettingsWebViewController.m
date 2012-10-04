@@ -134,7 +134,12 @@
 		
 		[mailViewController setToRecipients:toRecipients];
 
-		[self presentModalViewController:mailViewController animated:YES];
+        #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
+            [self presentViewController:mailViewController animated:YES completion:nil];
+        #else
+            [self presentModalViewController:mailViewController animated:YES];
+        #endif
+        
 		[mailViewController release];
 		return NO;
 	}
@@ -148,7 +153,12 @@
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	[self dismissModalViewControllerAnimated:YES];
+    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
+        [self dismissViewControllerAnimated:YES completion:nil];
+    #else
+        [self dismissModalViewControllerAnimated:YES];
+    #endif
+    
 }
 
 
