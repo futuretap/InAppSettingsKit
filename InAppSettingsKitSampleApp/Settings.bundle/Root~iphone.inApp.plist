@@ -12,7 +12,9 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
-		<dict>
+
+
+        <dict>
 			<key>DefaultValue</key>
 			<string>YES</string>
 			<key>Key</key>
@@ -22,6 +24,37 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+
+
+
+
+
+
+        <dict>
+            <key>Title</key>
+            <string>Accounts</string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+
+        <dict>
+            <key>File</key>
+            <string>MyAccountTemplate</string>
+            <key>Key</key>
+            <string>MyAccountsKey</string>
+            <key>Title</key>
+            <string>Accounts</string>
+            <key>Type</key>
+            <string>IASKAccountPaneSpecifier</string>
+            <key>IASKAccountAddAccountTitle</key>
+            <string>Add Account...</string>
+            <key>IASKAccountCellTitleKey</key>
+            <string>myAccountFullName</string>
+            <key>IASKAccountCellSubtitleKey</key>
+            <string>myAccountEmail</string>
+        </dict>
+
+
 		<dict>
 			<key>Title</key>
 			<string>MUL_VALUE_TITLE</string>

@@ -67,6 +67,12 @@
 #define kIASKTextLabelAlignmentCenter         @"IASKUITextAlignmentCenter"
 #define kIASKTextLabelAlignmentRight          @"IASKUITextAlignmentRight"
 
+// specific to IASKAccountPaneSpecifier
+#define kIASKAccountAddAccountTitle            @"IASKAccountAddAccountTitle"
+#define kIASKAccountCellTitleKey               @"IASKAccountCellTitleKey"
+#define kIASKAccountCellSubtitleKey            @"IASKAccountCellSubtitleKey"
+
+
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
 #define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"
 #define kIASKPSMultiValueSpecifier            @"PSMultiValueSpecifier"
@@ -78,6 +84,7 @@
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
+#define IASKAccountPaneSpecifier              @"IASKAccountPaneSpecifier"
 
 #define kIASKBundleFolder                     @"Settings.bundle"
 #define kIASKBundleFolderAlt                  @"InAppSettings.bundle"

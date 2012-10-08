@@ -26,6 +26,7 @@
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
+#import "IASKAppSettingsAccountListViewController.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -484,6 +485,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
 		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+    } else if ([identifier isEqualToString:IASKAccountPaneSpecifier]) {
+   		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+   		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
 		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
@@ -658,6 +664,23 @@ CGRect IASKCGRectSwap(CGRect rect);
     else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
 		IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
 		[textFieldCell.textField becomeFirstResponder];
+    }
+    else if ([[specifier type] isEqualToString:IASKAccountPaneSpecifier]) {
+
+        IASKAppSettingsAccountListViewController * targetViewController = [[IASKAppSettingsAccountListViewController alloc] initWithFile:[specifier file] key:[specifier key]];
+        targetViewController.settingsStore = self.settingsStore;
+        targetViewController.title = specifier.title;
+        targetViewController.addAcountTitle = specifier.accountAddTitle;
+
+        targetViewController.accountCellSubtitleKey = specifier.accountCellSubtitleKey;
+        targetViewController.accountCellTitleKey = specifier.accountCellTitleKey;
+
+
+
+        [self.navigationController pushViewController:targetViewController animated:YES];
+
+        [targetViewController release];
+
     }
     else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
 

@@ -59,4 +59,9 @@
 - (UIImage *)highlightedCellImage;
 - (BOOL)adjustsFontSizeToFitWidth;
 - (UITextAlignment)textAlignment;
+
+// account stuff
+- (NSString*)accountAddTitle;
+- (NSString*)accountCellTitleKey;
+- (NSString*)accountCellSubtitleKey;
 @end

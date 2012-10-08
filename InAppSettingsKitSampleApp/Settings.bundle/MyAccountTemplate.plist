@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>PreferenceSpecifiers</key>
+        <array>
+
+            <dict>
+                <key>Title</key>
+                <string>My User Account</string>
+                <key>Type</key>
+                <string>PSGroupSpecifier</string>
+            </dict>
+
+            <dict>
+                <key>DefaultValue</key>
+                <string></string>
+                <key>IsSecure</key>
+                <false/>
+                <key>Key</key>
+                <string>myAccountFullName</string>
+                <key>KeyboardType</key>
+                <string>Alphabet</string>
+                <key>Title</key>
+                <string>Name</string>
+                <key>Type</key>
+                <string>PSTextFieldSpecifier</string>
+                <key>AutocapitalizationType</key>
+                <string>None</string>
+                <key>AutocorrectionType</key>
+                <string>No</string>
+            </dict>
+
+
+            <dict>
+                <key>DefaultValue</key>
+                <string></string>
+                <key>IsSecure</key>
+                <false/>
+                <key>Key</key>
+                <string>myAccountEmail</string>
+                <key>KeyboardType</key>
+                <string>EmailAddress</string>
+                <key>Title</key>
+                <string>E-Mail</string>
+                <key>Type</key>
+                <string>PSTextFieldSpecifier</string>
+                <key>AutocapitalizationType</key>
+                <string>None</string>
+                <key>AutocorrectionType</key>
+                <string>No</string>
+            </dict>
+
+        </array>
+        <key>StringsTable</key>
+        <string>UserInfo</string>
+    </dict>
+</plist>

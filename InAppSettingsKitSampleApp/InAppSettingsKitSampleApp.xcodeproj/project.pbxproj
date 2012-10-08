@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19A0C9790E967D3820CD3A2E /* IASKSettingStoreMemory.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CBAF3AFF2A7D807AF3FC /* IASKSettingStoreMemory.m */; };
+		19A0CF8845CF8F95C0CC012D /* IASKAppSettingsAccountListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0C4D07298CB815BFAF06B /* IASKAppSettingsAccountListViewController.m */; };
 		1D3623260D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -53,6 +55,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19A0C2F1285B7DE4F79D1C13 /* IASKAppSettingsAccountListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsAccountListViewController.h; sourceTree = "<group>"; };
+		19A0C4D07298CB815BFAF06B /* IASKAppSettingsAccountListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsAccountListViewController.m; sourceTree = "<group>"; };
+		19A0C70192184FD217B6DFA4 /* IASKSettingStoreMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingStoreMemory.h; sourceTree = "<group>"; };
+		19A0CBAF3AFF2A7D807AF3FC /* IASKSettingStoreMemory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingStoreMemory.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppSettingsKitSampleAppAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppSettingsKitSampleAppAppDelegate.m; sourceTree = "<group>"; };
@@ -224,6 +230,8 @@
 		DA33F57810BC2222004736E8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				19A0C2F1285B7DE4F79D1C13 /* IASKAppSettingsAccountListViewController.h */,
+				19A0C4D07298CB815BFAF06B /* IASKAppSettingsAccountListViewController.m */,
 				DA33F57910BC2222004736E8 /* IASKAppSettingsViewController.h */,
 				DA33F57A10BC2222004736E8 /* IASKAppSettingsViewController.m */,
 				DA33F57B10BC2222004736E8 /* IASKSpecifierValuesViewController.h */,
@@ -238,6 +246,8 @@
 		DA33F57D10BC2222004736E8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				19A0C70192184FD217B6DFA4 /* IASKSettingStoreMemory.h */,
+				19A0CBAF3AFF2A7D807AF3FC /* IASKSettingStoreMemory.m */,
 				DA33F57E10BC2222004736E8 /* IASKSettingsReader.h */,
 				DA33F57F10BC2222004736E8 /* IASKSettingsReader.m */,
 				DA33F58010BC2222004736E8 /* IASKSpecifier.h */,
@@ -402,6 +412,8 @@
 				AA8746D0128B02B600CACD4C /* IASKSettingsStoreUserDefaults.m in Sources */,
 				AA8746D1128B02B600CACD4C /* IASKSettingsStoreFile.m in Sources */,
 				AA8746D2128B02B600CACD4C /* IASKSettingsStore.m in Sources */,
+				19A0CF8845CF8F95C0CC012D /* IASKAppSettingsAccountListViewController.m in Sources */,
+				19A0C9790E967D3820CD3A2E /* IASKSettingStoreMemory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

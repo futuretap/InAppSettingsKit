@@ -73,6 +73,19 @@
     return [self localizedObjectForKey:kIASKTitle];
 }
 
+
+- (NSString*)accountAddTitle {
+    return [self localizedObjectForKey:kIASKAccountAddAccountTitle];
+}
+
+- (NSString*)accountCellTitleKey {
+    return [_specifierDict objectForKey:kIASKAccountCellTitleKey];
+}
+
+- (NSString*)accountCellSubtitleKey {
+    return [_specifierDict objectForKey:kIASKAccountCellSubtitleKey];
+}
+
 - (NSString*)footerText {
     return [self localizedObjectForKey:kIASKFooterText];
 }
