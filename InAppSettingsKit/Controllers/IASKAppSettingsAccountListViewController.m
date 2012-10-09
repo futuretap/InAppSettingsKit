@@ -169,14 +169,13 @@
         // persist
         [_settingsStore setObject:_accountArray forKey:_accoutArrayId];
 
-
-//        [self.tableView beginUpdates];
-//        [self.tableView deleteRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        [self.tableView endUpdates];
-
         [self reloadAccountsAnimated:YES];
 
-        //[mutableAccounts release];
+        if(_accountArray.count == 0) {
+            // switch of editing when all entries were removed
+            [self enterEditMode:nil];
+        }
+
     }
 
 }
@@ -231,21 +230,21 @@
 - (IBAction)enterEditMode:(id)sender {
 
     if ([self.tableView isEditing]) {
-    // If the tableView is already in edit mode, turn it off. Also change the title of the button to reflect the intended verb (‘Edit’, in this case).
+        // If the tableView is already in edit mode, turn it off. Also change the title of the button to reflect the intended verb (‘Edit’, in this case).
         [self.tableView setEditing:NO animated:YES];
         [_editButton setTitle:@"Edit"];
+        [_editButton setStyle:UIBarButtonItemStyleBordered];
     }
     else {
+        // Turn on edit mode
         [_editButton setTitle:@"Done"];
-
-// Turn on edit mode
-
-        [self.tableView setEditing: YES animated:YES];
+        [_editButton setStyle:UIBarButtonItemStyleDone];
+        [self.tableView setEditing:YES animated:YES];
     }
 }
 
 -(void) setupRightBarButton {
-    _editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleDone target:self action:@selector(enterEditMode:)];
+    _editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(enterEditMode:)];
     self.navigationItem.rightBarButtonItem = _editButton;
 }
 
