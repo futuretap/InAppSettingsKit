@@ -112,10 +112,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    if (style != UITableViewStyleGrouped) {
-        NSLog(@"only UITableViewStyleGrouped style is supported, forcing it.");
-    }
-    self = [super initWithStyle:UITableViewStyleGrouped];
+    self = [super initWithStyle:style];
     if (self) {
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
