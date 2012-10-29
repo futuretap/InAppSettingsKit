@@ -26,6 +26,11 @@ The source code is available on [github](http://github.com/futuretap/InAppSettin
 
 Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
+You may need to make two changes to your project to get it to compile: Add MessageUI.framework and disable ARC for the IASK files. Both changes can be made by finding your target and navigating to the Build Phases tab. 
+
+MessageUI.framework is needed for MFMailComposeViewController and can be added in the "Link Binary With Libraries Section". Use the + icon.
+
+If your project is compiled with ARC, you'll need to disable it for the IASK files. You can do so by adding -fno-objc-arc in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
 
 iCloud sync
 ===========
