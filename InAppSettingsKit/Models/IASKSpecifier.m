@@ -182,16 +182,16 @@
 }
 
 - (UIKeyboardType)keyboardType {
-    if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardAlphabet]) {
+    if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:kIASKKeyboardAlphabet]) {
         return UIKeyboardTypeDefault;
     }
-    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardNumbersAndPunctuation]) {
+    else if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:kIASKKeyboardNumbersAndPunctuation]) {
         return UIKeyboardTypeNumbersAndPunctuation;
     }
-    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardNumberPad]) {
+    else if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:kIASKKeyboardNumberPad]) {
         return UIKeyboardTypeNumberPad;
     }
-    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardDecimalPad]) {
+    else if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:kIASKKeyboardDecimalPad]) {
 		if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iPhoneOS_4_1) {
 			return UIKeyboardTypeDecimalPad;
 		}
@@ -199,10 +199,10 @@
 			return UIKeyboardTypeNumbersAndPunctuation;
 		}
     }
-    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:KIASKKeyboardURL]) {
+    else if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:KIASKKeyboardURL]) {
         return UIKeyboardTypeURL;
     }
-    else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardEmailAddress]) {
+    else if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:kIASKKeyboardEmailAddress]) {
         return UIKeyboardTypeEmailAddress;
     }
     return UIKeyboardTypeDefault;

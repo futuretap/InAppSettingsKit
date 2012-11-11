@@ -30,7 +30,7 @@
 #define kIASKTrueValue                        @"TrueValue"
 #define kIASKFalseValue                       @"FalseValue"
 #define kIASKIsSecure                         @"IsSecure"
-#define KIASKKeyboardType                     @"KeyboardType"
+#define kIASKKeyboardType                     @"KeyboardType"
 #define kIASKAutocapitalizationType           @"AutocapitalizationType"
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
 #define kIASKValues                           @"Values"
