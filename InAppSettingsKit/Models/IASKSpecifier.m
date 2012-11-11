@@ -199,7 +199,7 @@
 			return UIKeyboardTypeNumbersAndPunctuation;
 		}
     }
-    else if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:KIASKKeyboardURL]) {
+    else if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:kIASKKeyboardURL]) {
         return UIKeyboardTypeURL;
     }
     else if ([[_specifierDict objectForKey:kIASKKeyboardType] isEqualToString:kIASKKeyboardEmailAddress]) {

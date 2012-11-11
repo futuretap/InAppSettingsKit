@@ -261,7 +261,7 @@ hiddenKeys = _hiddenKeys;
 	[NSArray arrayWithObjects:[self platformSuffix], @"", nil];
 	
 	NSArray *languages =
-	[NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:KIASKBundleLocaleFolderExtension], @"", nil];
+	[NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:kIASKBundleLocaleFolderExtension], @"", nil];
 	
 	NSString *path = nil;
 	NSFileManager *fileManager = [NSFileManager defaultManager];
