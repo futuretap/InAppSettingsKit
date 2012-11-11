@@ -30,7 +30,7 @@
 #define kIASKTrueValue                        @"TrueValue"
 #define kIASKFalseValue                       @"FalseValue"
 #define kIASKIsSecure                         @"IsSecure"
-#define KIASKKeyboardType                     @"KeyboardType"
+#define kIASKKeyboardType                     @"KeyboardType"
 #define kIASKAutocapitalizationType           @"AutocapitalizationType"
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
 #define kIASKValues                           @"Values"
@@ -50,7 +50,7 @@
 #define kIASKKeyboardNumberPad                @"NumberPad"
 #define kIASKKeyboardDecimalPad               @"DecimalPad"
 
-#define KIASKKeyboardURL                      @"URL"
+#define kIASKKeyboardURL                      @"URL"
 #define kIASKKeyboardEmailAddress             @"EmailAddress"
 #define kIASKAutoCapNone                      @"None"
 #define kIASKAutoCapSentences                 @"Sentences"
@@ -82,7 +82,7 @@
 #define kIASKBundleFolder                     @"Settings.bundle"
 #define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
 #define kIASKBundleFilename                   @"Root.plist"
-#define KIASKBundleLocaleFolderExtension      @".lproj"
+#define kIASKBundleLocaleFolderExtension      @".lproj"
 
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
 
