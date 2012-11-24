@@ -40,7 +40,7 @@
 - (void)_reinterpretValues:(NSDictionary*)specifierDict {
     NSArray *values = [_specifierDict objectForKey:kIASKValues];
     NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
-    
+    NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
     NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
     
     if (values) {
@@ -49,6 +49,10 @@
 	
     if (titles) {
 		[multipleValuesDict setObject:titles forKey:kIASKTitles];
+	}
+    
+    if (shortTitles) {
+		[multipleValuesDict setObject:shortTitles forKey:kIASKShortTitles];
 	}
     
     [self setMultipleValuesDict:multipleValuesDict];
@@ -91,7 +95,10 @@
 
 - (NSString*)titleForCurrentValue:(id)currentValue {
 	NSArray *values = [self multipleValues];
-	NSArray *titles = [self multipleTitles];
+	NSArray *titles = [self multipleShortTitles];
+    if (!titles)
+        titles = [self multipleTitles];
+
 	if (values.count != titles.count) {
 		return nil;
 	}
@@ -116,6 +123,10 @@
 
 - (NSArray*)multipleTitles {
     return [_multipleValuesDict objectForKey:kIASKTitles];
+}
+
+- (NSArray*)multipleShortTitles {
+    return [_multipleValuesDict objectForKey:kIASKShortTitles];
 }
 
 - (NSString*)file {
