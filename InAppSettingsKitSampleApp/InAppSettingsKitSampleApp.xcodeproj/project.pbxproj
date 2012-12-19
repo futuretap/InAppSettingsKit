@@ -45,6 +45,7 @@
 		DA33F59D10BC2222004736E8 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58C10BC2222004736E8 /* IASKSwitch.m */; };
 		DA33F59E10BC2222004736E8 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = DA33F58E10BC2222004736E8 /* IASKTextField.m */; };
 		DACD38AA10598A7600AC8E51 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DACD38A910598A7600AC8E51 /* Settings.bundle */; };
+		E42ADAED168205B100295D85 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42ADAEC168205B100295D85 /* Default-568h@2x.png */; };
 		F48E09EA123D03E000B67C05 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */; };
 		FB81CA08155BC7C900CEF887 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA04155BC7C900CEF887 /* facebook.png */; };
 		FB81CA09155BC7C900CEF887 /* facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA05155BC7C900CEF887 /* facebook@2x.png */; };
@@ -109,6 +110,7 @@
 		DA33F58D10BC2222004736E8 /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
 		DA33F58E10BC2222004736E8 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
 		DACD38A910598A7600AC8E51 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
+		E42ADAEC168205B100295D85 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F48E09E8123D03E000B67C05 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
 		F48E09E9123D03E000B67C05 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
 		FB81CA04155BC7C900CEF887 /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				E42ADAEC168205B100295D85 /* Default-568h@2x.png */,
 				DA5F27A010BC29C000F983BD /* Sample App */,
 				DA33F57710BC2222004736E8 /* InAppSettingsKit */,
 			);
@@ -373,6 +376,7 @@
 				AA092DD115B73A0C00081FBC /* MainWindow.xib in Resources */,
 				AA092DD415B73A1100081FBC /* 20-gear2.png in Resources */,
 				AA092DD515B73A1100081FBC /* 20-gear2Highlighted.png in Resources */,
+				E42ADAED168205B100295D85 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
