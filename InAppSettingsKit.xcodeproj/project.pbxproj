@@ -218,12 +218,7 @@
 				E42ADACA1682036500295D85 /* IASKSettingsReader.m */,
 				E42ADACB1682036500295D85 /* IASKSpecifier.h */,
 				E42ADACC1682036500295D85 /* IASKSpecifier.m */,
-				E42ADACD1682036500295D85 /* IASKSettingsStore.h */,
-				E42ADACE1682036500295D85 /* IASKSettingsStore.m */,
-				E42ADACF1682036500295D85 /* IASKSettingsStoreUserDefaults.h */,
-				E42ADAD01682036500295D85 /* IASKSettingsStoreUserDefaults.m */,
-				E42ADAD11682036500295D85 /* IASKSettingsStoreFile.h */,
-				E42ADAD21682036500295D85 /* IASKSettingsStoreFile.m */,
+				E4EDC5B0168225F300BD3CA9 /* Store */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -245,6 +240,19 @@
 				E42ADADF1682036500295D85 /* IASKTextField.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E4EDC5B0168225F300BD3CA9 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADACD1682036500295D85 /* IASKSettingsStore.h */,
+				E42ADACE1682036500295D85 /* IASKSettingsStore.m */,
+				E42ADACF1682036500295D85 /* IASKSettingsStoreUserDefaults.h */,
+				E42ADAD01682036500295D85 /* IASKSettingsStoreUserDefaults.m */,
+				E42ADAD11682036500295D85 /* IASKSettingsStoreFile.h */,
+				E42ADAD21682036500295D85 /* IASKSettingsStoreFile.m */,
+			);
+			name = Store;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
