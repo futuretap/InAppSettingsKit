@@ -166,7 +166,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				E42ADAEC168205B100295D85 /* Default-568h@2x.png */,
 				DA5F27A010BC29C000F983BD /* Sample App */,
 				DA33F57710BC2222004736E8 /* InAppSettingsKit */,
 			);
@@ -185,6 +184,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E42ADAEE1682071C00295D85 /* LaunchImages */,
 				FB81CA03155BC7C900CEF887 /* Images */,
 				6A1F35ED11490727003E6295 /* Icon.png */,
 				6A9BBF581148F1DA003D97FA /* 20-gear2.png */,
@@ -284,6 +284,14 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = "Sample App";
+			sourceTree = "<group>";
+		};
+		E42ADAEE1682071C00295D85 /* LaunchImages */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADAEC168205B100295D85 /* Default-568h@2x.png */,
+			);
+			name = LaunchImages;
 			sourceTree = "<group>";
 		};
 		FB81CA03155BC7C900CEF887 /* Images */ = {
