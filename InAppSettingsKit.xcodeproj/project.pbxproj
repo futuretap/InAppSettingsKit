@@ -43,6 +43,7 @@
 		E4EDC5A816820D9500BD3CA9 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADB1682036500295D85 /* IASKSlider.m */; };
 		E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADD1682036500295D85 /* IASKSwitch.m */; };
 		E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADF1682036500295D85 /* IASKTextField.m */; };
+		E4EDC5AD16821D7300BD3CA9 /* IASKAbstractStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		E42ADADD1682036500295D85 /* IASKSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSwitch.m; sourceTree = "<group>"; };
 		E42ADADE1682036500295D85 /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
 		E42ADADF1682036500295D85 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
+		E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAbstractStoreTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */,
+				E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */,
 				E42ADAAC168202D700295D85 /* Supporting Files */,
 			);
 			path = InAppSettingsKitTests;
@@ -386,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E42ADAB3168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m in Sources */,
+				E4EDC5AD16821D7300BD3CA9 /* IASKAbstractStoreTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
