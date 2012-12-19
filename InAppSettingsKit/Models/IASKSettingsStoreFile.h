@@ -18,11 +18,19 @@
 #import <Foundation/Foundation.h>
 #import "IASKSettingsStore.h"
 
-@interface IASKSettingsStoreFile : IASKAbstractSettingsStore {
-    NSString * _filePath;
-    NSMutableDictionary * _dict;
-}
+/** file-based implementation of IASKAbstractSettingsStore
 
+ uses an NSDictionary + its read/write to file support to store
+ settings in a file at the specified path
+ */
+@interface IASKSettingsStoreFile : IASKAbstractSettingsStore
+
+/** designated initializer
+ 
+ @param path absolute file-path to store settings dictionary
+ */
 - (id)initWithPath:(NSString*)path;
+
+@property (nonatomic, retain, readonly) NSString* filePath;
 
 @end
