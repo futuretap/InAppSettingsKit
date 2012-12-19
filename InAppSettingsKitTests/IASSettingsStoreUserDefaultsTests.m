@@ -27,4 +27,15 @@
     [super tearDown];
 }
 
+- (void)testStoreSetsCustomDefaults {
+    id myObject = [NSObject new];
+    IASKSettingsStoreUserDefaults* store = [[IASKSettingsStoreUserDefaults alloc] initWithUserDefaults:myObject];
+    STAssertEqualObjects(myObject, store.defaults, @"custom defaults not stored");
+}
+
+- (void)testStoreUsesStandardDefaults {
+    IASKSettingsStoreUserDefaults* store = [[IASKSettingsStoreUserDefaults alloc] init];
+    STAssertEqualObjects([NSUserDefaults standardUserDefaults], store.defaults, @"custom defaults not stored");
+}
+
 @end
