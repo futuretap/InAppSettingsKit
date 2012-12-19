@@ -18,8 +18,8 @@
 #import <Foundation/Foundation.h>
 #import "IASKSettingsStore.h"
 
-/** implementation of IASKAbstractSettingsStore that uses NSUserDefaults
+/** implementation of IASKSettingsStore that uses NSUserDefaults
  */
-@interface IASKSettingsStoreUserDefaults : IASKAbstractSettingsStore
+@interface IASKSettingsStoreUserDefaults : NSObject<IASKSettingsStore>
 
 @end
