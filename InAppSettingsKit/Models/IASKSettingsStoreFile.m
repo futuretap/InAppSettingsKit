@@ -45,7 +45,6 @@
     [super dealloc];
 }
 
-
 - (void)setObject:(id)value forKey:(NSString *)key {
     [_dict setObject:value forKey:key];
 }
