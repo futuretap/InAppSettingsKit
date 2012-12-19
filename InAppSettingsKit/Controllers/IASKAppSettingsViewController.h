@@ -19,10 +19,10 @@
 
 #import "IASKSettingsStore.h"
 #import "IASKViewController.h"
+#import "IASKSpecifier.h"
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
-@class IASKSpecifier;
 
 @protocol IASKSettingsDelegate
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
