@@ -1,0 +1,13 @@
+//
+//  Library-Debug.xcconfig
+//  InAppSettingsKit
+//
+//  Created by Stephan Diederich on 19.12.12.
+//  Copyright (c) 2012 InAppSettingsKit. All rights reserved.
+//
+
+#include "Library-Base.xcconfig"
+
+RUN_CLANG_STATIC_ANALYZER = YES
+GCC_OPTIMIZATION_LEVEL = 0
+ONLY_ACTIVE_ARCH = YES

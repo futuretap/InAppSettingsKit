@@ -1,0 +1,11 @@
+//
+//  Library-Release.xcconfig
+//  InAppSettingsKit
+//
+//  Created by Stephan Diederich on 19.12.12.
+//  Copyright (c) 2012 InAppSettingsKit. All rights reserved.
+//
+
+#include "Library-Base.xcconfig"
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) NDEBUG NS_BLOCK_ASSERTIONS=1
