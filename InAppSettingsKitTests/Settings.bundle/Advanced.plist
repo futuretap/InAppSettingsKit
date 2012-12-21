@@ -73,6 +73,8 @@
 			<string>Dynamic cell hiding</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+			<key>Key</key>
+			<string>DynamicCellHidingGroup</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

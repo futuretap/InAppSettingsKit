@@ -81,8 +81,8 @@
 - (void) testSettingsReaderHidesHiddenKeys {
   IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"
                                                                    applicationBundle:[NSBundle bundleForClass:[self class]]];
-  [reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", nil]];
-  STAssertEquals([reader numberOfRowsForSection:3], 2, @"Wrong number of rows. Key not hidden");
+  [reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil]];
+  STAssertEquals([reader numberOfRowsForSection:3], 1, @"Wrong number of rows. Key not hidden");
 }
 
 - (void) testSettingsReaderShowsHiddenKeys {
@@ -91,6 +91,13 @@
   [reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", nil]];
   [reader setHiddenKeys:nil];
   STAssertEquals([reader numberOfRowsForSection:3], 3, @"Wrong number of rows. Key not unhidden");
+}
+
+- (void) testSettingsReaderHidesGroupKeys {
+  IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"
+                                                                   applicationBundle:[NSBundle bundleForClass:[self class]]];
+  [reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", @"AutoConnect", @"DynamicCellHidingGroup", nil]];
+  STAssertEquals([reader numberOfSections], 3, @"Wrong number of rows. Key not hidden");
 }
 
 
