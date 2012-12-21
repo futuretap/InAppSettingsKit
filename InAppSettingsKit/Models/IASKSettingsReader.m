@@ -251,28 +251,26 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
     // - This implementation uses the device suffixes on iOS 3.x as well.
     // - also check current locale (short only)
     
-    NSArray *bundles =
-    [NSArray arrayWithObjects:kIASKBundleFolderAlt, kIASKBundleFolder, nil];
+    NSArray *settingsBundleNames = @[kIASKBundleFolderAlt, kIASKBundleFolder];
     
-    NSArray *extensions =
-    [NSArray arrayWithObjects:@".inApp.plist", @".plist", nil];
+    NSArray *extensions = @[@".inApp.plist", @".plist"];
     
-    NSArray *suffixes =
-    [NSArray arrayWithObjects:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()], @"", nil];
+    NSArray *plattformSuffixes = @[[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()],
+                                   @""];
     
-    NSArray *languages =
-    [NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:kIASKBundleLocaleFolderExtension], @"", nil];
+    NSArray *languageFolders = @[[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:kIASKBundleLocaleFolderExtension],
+                                 @""];
     
     NSString *path = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
-    for (NSString *bundle in bundles) {
+    for (NSString *settingsBundleName in settingsBundleNames) {
         for (NSString *extension in extensions) {
-            for (NSString *suffix in suffixes) {
-                for (NSString *language in languages) {
+            for (NSString *platformSuffix in plattformSuffixes) {
+                for (NSString *languageFolder in languageFolders) {
                     path = [self file:file
-                           withBundle:[bundle stringByAppendingPathComponent:language]
-                               suffix:suffix
+                           withBundle:[settingsBundleName stringByAppendingPathComponent:languageFolder]
+                               suffix:platformSuffix
                             extension:extension];
                     if ([fileManager fileExistsAtPath:path]) {
                         goto exitFromNestedLoop;
