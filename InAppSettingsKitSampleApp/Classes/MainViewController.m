@@ -19,8 +19,11 @@
 
 #import <MessageUI/MessageUI.h>
 
-#import "IASKSpecifier.h"
-#import "IASKSettingsReader.h"
+#ifdef USES_IASK_STATIC_LIBRARY
+  #import "InAppSettingsKit/IASKSettingsReader.h"
+#else
+  #import "IASKSettingsReader.h"
+#endif
 
 #import "CustomViewCell.h"
 

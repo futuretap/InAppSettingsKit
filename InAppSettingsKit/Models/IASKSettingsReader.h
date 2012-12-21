@@ -15,6 +15,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKCellImage                        @"IASKCellImage"
@@ -82,11 +83,6 @@
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
 
-#define kIASKBundleFolder                     @"Settings.bundle"
-#define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
-#define kIASKBundleFilename                   @"Root.plist"
-#define KIASKBundleLocaleFolderExtension      @".lproj"
-
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
 
 #define kIASKSectionHeaderIndex               0
@@ -94,8 +90,6 @@
 #define kIASKSliderNoImagesPadding            11
 #define kIASKSliderImagesPadding              43
 
-
-#define kIASKTableWidth                       320
 #define kIASKSpacing                          5
 #define kIASKMinLabelWidth                    97
 #define kIASKMaxLabelWidth                    240
@@ -127,17 +121,26 @@ __VA_ARGS__ \
 
 @class IASKSpecifier;
 
-@interface IASKSettingsReader : NSObject {
-    NSString        *_path;
-    NSString        *_localizationTable;
-    NSString        *_bundlePath;
-    NSDictionary    *_settingsBundle;
-    NSArray         *_dataSource;
-    NSBundle        *_bundle;
-    NSSet           *_hiddenKeys;
-}
+/** settings reader transform iOS's settings plist files
+ to the IASKSpecifier model objects.
+ Besides that, it also hides the complexity of finding
+ the 'proper' Settings.bundle
+ */
+@interface IASKSettingsReader : NSObject
 
-- (id)initWithFile:(NSString*)file;
+/** designated initializer
+ searches for a settings bundle that contains
+ a plist with the specified fileName that must
+ be contained in the given bundle
+ 
+ calls initWithFile where applicationBundle is
+ set to [NSBundle mainBundle]
+ */
+- (id) initWithSettingsFileNamed:(NSString*) fileName
+               applicationBundle:(NSBundle*) bundle;
+
+- (id) initWithFile:(NSString*)file;
+
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfRowsForSection:(NSInteger)section;
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
@@ -149,11 +152,27 @@ __VA_ARGS__ \
 - (NSString*)titleForStringId:(NSString*)stringId;
 - (NSString*)pathForImageNamed:(NSString*)image;
 
-@property (nonatomic, retain) NSString      *path;
+///the main application bundle. most often [NSBundle mainBundle]
+@property (nonatomic, readonly) NSBundle      *applicationBundle;
+
+///the actual settings bundle
+@property (nonatomic, readonly) NSBundle    *settingsBundle;
+
+///the actual settings plist, parsed into a dictionary
+@property (nonatomic, readonly) NSDictionary  *settingsDictionary;
+
+
 @property (nonatomic, retain) NSString      *localizationTable;
-@property (nonatomic, retain) NSString      *bundlePath;
-@property (nonatomic, retain) NSDictionary  *settingsBundle;
 @property (nonatomic, retain) NSArray       *dataSource;
 @property (nonatomic, retain) NSSet         *hiddenKeys;
 
+
+#pragma mark - internal use. public only for testing
+- (NSString *)file:(NSString *)file
+        withBundle:(NSString *)bundle
+            suffix:(NSString *)suffix
+         extension:(NSString *)extension;
+- (NSString *)locateSettingsFile:(NSString *)file;
+
+- (NSString *)platformSuffixForInterfaceIdiom:(UIUserInterfaceIdiom) interfaceIdiom;
 @end
