@@ -17,14 +17,6 @@
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
 
-@interface IASKSettingsReader (private)
-- (void)_reinterpretBundle:(NSDictionary*)settingsBundle;
-- (BOOL)_sectionHasHeading:(NSInteger)section;
-- (NSString *)platformSuffix;
-- (NSString *)locateSettingsFile:(NSString *)file;
-
-@end
-
 @implementation IASKSettingsReader
 
 @synthesize path=_path,
