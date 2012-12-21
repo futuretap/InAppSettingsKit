@@ -36,6 +36,7 @@
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
+#define kIASKShortTitles                      @"ShortTitles"
 #define kIASKViewControllerClass              @"IASKViewControllerClass"
 #define kIASKViewControllerSelector           @"IASKViewControllerSelector"
 #define kIASKButtonClass                      @"IASKButtonClass"
