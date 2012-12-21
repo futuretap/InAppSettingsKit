@@ -6,9 +6,9 @@
 //	Luc Vandal, Edovia Inc., http://www.edovia.com
 //	Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //	All rights reserved.
-// 
-//	It is appreciated but not required that you give credit to Luc Vandal and Ortwin Gentz, 
-//	as the original authors of this code. You can give credit in a blog post, a tweet or on 
+//
+//	It is appreciated but not required that you give credit to Luc Vandal and Ortwin Gentz,
+//	as the original authors of this code. You can give credit in a blog post, a tweet or on
 //	a info page of your app. Also, the original authors appreciate letting them know if you use this code.
 //
 //	This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
@@ -34,7 +34,7 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
     self = [super init];
     if (self) {
         _applicationBundle = [bundle retain];
-
+        
         NSString* plistFilePath = [self locateSettingsFile: fileName];
         _settingsDictionary = [[NSDictionary dictionaryWithContentsOfFile:plistFilePath] retain];
         
@@ -69,7 +69,7 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
 }
 
 - (id)init {
-	return [self initWithFile:@"Root"];
+    return [self initWithFile:@"Root"];
 }
 
 - (void)dealloc {
@@ -78,134 +78,134 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
     [_dataSource release], _dataSource = nil;
     [_settingsBundle release], _settingsBundle = nil;
     [_hiddenKeys release], _hiddenKeys = nil;
-
+    
     [super dealloc];
 }
 
 
 - (void)setHiddenKeys:(NSSet *)anHiddenKeys {
-	if (_hiddenKeys != anHiddenKeys) {
-		id old = _hiddenKeys;
-		_hiddenKeys = [anHiddenKeys retain];
-		[old release];
-		
-		if (self.settingsDictionary) {
-			[self _reinterpretBundle:self.settingsDictionary];
-		}
-	}
+    if (_hiddenKeys != anHiddenKeys) {
+        id old = _hiddenKeys;
+        _hiddenKeys = [anHiddenKeys retain];
+        [old release];
+        
+        if (self.settingsDictionary) {
+            [self _reinterpretBundle:self.settingsDictionary];
+        }
+    }
 }
 
 
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
-	NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
-	NSInteger sectionCount			= -1;
-	NSMutableArray *dataSource		= [[[NSMutableArray alloc] init] autorelease];
-	
-	for (NSDictionary *specifier in preferenceSpecifiers) {
-		if ([self.hiddenKeys containsObject:[specifier objectForKey:kIASKKey]]) {
-			continue;
-		}
-		if ([(NSString*)[specifier objectForKey:kIASKType] isEqualToString:kIASKPSGroupSpecifier]) {
-			NSMutableArray *newArray = [[NSMutableArray alloc] init];
-			
-			[newArray addObject:specifier];
-			[dataSource addObject:newArray];
-			[newArray release];
-			sectionCount++;
-		}
-		else {
-			if (sectionCount == -1) {
-				NSMutableArray *newArray = [[NSMutableArray alloc] init];
-				[dataSource addObject:newArray];
-				[newArray release];
-				sectionCount++;
-			}
-
-			IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier];
-			[(NSMutableArray*)[dataSource objectAtIndex:sectionCount] addObject:newSpecifier];
-			[newSpecifier release];
-		}
-	}
-	[self setDataSource:dataSource];
+    NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
+    NSInteger sectionCount			= -1;
+    NSMutableArray *dataSource		= [[[NSMutableArray alloc] init] autorelease];
+    
+    for (NSDictionary *specifier in preferenceSpecifiers) {
+        if ([self.hiddenKeys containsObject:[specifier objectForKey:kIASKKey]]) {
+            continue;
+        }
+        if ([(NSString*)[specifier objectForKey:kIASKType] isEqualToString:kIASKPSGroupSpecifier]) {
+            NSMutableArray *newArray = [[NSMutableArray alloc] init];
+            
+            [newArray addObject:specifier];
+            [dataSource addObject:newArray];
+            [newArray release];
+            sectionCount++;
+        }
+        else {
+            if (sectionCount == -1) {
+                NSMutableArray *newArray = [[NSMutableArray alloc] init];
+                [dataSource addObject:newArray];
+                [newArray release];
+                sectionCount++;
+            }
+            
+            IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier];
+            [(NSMutableArray*)[dataSource objectAtIndex:sectionCount] addObject:newSpecifier];
+            [newSpecifier release];
+        }
+    }
+    [self setDataSource:dataSource];
 }
 
 - (BOOL)_sectionHasHeading:(NSInteger)section {
-	return [[[[self dataSource] objectAtIndex:section] objectAtIndex:0] isKindOfClass:[NSDictionary class]];
+    return [[[[self dataSource] objectAtIndex:section] objectAtIndex:0] isKindOfClass:[NSDictionary class]];
 }
 
 - (NSInteger)numberOfSections {
-	return [[self dataSource] count];
+    return [[self dataSource] count];
 }
 
 - (NSInteger)numberOfRowsForSection:(NSInteger)section {
-	int headingCorrection = [self _sectionHasHeading:section] ? 1 : 0;
-	return [(NSArray*)[[self dataSource] objectAtIndex:section] count] - headingCorrection;
+    int headingCorrection = [self _sectionHasHeading:section] ? 1 : 0;
+    return [(NSArray*)[[self dataSource] objectAtIndex:section] count] - headingCorrection;
 }
 
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath {
-	int headingCorrection = [self _sectionHasHeading:indexPath.section] ? 1 : 0;
-	
-	IASKSpecifier *specifier = [[[self dataSource] objectAtIndex:indexPath.section] objectAtIndex:(indexPath.row+headingCorrection)];
-	specifier.settingsReader = self;
-	return specifier;
+    int headingCorrection = [self _sectionHasHeading:indexPath.section] ? 1 : 0;
+    
+    IASKSpecifier *specifier = [[[self dataSource] objectAtIndex:indexPath.section] objectAtIndex:(indexPath.row+headingCorrection)];
+    specifier.settingsReader = self;
+    return specifier;
 }
 
 - (NSIndexPath*)indexPathForKey:(NSString *)key {
-	for (NSUInteger sectionIndex = 0; sectionIndex < self.dataSource.count; sectionIndex++) {
-		NSArray *section = [self.dataSource objectAtIndex:sectionIndex];
-		for (NSUInteger rowIndex = 0; rowIndex < section.count; rowIndex++) {
-			IASKSpecifier *specifier = (IASKSpecifier*)[section objectAtIndex:rowIndex];
-			if ([specifier isKindOfClass:[IASKSpecifier class]] && [specifier.key isEqualToString:key]) {
-				NSUInteger correctedRowIndex = rowIndex - [self _sectionHasHeading:sectionIndex];
-				return [NSIndexPath indexPathForRow:correctedRowIndex inSection:sectionIndex];
-			}
-		}
-	}
-	return nil;
+    for (NSUInteger sectionIndex = 0; sectionIndex < self.dataSource.count; sectionIndex++) {
+        NSArray *section = [self.dataSource objectAtIndex:sectionIndex];
+        for (NSUInteger rowIndex = 0; rowIndex < section.count; rowIndex++) {
+            IASKSpecifier *specifier = (IASKSpecifier*)[section objectAtIndex:rowIndex];
+            if ([specifier isKindOfClass:[IASKSpecifier class]] && [specifier.key isEqualToString:key]) {
+                NSUInteger correctedRowIndex = rowIndex - [self _sectionHasHeading:sectionIndex];
+                return [NSIndexPath indexPathForRow:correctedRowIndex inSection:sectionIndex];
+            }
+        }
+    }
+    return nil;
 }
 
 - (IASKSpecifier*)specifierForKey:(NSString*)key {
-	for (NSArray *specifiers in _dataSource) {
-		for (id sp in specifiers) {
-			if ([sp isKindOfClass:[IASKSpecifier class]]) {
-				if ([[sp key] isEqualToString:key]) {
-					return sp;
-				}
-			}
-		}
-	}
-	return nil;
+    for (NSArray *specifiers in _dataSource) {
+        for (id sp in specifiers) {
+            if ([sp isKindOfClass:[IASKSpecifier class]]) {
+                if ([[sp key] isEqualToString:key]) {
+                    return sp;
+                }
+            }
+        }
+    }
+    return nil;
 }
 
 - (NSString*)titleForSection:(NSInteger)section {
-	if ([self _sectionHasHeading:section]) {
-		NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-		return [self titleForStringId:[dict objectForKey:kIASKTitle]];
-	}
-	return nil;
+    if ([self _sectionHasHeading:section]) {
+        NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
+        return [self titleForStringId:[dict objectForKey:kIASKTitle]];
+    }
+    return nil;
 }
 
 - (NSString*)keyForSection:(NSInteger)section {
-	if ([self _sectionHasHeading:section]) {
-		return [[[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex] objectForKey:kIASKKey];
-	}
-	return nil;
+    if ([self _sectionHasHeading:section]) {
+        return [[[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex] objectForKey:kIASKKey];
+    }
+    return nil;
 }
 
 - (NSString*)footerTextForSection:(NSInteger)section {
-	if ([self _sectionHasHeading:section]) {
-		NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-		return [self titleForStringId:[dict objectForKey:kIASKFooterText]];
-	}
-	return nil;
+    if ([self _sectionHasHeading:section]) {
+        NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
+        return [self titleForStringId:[dict objectForKey:kIASKFooterText]];
+    }
+    return nil;
 }
 
 - (NSString*)titleForStringId:(NSString*)stringId {
-	return [self.settingsBundle localizedStringForKey:stringId value:stringId table:self.localizationTable];
+    return [self.settingsBundle localizedStringForKey:stringId value:stringId table:self.localizationTable];
 }
 
 - (NSString*)pathForImageNamed:(NSString*)image {
-	return [[self.settingsBundle bundlePath] stringByAppendingPathComponent:image];
+    return [[self.settingsBundle bundlePath] stringByAppendingPathComponent:image];
 }
 
 - (NSString *)platformSuffixForInterfaceIdiom:(UIUserInterfaceIdiom) interfaceIdiom {
@@ -219,12 +219,12 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
         withBundle:(NSString *)bundle
             suffix:(NSString *)suffix
          extension:(NSString *)extension {
-
-	NSString *appBundlePath = [self.applicationBundle bundlePath];
-	bundle = [appBundlePath stringByAppendingPathComponent:bundle];
-	file = [file stringByAppendingFormat:@"%@%@", suffix, extension];
-	return [bundle stringByAppendingPathComponent:file];
-
+    
+    NSString *appBundlePath = [self.applicationBundle bundlePath];
+    bundle = [appBundlePath stringByAppendingPathComponent:bundle];
+    file = [file stringByAppendingFormat:@"%@%@", suffix, extension];
+    return [bundle stringByAppendingPathComponent:file];
+    
 }
 
 - (NSString *)locateSettingsFile: (NSString *)file {
