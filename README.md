@@ -26,7 +26,12 @@ The source code is available on [github](http://github.com/futuretap/InAppSettin
 
 1) you copy the `InAppSettingsKit` subfolder into your project and drag the files right into your application. InAppSettingsKitSampleApp.xcodeproj demonstrates this scenario. If your project is compiled with ARC, you'll need to disable it for the IASK files. You can do so by adding `-fno-objc-arc` in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
 
-2) you can use the static library project to include InAppSettingsKit. To see an example on how to do it, open InAppSettingsKit.xcworkspace, which has the sample app that uses the static library included as well as the static library project itself.
+2) you can use the static library project to include InAppSettingsKit. To see an example on how to do it, open InAppSettingsKit.xcworkspace. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
+
+* add the InAppSettingsKit.xcodeproject into your application's workspace
+* add libInAppSettingsKit.a to your application's libraries by opening the Build-Phases pane of the main application and adding it in "Link Binary with Libraries"
+* use IASK by importing it via #import "InAppSettingsKit/..."
+
 
 Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
 
