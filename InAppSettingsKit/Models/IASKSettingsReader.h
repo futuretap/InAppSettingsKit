@@ -83,11 +83,6 @@
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
 
-#define kIASKBundleFolder                     @"Settings.bundle"
-#define kIASKBundleFolderAlt                  @"InAppSettings.bundle"
-#define kIASKBundleFilename                   @"Root.plist"
-#define KIASKBundleLocaleFolderExtension      @".lproj"
-
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
 
 #define kIASKSectionHeaderIndex               0

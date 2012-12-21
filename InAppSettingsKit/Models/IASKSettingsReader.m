@@ -17,6 +17,12 @@
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
 
+#pragma mark - internally used constants
+static NSString* const kIASKBundleFolder = @"Settings.bundle";
+static NSString* const kIASKBundleFolderAlt = @"InAppSettings.bundle";
+static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
+
+#pragma mark -
 @interface IASKSettingsReader () {
     NSBundle        *_bundle;
 }
@@ -255,7 +261,7 @@
 	[NSArray arrayWithObjects:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()], @"", nil];
 	
 	NSArray *languages =
-	[NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:KIASKBundleLocaleFolderExtension], @"", nil];
+	[NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:kIASKBundleLocaleFolderExtension], @"", nil];
 	
 	NSString *path = nil;
 	NSFileManager *fileManager = [NSFileManager defaultManager];
