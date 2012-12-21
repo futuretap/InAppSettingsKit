@@ -155,7 +155,7 @@ __VA_ARGS__ \
 ///the main application bundle. most often [NSBundle mainBundle]
 @property (nonatomic, readonly) NSBundle      *applicationBundle;
 
-//the actual settings plist, parsed into a dictionary
+///the actual settings plist, parsed into a dictionary
 @property (nonatomic, readonly) NSDictionary  *settingsDictionary;
 
 @property (nonatomic, retain) NSString      *path;
