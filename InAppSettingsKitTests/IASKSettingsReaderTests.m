@@ -34,6 +34,7 @@
   STAssertTrue(exists, @"Settings missing from tests");
 }
 
+#pragma mark - initializers
 - (void) testDesignatedInitializerSetsBundle {
   IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Root"
                                                                    applicationBundle:[NSBundle bundleForClass:[self class]]];
@@ -59,5 +60,38 @@
                        [settingsBundlePath stringByAppendingPathComponent:@"Advanced.plist"],
                        @"Paths don't match. Failed to locate test bundle");
 }
+
+#pragma mark - parsing
+- (void) testSettingsReaderInterpretsAdvancedSettings {
+  IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"
+                                                                   applicationBundle:[NSBundle bundleForClass:[self class]]];
+  STAssertEquals(reader.numberOfSections, 4,
+                       @"Failed to read correct number of sections");
+  STAssertEquals([reader numberOfRowsForSection:0], 1,
+                 @"Failed to read correct number of rows");
+  STAssertEquals([reader numberOfRowsForSection:1], 1,
+                 @"Failed to read correct number of rows");
+  STAssertEquals([reader numberOfRowsForSection:2], 1,
+                 @"Failed to read correct number of rows");
+  STAssertEquals([reader numberOfRowsForSection:3], 3,
+                 @"Failed to read correct number of rows");
+}
+
+#pragma mark - hidden keys
+- (void) testSettingsReaderHidesHiddenKeys {
+  IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"
+                                                                   applicationBundle:[NSBundle bundleForClass:[self class]]];
+  [reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", nil]];
+  STAssertEquals([reader numberOfRowsForSection:3], 2, @"Wrong number of rows. Key not hidden");
+}
+
+- (void) testSettingsReaderShowsHiddenKeys {
+  IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"
+                                                                   applicationBundle:[NSBundle bundleForClass:[self class]]];
+  [reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", nil]];
+  [reader setHiddenKeys:nil];
+  STAssertEquals([reader numberOfRowsForSection:3], 3, @"Wrong number of rows. Key not unhidden");
+}
+
 
 @end
