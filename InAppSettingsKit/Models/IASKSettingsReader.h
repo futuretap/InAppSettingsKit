@@ -158,7 +158,7 @@ __VA_ARGS__ \
 ///the actual settings plist, parsed into a dictionary
 @property (nonatomic, readonly) NSDictionary  *settingsDictionary;
 
-@property (nonatomic, retain) NSString      *path;
+
 @property (nonatomic, retain) NSString      *localizationTable;
 @property (nonatomic, retain) NSString      *bundlePath;
 @property (nonatomic, retain) NSArray       *dataSource;

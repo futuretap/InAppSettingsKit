@@ -35,10 +35,11 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
     self = [super init];
     if (self) {
         _applicationBundle = [bundle retain];
-        self.path = [self locateSettingsFile: fileName];
-        _settingsDictionary = [[NSDictionary dictionaryWithContentsOfFile:self.path] retain];
         
-        self.bundlePath = [self.path stringByDeletingLastPathComponent];
+        NSString* plistFilePath = [self locateSettingsFile: fileName];
+        _settingsDictionary = [[NSDictionary dictionaryWithContentsOfFile:plistFilePath] retain];
+        
+        self.bundlePath = [plistFilePath stringByDeletingLastPathComponent];
         _bundle = [[NSBundle bundleWithPath:[self bundlePath]] retain];
         
         // Look for localization file
@@ -46,7 +47,7 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
         if (!self.localizationTable)
         {
             // Look for localization file using filename
-            self.localizationTable = [[[[self.path stringByDeletingPathExtension] // removes '.plist'
+            self.localizationTable = [[[[plistFilePath stringByDeletingPathExtension] // removes '.plist'
                                         stringByDeletingPathExtension] // removes potential '.inApp'
                                        lastPathComponent] // strip absolute path
                                       stringByReplacingOccurrencesOfString:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
@@ -72,7 +73,6 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
 }
 
 - (void)dealloc {
-    [_path release], _path = nil;
     [_localizationTable release], _localizationTable = nil;
     [_bundlePath release], _bundlePath = nil;
     [_settingsDictionary release], _settingsDictionary = nil;
