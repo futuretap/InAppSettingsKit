@@ -59,16 +59,16 @@
                                                                    applicationBundle:[NSBundle bundleForClass:[self class]]];
   
   NSString* platfformSuffix = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? @"pad" : @"phone";
-  NSString* plistName = [reader.path lastPathComponent];
+  NSString* plistName = [reader locateSettingsFile:@"Root"];
   STAssertTrue([plistName rangeOfString:platfformSuffix].location != NSNotFound, @"Paths don't match. Failed to locate test bundle");
 }
 
 - (void) testSettingsReaderFindsAdvancedPlist {
   IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"
                                                                    applicationBundle:[NSBundle bundleForClass:[self class]]];
-  STAssertEqualObjects(reader.path,
-                       [settingsBundlePath stringByAppendingPathComponent:@"Advanced.plist"],
-                       @"Paths don't match. Failed to locate test bundle");
+  STAssertEqualObjects([reader.settingsDictionary objectForKey:@"Title"],
+                       @"ADVANCED_TITLE",
+                       @"Advanced file not found");
 }
 
 #pragma mark - parsing
