@@ -36,12 +36,13 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
     if (self) {
         _applicationBundle = [bundle retain];
         self.path = [self locateSettingsFile: fileName];
-        [self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:self.path]];
+        _settingsDictionary = [[NSDictionary dictionaryWithContentsOfFile:self.path] retain];
+        
         self.bundlePath = [self.path stringByDeletingLastPathComponent];
         _bundle = [[NSBundle bundleWithPath:[self bundlePath]] retain];
         
         // Look for localization file
-        self.localizationTable = [self.settingsBundle objectForKey:@"StringsTable"];
+        self.localizationTable = [_settingsDictionary objectForKey:@"StringsTable"];
         if (!self.localizationTable)
         {
             // Look for localization file using filename
@@ -55,8 +56,8 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
             }
         }
         
-        if (_settingsBundle) {
-            [self _reinterpretBundle:_settingsBundle];
+        if (self.settingsDictionary) {
+            [self _reinterpretBundle:self.settingsDictionary];
         }
     }
     return self;
@@ -74,7 +75,7 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
     [_path release], _path = nil;
     [_localizationTable release], _localizationTable = nil;
     [_bundlePath release], _bundlePath = nil;
-    [_settingsBundle release], _settingsBundle = nil;
+    [_settingsDictionary release], _settingsDictionary = nil;
     [_dataSource release], _dataSource = nil;
     [_bundle release], _bundle = nil;
     [_hiddenKeys release], _hiddenKeys = nil;
@@ -89,8 +90,8 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
 		_hiddenKeys = [anHiddenKeys retain];
 		[old release];
 		
-		if (_settingsBundle) {
-			[self _reinterpretBundle:_settingsBundle];
+		if (self.settingsDictionary) {
+			[self _reinterpretBundle:self.settingsDictionary];
 		}
 	}
 }
