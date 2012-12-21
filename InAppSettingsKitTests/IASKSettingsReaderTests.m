@@ -51,4 +51,13 @@
                                                                    applicationBundle:[NSBundle bundleForClass:[self class]]];
   STAssertEqualObjects(reader.bundlePath, settingsBundlePath, @"Paths don't match. Failed to locate test bundle");
 }
+
+- (void) testSettingsReaderFindsAdvancedPlist {
+  IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"
+                                                                   applicationBundle:[NSBundle bundleForClass:[self class]]];
+  STAssertEqualObjects(reader.path,
+                       [settingsBundlePath stringByAppendingPathComponent:@"Advanced.plist"],
+                       @"Paths don't match. Failed to locate test bundle");
+}
+
 @end
