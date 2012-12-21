@@ -7,6 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import <UIKit/UIKit.h>
 #import "IASKSettingsReader.h"
 
 @interface IASKSettingsReaderTests : SenTestCase {
@@ -51,6 +52,15 @@
   IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Root"
                                                                    applicationBundle:[NSBundle bundleForClass:[self class]]];
   STAssertEqualObjects(reader.bundlePath, settingsBundlePath, @"Paths don't match. Failed to locate test bundle");
+}
+
+- (void) testSettingsReaderFindsDeviceDependentPlist {
+  IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Root"
+                                                                   applicationBundle:[NSBundle bundleForClass:[self class]]];
+  
+  NSString* platfformSuffix = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? @"pad" : @"phone";
+  NSString* plistName = [reader.path lastPathComponent];
+  STAssertTrue([plistName rangeOfString:platfformSuffix].location != NSNotFound, @"Paths don't match. Failed to locate test bundle");
 }
 
 - (void) testSettingsReaderFindsAdvancedPlist {
