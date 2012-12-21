@@ -19,7 +19,7 @@
 - (void)setUp {
   [super setUp];
   
-  settingsBundlePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"Settings.bundle/Root.plist" ofType:nil];
+  settingsBundlePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"Settings.bundle" ofType:nil];
 }
 
 - (void)tearDown {
@@ -46,4 +46,9 @@
   STAssertEqualObjects(reader.applicationBundle, [NSBundle mainBundle], @"Bundle not set");
 }
 
+- (void) testSettingsReaderOpensTestBundle {
+  IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Root"
+                                                                   applicationBundle:[NSBundle bundleForClass:[self class]]];
+  STAssertEqualObjects(reader.bundlePath, settingsBundlePath, @"Paths don't match. Failed to locate test bundle");
+}
 @end
