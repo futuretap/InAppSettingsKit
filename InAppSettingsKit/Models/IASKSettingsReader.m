@@ -17,11 +17,6 @@
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
 
-#pragma mark - internally used constants
-static NSString* const kIASKBundleFolder = @"Settings.bundle";
-static NSString* const kIASKBundleFolderAlt = @"InAppSettings.bundle";
-static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
-
 #pragma mark -
 @interface IASKSettingsReader () {
 }
@@ -228,7 +223,11 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
 }
 
 - (NSString *)locateSettingsFile: (NSString *)file {
+    static NSString* const kIASKBundleFolder = @"Settings.bundle";
+    static NSString* const kIASKBundleFolderAlt = @"InAppSettings.bundle";
     
+    static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
+
     // The file is searched in the following order:
     //
     // InAppSettings.bundle/FILE~DEVICE.inApp.plist
