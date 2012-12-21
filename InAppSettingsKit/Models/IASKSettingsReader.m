@@ -228,62 +228,62 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
 }
 
 - (NSString *)locateSettingsFile: (NSString *)file {
-	
-	// The file is searched in the following order:
-	//
-	// InAppSettings.bundle/FILE~DEVICE.inApp.plist
-	// InAppSettings.bundle/FILE.inApp.plist
-	// InAppSettings.bundle/FILE~DEVICE.plist
-	// InAppSettings.bundle/FILE.plist
-	// Settings.bundle/FILE~DEVICE.inApp.plist
-	// Settings.bundle/FILE.inApp.plist
-	// Settings.bundle/FILE~DEVICE.plist
-	// Settings.bundle/FILE.plist
-	//
-	// where DEVICE is either "iphone" or "ipad" depending on the current
-	// interface idiom.
-	//
-	// Settings.app uses the ~DEVICE suffixes since iOS 4.0.  There are some
-	// differences from this implementation:
-	// - For an iPhone-only app running on iPad, Settings.app will not use the
-	//	 ~iphone suffix.  There is no point in using these suffixes outside
-	//	 of universal apps anyway.
-	// - This implementation uses the device suffixes on iOS 3.x as well.
-	// - also check current locale (short only)
-	
-	NSArray *bundles =
-	[NSArray arrayWithObjects:kIASKBundleFolderAlt, kIASKBundleFolder, nil];
-	
-	NSArray *extensions =
-	[NSArray arrayWithObjects:@".inApp.plist", @".plist", nil];
-	
-	NSArray *suffixes =
-	[NSArray arrayWithObjects:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()], @"", nil];
-	
-	NSArray *languages =
-	[NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:kIASKBundleLocaleFolderExtension], @"", nil];
-	
-	NSString *path = nil;
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	
-	for (NSString *bundle in bundles) {
-		for (NSString *extension in extensions) {
-			for (NSString *suffix in suffixes) {
-				for (NSString *language in languages) {
-					path = [self file:file
-						   withBundle:[bundle stringByAppendingPathComponent:language]
-							   suffix:suffix
-							extension:extension];
-					if ([fileManager fileExistsAtPath:path]) {
-						goto exitFromNestedLoop;
-					}
-				}
-			}
-		}
-	}
-	
+    
+    // The file is searched in the following order:
+    //
+    // InAppSettings.bundle/FILE~DEVICE.inApp.plist
+    // InAppSettings.bundle/FILE.inApp.plist
+    // InAppSettings.bundle/FILE~DEVICE.plist
+    // InAppSettings.bundle/FILE.plist
+    // Settings.bundle/FILE~DEVICE.inApp.plist
+    // Settings.bundle/FILE.inApp.plist
+    // Settings.bundle/FILE~DEVICE.plist
+    // Settings.bundle/FILE.plist
+    //
+    // where DEVICE is either "iphone" or "ipad" depending on the current
+    // interface idiom.
+    //
+    // Settings.app uses the ~DEVICE suffixes since iOS 4.0.  There are some
+    // differences from this implementation:
+    // - For an iPhone-only app running on iPad, Settings.app will not use the
+    //	 ~iphone suffix.  There is no point in using these suffixes outside
+    //	 of universal apps anyway.
+    // - This implementation uses the device suffixes on iOS 3.x as well.
+    // - also check current locale (short only)
+    
+    NSArray *bundles =
+    [NSArray arrayWithObjects:kIASKBundleFolderAlt, kIASKBundleFolder, nil];
+    
+    NSArray *extensions =
+    [NSArray arrayWithObjects:@".inApp.plist", @".plist", nil];
+    
+    NSArray *suffixes =
+    [NSArray arrayWithObjects:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()], @"", nil];
+    
+    NSArray *languages =
+    [NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:kIASKBundleLocaleFolderExtension], @"", nil];
+    
+    NSString *path = nil;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    for (NSString *bundle in bundles) {
+        for (NSString *extension in extensions) {
+            for (NSString *suffix in suffixes) {
+                for (NSString *language in languages) {
+                    path = [self file:file
+                           withBundle:[bundle stringByAppendingPathComponent:language]
+                               suffix:suffix
+                            extension:extension];
+                    if ([fileManager fileExistsAtPath:path]) {
+                        goto exitFromNestedLoop;
+                    }
+                }
+            }
+        }
+    }
+    
 exitFromNestedLoop:
-	return path;
+    return path;
 }
 
 @end
