@@ -130,15 +130,7 @@ __VA_ARGS__ \
  Besides that, it also hides the complexity of finding
  the 'proper' Settings.bundle
  */
-@interface IASKSettingsReader : NSObject {
-    NSString        *_path;
-    NSString        *_localizationTable;
-    NSString        *_bundlePath;
-    NSDictionary    *_settingsBundle;
-    NSArray         *_dataSource;
-    NSBundle        *_bundle;
-    NSSet           *_hiddenKeys;
-}
+@interface IASKSettingsReader : NSObject
 
 /** designated initializer
  searches for a settings bundle that contains

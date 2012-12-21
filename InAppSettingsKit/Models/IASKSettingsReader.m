@@ -17,14 +17,12 @@
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
 
-@implementation IASKSettingsReader
+@interface IASKSettingsReader () {
+    NSBundle        *_bundle;
+}
+@end
 
-@synthesize path=_path,
-localizationTable=_localizationTable,
-bundlePath=_bundlePath,
-settingsBundle=_settingsBundle, 
-dataSource=_dataSource,
-hiddenKeys = _hiddenKeys;
+@implementation IASKSettingsReader
 
 - (id) initWithSettingsFileNamed:(NSString*) fileName
                applicationBundle:(NSBundle*) bundle {
