@@ -42,7 +42,7 @@
             self.localizationTable = [[[[self.path stringByDeletingPathExtension] // removes '.plist'
                                         stringByDeletingPathExtension] // removes potential '.inApp'
                                        lastPathComponent] // strip absolute path
-                                      stringByReplacingOccurrencesOfString:[self platformSuffix] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
+                                      stringByReplacingOccurrencesOfString:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
             if([_bundle pathForResource:self.localizationTable ofType:@"strings"] == nil){
                 // Could not find the specified localization: use default
                 self.localizationTable = @"Root";
@@ -202,12 +202,11 @@
 	return [[self bundlePath] stringByAppendingPathComponent:image];
 }
 
-- (NSString *)platformSuffix {
-	BOOL isPad = NO;
-#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 30200)
-	isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-#endif
-	return isPad ? @"~ipad" : @"~iphone";
+- (NSString *)platformSuffixForInterfaceIdiom:(UIUserInterfaceIdiom) interfaceIdiom {
+    switch (interfaceIdiom) {
+        case UIUserInterfaceIdiomPad: return @"~ipad";
+        case UIUserInterfaceIdiomPhone: return @"~iphone";
+    }
 }
 
 - (NSString *)file:(NSString *)file
@@ -253,7 +252,7 @@
 	[NSArray arrayWithObjects:@".inApp.plist", @".plist", nil];
 	
 	NSArray *suffixes =
-	[NSArray arrayWithObjects:[self platformSuffix], @"", nil];
+	[NSArray arrayWithObjects:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()], @"", nil];
 	
 	NSArray *languages =
 	[NSArray arrayWithObjects:[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:KIASKBundleLocaleFolderExtension], @"", nil];

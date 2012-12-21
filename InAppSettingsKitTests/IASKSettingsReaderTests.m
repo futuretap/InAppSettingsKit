@@ -87,6 +87,16 @@
                  @"Failed to read correct number of rows");
 }
 
+#pragma mark - helpers
+- (void) testPlattformSuffix {
+  IASKSettingsReader* reader = [IASKSettingsReader new];
+  STAssertEqualObjects([reader platformSuffixForInterfaceIdiom:UIUserInterfaceIdiomPad],
+                       @"~ipad", @"Must match");
+  STAssertEqualObjects([reader platformSuffixForInterfaceIdiom:UIUserInterfaceIdiomPhone],
+                       @"~iphone", @"Must match");
+  
+}
+
 #pragma mark - hidden keys
 - (void) testSettingsReaderHidesHiddenKeys {
   IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"

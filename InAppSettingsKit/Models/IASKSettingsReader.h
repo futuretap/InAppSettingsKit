@@ -15,6 +15,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKCellImage                        @"IASKCellImage"
@@ -173,4 +174,6 @@ __VA_ARGS__ \
             suffix:(NSString *)suffix
          extension:(NSString *)extension;
 - (NSString *)locateSettingsFile:(NSString *)file;
+
+- (NSString *)platformSuffixForInterfaceIdiom:(UIUserInterfaceIdiom) interfaceIdiom;
 @end
