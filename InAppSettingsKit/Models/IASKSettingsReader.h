@@ -125,6 +125,11 @@ __VA_ARGS__ \
 
 @class IASKSpecifier;
 
+/** settings reader transform iOS's settings plist files
+ to the IASKSpecifier model objects.
+ Besides that, it also hides the complexity of finding
+ the 'proper' Settings.bundle
+ */
 @interface IASKSettingsReader : NSObject {
     NSString        *_path;
     NSString        *_localizationTable;
@@ -135,7 +140,19 @@ __VA_ARGS__ \
     NSSet           *_hiddenKeys;
 }
 
-- (id)initWithFile:(NSString*)file;
+/** designated initializer
+ searches for a settings bundle that contains
+ a plist with the specified fileName that must
+ be contained in the given bundle
+ 
+ calls initWithFile where applicationBundle is
+ set to [NSBundle mainBundle]
+ */
+- (id) initWithSettingsFileNamed:(NSString*) fileName
+               applicationBundle:(NSBundle*) bundle;
+
+- (id) initWithFile:(NSString*)file;
+
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfRowsForSection:(NSInteger)section;
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
@@ -147,6 +164,9 @@ __VA_ARGS__ \
 - (NSString*)titleForStringId:(NSString*)stringId;
 - (NSString*)pathForImageNamed:(NSString*)image;
 
+///the main application bundle. most often [NSBundle mainBundle]
+@property (nonatomic, readonly) NSBundle      *applicationBundle;
+
 @property (nonatomic, retain) NSString      *path;
 @property (nonatomic, retain) NSString      *localizationTable;
 @property (nonatomic, retain) NSString      *bundlePath;
@@ -154,4 +174,11 @@ __VA_ARGS__ \
 @property (nonatomic, retain) NSArray       *dataSource;
 @property (nonatomic, retain) NSSet         *hiddenKeys;
 
+
+#pragma mark - internal use. public only for testing
+- (NSString *)file:(NSString *)file
+        withBundle:(NSString *)bundle
+            suffix:(NSString *)suffix
+         extension:(NSString *)extension;
+- (NSString *)locateSettingsFile:(NSString *)file;
 @end

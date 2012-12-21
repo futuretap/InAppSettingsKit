@@ -45,6 +45,8 @@
 		E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADF1682036500295D85 /* IASKTextField.m */; };
 		E4EDC5AD16821D7300BD3CA9 /* IASKAbstractStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */; };
 		E4EDC5AF1682216700BD3CA9 /* IASKFileStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */; };
+		E4EDC5B2168227B800BD3CA9 /* IASKSettingsReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */; };
+		E4EDC5B416822B6700BD3CA9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E4EDC5B316822B6700BD3CA9 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,8 @@
 		E42ADADF1682036500295D85 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
 		E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAbstractStoreTests.m; sourceTree = "<group>"; };
 		E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKFileStoreTests.m; sourceTree = "<group>"; };
+		E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsReaderTests.m; sourceTree = "<group>"; };
+		E4EDC5B316822B6700BD3CA9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,9 +173,11 @@
 		E42ADAAB168202D700295D85 /* InAppSettingsKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				E4EDC5B316822B6700BD3CA9 /* Settings.bundle */,
 				E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */,
 				E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */,
 				E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */,
+				E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */,
 				E42ADAAC168202D700295D85 /* Supporting Files */,
 			);
 			path = InAppSettingsKitTests;
@@ -352,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E42ADAB0168202D700295D85 /* InfoPlist.strings in Resources */,
+				E4EDC5B416822B6700BD3CA9 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +409,7 @@
 				E42ADAB3168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m in Sources */,
 				E4EDC5AD16821D7300BD3CA9 /* IASKAbstractStoreTests.m in Sources */,
 				E4EDC5AF1682216700BD3CA9 /* IASKFileStoreTests.m in Sources */,
+				E4EDC5B2168227B800BD3CA9 /* IASKSettingsReaderTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,39 +34,44 @@ settingsBundle=_settingsBundle,
 dataSource=_dataSource,
 hiddenKeys = _hiddenKeys;
 
-- (id)init {
-	return [self initWithFile:@"Root"];
+- (id) initWithSettingsFileNamed:(NSString*) fileName
+               applicationBundle:(NSBundle*) bundle {
+    self = [super init];
+    if (self) {
+        _applicationBundle = [bundle retain];
+        self.path = [self locateSettingsFile: fileName];
+        [self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:self.path]];
+        self.bundlePath = [self.path stringByDeletingLastPathComponent];
+        _bundle = [[NSBundle bundleWithPath:[self bundlePath]] retain];
+        
+        // Look for localization file
+        self.localizationTable = [self.settingsBundle objectForKey:@"StringsTable"];
+        if (!self.localizationTable)
+        {
+            // Look for localization file using filename
+            self.localizationTable = [[[[self.path stringByDeletingPathExtension] // removes '.plist'
+                                        stringByDeletingPathExtension] // removes potential '.inApp'
+                                       lastPathComponent] // strip absolute path
+                                      stringByReplacingOccurrencesOfString:[self platformSuffix] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
+            if([_bundle pathForResource:self.localizationTable ofType:@"strings"] == nil){
+                // Could not find the specified localization: use default
+                self.localizationTable = @"Root";
+            }
+        }
+        
+        if (_settingsBundle) {
+            [self _reinterpretBundle:_settingsBundle];
+        }
+    }
+    return self;
 }
 
 - (id)initWithFile:(NSString*)file {
-	if ((self=[super init])) {
+    return [self initWithSettingsFileNamed:file applicationBundle:[NSBundle mainBundle]];
+}
 
-
-		self.path = [self locateSettingsFile: file];
-		[self setSettingsBundle:[NSDictionary dictionaryWithContentsOfFile:self.path]];
-		self.bundlePath = [self.path stringByDeletingLastPathComponent];
-		_bundle = [[NSBundle bundleWithPath:[self bundlePath]] retain];
-		
-		// Look for localization file
-		self.localizationTable = [self.settingsBundle objectForKey:@"StringsTable"];
-		if (!self.localizationTable)
-		{
-			// Look for localization file using filename
-			self.localizationTable = [[[[self.path stringByDeletingPathExtension] // removes '.plist'
-										stringByDeletingPathExtension] // removes potential '.inApp'
-									   lastPathComponent] // strip absolute path
-									  stringByReplacingOccurrencesOfString:[self platformSuffix] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
-			if([_bundle pathForResource:self.localizationTable ofType:@"strings"] == nil){
-				// Could not find the specified localization: use default
-				self.localizationTable = @"Root";
-			}
-		}
-
-		if (_settingsBundle) {
-			[self _reinterpretBundle:_settingsBundle];
-		}
-	}
-	return self;
+- (id)init {
+	return [self initWithFile:@"Root"];
 }
 
 - (void)dealloc {
@@ -220,8 +225,8 @@ hiddenKeys = _hiddenKeys;
 			suffix:(NSString *)suffix
 		 extension:(NSString *)extension {
 
-	NSString *appBundle = [[NSBundle mainBundle] bundlePath];
-	bundle = [appBundle stringByAppendingPathComponent:bundle];
+	NSString *appBundlePath = [self.applicationBundle bundlePath];
+	bundle = [appBundlePath stringByAppendingPathComponent:bundle];
 	file = [file stringByAppendingFormat:@"%@%@", suffix, extension];
 	return [bundle stringByAppendingPathComponent:file];
 
