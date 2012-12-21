@@ -24,7 +24,6 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
 
 #pragma mark -
 @interface IASKSettingsReader () {
-    NSBundle        *_bundle;
 }
 @end
 
@@ -35,12 +34,13 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
     self = [super init];
     if (self) {
         _applicationBundle = [bundle retain];
-        
+
         NSString* plistFilePath = [self locateSettingsFile: fileName];
         _settingsDictionary = [[NSDictionary dictionaryWithContentsOfFile:plistFilePath] retain];
         
-        self.bundlePath = [plistFilePath stringByDeletingLastPathComponent];
-        _bundle = [[NSBundle bundleWithPath:[self bundlePath]] retain];
+        //store the bundle which we'll need later for getting localizations
+        NSString* settingsBundlePath = [plistFilePath stringByDeletingLastPathComponent];
+        _settingsBundle = [[NSBundle bundleWithPath:settingsBundlePath] retain];
         
         // Look for localization file
         self.localizationTable = [_settingsDictionary objectForKey:@"StringsTable"];
@@ -51,7 +51,7 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
                                         stringByDeletingPathExtension] // removes potential '.inApp'
                                        lastPathComponent] // strip absolute path
                                       stringByReplacingOccurrencesOfString:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
-            if([_bundle pathForResource:self.localizationTable ofType:@"strings"] == nil){
+            if([self.settingsBundle pathForResource:self.localizationTable ofType:@"strings"] == nil){
                 // Could not find the specified localization: use default
                 self.localizationTable = @"Root";
             }
@@ -74,10 +74,9 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
 
 - (void)dealloc {
     [_localizationTable release], _localizationTable = nil;
-    [_bundlePath release], _bundlePath = nil;
     [_settingsDictionary release], _settingsDictionary = nil;
     [_dataSource release], _dataSource = nil;
-    [_bundle release], _bundle = nil;
+    [_settingsBundle release], _settingsBundle = nil;
     [_hiddenKeys release], _hiddenKeys = nil;
 
     [super dealloc];
@@ -202,11 +201,11 @@ static NSString* const kIASKBundleLocaleFolderExtension = @".lproj";
 }
 
 - (NSString*)titleForStringId:(NSString*)stringId {
-	return [_bundle localizedStringForKey:stringId value:stringId table:self.localizationTable];
+	return [self.settingsBundle localizedStringForKey:stringId value:stringId table:self.localizationTable];
 }
 
 - (NSString*)pathForImageNamed:(NSString*)image {
-	return [[self bundlePath] stringByAppendingPathComponent:image];
+	return [[self.settingsBundle bundlePath] stringByAppendingPathComponent:image];
 }
 
 - (NSString *)platformSuffixForInterfaceIdiom:(UIUserInterfaceIdiom) interfaceIdiom {

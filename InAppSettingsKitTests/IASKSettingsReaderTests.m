@@ -51,7 +51,7 @@
 - (void) testSettingsReaderOpensTestBundle {
   IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Root"
                                                                    applicationBundle:[NSBundle bundleForClass:[self class]]];
-  STAssertEqualObjects(reader.bundlePath, settingsBundlePath, @"Paths don't match. Failed to locate test bundle");
+  STAssertEqualObjects([reader.settingsBundle bundlePath], settingsBundlePath, @"Paths don't match. Failed to locate test bundle");
 }
 
 - (void) testSettingsReaderFindsDeviceDependentPlist {
