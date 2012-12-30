@@ -148,17 +148,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell   = [tableView dequeueReusableCellWithIdentifier:kCellValue];
+    NSString *reusableCellName = kCellValue;
+    if ([self.title isEqualToString:fontPickerTitle]) {
+        reusableCellName = [reusableCellName stringByAppendingFormat:fontPickerTitle];
+    }
+
+    UITableViewCell *cell   = [tableView dequeueReusableCellWithIdentifier:reusableCellName];
     NSArray *titles         = [_currentSpecifier multipleTitles];
 	
     if (!cell) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusableCellName] autorelease];
     }
 
     if ([self.title isEqualToString:fontPickerTitle]) {
         NSArray *values         = [_currentSpecifier multipleValues];
         @try {
-            UIFont *f = [UIFont fontWithName:values[indexPath.row] size:17.0];
+            UIFont *f = [UIFont fontWithName:values[indexPath.row] size:17.0f];
             if (f != nil) {
                 [[cell textLabel] setFont:f];
             }
@@ -173,7 +178,7 @@
     }
 	
     @try {
-	[[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
+        [[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
     }
     @catch (NSException * e) {}
 
