@@ -29,6 +29,9 @@
 "MUL_VAL_NO_TITLE_3"    = "Weiß nicht";
 "MUL_VAL_NO_TITLE_NIL"  = "";
 
+"MUL_VALUE_FONT_TITLE"  = "Font Picker";
+"MUL_VAL_FONT"          = "Font";
+
 "MULTIVALUE_FOOTER"		= "Dies ist ein Footer-Text unter einer MultiValue-Liste.";
 
 "TEXT_FIELD_TITLE"      = "Textfeld";

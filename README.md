@@ -151,6 +151,11 @@ Variable font size
 By default, the labels in the settings table are displayed in a variable font size, especially handy to squeeze-in long localizations (beware: this might break the look in Settings.app if labels are too long!).
 To disable this behavior, add a `IASKAdjustsFontSizeToFitWidth` Boolean attribute with value `NO`.
 
+Font Picker
+-----------
+You can create a Multi Value setting that list fonts and use that font name to display text. To do this, create a Multi Value settings with the title of "Font". Values should be the exact name of a font on the device. Titles for those values can be anything you want to label the font as.
+This will only display a custom font inside the app. Font names will be still be shown in Settings.app. Custom UITableViewCells are not used as those will not show inside of Settings.app.
+You can change the title that triggers the font picker by changing fontPickerTitle in IASKSpecifierValuesViewController.m
 
 Icons
 -----

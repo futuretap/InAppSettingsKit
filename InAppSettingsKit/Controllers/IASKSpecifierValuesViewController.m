@@ -20,6 +20,7 @@
 #import "IASKSettingsStoreUserDefaults.h"
 
 #define kCellValue      @"kCellValue"
+#define fontPickerTitle @"Font"
 
 @interface IASKSpecifierValuesViewController()
 - (void)userDefaultsDidChange;
@@ -153,17 +154,29 @@
     if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue] autorelease];
     }
-	
-	if ([indexPath isEqual:[self checkedItem]]) {
-		[self selectCell:cell];
+
+    if ([self.title isEqualToString:fontPickerTitle]) {
+        NSArray *values         = [_currentSpecifier multipleValues];
+        @try {
+            UIFont *f = [UIFont fontWithName:values[indexPath.row] size:17.0];
+            if (f != nil) {
+                [[cell textLabel] setFont:f];
+            }
+        }
+        @catch (NSException * e) { }
+    }
+
+    if ([indexPath isEqual:[self checkedItem]]) {
+        [self selectCell:cell];
     } else {
         [self deselectCell:cell];
     }
 	
-	@try {
-		[[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
-	}
-	@catch (NSException * e) {}
+    @try {
+	[[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
+    }
+    @catch (NSException * e) {}
+
     return cell;
 }
 

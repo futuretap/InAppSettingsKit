@@ -100,6 +100,90 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string>MUL_VALUE_FONT_TITLE</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>Helvetica</string>
+			<key>Key</key>
+			<string>mulValue</string>
+			<key>Title</key>
+			<string>MUL_VAL_FONT</string>
+			<key>Titles</key>
+			<array>
+				<string>American Typewriter</string>
+				<string>AppleGothic</string>
+				<string>Arial</string>
+				<string>Courier</string>
+				<string>Courier Bold</string>
+				<string>Courier Bold Oblique</string>
+				<string>Courier Oblique</string>
+				<string>Geeza Pro</string>
+				<string>Georgia</string>
+				<string>Georgia Bold</string>
+				<string>Georgia Bold Italic</string>
+				<string>Georgia Italic</string>
+				<string>Helvetica</string>
+				<string>Helvetica Bold</string>
+				<string>Helvetica Bold Oblique</string>
+				<string>Helvetica Oblique</string>
+				<string>Helvetica Neue</string>
+				<string>Helvetica Neue Bold</string>
+				<string>Marker Felt</string>
+				<string>Times New Roman</string>
+				<string>Times New Roman Bold</string>
+				<string>Times New Roman Bold Italic</string>
+				<string>Times New Roman Italic</string>
+				<string>Trebuchet</string>
+				<string>Trebuchet Bold</string>
+				<string>Trebuchet Bold Italic</string>
+				<string>Trebuchet Italic</string>
+				<string>Verdana</string>
+				<string>Verdana Bold</string>
+				<string>Verdana Bold Italic</string>
+				<string>Verdana Italic</string>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Values</key>
+			<array>
+				<string>AmericanTypewriter</string>
+				<string>AppleGothic</string>
+				<string>Arial</string>
+				<string>Courier</string>
+				<string>Courier-Bold</string>
+				<string>Courier-BoldOblique</string>
+				<string>Courier-Oblique</string>
+				<string>GeezaPro</string>
+				<string>Georgia</string>
+				<string>Georgia-Bold</string>
+				<string>Georgia-BoldItalic</string>
+				<string>Georgia-Italic</string>
+				<string>Helvetica</string>
+				<string>Helvetica-Bold</string>
+				<string>Helvetica-BoldOblique</string>
+				<string>Helvetica-Oblique</string>
+				<string>HelveticaNeue</string>
+				<string>HelveticaNeue-Bold</string>
+				<string>MarkerFelt-Thin</string>
+				<string>TimesNewRomanPSMT</string>
+				<string>TimesNewRomanPS-BoldMT</string>
+				<string>TimesNewRomanPS-BoldItalicMT</string>
+				<string>TimesNewRomanPS-ItalicMT</string>
+				<string>Trebuchet-BoldItalic</string>
+				<string>TrebuchetMS</string>
+				<string>TrebuchetMS-Bold</string>
+				<string>TrebuchetMS-Italic</string>
+				<string>Verdana</string>
+				<string>Verdana-Bold</string>
+				<string>Verdana-BoldItalic</string>
+				<string>Verdana-Italic</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>TEXT_FIELD_TITLE</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
