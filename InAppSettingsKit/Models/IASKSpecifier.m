@@ -264,17 +264,17 @@
 - (UITextAlignment)textAlignment
 {
     if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentLeft]) {
-        return UITextAlignmentLeft;
+        return NSTextAlignmentLeft;
     } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentCenter]) {
-        return UITextAlignmentCenter;
+        return NSTextAlignmentCenter;
     } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentRight]) {
-        return UITextAlignmentRight;
+        return NSTextAlignmentRight;
     }
     if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
-		return UITextAlignmentCenter;
+		return NSTextAlignmentCenter;
 	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier]) {
-		return UITextAlignmentRight;
+		return NSTextAlignmentRight;
 	}
-	return UITextAlignmentLeft;
+	return NSTextAlignmentLeft;
 }
 @end
