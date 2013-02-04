@@ -149,7 +149,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell   = [tableView dequeueReusableCellWithIdentifier:kCellValue];
     NSArray *titles         = [_currentSpecifier multipleTitles];
-	
+
     if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue] autorelease];
     }
@@ -161,7 +161,18 @@
     }
 	
 	@try {
-		[[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
+        NSString *title = @"";
+        if (indexPath.row < [titles count]) {
+            title = [self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]];
+        }
+        else {
+            // show the value as a substitute of the title when the title for current indexPath is not exist.
+            NSArray *values = [_currentSpecifier multipleValues];
+            if (indexPath.row < [values count]) {
+                title = [NSString stringWithFormat:@"%@", [values objectAtIndex:indexPath.row]];
+            }
+        }
+		[[cell textLabel] setText:title];
 	}
 	@catch (NSException * e) {}
     return cell;

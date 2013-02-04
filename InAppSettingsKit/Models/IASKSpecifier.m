@@ -101,21 +101,55 @@
     return [_specifierDict objectForKey:kIASKType];
 }
 
-- (NSString*)titleForCurrentValue:(id)currentValue {
-	NSArray *values = [self multipleValues];
-	NSArray *titles = [self multipleTitles];
-	if (values.count != titles.count) {
-		return nil;
-	}
+- (NSString *)titleForCurrentValue:(id)currentValue {
+    NSArray *values = [self multipleValues];
+    NSArray *titles = [self multipleTitles];
+
     NSInteger keyIndex = [values indexOfObject:currentValue];
-	if (keyIndex == NSNotFound) {
-		return nil;
-	}
-	@try {
-		return [self.settingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
-	}
-	@catch (NSException * e) {}
-	return nil;
+    if (keyIndex == NSNotFound) {
+        
+        // When currentValue is NSNumber
+        if ([currentValue isKindOfClass:[NSNumber class]]) {
+            
+            for (NSInteger i=0; i<[values count]; i++) {
+            
+                id aValue = [values objectAtIndex:i];
+                
+                if (![aValue respondsToSelector:@selector(floatValue)]) {
+                    continue;
+                }
+                
+                if ([aValue floatValue] == [currentValue floatValue]) {
+                    keyIndex = i;
+                    break;
+                }
+            }
+            
+            if (keyIndex == NSNotFound) {
+                return nil;
+            }
+        }
+        else {
+            return nil;
+        }
+    }
+
+    @try {
+        NSString *title = @"";
+        if (keyIndex < [titles count]) {
+            title = [self.settingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
+        }
+        // return currentValue as a substitute of the title when the title for currentValue is not exist.
+        if (!([title length] > 0)) {
+            title = [NSString stringWithFormat:@"%@", currentValue];
+        }
+        NSLog(@"title:%@", title);
+        return title;
+    }
+    @catch (NSException * e) {
+    }
+
+    return nil;
 }
 
 - (NSInteger)multipleValuesCount {
@@ -264,17 +298,17 @@
 - (UITextAlignment)textAlignment
 {
     if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentLeft]) {
-        return NSTextAlignmentLeft;
+        return UITextAlignmentLeft;
     } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentCenter]) {
-        return NSTextAlignmentCenter;
+        return UITextAlignmentCenter;
     } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentRight]) {
-        return NSTextAlignmentRight;
+        return UITextAlignmentRight;
     }
     if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
-		return NSTextAlignmentCenter;
+		return UITextAlignmentCenter;
 	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier]) {
-		return NSTextAlignmentRight;
+		return UITextAlignmentRight;
 	}
-	return NSTextAlignmentLeft;
+	return UITextAlignmentLeft;
 }
 @end
