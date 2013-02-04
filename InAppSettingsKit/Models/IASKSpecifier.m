@@ -101,21 +101,49 @@
     return [_specifierDict objectForKey:kIASKType];
 }
 
-- (NSString*)titleForCurrentValue:(id)currentValue {
-	NSArray *values = [self multipleValues];
-	NSArray *titles = [self multipleTitles];
-	if (values.count != titles.count) {
-		return nil;
-	}
+- (NSString *)titleForCurrentValue:(id)currentValue {
+    NSArray *values = [self multipleValues];
+    NSArray *titles = [self multipleTitles];
+    if (values.count != titles.count) {
+        return nil;
+    }
+    
     NSInteger keyIndex = [values indexOfObject:currentValue];
-	if (keyIndex == NSNotFound) {
-		return nil;
-	}
-	@try {
-		return [self.settingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
-	}
-	@catch (NSException * e) {}
-	return nil;
+    if (keyIndex == NSNotFound) {
+        
+        // When currentValue is NSNumber
+        if ([currentValue isKindOfClass:[NSNumber class]]) {
+            
+            for (NSInteger i=0; i<[values count]; i++) {
+                
+                id aValue = [values objectAtIndex:i];
+                
+                if (![aValue respondsToSelector:@selector(floatValue)]) {
+                    continue;
+                }
+                
+                if ([aValue floatValue] == [currentValue floatValue]) {
+                    keyIndex = i;
+                    break;
+                }
+            }
+            
+            if (keyIndex == NSNotFound) {
+                return nil;
+            }
+        }
+        else {
+            return nil;
+        }
+    }
+    
+    @try {
+        return [self.settingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
+    }
+    @catch (NSException * e) {
+    }
+    
+    return nil;
 }
 
 - (NSInteger)multipleValuesCount {
