@@ -36,6 +36,14 @@
                           tableView:(UITableView *)tableView
             viewForHeaderForSection:(NSInteger)section;
 
+#pragma mark - UITableView footer customization
+- (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
+                         tableView:(UITableView *)tableView
+         heightForFooterForSection:(NSInteger)section;
+- (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
+                          tableView:(UITableView *)tableView
+            viewForFooterForSection:(NSInteger)section;
+
 #pragma mark - UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
