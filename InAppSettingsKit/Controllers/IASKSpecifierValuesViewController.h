@@ -17,6 +17,7 @@
 #import <UIKit/UIKit.h>
 #import "IASKSettingsStore.h"
 #import "IASKViewController.h"
+#import "IASKAppSettingsViewController.h"
 @class IASKSpecifier;
 @class IASKSettingsReader;
 
@@ -27,10 +28,12 @@
     NSIndexPath             *_checkedItem;
 	IASKSettingsReader		*_settingsReader;
     id<IASKSettingsStore>	_settingsStore;
+    id<IASKSettingsDelegate>  _delegate;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) NSIndexPath *checkedItem;
 @property (nonatomic, retain) IASKSpecifier *currentSpecifier;
+@property (nonatomic, assign) id delegate;
 
 @end

@@ -28,6 +28,10 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 
 @optional
+#pragma mark - UITableView background view
+- (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
+          backgroundViewForableView:(UITableView *)tableView;
+
 #pragma mark - UITableView header customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView

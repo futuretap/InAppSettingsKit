@@ -32,6 +32,7 @@
 @synthesize checkedItem=_checkedItem;
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
+@synthesize delegate = _delegate;
 
 - (void) updateCheckedItem {
     NSInteger index;
@@ -64,6 +65,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:backgroundViewForableView:)]) {
+        self.tableView.backgroundView = [self.delegate settingsViewController:self backgroundViewForableView:self.tableView];
+    }
+    
     if (_currentSpecifier) {
         [self setTitle:[_currentSpecifier title]];
         [self updateCheckedItem];

@@ -165,6 +165,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:backgroundViewForableView:)]) {
+    self.tableView.backgroundView = [self.delegate settingsViewController:self backgroundViewForableView:self.tableView];
+  }
+
 	// if there's something selected, the value might have changed
 	// so reload that row
 	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
@@ -679,6 +683,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
+        targetViewController.delegate = self.delegate;
         [[self navigationController] pushViewController:targetViewController animated:YES];
     }
     else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
