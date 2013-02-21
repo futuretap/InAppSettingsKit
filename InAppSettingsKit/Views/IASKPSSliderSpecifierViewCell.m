@@ -30,20 +30,32 @@
     if (self) {
         // Setting only frame data that will not be overwritten by layoutSubviews
         // Slider
+#if !__has_feature(objc_arc)
         _slider = [[[IASKSlider alloc] initWithFrame:CGRectMake(0, 0, 0, 23)] autorelease];
+#else
+        _slider = [[IASKSlider alloc] initWithFrame:CGRectMake(0, 0, 0, 23)];
+#endif
         _slider.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin |
         UIViewAutoresizingFlexibleWidth;
         _slider.continuous = NO;
         [self.contentView addSubview:_slider];
 
         // MinImage
+#if !__has_feature(objc_arc)
         _minImage = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 21, 21)] autorelease];
+#else
+        _minImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 21, 21)];
+#endif
         _minImage.autoresizingMask = UIViewAutoresizingFlexibleRightMargin |
         UIViewAutoresizingFlexibleBottomMargin;
         [self.contentView addSubview:_minImage];
 
         // MaxImage
+#if !__has_feature(objc_arc)
         _maxImage = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 21, 21)] autorelease];
+#else
+        _maxImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 21, 21)];
+#endif
         _maxImage.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin |
         UIViewAutoresizingFlexibleBottomMargin;
         [self.contentView addSubview:_maxImage];
@@ -87,11 +99,13 @@
     _slider.center = sliderCenter;
 }	
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
 	_minImage.image = nil;
 	_maxImage.image = nil;
     [super dealloc];
 }
+#endif
 
 - (void)prepareForReuse {
 	_minImage.image = nil;

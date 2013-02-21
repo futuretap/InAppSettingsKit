@@ -22,6 +22,10 @@
     IASKTextField *_textField;
 }
 
+#if !__has_feature(objc_arc)
 @property (nonatomic, assign) IASKTextField *textField;
+#else
+@property (nonatomic, strong) IASKTextField *textField;
+#endif
 
 @end

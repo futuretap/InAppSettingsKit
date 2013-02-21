@@ -25,7 +25,11 @@
     IASKSettingsReader *_settingsReader;
 }
 @property (nonatomic, retain) NSDictionary  *specifierDict;
+#if !__has_feature(objc_arc)
 @property (nonatomic, assign) IASKSettingsReader *settingsReader;
+#else
+@property (nonatomic, strong) IASKSettingsReader *settingsReader;
+#endif
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
 - (NSString*)localizedObjectForKey:(NSString*)key;

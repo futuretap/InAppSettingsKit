@@ -64,7 +64,7 @@
     
     NSMutableArray          *_viewList;
     
-    IASKSettingsReader		*_settingsReader;
+    IASKSettingsReader                         	*_settingsReader;
     id<IASKSettingsStore>  _settingsStore;
     NSString				*_file;
     
@@ -76,7 +76,11 @@
     NSSet                   *_hiddenKeys;
 }
 
+#if !__has_feature(objc_arc)
 @property (nonatomic, assign) IBOutlet id delegate;
+#else
+@property (nonatomic, strong) IBOutlet id delegate;
+#endif
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;

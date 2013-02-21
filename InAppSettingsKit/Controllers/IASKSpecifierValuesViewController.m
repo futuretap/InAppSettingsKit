@@ -110,7 +110,7 @@
 	self.tableView = nil;
 }
 
-
+#if !__has_feature(objc_arc)
 - (void)dealloc {
     [_currentSpecifier release], _currentSpecifier = nil;
 	[_checkedItem release], _checkedItem = nil;
@@ -119,7 +119,7 @@
 	[_tableView release], _tableView = nil;
     [super dealloc];
 }
-
+#endif
 
 #pragma mark -
 #pragma mark UITableView delegates
@@ -151,7 +151,11 @@
     NSArray *titles         = [_currentSpecifier multipleTitles];
 	
     if (!cell) {
+#if !__has_feature(objc_arc)
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue] autorelease];
+#else
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue];
+#endif
     }
 	
 	if ([indexPath isEqual:[self checkedItem]]) {
@@ -197,7 +201,11 @@
 #pragma mark Notifications
 
 - (void)userDefaultsDidChange {
+#if !__has_feature(objc_arc)
 	NSIndexPath *oldCheckedItem = [[self.checkedItem retain] autorelease];
+#else
+	NSIndexPath *oldCheckedItem = self.checkedItem;
+#endif
 	if(_currentSpecifier) {
 		[self updateCheckedItem];
 	}
