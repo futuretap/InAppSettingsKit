@@ -21,10 +21,12 @@
 
 @synthesize key=_key;
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
     [_key release], _key = nil;
 	
     [super dealloc];
 }
+#endif
 
 @end
