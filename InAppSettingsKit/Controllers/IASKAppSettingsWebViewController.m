@@ -46,12 +46,14 @@
     self.view = webView;
 }
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
 	[webView release], webView = nil;
 	[url release], url = nil;
 	
 	[super dealloc];
 }
+#endif
 
 - (void)viewWillAppear:(BOOL)animated {  
 	[webView loadRequest:[NSURLRequest requestWithURL:self.url]];
@@ -102,11 +104,21 @@
 				NSString *key = [[keyValue objectAtIndex:0] lowercaseString];
 				NSString *value = [keyValue objectAtIndex:1];
 				
+#if !__has_feature(objc_arc)
 				value =  (NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
 																							 (CFStringRef)value,
 																							 CFSTR(""),
 																							 kCFStringEncodingUTF8);
+#else
+				value =  (NSString *)CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+																											   (CFStringRef)value,
+																											   CFSTR(""),
+																											   kCFStringEncodingUTF8));
+#endif
+				
+#if !__has_feature(objc_arc)
 				[value autorelease];
+#endif
 				
 				if ([key isEqualToString:@"subject"]) {
 					[mailViewController setSubject:value];
@@ -147,7 +159,9 @@
         [self presentModalViewController:mailViewController animated:YES];
 #pragma clang diagnostic pop
     }
+#if !__has_feature(objc_arc)
 		[mailViewController release];
+#endif
 		return NO;
 	}
 	
