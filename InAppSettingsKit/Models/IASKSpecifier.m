@@ -40,6 +40,7 @@
     return self;
 }
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
     [_specifierDict release], _specifierDict = nil;
     [_multipleValuesDict release], _multipleValuesDict = nil;
@@ -48,12 +49,17 @@
 
     [super dealloc];
 }
+#endif
 
 - (void)_reinterpretValues:(NSDictionary*)specifierDict {
     NSArray *values = [_specifierDict objectForKey:kIASKValues];
     NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
     
+#if !__has_feature(objc_arc)
     NSMutableDictionary *multipleValuesDict = [[[NSMutableDictionary alloc] init] autorelease];
+#else
+	NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
+#endif
     
     if (values) {
 		[multipleValuesDict setObject:values forKey:kIASKValues];
