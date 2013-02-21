@@ -24,8 +24,14 @@
     UIImageView *_maxImage;
 }
 
+#if !__has_feature(objc_arc)
 @property (nonatomic, assign) IASKSlider *slider;
 @property (nonatomic, assign) UIImageView *minImage;
 @property (nonatomic, assign) UIImageView *maxImage;
+#else
+@property (nonatomic, strong) IASKSlider *slider;
+@property (nonatomic, strong) UIImageView *minImage;
+@property (nonatomic, strong) UIImageView *maxImage;
+#endif
 
 @end
