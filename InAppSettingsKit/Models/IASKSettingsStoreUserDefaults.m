@@ -25,15 +25,21 @@
 
 @implementation IASKSettingsStoreUserDefaults
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
     [_defaults release];
     [super dealloc];
 }
+#endif
 
 - (id)initWithUserDefaults:(NSUserDefaults *)defaults {
     self = [super init];
     if( self ) {
+#if !__has_feature(objc_arc)
         _defaults = [defaults retain];
+#else
+    	_defaults = defaults;
+#endif
     }
     return self;
 }
