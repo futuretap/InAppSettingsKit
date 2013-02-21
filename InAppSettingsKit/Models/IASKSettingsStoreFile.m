@@ -17,7 +17,8 @@
 
 #import "IASKSettingsStoreFile.h"
 
-@interface IASKSettingsStoreFile() {
+@interface IASKSettingsStoreFile()
+{
     NSMutableDictionary * _dict;
 }
 
@@ -29,7 +30,11 @@
 
 - (id)initWithPath:(NSString*)path {
     if((self = [super init])) {
+#if !__has_feature(objc_arc)
         _filePath = [path retain];
+#else
+    	_filePath = path;
+#endif
         _dict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
         if(_dict == nil) {
             _dict = [[NSMutableDictionary alloc] init];
@@ -38,12 +43,14 @@
     return self;
 }
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
     [_dict release], _dict = nil;
     [_filePath release], _filePath = nil;
 
     [super dealloc];
 }
+#endif
 
 - (void)setObject:(id)value forKey:(NSString *)key {
     [_dict setObject:value forKey:key];
