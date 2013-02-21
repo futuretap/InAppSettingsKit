@@ -29,7 +29,11 @@
 		self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
 
         // TextField
+#if !__has_feature(objc_arc)
         _textField = [[[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)] autorelease];
+#else
+		_textField = [[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
+#endif
         _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth |
         UIViewAutoresizingFlexibleBottomMargin |
         UIViewAutoresizingFlexibleLeftMargin;
@@ -68,10 +72,10 @@
 	_textField.frame = textFieldFrame;
 }
 
-
+#if !__has_feature(objc_arc)
 - (void)dealloc {
     [super dealloc];
 }
-
+#endif
 
 @end
