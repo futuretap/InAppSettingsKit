@@ -1,5 +1,5 @@
 //
-//	IASKSettingsReader.m
+//               IASKSettingsReader.m
 //	http://www.inappsettingskit.com
 //
 //	Copyright (c) 2009:
@@ -18,8 +18,8 @@
 #import "IASKSpecifier.h"
 
 #pragma mark -
-@interface IASKSettingsReader () {
-}
+@interface IASKSettingsReader ()
+
 @end
 
 @implementation IASKSettingsReader
@@ -28,14 +28,26 @@
                applicationBundle:(NSBundle*) bundle {
     self = [super init];
     if (self) {
+#if !__has_feature(objc_arc)
         _applicationBundle = [bundle retain];
+#else
+		_applicationBundle = bundle;
+#endif
         
         NSString* plistFilePath = [self locateSettingsFile: fileName];
+#if !__has_feature(objc_arc)
         _settingsDictionary = [[NSDictionary dictionaryWithContentsOfFile:plistFilePath] retain];
+#else
+		_settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
+#endif
         
         //store the bundle which we'll need later for getting localizations
         NSString* settingsBundlePath = [plistFilePath stringByDeletingLastPathComponent];
+#if !__has_feature(objc_arc)
         _settingsBundle = [[NSBundle bundleWithPath:settingsBundlePath] retain];
+#else
+		_settingsBundle = [NSBundle bundleWithPath:settingsBundlePath];
+#endif
         
         // Look for localization file
         self.localizationTable = [_settingsDictionary objectForKey:@"StringsTable"];
@@ -67,6 +79,7 @@
     return [self initWithFile:@"Root"];
 }
 
+#if !__has_feature(objc_arc)
 - (void)dealloc {
     [_localizationTable release], _localizationTable = nil;
     [_settingsDictionary release], _settingsDictionary = nil;
@@ -76,13 +89,17 @@
     
     [super dealloc];
 }
-
+#endif
 
 - (void)setHiddenKeys:(NSSet *)anHiddenKeys {
     if (_hiddenKeys != anHiddenKeys) {
         id old = _hiddenKeys;
+#if !__has_feature(objc_arc)
         _hiddenKeys = [anHiddenKeys retain];
         [old release];
+#else
+		_hiddenKeys = anHiddenKeys;
+#endif
         
         if (self.settingsDictionary) {
             [self _reinterpretBundle:self.settingsDictionary];
@@ -94,7 +111,11 @@
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
     NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
     NSInteger sectionCount			= -1;
+#if !__has_feature(objc_arc)
     NSMutableArray *dataSource		= [[[NSMutableArray alloc] init] autorelease];
+#else
+	NSMutableArray *dataSource		= [NSMutableArray new];
+#endif
     
     for (NSDictionary *specifier in preferenceSpecifiers) {
         if ([self.hiddenKeys containsObject:[specifier objectForKey:kIASKKey]]) {
@@ -105,20 +126,26 @@
             
             [newArray addObject:specifier];
             [dataSource addObject:newArray];
+#if !__has_feature(objc_arc)
             [newArray release];
+#endif
             sectionCount++;
         }
         else {
             if (sectionCount == -1) {
                 NSMutableArray *newArray = [[NSMutableArray alloc] init];
                 [dataSource addObject:newArray];
+#if !__has_feature(objc_arc)
                 [newArray release];
+#endif
                 sectionCount++;
             }
             
             IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier];
             [(NSMutableArray*)[dataSource objectAtIndex:sectionCount] addObject:newSpecifier];
+#if !__has_feature(objc_arc)
             [newSpecifier release];
+#endif
         }
     }
     [self setDataSource:dataSource];
