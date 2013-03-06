@@ -525,6 +525,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			toggleState = specifier.defaultBoolValue;
 		}
 		IASKSwitch *toggle = (IASKSwitch*)cell.accessoryView;
+        toggle.onTintColor = specifier.onTintColor;
 		toggle.on = toggleState;
 		toggle.key = specifier.key;
 	}

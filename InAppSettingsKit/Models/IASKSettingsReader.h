@@ -53,6 +53,7 @@
 #define kIASKKeyboardPhonePad                 @"PhonePad"
 #define kIASKKeyboardNamePhonePad             @"NamePhonePad"
 #define kIASKKeyboardASCIICapable             @"AsciiCapable"
+#define kIASKOnTintColor                      @"IASKOnTintColor"
 
 #define KIASKKeyboardURL                      @"URL"
 #define kIASKKeyboardEmailAddress             @"EmailAddress"
