@@ -106,10 +106,10 @@
         // ...
     }
 }
-- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewContoller 
+- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController
                         tableView:(UITableView *)tableView 
         heightForHeaderForSection:(NSInteger)section {
-  NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
+  NSString* key = [settingsViewController.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
 	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
@@ -118,10 +118,10 @@
 	return 0;
 }
 
-- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewContoller 
+- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView 
                viewForHeaderForSection:(NSInteger)section {
-  NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
+  NSString* key = [settingsViewController.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;
@@ -137,7 +137,7 @@
     label.font = [UIFont boldSystemFontOfSize:16.f];
     
     //figure out the title from settingsbundle
-    label.text = [settingsViewContoller.settingsReader titleForSection:section];
+    label.text = [settingsViewController.settingsReader titleForSection:section];
     
     return [label autorelease];
   }
