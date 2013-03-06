@@ -42,6 +42,10 @@ You may need to make two changes to your project to get it to compile: 1) Add `M
 
 `MessageUI.framework` is needed for `MFMailComposeViewController` and can be added in the "Link Binary With Libraries" Section. Use the + icon.
 
+To disable ARC select all IASK* source files in the "Compile Sources" section, press Enter, insert `-fno-objc-arc` and then "Done".
+
+
+
 iCloud sync
 ===========
 To sync your `NSUserDefaults` with iCloud, there's another project called [FTiCloudSync](https://github.com/futuretap/FTiCloudSync) which is implemented as a category on `NSUserDefaults`: All write and remove requests are automatically forwarded to iCloud and all updates from iCloud are automatically stored in `NSUserDefaults`. InAppSettingsKit automatically updates the UI if the standard `NSUserDefaults` based store is used.
@@ -184,11 +188,7 @@ See the sample app for more details. Note that InAppSettingsKit uses Settings sc
 
 Subclassing notes
 -----------------
-If you'd like to customize the appearance of InAppSettingsKit, you might want to subclass `IASKAppSettingsViewController` and override some `UITableViewDataSource` or `UITableViewDelegate` methods. If you do subclass, make sure to override the `-initWithNibName:bundle:` method in any case:
-
-    - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil { 
-        return [super initWithNibName:@"IASKAppSettingsView" bundle:nibBundleOrNil]; 
-    }
+If you'd like to customize the appearance of InAppSettingsKit, you might want to subclass `IASKAppSettingsViewController` and override some `UITableViewDataSource` or `UITableViewDelegate` methods.
 
 
 More information
