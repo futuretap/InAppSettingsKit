@@ -27,8 +27,11 @@
 
 #import "CustomViewCell.h"
 
-@interface MainViewController() 
+@interface MainViewController()<UIPopoverControllerDelegate>
 - (void)settingDidChange:(NSNotification*)notification;
+
+@property (nonatomic) UIPopoverController* currentPopoverController;
+
 @end
 
 @implementation MainViewController
@@ -62,10 +65,17 @@
 }
 
 - (void)showSettingsPopover:(id)sender {
+	if(self.currentPopoverController) {
+    [self dismissCurrentPopover];
+		return;
+	}
+  
 	self.appSettingsViewController.showDoneButton = NO;
 	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController] autorelease];
 	UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:navController];
+	popover.delegate = self;
 	[popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
+	self.currentPopoverController = popover;
 }
 
 - (void)awakeFromNib {
@@ -76,6 +86,19 @@
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
 		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)] autorelease];
 	}
+}
+
+#pragma mark - View Lifecycle
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	if(self.currentPopoverController) {
+		[self dismissCurrentPopover];
+	}
+}
+
+- (void) dismissCurrentPopover {
+	[self.currentPopoverController dismissPopoverAnimated:YES];
+	self.currentPopoverController = nil;
 }
 
 #pragma mark -
@@ -181,6 +204,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:@"customCell"];
 }
 
+#pragma mark - UIPopoverControllerDelegate
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+	self.currentPopoverController = nil;
+}
+
 #pragma mark -
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.key isEqualToString:@"ButtonDemoAction1"]) {
@@ -209,6 +237,8 @@
 	appSettingsViewController = nil;
 	[tabAppSettingsViewController release];
 	tabAppSettingsViewController = nil;
+	[_currentPopoverController release];
+	_currentPopoverController = nil;
 	
     [super dealloc];
 }
