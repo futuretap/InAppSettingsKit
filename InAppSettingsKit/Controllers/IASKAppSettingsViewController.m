@@ -165,6 +165,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:backgroundViewForableView:)]) {
+    self.tableView.backgroundView = [self.delegate settingsViewController:self backgroundViewForableView:self.tableView];
+  }
+
 	// if there's something selected, the value might have changed
 	// so reload that row
 	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
@@ -463,6 +467,32 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 }
 
+- (UIView *)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForFooterForSection:)]) {
+        return [self.delegate settingsViewController:self tableView:tableView viewForFooterForSection:section];
+    } else {
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    if ([self tableView:tableView viewForFooterInSection:section] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForFooterForSection:)]) {
+        CGFloat result;
+        if ((result = [self.delegate settingsViewController:self tableView:tableView heightForFooterForSection:section])) {
+            return result;
+        }
+        
+    }
+    NSString *title;
+    if ((title = [self tableView:tableView titleForFooterInSection:section])) {
+        CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]]
+                        constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
+                            lineBreakMode:UILineBreakModeWordWrap];
+        return size.height+kIASKVerticalPaddingGroupTitles;
+    }
+    return 0;
+}
+
 - (UITableViewCell*)newCellForIdentifier:(NSString*)identifier {
 	UITableViewCell *cell = nil;
 	if ([identifier isEqualToString:kIASKPSToggleSwitchSpecifier]) {
@@ -653,6 +683,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
+        targetViewController.delegate = self.delegate;
         [[self navigationController] pushViewController:targetViewController animated:YES];
     }
     else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {

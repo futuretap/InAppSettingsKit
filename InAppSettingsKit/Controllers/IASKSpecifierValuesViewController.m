@@ -32,6 +32,7 @@
 @synthesize checkedItem=_checkedItem;
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
+@synthesize delegate = _delegate;
 
 - (void) updateCheckedItem {
     NSInteger index;
@@ -64,6 +65,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:backgroundViewForableView:)]) {
+        self.tableView.backgroundView = [self.delegate settingsViewController:self backgroundViewForableView:self.tableView];
+    }
+    
     if (_currentSpecifier) {
         [self setTitle:[_currentSpecifier title]];
         [self updateCheckedItem];
@@ -142,8 +147,64 @@
 	[[cell textLabel] setTextColor:[UIColor darkTextColor]];
 }
 
+- (NSString *)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForHeaderForSection:)]) {
+        return [self.delegate settingsViewController:self tableView:tableView viewForHeaderForSection:section];
+    } else {
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+    if ([self tableView:tableView viewForHeaderInSection:section] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForHeaderForSection:)]) {
+        CGFloat result;
+        if ((result = [self.delegate settingsViewController:self tableView:tableView heightForHeaderForSection:section])) {
+            return result;
+        }
+        
+    }
+    NSString *title;
+    if ((title = [self tableView:tableView titleForHeaderInSection:section])) {
+        CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]]
+                        constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
+                            lineBreakMode:UILineBreakModeWordWrap];
+        return size.height+kIASKVerticalPaddingGroupTitles;
+    }
+    return 0;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     return [_currentSpecifier footerText];
+}
+
+- (UIView *)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForFooterForSection:)]) {
+        return [self.delegate settingsViewController:self tableView:tableView viewForFooterForSection:section];
+    } else {
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    if ([self tableView:tableView viewForFooterInSection:section] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForFooterForSection:)]) {
+        CGFloat result;
+        if ((result = [self.delegate settingsViewController:self tableView:tableView heightForFooterForSection:section])) {
+            return result;
+        }
+        
+    }
+    NSString *title;
+    if ((title = [self tableView:tableView titleForFooterInSection:section])) {
+        CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]]
+                        constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
+                            lineBreakMode:UILineBreakModeWordWrap];
+        return size.height+kIASKVerticalPaddingGroupTitles;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

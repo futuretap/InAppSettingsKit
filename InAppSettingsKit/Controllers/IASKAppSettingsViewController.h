@@ -28,6 +28,10 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 
 @optional
+#pragma mark - UITableView background view
+- (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
+          backgroundViewForableView:(UITableView *)tableView;
+
 #pragma mark - UITableView header customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView
@@ -35,6 +39,14 @@
 - (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
                           tableView:(UITableView *)tableView
             viewForHeaderForSection:(NSInteger)section;
+
+#pragma mark - UITableView footer customization
+- (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
+                         tableView:(UITableView *)tableView
+         heightForFooterForSection:(NSInteger)section;
+- (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
+                          tableView:(UITableView *)tableView
+            viewForFooterForSection:(NSInteger)section;
 
 #pragma mark - UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
