@@ -58,7 +58,7 @@
 }
 
 -(void)testAbstractStoreCallsSetObjectForFloat {
-    [store setFloat:.12 forKey:@"MyKey1"];
+    [store setFloat:.12f forKey:@"MyKey1"];
     
     STAssertEqualObjects(@"MyKey1", store.lastKey, @"Key not used or set");
     STAssertEqualsWithAccuracy(.12f, [store.lastValue floatValue], .001f, @"Value not set");

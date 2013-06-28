@@ -100,7 +100,7 @@
 #define kIASKVerticalPaddingGroupTitles       15
 
 #define kIASKLabelFontSize                    17
-#define kIASKgrayBlueColor                    [UIColor colorWithRed:0.318 green:0.4 blue:0.569 alpha:1.0]
+#define kIASKgrayBlueColor                    [UIColor colorWithRed:0.318f green:0.4f blue:0.569f alpha:1.f]
 
 #define kIASKMinimumFontSize                  12.0f
 
