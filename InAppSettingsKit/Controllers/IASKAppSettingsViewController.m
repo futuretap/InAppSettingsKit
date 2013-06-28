@@ -291,7 +291,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                 }
             }
             
-            UITableViewRowAnimation animation = animated ? UITableViewRowAnimationTop : UITableViewRowAnimationNone;
+            UITableViewRowAnimation animation = animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone;
             [self.tableView deleteSections:hideSections withRowAnimation:animation];
             [self.tableView deleteRowsAtIndexPaths:hideIndexPaths withRowAnimation:animation];
             [self.tableView insertSections:showSections withRowAnimation:animation];
