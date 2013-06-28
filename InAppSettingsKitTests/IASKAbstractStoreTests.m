@@ -45,7 +45,7 @@
 }
 
 - (void)tearDown {
-    [store release], store = nil;
+    store = nil;
     
     [super tearDown];
 }
