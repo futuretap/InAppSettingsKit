@@ -173,7 +173,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 	}
 	
-	self.navigationItem.rightBarButtonItem = nil;
 	if (_showDoneButton) {
 		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
 																					target:self 
