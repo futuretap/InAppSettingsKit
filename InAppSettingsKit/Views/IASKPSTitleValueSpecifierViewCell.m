@@ -26,7 +26,7 @@
 	CGSize viewSize =  [self.textLabel superview].frame.size;
 
 	// if there's an image, make room for it
-	CGFloat imageOffset = floor(self.imageView.image ? self.imageView.bounds.size.width + self.imageView.frame.origin.x : 0);
+	CGFloat imageOffset = floorf(self.imageView.image ? self.imageView.bounds.size.width + self.imageView.frame.origin.x : 0);
   
 	// set the left title label frame
 	CGFloat labelWidth = [self.textLabel sizeThatFits:CGSizeZero].width;

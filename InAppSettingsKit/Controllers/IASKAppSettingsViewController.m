@@ -27,9 +27,9 @@
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
 
-static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
-static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
+static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3f;
+static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2f;
+static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8f;
 
 static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as-is!!!
 
@@ -266,7 +266,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             // calculate sections to be deleted
             NSMutableIndexSet *hideSections = [NSMutableIndexSet indexSet];
             for (NSInteger section = 0; section < [self numberOfSectionsInTableView:self.tableView ]; section++) {
-                NSUInteger rowsInSection = 0;
+                NSInteger rowsInSection = 0;
                 for (NSIndexPath *indexPath in hideIndexPaths) {
                     if (indexPath.section == section) {
                         rowsInSection++;
@@ -293,7 +293,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             // calculate sections to be inserted
             NSMutableIndexSet *showSections = [NSMutableIndexSet indexSet];
             for (NSInteger section = 0; section < [self.settingsReader numberOfSections]; section++) {
-                NSUInteger rowsInSection = 0;
+                NSInteger rowsInSection = 0;
                 for (NSIndexPath *indexPath in showIndexPaths) {
                     if (indexPath.section == section) {
                         rowsInSection++;
@@ -778,19 +778,9 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             
             mailViewController.mailComposeDelegate = vc;
-#if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 50000)
-#pragma message "Now that we're iOS5 and up, remove this workaround"
-#endif
-            if([vc respondsToSelector:@selector(presentViewController:animated:completion:)]) {
-                [vc presentViewController:mailViewController
-                                   animated:YES
-                                 completion:nil];
-            } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-                [vc presentModalViewController:mailViewController animated:YES];
-#pragma clang diagnostic pop
-            }
+            [vc presentViewController:mailViewController
+                             animated:YES
+                           completion:nil];
             [mailViewController release];
         } else {
             UIAlertView *alert = [[UIAlertView alloc]
@@ -822,21 +812,10 @@ CGRect IASKCGRectSwap(CGRect rect);
                          mailComposeController:controller 
                            didFinishWithResult:result 
                                          error:error];
-     }
-    
-#if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 50000)
-#pragma message "Now that we're iOS5 and up, remove this workaround"
-#endif
-    if([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
-        [self dismissViewControllerAnimated:YES
-                                 completion:nil];
-    } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        [self dismissModalViewControllerAnimated:YES];
-#pragma clang diagnostic pop
-        
     }
+    
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
 }
 
 #pragma mark -

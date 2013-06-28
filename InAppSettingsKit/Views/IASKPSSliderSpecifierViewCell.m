@@ -57,7 +57,7 @@
     [super layoutSubviews];
 	CGRect  sliderBounds    = _slider.bounds;
     CGPoint sliderCenter    = _slider.center;
-    const double superViewWidth = _slider.superview.frame.size.width;
+    const CGFloat superViewWidth = _slider.superview.frame.size.width;
     
     sliderCenter.x = superViewWidth / 2;
     sliderCenter.y = self.contentView.center.y;
