@@ -61,7 +61,6 @@
   NSString* platfformSuffix = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? @"pad" : @"phone";
   NSString* plistName = [reader locateSettingsFile:@"Root"];
   STAssertTrue([plistName rangeOfString:platfformSuffix].location != NSNotFound, @"Paths don't match. Failed to locate test bundle");
-  [reader release];
 }
 
 - (void) testSettingsReaderFindsAdvancedPlist {

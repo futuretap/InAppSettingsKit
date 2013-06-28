@@ -61,7 +61,6 @@
     // But we encourage you not to uncomment. Thank you!
     self.appSettingsViewController.showDoneButton = YES;
     [self presentModalViewController:aNavController animated:YES];
-    [aNavController release];
 }
 
 - (void)showSettingsPopover:(id)sender {
@@ -71,7 +70,7 @@
 	}
   
 	self.appSettingsViewController.showDoneButton = NO;
-	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController] autorelease];
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
 	UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:navController];
 	popover.delegate = self;
 	[popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
@@ -84,7 +83,7 @@
 	self.tabAppSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
 
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)] autorelease];
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)];
 	}
 }
 
@@ -148,7 +147,7 @@
 	if ([key isEqualToString:@"IASKLogo"]) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;
-		return [imageView autorelease];
+		return imageView;
 	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.backgroundColor = [UIColor clearColor];
@@ -162,7 +161,7 @@
     //figure out the title from settingsbundle
     label.text = [settingsViewController.settingsReader titleForSection:section];
     
-    return [label autorelease];
+    return label;
   }
 	return nil;
 }
@@ -212,7 +211,7 @@
 #pragma mark -
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.key isEqualToString:@"ButtonDemoAction1"]) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	} else if ([specifier.key isEqualToString:@"ButtonDemoAction2"]) {
 		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
@@ -231,17 +230,5 @@
 	// Release any cached data, images, etc that aren't in use.
 	self.appSettingsViewController = nil;
 }
-
-- (void)dealloc {
-	[appSettingsViewController release];
-	appSettingsViewController = nil;
-	[tabAppSettingsViewController release];
-	tabAppSettingsViewController = nil;
-	[_currentPopoverController release];
-	_currentPopoverController = nil;
-	
-    [super dealloc];
-}
-
 
 @end
