@@ -117,8 +117,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
         _showDoneButton = YES;
         // If set to YES, will display credits for InAppSettingsKit creators
         _showCreditsFooter = YES;
