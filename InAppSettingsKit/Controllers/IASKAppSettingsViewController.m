@@ -145,10 +145,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void) viewDidLoad {
-  [super viewDidLoad];
-  if ([self isPad]) {
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-  }
+    [super viewDidLoad];
+    if ([self isPad]) {
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+    }
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToEndEdit:)];   
     tapGesture.cancelsTouchesInView = NO;
     [self.tableView addGestureRecognizer:tapGesture];
