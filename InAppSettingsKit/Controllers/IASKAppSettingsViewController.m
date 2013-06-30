@@ -606,10 +606,10 @@ CGRect IASKCGRectSwap(CGRect rect);
     //switches and sliders can't be selected (should be captured by tableView:willSelectRowAtIndexPath: delegate method)
     assert(![[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]);
     assert(![[specifier type] isEqualToString:kIASKPSSliderSpecifier]);
-
+    
     if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
         IASKSpecifierValuesViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
-		
+        
         if (targetViewController == nil) {
             // the view controller has not been created yet, create it and set it to our viewList array
             // create a new dictionary with the new view controller
@@ -628,14 +628,12 @@ CGRect IASKCGRectSwap(CGRect rect);
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
         [[self navigationController] pushViewController:targetViewController animated:YES];
-    }
-    else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
-		IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-		[textFieldCell.textField becomeFirstResponder];
-    }
-    else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
-
         
+    } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
+        IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+        [textFieldCell.textField becomeFirstResponder];
+        
+    } else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
         Class vcClass = [specifier viewControllerClass];
         if (vcClass) {
             SEL initSelector = [specifier viewControllerSelector];
@@ -647,12 +645,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             vc = [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
 #pragma clang diagnostic pop
-			if ([vc respondsToSelector:@selector(setDelegate:)]) {
-				[vc performSelector:@selector(setDelegate:) withObject:self.delegate];
-			}
-			if ([vc respondsToSelector:@selector(setSettingsStore:)]) {
-				[vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
-			}
+            if ([vc respondsToSelector:@selector(setDelegate:)]) {
+                [vc performSelector:@selector(setDelegate:) withObject:self.delegate];
+            }
+            if ([vc respondsToSelector:@selector(setSettingsStore:)]) {
+                [vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
+            }
             [self.navigationController pushViewController:vc animated:YES];
             return;
         }
@@ -660,10 +658,10 @@ CGRect IASKCGRectSwap(CGRect rect);
         if (nil == [specifier file]) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             return;
-        }        
+        }
         
         IASKAppSettingsViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
-		
+        
         if (targetViewController == nil) {
             // the view controller has not been created yet, create it and set it to our viewList array
             // create a new dictionary with the new view controller
@@ -671,10 +669,10 @@ CGRect IASKCGRectSwap(CGRect rect);
             [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
             
             targetViewController = [[[self class] alloc] init];
-			targetViewController.showDoneButton = NO;
-			targetViewController.settingsStore = self.settingsStore; 
-			targetViewController.delegate = self.delegate;
-
+            targetViewController.showDoneButton = NO;
+            targetViewController.settingsStore = self.settingsStore;
+            targetViewController.delegate = self.delegate;
+            
             // add the new view controller to the dictionary and then to the 'viewList' array
             [newItemDict setObject:targetViewController forKey:@"viewController"];
             [self.viewList replaceObjectAtIndex:kIASKSpecifierChildViewControllerIndex withObject:newItemDict];
@@ -682,42 +680,42 @@ CGRect IASKCGRectSwap(CGRect rect);
             // load the view controll back in to push it
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
         }
-		targetViewController.file = specifier.file;
-		targetViewController.hiddenKeys = self.hiddenKeys;
-		targetViewController.title = specifier.title;
+        targetViewController.file = specifier.file;
+        targetViewController.hiddenKeys = self.hiddenKeys;
+        targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:specifier.file]];    
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:specifier.file]];
     } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-		if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForSpecifier:)]) {
-			[self.delegate settingsViewController:self buttonTappedForSpecifier:specifier];
-		} else if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForKey:)]) {
-			// deprecated, provided for backward compatibility
-			NSLog(@"InAppSettingsKit Warning: -settingsViewController:buttonTappedForKey: is deprecated. Please use -settingsViewController:buttonTappedForSpecifier:");
-			[self.delegate settingsViewController:self buttonTappedForKey:[specifier key]];
-		} else {
-			// legacy code, provided for backward compatibility
-			// the delegate mechanism above is much cleaner and doesn't leak
-			Class buttonClass = [specifier buttonClass];
-			SEL buttonAction = [specifier buttonAction];
-			if ([buttonClass respondsToSelector:buttonAction]) {
+        if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForSpecifier:)]) {
+            [self.delegate settingsViewController:self buttonTappedForSpecifier:specifier];
+        } else if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForKey:)]) {
+            // deprecated, provided for backward compatibility
+            NSLog(@"InAppSettingsKit Warning: -settingsViewController:buttonTappedForKey: is deprecated. Please use -settingsViewController:buttonTappedForSpecifier:");
+            [self.delegate settingsViewController:self buttonTappedForKey:[specifier key]];
+        } else {
+            // legacy code, provided for backward compatibility
+            // the delegate mechanism above is much cleaner and doesn't leak
+            Class buttonClass = [specifier buttonClass];
+            SEL buttonAction = [specifier buttonAction];
+            if ([buttonClass respondsToSelector:buttonAction]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-				[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
+                [buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
 #pragma clang diagnostic pop
-				NSLog(@"InAppSettingsKit Warning: Using IASKButtonSpecifier without implementing the delegate method is deprecated");
-			}
-		}
+                NSLog(@"InAppSettingsKit Warning: Using IASKButtonSpecifier without implementing the delegate method is deprecated");
+            }
+        }
     } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
-			mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
-			
+            mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+            
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
                 [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
             }
@@ -736,7 +734,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                     isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
                 }
                 
-              if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
+                if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
                     [mailViewController setMessageBody:[self.delegate settingsViewController:self
                                                                  mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
                 }
@@ -744,11 +742,11 @@ CGRect IASKCGRectSwap(CGRect rect);
                     [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
                 }
             }
-
+            
             UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
             
-          if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
-            vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
+            if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
+                vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
             }
             
             if (vc == nil) {
@@ -768,8 +766,8 @@ CGRect IASKCGRectSwap(CGRect rect);
                                   otherButtonTitles:nil];
             [alert show];
         }
-
-	} else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:didSelectCustomViewSpecifier:)]) {
+        
+    } else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:didSelectCustomViewSpecifier:)]) {
         [self.delegate settingsViewController:self tableView:tableView didSelectCustomViewSpecifier:specifier];
     } else {
         [tableView deselectRowAtIndexPath:indexPath animated:NO];
