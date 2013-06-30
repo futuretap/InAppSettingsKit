@@ -49,9 +49,9 @@ CGRect IASKCGRectSwap(CGRect rect);
     id<IASKSettingsStore>  _settingsStore;
     
     id                      _currentFirstResponder;
+    __weak UIViewController *_currentChildViewController;
 }
 
-@property (nonatomic, strong) NSMutableArray *viewList;
 @property (nonatomic, strong) id currentFirstResponder;
 
 - (void)_textChanged:(id)sender;
@@ -132,15 +132,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     return [self initWithStyle:UITableViewStyleGrouped];
 }
 
-- (NSMutableArray *)viewList {
-    if (!_viewList) {
-		_viewList = [[NSMutableArray alloc] init];
-		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKSpecifierValuesView", @"ViewName",nil]];
-		[_viewList addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"IASKAppSettingsView", @"ViewName",nil]];
-	}
-	return _viewList;
-}
-
 - (void) viewDidLoad {
     [super viewDidLoad];
     if ([self isPad]) {
@@ -157,7 +148,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 	self.view = nil;
-	self.viewList = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -302,10 +292,10 @@ CGRect IASKCGRectSwap(CGRect rect);
             [self.tableView reloadData];
         }
     }
-	IASKAppSettingsViewController *childViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
-	if(childViewController) {
-		[childViewController setHiddenKeys:theHiddenKeys animated:animated];
-	}
+    UIViewController *childViewController = _currentChildViewController;
+    if([childViewController respondsToSelector:@selector(setHiddenKeys:animated:)]) {
+        [(id)childViewController setHiddenKeys:theHiddenKeys animated:animated];
+    }
 }
 
 
@@ -608,25 +598,11 @@ CGRect IASKCGRectSwap(CGRect rect);
     assert(![[specifier type] isEqualToString:kIASKPSSliderSpecifier]);
     
     if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
-        IASKSpecifierValuesViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
-        
-        if (targetViewController == nil) {
-            // the view controller has not been created yet, create it and set it to our viewList array
-            // create a new dictionary with the new view controller
-            NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
-            [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
-            
-            targetViewController = [[IASKSpecifierValuesViewController alloc] init];
-            // add the new view controller to the dictionary and then to the 'viewList' array
-            [newItemDict setObject:targetViewController forKey:@"viewController"];
-            [self.viewList replaceObjectAtIndex:kIASKSpecifierValuesViewControllerIndex withObject:newItemDict];
-            
-            // load the view controll back in to push it
-            targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
-        }
+        IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] init];
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
+        _currentChildViewController = targetViewController;
         [[self navigationController] pushViewController:targetViewController animated:YES];
         
     } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
@@ -660,30 +636,15 @@ CGRect IASKCGRectSwap(CGRect rect);
             return;
         }
         
-        IASKAppSettingsViewController *targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
-        
-        if (targetViewController == nil) {
-            // the view controller has not been created yet, create it and set it to our viewList array
-            // create a new dictionary with the new view controller
-            NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
-            [newItemDict addEntriesFromDictionary: [self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
-            
-            targetViewController = [[[self class] alloc] init];
-            targetViewController.showDoneButton = NO;
-            targetViewController.settingsStore = self.settingsStore;
-            targetViewController.delegate = self.delegate;
-            
-            // add the new view controller to the dictionary and then to the 'viewList' array
-            [newItemDict setObject:targetViewController forKey:@"viewController"];
-            [self.viewList replaceObjectAtIndex:kIASKSpecifierChildViewControllerIndex withObject:newItemDict];
-            
-            // load the view controll back in to push it
-            targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
-        }
+        IASKAppSettingsViewController *targetViewController = [[[self class] alloc] init];
+        targetViewController.showDoneButton = NO;
+        targetViewController.settingsStore = self.settingsStore;
+        targetViewController.delegate = self.delegate;
         targetViewController.file = specifier.file;
         targetViewController.hiddenKeys = self.hiddenKeys;
         targetViewController.title = specifier.title;
         targetViewController.showCreditsFooter = NO;
+        _currentChildViewController = targetViewController;
         [[self navigationController] pushViewController:targetViewController animated:YES];
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -754,6 +715,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             
             mailViewController.mailComposeDelegate = vc;
+            _currentChildViewController = mailViewController;
             [vc presentViewController:mailViewController
                              animated:YES
                            completion:nil];
