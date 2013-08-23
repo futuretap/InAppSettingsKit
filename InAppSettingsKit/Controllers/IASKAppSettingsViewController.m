@@ -661,7 +661,13 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
     else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
 
-        
+		if ([specifier viewControllerStoryID]){
+			UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+			UIViewController * vc = [mainStoryBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryID]];
+            [self.navigationController pushViewController:vc animated:YES];
+			return;
+		}
+
         Class vcClass = [specifier viewControllerClass];
         if (vcClass) {
             SEL initSelector = [specifier viewControllerSelector];
