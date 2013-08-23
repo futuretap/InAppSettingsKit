@@ -85,6 +85,10 @@
     return NSSelectorFromString([_specifierDict objectForKey:kIASKViewControllerSelector]);
 }
 
+-(NSString*)viewControllerStoryID {
+	return [_specifierDict objectForKey:kIASKViewControllerStoryBoardId];
+}
+
 -(Class)buttonClass {
     return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
 }
