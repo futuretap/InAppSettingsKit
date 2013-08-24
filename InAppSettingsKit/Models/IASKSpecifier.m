@@ -77,23 +77,23 @@
     return [self localizedObjectForKey:kIASKFooterText];
 }
 
--(Class) viewControllerClass {
+- (Class)viewControllerClass {
     return NSClassFromString([_specifierDict objectForKey:kIASKViewControllerClass]);
 }
 
--(SEL) viewControllerSelector {
+- (SEL)viewControllerSelector {
     return NSSelectorFromString([_specifierDict objectForKey:kIASKViewControllerSelector]);
 }
 
--(NSString*)viewControllerStoryID {
+- (NSString*)viewControllerStoryID {
 	return [_specifierDict objectForKey:kIASKViewControllerStoryBoardId];
 }
 
--(Class)buttonClass {
+- (Class)buttonClass {
     return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
 }
 
--(SEL)buttonAction {
+- (SEL)buttonAction {
     return NSSelectorFromString([_specifierDict objectForKey:kIASKButtonAction]);
 }
 
