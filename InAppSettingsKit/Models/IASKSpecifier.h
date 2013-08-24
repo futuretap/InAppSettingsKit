@@ -53,9 +53,9 @@
 - (NSString*)footerText;
 - (Class)viewControllerClass;
 - (SEL)viewControllerSelector;
--(NSString*)viewControllerStoryID;
--(Class)buttonClass;
--(SEL)buttonAction;
+- (NSString*)viewControllerStoryID;
+- (Class)buttonClass;
+- (SEL)buttonAction;
 - (UIImage *)cellImage;
 - (UIImage *)highlightedCellImage;
 - (BOOL)adjustsFontSizeToFitWidth;
