@@ -650,6 +650,21 @@ CGRect IASKCGRectSwap(CGRect rect);
             // load the view controll back in to push it
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
         }
+
+		if (specifier.multipleValues.count == 0)
+		{
+			NSLog(@"need to init from delegate");
+			if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)] &&
+				[self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)])
+			{
+
+				[specifier setMultipleValuesDictValues:[self.delegate settingsViewController:self valuesForSpecifier:specifier]
+											 andTitles:[self.delegate settingsViewController:self titlesForSpecifier:specifier]];
+			}
+
+		}
+
+
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
