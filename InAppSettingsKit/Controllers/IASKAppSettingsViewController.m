@@ -651,19 +651,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             targetViewController = [[self.viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
         }
 
-		if (specifier.multipleValues.count == 0)
-		{
-			NSLog(@"need to init from delegate");
-			if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)] &&
-				[self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)])
-			{
-
-				[specifier setMultipleValuesDictValues:[self.delegate settingsViewController:self valuesForSpecifier:specifier]
-											 andTitles:[self.delegate settingsViewController:self titlesForSpecifier:specifier]];
-			}
-
-		}
-
+        [self setMultiValuesFromDelegateIfNeeded:specifier];
 
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
@@ -916,6 +904,22 @@ static NSDictionary *oldUserDefaults = nil;
 	// wait 0.5 sec until UI is available after applicationWillEnterForeground
 	[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
 }
+
+-(void)setMultiValuesFromDelegateIfNeeded:(IASKSpecifier *)specifier
+{
+	if (specifier.multipleValues.count == 0)
+	{
+		NSLog(@"need to init from delegate");
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)] &&
+			[self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)])
+		{
+
+			[specifier setMultipleValuesDictValues:[self.delegate settingsViewController:self valuesForSpecifier:specifier]
+										 andTitles:[self.delegate settingsViewController:self titlesForSpecifier:specifier]];
+		}
+	}
+}
+
 
 #pragma mark CGRect Utility function
 CGRect IASKCGRectSwap(CGRect rect) {
