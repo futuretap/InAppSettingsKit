@@ -530,6 +530,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if ([specifier.type isEqualToString:kIASKPSMultiValueSpecifier]) {
 		cell.textLabel.text = specifier.title;
+		[self setMultiValuesFromDelegateIfNeeded:specifier];
 		cell.detailTextLabel.text = [[specifier titleForCurrentValue:[self.settingsStore objectForKey:specifier.key] != nil ? 
 									  [self.settingsStore objectForKey:specifier.key] : specifier.defaultValue] description];
 	}
