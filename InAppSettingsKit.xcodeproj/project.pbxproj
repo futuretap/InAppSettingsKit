@@ -69,10 +69,6 @@
 		E42ADAAD168202D700295D85 /* InAppSettingsKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitTests-Info.plist"; sourceTree = "<group>"; };
 		E42ADAAF168202D700295D85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASSettingsStoreUserDefaultsTests.m; sourceTree = "<group>"; };
-		E42ADABD1682034500295D85 /* Library-Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Library-Base.xcconfig"; path = "Configurations/Library-Base.xcconfig"; sourceTree = "<group>"; };
-		E42ADABE1682034500295D85 /* Library-Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Library-Debug.xcconfig"; path = "Configurations/Library-Debug.xcconfig"; sourceTree = "<group>"; };
-		E42ADABF1682034500295D85 /* Library-Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Library-Release.xcconfig"; path = "Configurations/Library-Release.xcconfig"; sourceTree = "<group>"; };
-		E42ADAC01682034500295D85 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Project.xcconfig; path = Configurations/Project.xcconfig; sourceTree = "<group>"; };
 		E42ADAC21682036500295D85 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		E42ADAC31682036500295D85 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		E42ADAC41682036500295D85 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
@@ -101,6 +97,22 @@
 		E42ADADD1682036500295D85 /* IASKSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSwitch.m; sourceTree = "<group>"; };
 		E42ADADE1682036500295D85 /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
 		E42ADADF1682036500295D85 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
+		E4A95F2E177DB25C00FF0906 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		E4A95F30177DB25C00FF0906 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		E4A95F31177DB25C00FF0906 /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
+		E4A95F32177DB25C00FF0906 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		E4A95F33177DB25C00FF0906 /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
+		E4A95F35177DB25C00FF0906 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
+		E4A95F36177DB25C00FF0906 /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
+		E4A95F38177DB25C00FF0906 /* iOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Application.xcconfig"; sourceTree = "<group>"; };
+		E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Base.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3C177DB25C00FF0906 /* Mac-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Application.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3D177DB25C00FF0906 /* Mac-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Base.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3E177DB25C00FF0906 /* Mac-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3F177DB25C00FF0906 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
+		E4A95F40177DB25C00FF0906 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		E4A95F41177DB25C00FF0906 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = Configurations/README.md; sourceTree = "<group>"; };
 		E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAbstractStoreTests.m; sourceTree = "<group>"; };
 		E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKFileStoreTests.m; sourceTree = "<group>"; };
 		E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsReaderTests.m; sourceTree = "<group>"; };
@@ -195,10 +207,10 @@
 		E42ADABC1682033800295D85 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
-				E42ADABD1682034500295D85 /* Library-Base.xcconfig */,
-				E42ADABE1682034500295D85 /* Library-Debug.xcconfig */,
-				E42ADABF1682034500295D85 /* Library-Release.xcconfig */,
-				E42ADAC01682034500295D85 /* Project.xcconfig */,
+				E4A95F2D177DB25C00FF0906 /* Base */,
+				E4A95F37177DB25C00FF0906 /* iOS */,
+				E4A95F3B177DB25C00FF0906 /* Mac OS X */,
+				E4A95F41177DB25C00FF0906 /* README.md */,
 			);
 			name = Configurations;
 			sourceTree = "<group>";
@@ -246,6 +258,61 @@
 				E42ADADF1682036500295D85 /* IASKTextField.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E4A95F2D177DB25C00FF0906 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F2E177DB25C00FF0906 /* Common.xcconfig */,
+				E4A95F2F177DB25C00FF0906 /* Configurations */,
+				E4A95F34177DB25C00FF0906 /* Targets */,
+			);
+			name = Base;
+			path = Configurations/Base;
+			sourceTree = "<group>";
+		};
+		E4A95F2F177DB25C00FF0906 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F30177DB25C00FF0906 /* Debug.xcconfig */,
+				E4A95F31177DB25C00FF0906 /* Profile.xcconfig */,
+				E4A95F32177DB25C00FF0906 /* Release.xcconfig */,
+				E4A95F33177DB25C00FF0906 /* Test.xcconfig */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		E4A95F34177DB25C00FF0906 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F35177DB25C00FF0906 /* Application.xcconfig */,
+				E4A95F36177DB25C00FF0906 /* StaticLibrary.xcconfig */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		E4A95F37177DB25C00FF0906 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F38177DB25C00FF0906 /* iOS-Application.xcconfig */,
+				E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */,
+				E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */,
+			);
+			name = iOS;
+			path = Configurations/iOS;
+			sourceTree = "<group>";
+		};
+		E4A95F3B177DB25C00FF0906 /* Mac OS X */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F3C177DB25C00FF0906 /* Mac-Application.xcconfig */,
+				E4A95F3D177DB25C00FF0906 /* Mac-Base.xcconfig */,
+				E4A95F3E177DB25C00FF0906 /* Mac-DynamicLibrary.xcconfig */,
+				E4A95F3F177DB25C00FF0906 /* Mac-Framework.xcconfig */,
+				E4A95F40177DB25C00FF0906 /* Mac-StaticLibrary.xcconfig */,
+			);
+			name = "Mac OS X";
+			path = "Configurations/Mac OS X";
 			sourceTree = "<group>";
 		};
 		E4EDC5B0168225F300BD3CA9 /* Store */ = {
@@ -331,7 +398,7 @@
 		E42ADA87168202D700295D85 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = InAppSettingsKit;
 			};
 			buildConfigurationList = E42ADA8A168202D700295D85 /* Build configuration list for PBXProject "InAppSettingsKit" */;
@@ -437,84 +504,53 @@
 /* Begin XCBuildConfiguration section */
 		E42ADAB4168202D700295D85 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E42ADAC01682034500295D85 /* Project.xcconfig */;
+			baseConfigurationReference = E4A95F30177DB25C00FF0906 /* Debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
 		E42ADAB5168202D700295D85 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E42ADAC01682034500295D85 /* Project.xcconfig */;
+			baseConfigurationReference = E4A95F32177DB25C00FF0906 /* Release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		E42ADAB7168202D700295D85 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E42ADABE1682034500295D85 /* Library-Debug.xcconfig */;
+			baseConfigurationReference = E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/InAppSettingsKit.dst;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
 		E42ADAB8168202D700295D85 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E42ADABF1682034500295D85 /* Library-Release.xcconfig */;
+			baseConfigurationReference = E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/InAppSettingsKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
 		E42ADABA168202D700295D85 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				INFOPLIST_FILE = "InAppSettingsKitTests/InAppSettingsKitTests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -522,12 +558,14 @@
 		};
 		E42ADABB168202D700295D85 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				INFOPLIST_FILE = "InAppSettingsKitTests/InAppSettingsKitTests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};

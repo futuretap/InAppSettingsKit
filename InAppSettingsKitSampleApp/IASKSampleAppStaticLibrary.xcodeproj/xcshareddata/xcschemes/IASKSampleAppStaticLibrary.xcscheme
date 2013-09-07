@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0460"
+   LastUpgradeVersion = "0500"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -22,10 +22,10 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E42ADAA1168202D700295D85"
@@ -36,10 +36,10 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E4C2300116BD91A100DEFE05"
