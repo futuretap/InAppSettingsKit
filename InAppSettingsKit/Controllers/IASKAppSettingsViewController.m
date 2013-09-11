@@ -135,7 +135,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void) viewDidLoad {
     [super viewDidLoad];
     if ([self isPad]) {
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1)	// don't use etched style on iOS 7
+#endif
+            self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
     }
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToEndEdit:)];   
     tapGesture.cancelsTouchesInView = NO;
