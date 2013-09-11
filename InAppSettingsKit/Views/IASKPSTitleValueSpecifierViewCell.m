@@ -32,16 +32,16 @@
 	CGFloat labelWidth = [self.textLabel sizeThatFits:CGSizeZero].width;
 	CGFloat minValueWidth = (self.detailTextLabel.text.length) ? kIASKMinValueWidth + kIASKSpacing : 0;
 	labelWidth = MIN(labelWidth, viewSize.width - minValueWidth - kIASKPaddingLeft -kIASKPaddingRight - imageOffset);
-	CGRect labelFrame = CGRectMake(kIASKPaddingLeft + imageOffset, 0, labelWidth, viewSize.height -2);
+	CGRect labelFrame = CGRectMake(kIASKPaddingLeft + imageOffset, 0, labelWidth, viewSize.height);
 	if (!self.detailTextLabel.text.length) {
-		labelFrame = CGRectMake(kIASKPaddingLeft + imageOffset, 0, viewSize.width - kIASKPaddingLeft - kIASKPaddingRight - imageOffset, viewSize.height -2);
+		labelFrame = CGRectMake(kIASKPaddingLeft + imageOffset, 0, viewSize.width - kIASKPaddingLeft - kIASKPaddingRight - imageOffset, viewSize.height);
 	}
 	self.textLabel.frame = labelFrame;
 	
 	// set the right value label frame
 	if (!self.textLabel.text.length) {
 		viewSize =  [self.detailTextLabel superview].frame.size;
-		self.detailTextLabel.frame = CGRectMake(kIASKPaddingLeft + imageOffset, 0, viewSize.width - kIASKPaddingLeft - kIASKPaddingRight - imageOffset, viewSize.height -2);
+		self.detailTextLabel.frame = CGRectMake(kIASKPaddingLeft + imageOffset, 0, viewSize.width - kIASKPaddingLeft - kIASKPaddingRight - imageOffset, viewSize.height);
 	} else if (self.detailTextLabel.textAlignment == NSTextAlignmentLeft) {
 		CGRect valueFrame = self.detailTextLabel.frame;
 		valueFrame.origin.x = labelFrame.origin.x + MAX(kIASKMinLabelWidth - imageOffset, labelWidth) + kIASKSpacing;
