@@ -69,7 +69,7 @@
     return [self.defaults doubleForKey:key];
 }
 
-- (int)integerForKey:(NSString*)key {
+- (NSInteger)integerForKey:(NSString*)key {
     return [self.defaults integerForKey:key];
 }
 
