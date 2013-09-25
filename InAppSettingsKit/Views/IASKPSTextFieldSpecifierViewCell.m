@@ -17,12 +17,8 @@
 #import "IASKPSTextFieldSpecifierViewCell.h"
 #import "IASKTextField.h"
 #import "IASKSettingsReader.h"
-#import "IASKTextAlignment.h"
 
 @implementation IASKPSTextFieldSpecifierViewCell
-
-@synthesize textField=_textField;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -30,7 +26,7 @@
 		self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
 
         // TextField
-        _textField = [[[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)] autorelease];
+        _textField = [[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, 21)];
         _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth |
         UIViewAutoresizingFlexibleBottomMargin |
         UIViewAutoresizingFlexibleLeftMargin;
@@ -62,17 +58,11 @@
 	if (!self.textLabel.text.length) {
 		textFieldFrame.origin.x = kIASKPaddingLeft + imageOffset;
 		textFieldFrame.size.width = self.contentView.bounds.size.width - 2* kIASKPaddingLeft - imageOffset;
-	} else if (_textField.textAlignment == IOS_UITextAlignmentRight) {
+	} else if (_textField.textAlignment == NSTextAlignmentRight) {
 		textFieldFrame.origin.x = self.textLabel.frame.origin.x + labelSize.width + kIASKSpacing;
 		textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
 	}
 	_textField.frame = textFieldFrame;
 }
-
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 @end

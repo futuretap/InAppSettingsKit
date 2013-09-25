@@ -46,13 +46,6 @@
     self.view = webView;
 }
 
-- (void)dealloc {
-	[webView release], webView = nil;
-	[url release], url = nil;
-	
-	[super dealloc];
-}
-
 - (void)viewWillAppear:(BOOL)animated {  
 	[webView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
@@ -102,11 +95,10 @@
 				NSString *key = [[keyValue objectAtIndex:0] lowercaseString];
 				NSString *value = [keyValue objectAtIndex:1];
 				
-				value =  (NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+				value =  CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
 																							 (CFStringRef)value,
 																							 CFSTR(""),
-																							 kCFStringEncodingUTF8);
-				[value autorelease];
+																							 kCFStringEncodingUTF8));
 				
 				if ([key isEqualToString:@"subject"]) {
 					[mailViewController setSubject:value];
@@ -134,13 +126,9 @@
 		
 		[mailViewController setToRecipients:toRecipients];
 
-        #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
-            [self presentViewController:mailViewController animated:YES completion:nil];
-        #else
-            [self presentModalViewController:mailViewController animated:YES];
-        #endif
-        
-		[mailViewController release];
+    [self presentViewController:mailViewController
+                       animated:YES
+                     completion:nil];
 		return NO;
 	}
 	
@@ -153,14 +141,8 @@
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0)   // Support IOS6 in IOS6 and above project
-        [self dismissViewControllerAnimated:YES completion:nil];
-    #else
-        [self dismissModalViewControllerAnimated:YES];
-    #endif
-    
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
 }
-
-
 
 @end

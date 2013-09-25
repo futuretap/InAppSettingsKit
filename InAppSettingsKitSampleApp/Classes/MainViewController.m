@@ -19,13 +19,19 @@
 
 #import <MessageUI/MessageUI.h>
 
-#import "IASKSpecifier.h"
-#import "IASKSettingsReader.h"
+#ifdef USES_IASK_STATIC_LIBRARY
+  #import "InAppSettingsKit/IASKSettingsReader.h"
+#else
+  #import "IASKSettingsReader.h"
+#endif
 
 #import "CustomViewCell.h"
 
-@interface MainViewController() 
+@interface MainViewController()<UIPopoverControllerDelegate>
 - (void)settingDidChange:(NSNotification*)notification;
+
+@property (nonatomic) UIPopoverController* currentPopoverController;
+
 @end
 
 @implementation MainViewController
@@ -55,14 +61,20 @@
     // But we encourage you not to uncomment. Thank you!
     self.appSettingsViewController.showDoneButton = YES;
     [self presentModalViewController:aNavController animated:YES];
-    [aNavController release];
 }
 
 - (void)showSettingsPopover:(id)sender {
+	if(self.currentPopoverController) {
+    [self dismissCurrentPopover];
+		return;
+	}
+  
 	self.appSettingsViewController.showDoneButton = NO;
-	UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController] autorelease];
+	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
 	UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:navController];
+	popover.delegate = self;
 	[popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
+	self.currentPopoverController = popover;
 }
 
 - (void)awakeFromNib {
@@ -71,8 +83,21 @@
 	self.tabAppSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
 
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)] autorelease];
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)];
 	}
+}
+
+#pragma mark - View Lifecycle
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	if(self.currentPopoverController) {
+		[self dismissCurrentPopover];
+	}
+}
+
+- (void) dismissCurrentPopover {
+	[self.currentPopoverController dismissPopoverAnimated:YES];
+	self.currentPopoverController = nil;
 }
 
 #pragma mark -
@@ -103,10 +128,10 @@
         // ...
     }
 }
-- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewContoller 
+- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController
                         tableView:(UITableView *)tableView 
         heightForHeaderForSection:(NSInteger)section {
-  NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
+  NSString* key = [settingsViewController.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
 	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
@@ -115,14 +140,14 @@
 	return 0;
 }
 
-- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewContoller 
+- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView 
                viewForHeaderForSection:(NSInteger)section {
-  NSString* key = [settingsViewContoller.settingsReader keyForSection:section];
+  NSString* key = [settingsViewController.settingsReader keyForSection:section];
 	if ([key isEqualToString:@"IASKLogo"]) {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
 		imageView.contentMode = UIViewContentModeCenter;
-		return [imageView autorelease];
+		return imageView;
 	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.backgroundColor = [UIColor clearColor];
@@ -134,9 +159,9 @@
     label.font = [UIFont boldSystemFontOfSize:16.f];
     
     //figure out the title from settingsbundle
-    label.text = [settingsViewContoller.settingsReader titleForSection:section];
+    label.text = [settingsViewController.settingsReader titleForSection:section];
     
-    return [label autorelease];
+    return label;
   }
 	return nil;
 }
@@ -178,10 +203,15 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:@"customCell"];
 }
 
+#pragma mark - UIPopoverControllerDelegate
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
+	self.currentPopoverController = nil;
+}
+
 #pragma mark -
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.key isEqualToString:@"ButtonDemoAction1"]) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	} else if ([specifier.key isEqualToString:@"ButtonDemoAction2"]) {
 		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
@@ -200,15 +230,5 @@
 	// Release any cached data, images, etc that aren't in use.
 	self.appSettingsViewController = nil;
 }
-
-- (void)dealloc {
-	[appSettingsViewController release];
-	appSettingsViewController = nil;
-	[tabAppSettingsViewController release];
-	tabAppSettingsViewController = nil;
-	
-    [super dealloc];
-}
-
 
 @end

@@ -17,6 +17,8 @@
 
 #import <Foundation/Foundation.h>
 
+/** protocol that needs to be implemented from a settings store
+ */
 @protocol IASKSettingsStore <NSObject>
 @required
 - (void)setBool:(BOOL)value      forKey:(NSString*)key;
@@ -27,13 +29,31 @@
 - (BOOL)boolForKey:(NSString*)key;
 - (float)floatForKey:(NSString*)key;
 - (double)doubleForKey:(NSString*)key;
-- (int)integerForKey:(NSString*)key;
+- (NSInteger)integerForKey:(NSString*)key;
 - (id)objectForKey:(NSString*)key;
 - (BOOL)synchronize; // Write settings to a permanant storage. Returns YES on success, NO otherwise
 @end
 
 
-@interface IASKAbstractSettingsStore : NSObject <IASKSettingsStore> {
-}
+/** abstract default implementation of IASKSettingsStore protocol
+
+ helper to implement a store which maps all methods to setObject:forKey:
+ and objectForKey:. Those 2 methods need to be overwritten.
+ */
+@interface IASKAbstractSettingsStore : NSObject <IASKSettingsStore>
+
+/** default implementation raises an exception
+ must be overridden by subclasses
+ */
+- (void)setObject:(id)value forKey:(NSString*)key;
+
+/** default implementation raises an exception
+ must be overridden by subclasses
+ */
+- (id)objectForKey:(NSString*)key;
+
+/** default implementation does nothing and returns NO
+ */
+- (BOOL)synchronize;
 
 @end

@@ -18,8 +18,16 @@
 #import <Foundation/Foundation.h>
 #import "IASKSettingsStore.h"
 
-@interface IASKSettingsStoreUserDefaults : IASKAbstractSettingsStore {
+/** implementation of IASKSettingsStore that uses NSUserDefaults
+ */
+@interface IASKSettingsStoreUserDefaults : NSObject<IASKSettingsStore>
 
-}
+///designated initializer
+- (id) initWithUserDefaults:(NSUserDefaults*) defaults;
+
+///calls initWithUserDefaults: with [NSUserDefaults standardUserDefaults]
+- (id) init;
+
+@property (nonatomic, retain, readonly) NSUserDefaults* defaults;
 
 @end

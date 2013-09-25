@@ -1,0 +1,607 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E401BD3C16820A0D00EAF534 /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC21682036500295D85 /* IASKAppSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD3D16820A1700EAF534 /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC41682036500295D85 /* IASKSpecifierValuesViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD3E16820A1C00EAF534 /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC61682036500295D85 /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD3F16820A2400EAF534 /* IASKSettingsReader.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC91682036500295D85 /* IASKSettingsReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4016820A2400EAF534 /* IASKSpecifier.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADACB1682036500295D85 /* IASKSpecifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4116820A2400EAF534 /* IASKSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADACD1682036500295D85 /* IASKSettingsStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4216820A2400EAF534 /* IASKSettingsStoreUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADACF1682036500295D85 /* IASKSettingsStoreUserDefaults.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4316820A2400EAF534 /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD11682036500295D85 /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4416820A2D00EAF534 /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD41682036500295D85 /* IASKPSSliderSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4516820A2D00EAF534 /* IASKPSTextFieldSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD61682036500295D85 /* IASKPSTextFieldSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4616820A2D00EAF534 /* IASKPSTitleValueSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD81682036500295D85 /* IASKPSTitleValueSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4716820A2D00EAF534 /* IASKSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADADA1682036500295D85 /* IASKSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4816820A2D00EAF534 /* IASKSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADADC1682036500295D85 /* IASKSwitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4916820A2D00EAF534 /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADADE1682036500295D85 /* IASKTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E401BD4B16820BBA00EAF534 /* IASKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E401BD4A16820BBA00EAF534 /* IASKViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E42ADA93168202D700295D85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA92168202D700295D85 /* Foundation.framework */; };
+		E42ADAA4168202D700295D85 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADAA3168202D700295D85 /* SenTestingKit.framework */; };
+		E42ADAA6168202D700295D85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADAA5168202D700295D85 /* UIKit.framework */; };
+		E42ADAA7168202D700295D85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA92168202D700295D85 /* Foundation.framework */; };
+		E42ADAAA168202D700295D85 /* libInAppSettingsKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */; };
+		E42ADAB0168202D700295D85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E42ADAAE168202D700295D85 /* InfoPlist.strings */; };
+		E42ADAB3168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */; };
+		E4EDC59D16820D9500BD3CA9 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAC31682036500295D85 /* IASKAppSettingsViewController.m */; };
+		E4EDC59E16820D9500BD3CA9 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAC51682036500295D85 /* IASKSpecifierValuesViewController.m */; };
+		E4EDC59F16820D9500BD3CA9 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAC71682036500295D85 /* IASKAppSettingsWebViewController.m */; };
+		E4EDC5A016820D9500BD3CA9 /* IASKSettingsReader.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADACA1682036500295D85 /* IASKSettingsReader.m */; };
+		E4EDC5A116820D9500BD3CA9 /* IASKSpecifier.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADACC1682036500295D85 /* IASKSpecifier.m */; };
+		E4EDC5A216820D9500BD3CA9 /* IASKSettingsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADACE1682036500295D85 /* IASKSettingsStore.m */; };
+		E4EDC5A316820D9500BD3CA9 /* IASKSettingsStoreUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD01682036500295D85 /* IASKSettingsStoreUserDefaults.m */; };
+		E4EDC5A416820D9500BD3CA9 /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD21682036500295D85 /* IASKSettingsStoreFile.m */; };
+		E4EDC5A516820D9500BD3CA9 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD51682036500295D85 /* IASKPSSliderSpecifierViewCell.m */; };
+		E4EDC5A616820D9500BD3CA9 /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD71682036500295D85 /* IASKPSTextFieldSpecifierViewCell.m */; };
+		E4EDC5A716820D9500BD3CA9 /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD91682036500295D85 /* IASKPSTitleValueSpecifierViewCell.m */; };
+		E4EDC5A816820D9500BD3CA9 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADB1682036500295D85 /* IASKSlider.m */; };
+		E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADD1682036500295D85 /* IASKSwitch.m */; };
+		E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADF1682036500295D85 /* IASKTextField.m */; };
+		E4EDC5AD16821D7300BD3CA9 /* IASKAbstractStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */; };
+		E4EDC5AF1682216700BD3CA9 /* IASKFileStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */; };
+		E4EDC5B2168227B800BD3CA9 /* IASKSettingsReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */; };
+		E4EDC5B416822B6700BD3CA9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E4EDC5B316822B6700BD3CA9 /* Settings.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E42ADAA8168202D700295D85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E42ADA87168202D700295D85 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E42ADA8E168202D700295D85;
+			remoteInfo = InAppSettingsKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E401BD4A16820BBA00EAF534 /* IASKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKViewController.h; sourceTree = "<group>"; };
+		E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E42ADA92168202D700295D85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E42ADAA2168202D700295D85 /* InAppSettingsKitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E42ADAA3168202D700295D85 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		E42ADAA5168202D700295D85 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		E42ADAAD168202D700295D85 /* InAppSettingsKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitTests-Info.plist"; sourceTree = "<group>"; };
+		E42ADAAF168202D700295D85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASSettingsStoreUserDefaultsTests.m; sourceTree = "<group>"; };
+		E42ADAC21682036500295D85 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
+		E42ADAC31682036500295D85 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
+		E42ADAC41682036500295D85 /* IASKSpecifierValuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifierValuesViewController.h; sourceTree = "<group>"; };
+		E42ADAC51682036500295D85 /* IASKSpecifierValuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSpecifierValuesViewController.m; sourceTree = "<group>"; };
+		E42ADAC61682036500295D85 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
+		E42ADAC71682036500295D85 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsWebViewController.m; sourceTree = "<group>"; };
+		E42ADAC91682036500295D85 /* IASKSettingsReader.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsReader.h; sourceTree = "<group>"; };
+		E42ADACA1682036500295D85 /* IASKSettingsReader.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsReader.m; sourceTree = "<group>"; };
+		E42ADACB1682036500295D85 /* IASKSpecifier.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSpecifier.h; sourceTree = "<group>"; };
+		E42ADACC1682036500295D85 /* IASKSpecifier.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSpecifier.m; sourceTree = "<group>"; };
+		E42ADACD1682036500295D85 /* IASKSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStore.h; sourceTree = "<group>"; };
+		E42ADACE1682036500295D85 /* IASKSettingsStore.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStore.m; sourceTree = "<group>"; };
+		E42ADACF1682036500295D85 /* IASKSettingsStoreUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStoreUserDefaults.h; sourceTree = "<group>"; };
+		E42ADAD01682036500295D85 /* IASKSettingsStoreUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStoreUserDefaults.m; sourceTree = "<group>"; };
+		E42ADAD11682036500295D85 /* IASKSettingsStoreFile.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSettingsStoreFile.h; sourceTree = "<group>"; };
+		E42ADAD21682036500295D85 /* IASKSettingsStoreFile.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsStoreFile.m; sourceTree = "<group>"; };
+		E42ADAD41682036500295D85 /* IASKPSSliderSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSSliderSpecifierViewCell.h; sourceTree = "<group>"; };
+		E42ADAD51682036500295D85 /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
+		E42ADAD61682036500295D85 /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
+		E42ADAD71682036500295D85 /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
+		E42ADAD81682036500295D85 /* IASKPSTitleValueSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTitleValueSpecifierViewCell.h; sourceTree = "<group>"; };
+		E42ADAD91682036500295D85 /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
+		E42ADADA1682036500295D85 /* IASKSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSlider.h; sourceTree = "<group>"; };
+		E42ADADB1682036500295D85 /* IASKSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSlider.m; sourceTree = "<group>"; };
+		E42ADADC1682036500295D85 /* IASKSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSwitch.h; sourceTree = "<group>"; };
+		E42ADADD1682036500295D85 /* IASKSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSwitch.m; sourceTree = "<group>"; };
+		E42ADADE1682036500295D85 /* IASKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextField.h; sourceTree = "<group>"; };
+		E42ADADF1682036500295D85 /* IASKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextField.m; sourceTree = "<group>"; };
+		E4A95F2E177DB25C00FF0906 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		E4A95F30177DB25C00FF0906 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		E4A95F31177DB25C00FF0906 /* Profile.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Profile.xcconfig; sourceTree = "<group>"; };
+		E4A95F32177DB25C00FF0906 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		E4A95F33177DB25C00FF0906 /* Test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Test.xcconfig; sourceTree = "<group>"; };
+		E4A95F35177DB25C00FF0906 /* Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Application.xcconfig; sourceTree = "<group>"; };
+		E4A95F36177DB25C00FF0906 /* StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = StaticLibrary.xcconfig; sourceTree = "<group>"; };
+		E4A95F38177DB25C00FF0906 /* iOS-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Application.xcconfig"; sourceTree = "<group>"; };
+		E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-Base.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "iOS-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3C177DB25C00FF0906 /* Mac-Application.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Application.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3D177DB25C00FF0906 /* Mac-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Base.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3E177DB25C00FF0906 /* Mac-DynamicLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-DynamicLibrary.xcconfig"; sourceTree = "<group>"; };
+		E4A95F3F177DB25C00FF0906 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
+		E4A95F40177DB25C00FF0906 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
+		E4A95F41177DB25C00FF0906 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = Configurations/README.md; sourceTree = "<group>"; };
+		E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAbstractStoreTests.m; sourceTree = "<group>"; };
+		E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKFileStoreTests.m; sourceTree = "<group>"; };
+		E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsReaderTests.m; sourceTree = "<group>"; };
+		E4EDC5B316822B6700BD3CA9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E42ADA8C168202D700295D85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E42ADA93168202D700295D85 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E42ADA9E168202D700295D85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E42ADAA4168202D700295D85 /* SenTestingKit.framework in Frameworks */,
+				E42ADAA6168202D700295D85 /* UIKit.framework in Frameworks */,
+				E42ADAA7168202D700295D85 /* Foundation.framework in Frameworks */,
+				E42ADAAA168202D700295D85 /* libInAppSettingsKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E42ADA86168202D700295D85 = {
+			isa = PBXGroup;
+			children = (
+				E42ADA94168202D700295D85 /* InAppSettingsKit */,
+				E42ADAAB168202D700295D85 /* InAppSettingsKitTests */,
+				E42ADABC1682033800295D85 /* Configurations */,
+				E42ADA91168202D700295D85 /* Frameworks */,
+				E42ADA90168202D700295D85 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E42ADA90168202D700295D85 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */,
+				E42ADAA2168202D700295D85 /* InAppSettingsKitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E42ADA91168202D700295D85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADA92168202D700295D85 /* Foundation.framework */,
+				E42ADAA3168202D700295D85 /* SenTestingKit.framework */,
+				E42ADAA5168202D700295D85 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E42ADA94168202D700295D85 /* InAppSettingsKit */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADAC81682036500295D85 /* Controllers */,
+				E42ADAD31682036500295D85 /* Models */,
+				E42ADAE01682036500295D85 /* Views */,
+			);
+			path = InAppSettingsKit;
+			sourceTree = "<group>";
+		};
+		E42ADAAB168202D700295D85 /* InAppSettingsKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				E4EDC5B316822B6700BD3CA9 /* Settings.bundle */,
+				E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */,
+				E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */,
+				E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */,
+				E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */,
+				E42ADAAC168202D700295D85 /* Supporting Files */,
+			);
+			path = InAppSettingsKitTests;
+			sourceTree = "<group>";
+		};
+		E42ADAAC168202D700295D85 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADAAD168202D700295D85 /* InAppSettingsKitTests-Info.plist */,
+				E42ADAAE168202D700295D85 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E42ADABC1682033800295D85 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F2D177DB25C00FF0906 /* Base */,
+				E4A95F37177DB25C00FF0906 /* iOS */,
+				E4A95F3B177DB25C00FF0906 /* Mac OS X */,
+				E4A95F41177DB25C00FF0906 /* README.md */,
+			);
+			name = Configurations;
+			sourceTree = "<group>";
+		};
+		E42ADAC81682036500295D85 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E401BD4A16820BBA00EAF534 /* IASKViewController.h */,
+				E42ADAC21682036500295D85 /* IASKAppSettingsViewController.h */,
+				E42ADAC31682036500295D85 /* IASKAppSettingsViewController.m */,
+				E42ADAC41682036500295D85 /* IASKSpecifierValuesViewController.h */,
+				E42ADAC51682036500295D85 /* IASKSpecifierValuesViewController.m */,
+				E42ADAC61682036500295D85 /* IASKAppSettingsWebViewController.h */,
+				E42ADAC71682036500295D85 /* IASKAppSettingsWebViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E42ADAD31682036500295D85 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADAC91682036500295D85 /* IASKSettingsReader.h */,
+				E42ADACA1682036500295D85 /* IASKSettingsReader.m */,
+				E42ADACB1682036500295D85 /* IASKSpecifier.h */,
+				E42ADACC1682036500295D85 /* IASKSpecifier.m */,
+				E4EDC5B0168225F300BD3CA9 /* Store */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E42ADAE01682036500295D85 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADAD41682036500295D85 /* IASKPSSliderSpecifierViewCell.h */,
+				E42ADAD51682036500295D85 /* IASKPSSliderSpecifierViewCell.m */,
+				E42ADAD61682036500295D85 /* IASKPSTextFieldSpecifierViewCell.h */,
+				E42ADAD71682036500295D85 /* IASKPSTextFieldSpecifierViewCell.m */,
+				E42ADAD81682036500295D85 /* IASKPSTitleValueSpecifierViewCell.h */,
+				E42ADAD91682036500295D85 /* IASKPSTitleValueSpecifierViewCell.m */,
+				E42ADADA1682036500295D85 /* IASKSlider.h */,
+				E42ADADB1682036500295D85 /* IASKSlider.m */,
+				E42ADADC1682036500295D85 /* IASKSwitch.h */,
+				E42ADADD1682036500295D85 /* IASKSwitch.m */,
+				E42ADADE1682036500295D85 /* IASKTextField.h */,
+				E42ADADF1682036500295D85 /* IASKTextField.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E4A95F2D177DB25C00FF0906 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F2E177DB25C00FF0906 /* Common.xcconfig */,
+				E4A95F2F177DB25C00FF0906 /* Configurations */,
+				E4A95F34177DB25C00FF0906 /* Targets */,
+			);
+			name = Base;
+			path = Configurations/Base;
+			sourceTree = "<group>";
+		};
+		E4A95F2F177DB25C00FF0906 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F30177DB25C00FF0906 /* Debug.xcconfig */,
+				E4A95F31177DB25C00FF0906 /* Profile.xcconfig */,
+				E4A95F32177DB25C00FF0906 /* Release.xcconfig */,
+				E4A95F33177DB25C00FF0906 /* Test.xcconfig */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
+		E4A95F34177DB25C00FF0906 /* Targets */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F35177DB25C00FF0906 /* Application.xcconfig */,
+				E4A95F36177DB25C00FF0906 /* StaticLibrary.xcconfig */,
+			);
+			path = Targets;
+			sourceTree = "<group>";
+		};
+		E4A95F37177DB25C00FF0906 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F38177DB25C00FF0906 /* iOS-Application.xcconfig */,
+				E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */,
+				E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */,
+			);
+			name = iOS;
+			path = Configurations/iOS;
+			sourceTree = "<group>";
+		};
+		E4A95F3B177DB25C00FF0906 /* Mac OS X */ = {
+			isa = PBXGroup;
+			children = (
+				E4A95F3C177DB25C00FF0906 /* Mac-Application.xcconfig */,
+				E4A95F3D177DB25C00FF0906 /* Mac-Base.xcconfig */,
+				E4A95F3E177DB25C00FF0906 /* Mac-DynamicLibrary.xcconfig */,
+				E4A95F3F177DB25C00FF0906 /* Mac-Framework.xcconfig */,
+				E4A95F40177DB25C00FF0906 /* Mac-StaticLibrary.xcconfig */,
+			);
+			name = "Mac OS X";
+			path = "Configurations/Mac OS X";
+			sourceTree = "<group>";
+		};
+		E4EDC5B0168225F300BD3CA9 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				E42ADACD1682036500295D85 /* IASKSettingsStore.h */,
+				E42ADACE1682036500295D85 /* IASKSettingsStore.m */,
+				E42ADACF1682036500295D85 /* IASKSettingsStoreUserDefaults.h */,
+				E42ADAD01682036500295D85 /* IASKSettingsStoreUserDefaults.m */,
+				E42ADAD11682036500295D85 /* IASKSettingsStoreFile.h */,
+				E42ADAD21682036500295D85 /* IASKSettingsStoreFile.m */,
+			);
+			name = Store;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E42ADA8D168202D700295D85 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E401BD3C16820A0D00EAF534 /* IASKAppSettingsViewController.h in Headers */,
+				E401BD3D16820A1700EAF534 /* IASKSpecifierValuesViewController.h in Headers */,
+				E401BD3E16820A1C00EAF534 /* IASKAppSettingsWebViewController.h in Headers */,
+				E401BD3F16820A2400EAF534 /* IASKSettingsReader.h in Headers */,
+				E401BD4016820A2400EAF534 /* IASKSpecifier.h in Headers */,
+				E401BD4116820A2400EAF534 /* IASKSettingsStore.h in Headers */,
+				E401BD4216820A2400EAF534 /* IASKSettingsStoreUserDefaults.h in Headers */,
+				E401BD4316820A2400EAF534 /* IASKSettingsStoreFile.h in Headers */,
+				E401BD4416820A2D00EAF534 /* IASKPSSliderSpecifierViewCell.h in Headers */,
+				E401BD4516820A2D00EAF534 /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
+				E401BD4616820A2D00EAF534 /* IASKPSTitleValueSpecifierViewCell.h in Headers */,
+				E401BD4716820A2D00EAF534 /* IASKSlider.h in Headers */,
+				E401BD4816820A2D00EAF534 /* IASKSwitch.h in Headers */,
+				E401BD4916820A2D00EAF534 /* IASKTextField.h in Headers */,
+				E401BD4B16820BBA00EAF534 /* IASKViewController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E42ADA8E168202D700295D85 /* InAppSettingsKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E42ADAB6168202D700295D85 /* Build configuration list for PBXNativeTarget "InAppSettingsKit" */;
+			buildPhases = (
+				E42ADA8B168202D700295D85 /* Sources */,
+				E42ADA8C168202D700295D85 /* Frameworks */,
+				E42ADA8D168202D700295D85 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InAppSettingsKit;
+			productName = InAppSettingsKit;
+			productReference = E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E42ADAA1168202D700295D85 /* InAppSettingsKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E42ADAB9168202D700295D85 /* Build configuration list for PBXNativeTarget "InAppSettingsKitTests" */;
+			buildPhases = (
+				E42ADA9D168202D700295D85 /* Sources */,
+				E42ADA9E168202D700295D85 /* Frameworks */,
+				E42ADA9F168202D700295D85 /* Resources */,
+				E42ADAA0168202D700295D85 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E42ADAA9168202D700295D85 /* PBXTargetDependency */,
+			);
+			name = InAppSettingsKitTests;
+			productName = InAppSettingsKitTests;
+			productReference = E42ADAA2168202D700295D85 /* InAppSettingsKitTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E42ADA87168202D700295D85 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = InAppSettingsKit;
+			};
+			buildConfigurationList = E42ADA8A168202D700295D85 /* Build configuration list for PBXProject "InAppSettingsKit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E42ADA86168202D700295D85;
+			productRefGroup = E42ADA90168202D700295D85 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E42ADA8E168202D700295D85 /* InAppSettingsKit */,
+				E42ADAA1168202D700295D85 /* InAppSettingsKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E42ADA9F168202D700295D85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E42ADAB0168202D700295D85 /* InfoPlist.strings in Resources */,
+				E4EDC5B416822B6700BD3CA9 /* Settings.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E42ADAA0168202D700295D85 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E42ADA8B168202D700295D85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4EDC59D16820D9500BD3CA9 /* IASKAppSettingsViewController.m in Sources */,
+				E4EDC59E16820D9500BD3CA9 /* IASKSpecifierValuesViewController.m in Sources */,
+				E4EDC59F16820D9500BD3CA9 /* IASKAppSettingsWebViewController.m in Sources */,
+				E4EDC5A016820D9500BD3CA9 /* IASKSettingsReader.m in Sources */,
+				E4EDC5A116820D9500BD3CA9 /* IASKSpecifier.m in Sources */,
+				E4EDC5A216820D9500BD3CA9 /* IASKSettingsStore.m in Sources */,
+				E4EDC5A316820D9500BD3CA9 /* IASKSettingsStoreUserDefaults.m in Sources */,
+				E4EDC5A416820D9500BD3CA9 /* IASKSettingsStoreFile.m in Sources */,
+				E4EDC5A516820D9500BD3CA9 /* IASKPSSliderSpecifierViewCell.m in Sources */,
+				E4EDC5A616820D9500BD3CA9 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
+				E4EDC5A716820D9500BD3CA9 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
+				E4EDC5A816820D9500BD3CA9 /* IASKSlider.m in Sources */,
+				E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */,
+				E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E42ADA9D168202D700295D85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E42ADAB3168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m in Sources */,
+				E4EDC5AD16821D7300BD3CA9 /* IASKAbstractStoreTests.m in Sources */,
+				E4EDC5AF1682216700BD3CA9 /* IASKFileStoreTests.m in Sources */,
+				E4EDC5B2168227B800BD3CA9 /* IASKSettingsReaderTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E42ADAA9168202D700295D85 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E42ADA8E168202D700295D85 /* InAppSettingsKit */;
+			targetProxy = E42ADAA8168202D700295D85 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E42ADAAE168202D700295D85 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E42ADAAF168202D700295D85 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E42ADAB4168202D700295D85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A95F30177DB25C00FF0906 /* Debug.xcconfig */;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E42ADAB5168202D700295D85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A95F32177DB25C00FF0906 /* Release.xcconfig */;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		E42ADAB7168202D700295D85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/InAppSettingsKit.dst;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E42ADAB8168202D700295D85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/InAppSettingsKit.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E42ADABA168202D700295D85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				INFOPLIST_FILE = "InAppSettingsKitTests/InAppSettingsKitTests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E42ADABB168202D700295D85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				INFOPLIST_FILE = "InAppSettingsKitTests/InAppSettingsKitTests-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E42ADA8A168202D700295D85 /* Build configuration list for PBXProject "InAppSettingsKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E42ADAB4168202D700295D85 /* Debug */,
+				E42ADAB5168202D700295D85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E42ADAB6168202D700295D85 /* Build configuration list for PBXNativeTarget "InAppSettingsKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E42ADAB7168202D700295D85 /* Debug */,
+				E42ADAB8168202D700295D85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E42ADAB9168202D700295D85 /* Build configuration list for PBXNativeTarget "InAppSettingsKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E42ADABA168202D700295D85 /* Debug */,
+				E42ADABB168202D700295D85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E42ADA87168202D700295D85 /* Project object */;
+}

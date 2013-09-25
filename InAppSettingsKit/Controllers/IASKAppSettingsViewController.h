@@ -6,9 +6,9 @@
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
-// 
-//  It is appreciated but not required that you give credit to Luc Vandal and Ortwin Gentz, 
-//  as the original authors of this code. You can give credit in a blog post, a tweet or on 
+//
+//  It is appreciated but not required that you give credit to Luc Vandal and Ortwin Gentz,
+//  as the original authors of this code. You can give credit in a blog post, a tweet or on
 //  a info page of your app. Also, the original authors appreciate letting them know if you use this code.
 //
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
@@ -19,10 +19,10 @@
 
 #import "IASKSettingsStore.h"
 #import "IASKViewController.h"
+#import "IASKSpecifier.h"
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
-@class IASKSpecifier;
 
 @protocol IASKSettingsDelegate
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
@@ -30,10 +30,10 @@
 @optional
 #pragma mark - UITableView header customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
-                         tableView:(UITableView *)tableView 
+                         tableView:(UITableView *)tableView
          heightForHeaderForSection:(NSInteger)section;
 - (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
-                          tableView:(UITableView *)tableView 
+                          tableView:(UITableView *)tableView
             viewForHeaderForSection:(NSInteger)section;
 
 #pragma mark - UITableView cell customization
@@ -41,15 +41,15 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
 #pragma mark - mail composing customization
-- (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController 
+- (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
          mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
 
 - (UIViewController<MFMailComposeViewControllerDelegate>*) settingsViewController:(id<IASKViewController>)settingsViewController
                                      viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*) specifier;
 
 - (void) settingsViewController:(id<IASKViewController>) settingsViewController
-          mailComposeController:(MFMailComposeViewController*)controller 
-            didFinishWithResult:(MFMailComposeResult)result 
+          mailComposeController:(MFMailComposeViewController*)controller
+            didFinishWithResult:(MFMailComposeResult)result
                           error:(NSError*)error;
 
 #pragma mark - respond to button taps
@@ -59,22 +59,7 @@
 @end
 
 
-@interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate> {
-	id<IASKSettingsDelegate>  _delegate;
-    
-    NSMutableArray          *_viewList;
-	
-	IASKSettingsReader		*_settingsReader;
-    id<IASKSettingsStore>  _settingsStore;
-	NSString				*_file;
-	
-	id                      _currentFirstResponder;
-    
-    BOOL                    _showCreditsFooter;
-    BOOL                    _showDoneButton;
-	
-    NSSet                   *_hiddenKeys;
-}
+@interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, copy) NSString *file;
