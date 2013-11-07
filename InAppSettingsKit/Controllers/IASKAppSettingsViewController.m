@@ -54,6 +54,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 @property (nonatomic, strong) id currentFirstResponder;
 
+@property (nonatomic, readwrite, retain) Class defaultCellClass;
+@property (nonatomic, readwrite, retain) Class titleValueSpecifierViewCellClass;
+@property (nonatomic, readwrite, retain) Class textFieldSpecifierViewCellClass;
+@property (nonatomic, readwrite, retain) Class sliderSpecifierViewCellClass;
+
 - (void)_textChanged:(id)sender;
 - (void)synchronizeSettings;
 - (void)userDefaultsDidChange;
@@ -132,6 +137,26 @@ CGRect IASKCGRectSwap(CGRect rect);
     return [self initWithStyle:UITableViewStyleGrouped];
 }
 
+- (void)registerDefaultCellClass:(Class)defaultCellClass {
+    assert(![defaultCellClass isKindOfClass:[UITableViewCell class]] && "defaultCellClass must be a kind of UITableViewCell class");
+    self.defaultCellClass = defaultCellClass;
+}
+
+- (void)registerTitleValueSpecifierViewCellClass:(Class)titleValueSpecifierViewCellClass {
+    assert(![titleValueSpecifierViewCellClass isKindOfClass:[IASKPSTitleValueSpecifierViewCell class]] && "titleValueSpecifierViewCellClass must be a kind of IASKPSTitleValueSpecifierViewCell class");
+    self.titleValueSpecifierViewCellClass = titleValueSpecifierViewCellClass;
+}
+
+- (void)registerTextFieldSpecifierViewCellClass:(Class)textFieldSpecifierViewCellClass {
+    assert(![textFieldSpecifierViewCellClass isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && "textFieldSpecifierViewCellClass must be a kind of IASKPSTextFieldSpecifierViewCell class");
+    self.textFieldSpecifierViewCellClass = textFieldSpecifierViewCellClass;
+}
+
+- (void)registerSliderSpecifierViewCellClass:(Class)sliderSpecifierViewCellClass {
+    assert(![sliderSpecifierViewCellClass isKindOfClass:[IASKPSSliderSpecifierViewCell class]] && "sliderSpecifierViewCellClass must be a kind of IASKPSSliderSpecifierViewCell class");
+    self.sliderSpecifierViewCellClass = sliderSpecifierViewCellClass;
+}
+
 - (void) viewDidLoad {
     [super viewDidLoad];
     if ([self isPad]) {
@@ -143,6 +168,11 @@ CGRect IASKCGRectSwap(CGRect rect);
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToEndEdit:)];   
     tapGesture.cancelsTouchesInView = NO;
     [self.tableView addGestureRecognizer:tapGesture];
+    
+    [self registerDefaultCellClass:[UITableViewCell class]];
+    [self registerTitleValueSpecifierViewCellClass:[IASKPSTitleValueSpecifierViewCell class]];
+    [self registerTextFieldSpecifierViewCellClass:[IASKPSTextFieldSpecifierViewCell class]];
+    [self registerSliderSpecifierViewCellClass:[IASKPSSliderSpecifierViewCell class]];
 }
 
 - (void)viewDidUnload {
@@ -438,29 +468,29 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (UITableViewCell*)newCellForIdentifier:(NSString*)identifier {
 	UITableViewCell *cell = nil;
 	if ([identifier isEqualToString:kIASKPSToggleSwitchSpecifier]) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSToggleSwitchSpecifier];
+		cell = [[self.defaultCellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSToggleSwitchSpecifier];
 		cell.accessoryView = [[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)];
 		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSMultiValueSpecifier] || [identifier isEqualToString:kIASKPSTitleValueSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[self.titleValueSpecifierViewCellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = [identifier isEqualToString:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSTextFieldSpecifier]) {
-		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
+		cell = [[self.textFieldSpecifierViewCellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
 	}
 	else if ([identifier isEqualToString:kIASKPSSliderSpecifier]) {
-        cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
+        cell = [[self.sliderSpecifierViewCellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[self.titleValueSpecifierViewCellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[self.titleValueSpecifierViewCellClass alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	} else {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+		cell = [[self.defaultCellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
 	cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
 	cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;

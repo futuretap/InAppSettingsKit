@@ -67,7 +67,18 @@
 @property (nonatomic, assign) BOOL showDoneButton;
 @property (nonatomic, retain) NSSet *hiddenKeys;
 
+@property (nonatomic, readonly, retain) Class defaultCellClass;
+@property (nonatomic, readonly, retain) Class titleValueSpecifierViewCellClass;
+@property (nonatomic, readonly, retain) Class textFieldSpecifierViewCellClass;
+@property (nonatomic, readonly, retain) Class sliderSpecifierViewCellClass;
+
 - (void)synchronizeSettings;
 - (void)dismiss:(id)sender;
 - (void)setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated;
+
+- (void)registerDefaultCellClass:(Class)defaultCellClass;
+- (void)registerTitleValueSpecifierViewCellClass:(Class)titleValueSpecifierViewCellClass;
+- (void)registerTextFieldSpecifierViewCellClass:(Class)textFieldSpecifierViewCellClass;
+- (void)registerSliderSpecifierViewCellClass:(Class)sliderSpecifierViewCellClass;
+
 @end
