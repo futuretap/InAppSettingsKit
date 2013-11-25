@@ -82,6 +82,7 @@
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
+#define kIASKPSGroupFooterSpecifier           @"PSGroupFooterSpecifier"
 
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
 
