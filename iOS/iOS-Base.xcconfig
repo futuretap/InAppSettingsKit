@@ -5,7 +5,7 @@
 //
 
 // Architectures to build
-ARCHS = ARCHS_STANDARD
+ARCHS = ARCHS_STANDARD_INCLUDING_64_BIT
 
 // Whether to only build the active architecture (overridden from Debug/Profile)
 ONLY_ACTIVE_ARCH = NO
