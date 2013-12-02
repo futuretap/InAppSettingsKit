@@ -34,6 +34,9 @@
 - (float)floatForKey:(NSString*)key;
 - (double)doubleForKey:(NSString*)key;
 - (NSInteger)integerForKey:(NSString*)key;
+- (id)objectForKey:(NSString*)key;
+- (void)removeObjectForKey:(NSString*)key;
+- (BOOL)synchronize; // Write settings to a permanant storage. Returns YES on success, NO otherwise
 @end
 
 
