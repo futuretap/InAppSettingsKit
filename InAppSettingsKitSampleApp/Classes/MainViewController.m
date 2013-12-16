@@ -52,6 +52,7 @@
 	//[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
 	// But we encourage you no to uncomment. Thank you!
 	self.appSettingsViewController.showDoneButton = NO;
+	self.appSettingsViewController.navigationItem.rightBarButtonItem = nil;
 	[self.navigationController pushViewController:self.appSettingsViewController animated:YES];
 }
 
