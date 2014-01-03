@@ -403,9 +403,18 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	NSString *title;
 	if ((title = [self tableView:tableView titleForHeaderInSection:section])) {
-		CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]] 
-						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
-							lineBreakMode:NSLineBreakByWordWrapping];
+		CGSize size = CGSizeZero, constrainedSize = CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY);
+		UIFont* constrainedFont = [UIFont boldSystemFontOfSize:[UIFont labelFontSize]];
+		if ([title respondsToSelector: @selector(boundingRectWithSize:options:attributes:context:)]) {
+			size = [title boundingRectWithSize: constrainedSize options: NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+									attributes: @{ NSFontAttributeName: constrainedFont } context: nil].size;
+		} else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+			size = [title sizeWithFont:constrainedFont constrainedToSize:constrainedSize lineBreakMode:NSLineBreakByWordWrapping];
+#pragma clang diagnostic pop
+		}
+		
 		return roundf(size.height+kIASKVerticalPaddingGroupTitles);
 	}
 	return 0;
@@ -458,8 +467,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
-	cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
-	cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
+	
+	if ([cell.textLabel respondsToSelector:@selector(minimumScaleFactor)]) {
+		cell.textLabel.minimumScaleFactor = kIASKMinimumFontScale;
+		cell.detailTextLabel.minimumScaleFactor =kIASKMinimumFontScale;
+	} else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+		cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
+		cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
+#pragma clang diagnostic pop
+	}
 	return cell;
 }
 

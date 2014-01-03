@@ -108,6 +108,8 @@
 #define kIASKgrayBlueColor                    [UIColor colorWithRed:0.318f green:0.4f blue:0.569f alpha:1.f]
 
 #define kIASKMinimumFontSize                  12.0f
+#define kIASKMinimumFontScale                 0.70f
+
 
 #ifndef kCFCoreFoundationVersionNumber_iPhoneOS_4_0
 #define kCFCoreFoundationVersionNumber_iPhoneOS_4_0 550.32
