@@ -19,13 +19,10 @@
 
 @class IASKSettingsReader;
 
-@interface IASKSpecifier : NSObject {
-    NSDictionary    *_specifierDict;
-    NSDictionary    *_multipleValuesDict;
-    IASKSettingsReader *_settingsReader;
-}
+@interface IASKSpecifier : NSObject
+
 @property (nonatomic, retain) NSDictionary  *specifierDict;
-@property (nonatomic, assign) IASKSettingsReader *settingsReader;
+@property (nonatomic, weak) IASKSettingsReader *settingsReader;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
 -(void)setMultipleValuesDictValues:(NSArray *)values andTitles:(NSArray *)titles;
@@ -59,5 +56,5 @@
 - (UIImage *)cellImage;
 - (UIImage *)highlightedCellImage;
 - (BOOL)adjustsFontSizeToFitWidth;
-- (UITextAlignment)textAlignment;
+- (NSTextAlignment)textAlignment;
 @end

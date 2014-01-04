@@ -1,0 +1,18 @@
+
+/* Class = "IBUINavigationController"; title = "Home"; ObjectID = "22"; */
+"22.title" = "Home";
+
+/* Class = "IBUINavigationItem"; title = "InAppSettingKit Demo"; ObjectID = "25"; */
+"25.title" = "InAppSettingKit Demo";
+
+/* Class = "IBUIButton"; normalTitle = "Einstellungen (Modal)"; ObjectID = "30"; */
+"30.normalTitle" = "Einstellungen (Modal)";
+
+/* Class = "IBUIButton"; normalTitle = "Einstellungen (Push)"; ObjectID = "31"; */
+"31.normalTitle" = "Einstellungen (Push)";
+
+/* Class = "IBUITabBarItem"; title = "Einstellungen"; ObjectID = "57"; */
+"57.title" = "Einstellungen";
+
+/* Class = "IBUINavigationItem"; title = "Item"; ObjectID = "71"; */
+"71.title" = "Item";

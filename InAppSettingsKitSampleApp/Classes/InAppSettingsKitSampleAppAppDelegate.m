@@ -30,11 +30,4 @@
 	[window addSubview:tabBarController.view];
 }
 
-- (void)dealloc {
-    [window release];
-	[navigationController release];
-	[tabBarController release];
-    [super dealloc];
-}
-
 @end
