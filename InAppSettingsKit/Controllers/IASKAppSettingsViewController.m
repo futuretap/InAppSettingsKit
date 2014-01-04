@@ -611,14 +611,15 @@ CGRect IASKCGRectSwap(CGRect rect);
     } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
         [textFieldCell.textField becomeFirstResponder];
-		if ([specifier viewControllerStoryID]){
+
+    } else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
+        if ([specifier viewControllerStoryID]){
 			UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
 			UIViewController * vc = [mainStoryBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryID]];
             [self.navigationController pushViewController:vc animated:YES];
 			return;
 		}
-
-    } else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
+        
         Class vcClass = [specifier viewControllerClass];
         if (vcClass) {
             SEL initSelector = [specifier viewControllerSelector];
