@@ -8,27 +8,49 @@
 
 #import "IASKDatePicker.h"
 
+@interface IASKDatePicker ()
+
+@property (nonatomic, readonly) BOOL isLocalLanguageRTL;
+@property (nonatomic, readonly) NSString *dateFormatAccordingToRTL;
+@property (nonatomic, readonly) BOOL isDatePickerModeDateOnly;
+@end
+
+
 @implementation IASKDatePicker
+
 
 -(NSString *)formattedDate
 {
 	if (!self.date)
 		return @"";
     
-	BOOL isDeviceLanguageRTL =[NSLocale characterDirectionForLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]] == NSLocaleLanguageDirectionRightToLeft;
-    
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.locale = [NSLocale currentLocale];
-    
-    if (self.datePickerMode == UIDatePickerModeDate)
-    {
-        dateFormatter.dateFormat = isDeviceLanguageRTL ? @"yyyy MMMM dd" : @"MMMM dd yyyy";
-    }
-    else
-    {
-        dateFormatter.dateFormat = @"HH:mm";
-    }
+    NSDateFormatter *dateFormatter = self.dateFormatter ? self.dateFormatter : [self makeDateFormatter];
     return [dateFormatter stringFromDate:self.date];
 }
 
+#pragma mark - Private Getters
+-(BOOL)isLocalLanguageRTL
+{
+    return [NSLocale characterDirectionForLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]] == NSLocaleLanguageDirectionRightToLeft;
+}
+
+-(NSString *)dateFormatAccordingToRTL
+{
+    return self.isLocalLanguageRTL ? @"yy MMM dd" : @"MMM dd yy";
+}
+
+-(BOOL)isDatePickerModeDateOnly
+{
+    return self.datePickerMode == UIDatePickerModeDate;
+}
+
+#pragma mark Private Methods
+-(NSDateFormatter *)makeDateFormatter
+{
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.locale = [NSLocale currentLocale];
+    dateFormatter.dateFormat = self.isDatePickerModeDateOnly ? self.dateFormatAccordingToRTL :  @"HH:mm";
+    return dateFormatter;
+
+}
 @end

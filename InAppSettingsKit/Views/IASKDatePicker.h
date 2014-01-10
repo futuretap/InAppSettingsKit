@@ -11,7 +11,8 @@
 @interface IASKDatePicker : UIDatePicker
 
 @property (nonatomic, strong) NSIndexPath *inIndexPath;
-
--(NSString *)formattedDate;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, readonly) NSString *formattedDate;
+//-(NSString *)formattedDate;
 
 @end

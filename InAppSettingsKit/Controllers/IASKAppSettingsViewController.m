@@ -449,7 +449,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
 	}
     else if ([identifier isEqualToString:kIASKDatePickeSpecifier] || [identifier isEqualToString:kIASKTimePickerSpecifier]) {
-		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
+		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKDatePickeSpecifier];
         IASKDatePicker *datePicker = [IASKDatePicker new];
         [datePicker addTarget:self action:@selector(_dateChanged:) forControlEvents:UIControlEventValueChanged];
         datePicker.datePickerMode = [identifier isEqualToString:kIASKDatePickeSpecifier] ? UIDatePickerModeDate : UIDatePickerModeTime;
