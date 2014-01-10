@@ -13,6 +13,5 @@
 @property (nonatomic, strong) NSIndexPath *inIndexPath;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, readonly) NSString *formattedDate;
-//-(NSString *)formattedDate;
 
 @end

@@ -556,6 +556,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
 		textField.text = textValue;
 		textField.key = specifier.key;
+        textField.textAlignment = specifier.textAlignment;
         ((IASKDatePicker *)textField.inputView).inIndexPath = indexPath;
     }
     
