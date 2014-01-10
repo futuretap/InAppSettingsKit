@@ -78,6 +78,10 @@
 #define kIASKPSSliderSpecifier                @"PSSliderSpecifier"
 #define kIASKPSTitleValueSpecifier            @"PSTitleValueSpecifier"
 #define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"
+
+#define kIASKDatePickeSpecifier             @"IASKDatePickerSpecifier"
+#define kIASKTimePickerSpecifier             @"IASKTimePickerSpecifier"
+
 #define kIASKPSChildPaneSpecifier             @"PSChildPaneSpecifier"
 #define kIASKOpenURLSpecifier                 @"IASKOpenURLSpecifier"
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"

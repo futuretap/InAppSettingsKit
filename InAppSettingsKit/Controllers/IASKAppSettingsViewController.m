@@ -26,6 +26,7 @@
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
+#import "IASKDatePicker.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -447,6 +448,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
 	}
+    else if ([identifier isEqualToString:kIASKDatePickeSpecifier] || [identifier isEqualToString:kIASKTimePickerSpecifier]) {
+		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
+        UIDatePicker *datePicker = [UIDatePicker new];
+        [datePicker addTarget:self action:@selector(_dateChanged:) forControlEvents:UIControlEventValueChanged];
+        datePicker.datePickerMode = [identifier isEqualToString:kIASKDatePickeSpecifier] ? UIDatePickerModeDate : UIDatePickerModeTime;
+        ((IASKPSTextFieldSpecifierViewCell*)cell).textField.inputView = datePicker;
+	}
+
 	else if ([identifier isEqualToString:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
@@ -537,6 +546,19 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.textAlignment = specifier.textAlignment;
 		textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	}
+    else if ([specifier.type isEqualToString:kIASKDatePickeSpecifier] || [specifier.type isEqualToString:kIASKTimePickerSpecifier]) {
+		cell.textLabel.text = specifier.title;
+		
+		NSString *textValue = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
+		if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
+			textValue = [NSString stringWithFormat:@"%@", textValue];
+		}
+		IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
+		textField.text = textValue;
+		textField.key = specifier.key;
+        ((IASKDatePicker *)textField.inputView).inIndexPath = indexPath;
+    }
+    
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
 			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.minimumValueImage]];
@@ -765,6 +787,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
 	self.currentFirstResponder = textField;
 	return YES;
+}
+- (void)_dateChanged:(id)sender {
+    if (![sender isKindOfClass:[IASKDatePicker class]])
+        return;
+    
+    IASKDatePicker *datePicker = (IASKDatePicker *)sender;
+    
+    IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[self.tableView cellForRowAtIndexPath:datePicker.inIndexPath];
+    textFieldCell.textField.text = [datePicker formattedDate];
+    [self _textChanged:textFieldCell.textField];
 }
 
 - (void)_textChanged:(id)sender {

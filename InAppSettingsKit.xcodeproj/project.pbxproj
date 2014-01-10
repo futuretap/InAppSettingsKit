@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30C165DE1880000A0054FEEF /* IASKDatePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 30C165DC1880000A0054FEEF /* IASKDatePicker.h */; };
+		30C165DF1880000A0054FEEF /* IASKDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C165DD1880000A0054FEEF /* IASKDatePicker.m */; };
 		E401BD3C16820A0D00EAF534 /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC21682036500295D85 /* IASKAppSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD3D16820A1700EAF534 /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC41682036500295D85 /* IASKSpecifierValuesViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD3E16820A1C00EAF534 /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC61682036500295D85 /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -60,6 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		30C165DC1880000A0054FEEF /* IASKDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKDatePicker.h; sourceTree = "<group>"; };
+		30C165DD1880000A0054FEEF /* IASKDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKDatePicker.m; sourceTree = "<group>"; };
 		E401BD4A16820BBA00EAF534 /* IASKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKViewController.h; sourceTree = "<group>"; };
 		E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADA92168202D700295D85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -256,6 +260,8 @@
 				E42ADADD1682036500295D85 /* IASKSwitch.m */,
 				E42ADADE1682036500295D85 /* IASKTextField.h */,
 				E42ADADF1682036500295D85 /* IASKTextField.m */,
+				30C165DC1880000A0054FEEF /* IASKDatePicker.h */,
+				30C165DD1880000A0054FEEF /* IASKDatePicker.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +351,7 @@
 				E401BD4316820A2400EAF534 /* IASKSettingsStoreFile.h in Headers */,
 				E401BD4416820A2D00EAF534 /* IASKPSSliderSpecifierViewCell.h in Headers */,
 				E401BD4516820A2D00EAF534 /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
+				30C165DE1880000A0054FEEF /* IASKDatePicker.h in Headers */,
 				E401BD4616820A2D00EAF534 /* IASKPSTitleValueSpecifierViewCell.h in Headers */,
 				E401BD4716820A2D00EAF534 /* IASKSlider.h in Headers */,
 				E401BD4816820A2D00EAF534 /* IASKSwitch.h in Headers */,
@@ -457,6 +464,7 @@
 				E4EDC59F16820D9500BD3CA9 /* IASKAppSettingsWebViewController.m in Sources */,
 				E4EDC5A016820D9500BD3CA9 /* IASKSettingsReader.m in Sources */,
 				E4EDC5A116820D9500BD3CA9 /* IASKSpecifier.m in Sources */,
+				30C165DF1880000A0054FEEF /* IASKDatePicker.m in Sources */,
 				E4EDC5A216820D9500BD3CA9 /* IASKSettingsStore.m in Sources */,
 				E4EDC5A316820D9500BD3CA9 /* IASKSettingsStoreUserDefaults.m in Sources */,
 				E4EDC5A416820D9500BD3CA9 /* IASKSettingsStoreFile.m in Sources */,
