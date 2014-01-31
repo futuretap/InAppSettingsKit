@@ -24,9 +24,8 @@ ONLY_ACTIVE_ARCH = YES
 
 // Other compiler flags
 // 
-// These settings catch some errors in integer arithmetic and some instances of
-// undefined behavior
-OTHER_CFLAGS = -ftrapv -fsanitize=undefined-trap -fsanitize-undefined-trap-on-error
+// These settings catch some errors in integer arithmetic
+OTHER_CFLAGS = -ftrapv
 
 // Whether to strip debugging symbols when copying the built product to its
 // final installation location
