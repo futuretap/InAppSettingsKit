@@ -140,9 +140,6 @@ GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
 // Warn if a "@selector(...)" expression referring to an undeclared selector is found
 GCC_WARN_UNDECLARED_SELECTOR = YES
 
-// Whether to warn about variables that are not initialized before being used
-GCC_WARN_UNINITIALIZED_AUTOS = YES
-
 // Whether to warn about static functions that are unused
 GCC_WARN_UNUSED_FUNCTION = YES
 
