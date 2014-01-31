@@ -56,9 +56,6 @@ CLANG_WARN_OBJC_ROOT_CLASS = YES
 // Whether to warn on suspicious implicit conversions
 CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 
-// Warn if a variable might be clobbered by a setjmp call or if an automatic variable is used without prior initialization.
-GCC_WARN_UNINITIALIZED_AUTOS = YES
-
 // The format of debugging symbols
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
 
@@ -140,7 +137,7 @@ GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
 // Warn if a "@selector(...)" expression referring to an undeclared selector is found
 GCC_WARN_UNDECLARED_SELECTOR = YES
 
-// Whether to warn about variables that are not initialized before being used
+// Warn if a variable might be clobbered by a setjmp call or if an automatic variable is used without prior initialization.
 GCC_WARN_UNINITIALIZED_AUTOS = YES
 
 // Whether to warn about static functions that are unused
