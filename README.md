@@ -140,7 +140,8 @@ Custom ViewControllers
 ----------------------
 For child pane elements (`PSChildPaneSpecifier`), Apple requires a `file` key that specifies the child plist. InAppSettingsKit allow to alternatively specify `IASKViewControllerClass` and `IASKViewControllerSelector`. In this case, the child pane is displayed by instantiating a UIViewController subclass of the specified class and initializing it using the init method specified in the `IASKViewControllerSelector`. The custom view controller is then pushed onto the navigation stack. See the sample app for more details.
 ##### Using Custom ViewControllers from StoryBoard
-Alternatively specify `IASKViewControllerStoryBoardId` to initiate a viewcontroller from  [main storyboard](https://developer.apple.com/library/ios/documentation/general/conceptual/Devpedia-CocoaApp/Storyboard.html/).
+Alternatively specify `IASKViewControllerStoryBoardId` to initiate a viewcontroller from [main storyboard](https://developer.apple.com/library/ios/documentation/general/conceptual/Devpedia-CocoaApp/Storyboard.html/).
+Specifiy `IASKViewControllerStoryBoardFile` to use a story board other than MainStoryboard file.
 
 
 Text alignment
