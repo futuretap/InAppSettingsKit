@@ -613,9 +613,11 @@ CGRect IASKCGRectSwap(CGRect rect);
         [textFieldCell.textField becomeFirstResponder];
 
     } else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
-        if ([specifier viewControllerStoryID]){
-			UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-			UIViewController * vc = [mainStoryBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryID]];
+        if ([specifier viewControllerStoryBoardID]){
+            NSString *storyBoardFileFromSpecifier = [specifier viewControllerStoryBoardFile];
+            storyBoardFileFromSpecifier = storyBoardFileFromSpecifier && storyBoardFileFromSpecifier.length > 0 ? storyBoardFileFromSpecifier : @"MainStoryboard";
+			UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardFileFromSpecifier bundle:nil];
+			UIViewController * vc = [storyBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryBoardID]];
             [self.navigationController pushViewController:vc animated:YES];
 			return;
 		}
