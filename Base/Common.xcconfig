@@ -155,8 +155,8 @@ RUN_CLANG_STATIC_ANALYZER = YES
 // Whether to run unit tests with every build
 TEST_AFTER_BUILD = NO
 
-// Disable GCC compatibility warnings
-WARNING_CFLAGS = -Wno-gcc-compat
+// Disable GCC compatibility warnings and unused static const variable warnings
+WARNING_CFLAGS = -Wno-gcc-compat -Wno-unused-const-variable
 
 // Disable legacy-compatible header searching
 ALWAYS_SEARCH_USER_PATHS = NO
