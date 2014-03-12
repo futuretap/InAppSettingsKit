@@ -540,6 +540,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = USES_IASK_STATIC_LIBRARY;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -557,6 +558,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = USES_IASK_STATIC_LIBRARY;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

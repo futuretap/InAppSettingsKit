@@ -403,9 +403,20 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	NSString *title;
 	if ((title = [self tableView:tableView titleForHeaderInSection:section])) {
-		CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]] 
-						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
-							lineBreakMode:NSLineBreakByWordWrapping];
+		CGSize size = CGSizeZero;
+		IASK_IF_PRE_IOS7
+		(
+		 size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]]
+                  constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
+					  lineBreakMode:NSLineBreakByWordWrapping];
+		 );
+		IASK_IF_IOS7_OR_GREATER
+		(
+		 size = [title boundingRectWithSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
+									options:NSStringDrawingUsesLineFragmentOrigin
+								 attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:[UIFont labelFontSize]]}
+									context:nil].size;
+		);
 		return roundf(size.height+kIASKVerticalPaddingGroupTitles);
 	}
 	return 0;
@@ -458,8 +469,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
-	cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
-	cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;
+	IASK_IF_PRE_IOS6(cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
+					 cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;);
+	IASK_IF_IOS6_OR_GREATER(cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize / cell.textLabel.font.pointSize;
+							cell.detailTextLabel.minimumScaleFactor = kIASKMinimumFontSize / cell.detailTextLabel.font.pointSize;);
 	return cell;
 }
 

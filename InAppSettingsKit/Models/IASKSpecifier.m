@@ -208,12 +208,7 @@
         return UIKeyboardTypeASCIICapable;
     }
     else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:kIASKKeyboardDecimalPad]) {
-		if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iPhoneOS_4_1) {
-			return UIKeyboardTypeDecimalPad;
-		}
-		else {
-			return UIKeyboardTypeNumbersAndPunctuation;
-		}
+		return UIKeyboardTypeDecimalPad;
     }
     else if ([[_specifierDict objectForKey:KIASKKeyboardType] isEqualToString:KIASKKeyboardURL]) {
         return UIKeyboardTypeURL;
