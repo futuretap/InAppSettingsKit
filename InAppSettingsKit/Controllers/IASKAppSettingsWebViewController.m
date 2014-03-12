@@ -15,13 +15,11 @@
 //
 
 #import "IASKAppSettingsWebViewController.h"
+#import "IASKSettingsReader.h"
 
 @implementation IASKAppSettingsWebViewController
 
-@synthesize url;
-@synthesize webView;
-
-- (id)initWithFile:(NSString*)urlString key:(NSString*)key {
+- (id)initWithFile:(NSString*)urlString specifier:(IASKSpecifier*)specifier {
     self = [super init];
     if (self) {
         self.url = [NSURL URLWithString:urlString];

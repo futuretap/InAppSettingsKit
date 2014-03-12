@@ -222,7 +222,7 @@
 			<key>IASKViewControllerClass</key>
 			<string>IASKAppSettingsWebViewController</string>
 			<key>IASKViewControllerSelector</key>
-			<string>initWithFile:key:</string>
+			<string>initWithFile:specifier:</string>
 			<key>Title</key>
 			<string>WebView</string>
 			<key>Type</key>
