@@ -291,4 +291,8 @@
 	}
 	return NSTextAlignmentLeft;
 }
+
+- (id)valueForKey:(NSString *)key {
+	return [_specifierDict objectForKey:key];
+}
 @end
