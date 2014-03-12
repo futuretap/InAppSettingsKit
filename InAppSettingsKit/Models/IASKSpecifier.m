@@ -16,6 +16,7 @@
 
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
+#import "IASKAppSettingsWebViewController.h"
 
 @interface IASKSpecifier ()
 
@@ -71,6 +72,7 @@
 }
 
 - (Class)viewControllerClass {
+	[IASKAppSettingsWebViewController class]; // make sure this is linked into the binary/library
     return NSClassFromString([_specifierDict objectForKey:kIASKViewControllerClass]);
 }
 
