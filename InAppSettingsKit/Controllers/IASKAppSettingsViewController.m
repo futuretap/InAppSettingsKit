@@ -26,6 +26,7 @@
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
+#import "IASKViewController.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -392,6 +393,66 @@ CGRect IASKCGRectSwap(CGRect rect);
 		return nil;
 	}
 }
+
+- (UIView *) tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForFooterForSection:)]) {
+		return [self.delegate settingsViewController:self tableView:tableView viewForFooterForSection:section];
+	} else {
+		return [self settingsViewController:self tableView:tableView viewForFooterForSection:section];
+	}
+}
+
+- (UIView *) settingsViewController:(IASKAppSettingsViewController*)settingsViewController tableView:(UITableView*)tableView viewForFooterForSection:(NSInteger)section {
+    
+    NSString * footerText = [self tableView:tableView titleForFooterInSection:section];
+        
+    if (footerText == nil) {
+        return nil;
+    }
+    
+    UITableViewCell* footerView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSGroupFooterSpecifier];
+    
+    footerView.textLabel.text               = footerText;
+    footerView.textLabel.textColor          = [UIColor lightGrayColor];
+    footerView.textLabel.font               = [UIFont systemFontOfSize:15.0];
+    footerView.textLabel.backgroundColor    = [UIColor clearColor];
+    footerView.textLabel.textAlignment      = UITextAlignmentLeft;
+    footerView.textLabel.lineBreakMode      = UILineBreakModeWordWrap;
+    footerView.textLabel.numberOfLines     = 0;
+    [footerView.textLabel sizeToFit];
+    
+    return footerView;
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+
+    CGFloat result;
+	if ([self tableView:tableView viewForFooterInSection:section] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForFooterForSection:)]) {
+			return result;
+    }
+
+    if ((result = [self settingsViewController:self
+                                     tableView:tableView
+                      heightForFooterForSection:section])) {
+        return result;
+    }
+    return 0;
+}
+
+- (CGFloat) settingsViewController:(IASKAppSettingsViewController*)settingsViewController tableView:(UITableView*)tableView heightForFooterForSection:(NSInteger)section {
+    
+    NSString *title;
+	if ((title = [self tableView:tableView titleForFooterInSection:section])) {
+		CGSize size = [title sizeWithFont:[UIFont systemFontOfSize:15.0]
+						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
+							lineBreakMode:NSLineBreakByWordWrapping];
+		return roundf(size.height+kIASKVerticalPaddingGroupTitles);
+	}
+	return 0;
+    
+}
+
+
 
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
 	if ([self tableView:tableView viewForHeaderInSection:section] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForHeaderForSection:)]) {
