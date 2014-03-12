@@ -58,7 +58,8 @@
     [self setMultipleValuesDict:multipleValuesDict];
 }
 - (NSString*)localizedObjectForKey:(NSString*)key {
-	return [self.settingsReader titleForStringId:[_specifierDict objectForKey:key]];
+	IASKSettingsReader *settingsReader = self.settingsReader;
+	return [settingsReader titleForStringId:[_specifierDict objectForKey:key]];
 }
 
 - (NSString*)title {
@@ -115,7 +116,8 @@
 		return nil;
 	}
 	@try {
-		return [self.settingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
+		IASKSettingsReader *strongSettingsReader = self.settingsReader;
+		return [strongSettingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
 	}
 	@catch (NSException * e) {}
 	return nil;
