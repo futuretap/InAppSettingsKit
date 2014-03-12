@@ -86,6 +86,12 @@
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
 
+// IASKChildTitle can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+// If IASKChildTitle is set, the navigation title is fixed to it; otherwise, the title value is used and is overridden by the HTML title tag
+// as soon as the web page is loaded; if IASKChildTitle is set to the empty string, the title is not shown on push but _will_ be replaced by
+// the HTML title as soon as the page is loaded. The value of IASKChildTitle is localizable.
+#define kIASKChildTitle                       @"IASKChildTitle"
+
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
 
 #define kIASKSectionHeaderIndex               0

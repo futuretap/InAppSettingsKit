@@ -227,6 +227,8 @@
 			<string>WebView</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
+			<key>IASKChildTitle</key>
+			<string></string>
 		</dict>
 		<dict>
 			<key>Key</key>

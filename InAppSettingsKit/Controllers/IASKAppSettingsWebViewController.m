@@ -30,18 +30,19 @@
             else
                 self.url = nil;
         }
+		self.customTitle = [specifier localizedObjectForKey:kIASKChildTitle];
+		self.title = self.customTitle ? : specifier.title;
     }
     return self;
 }
 
 - (void)loadView
 {
-    webView = [[UIWebView alloc] init];
-    webView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-    UIViewAutoresizingFlexibleHeight;
-    webView.delegate = self;
+    self.webView = [[UIWebView alloc] init];
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.webView.delegate = self;
     
-    self.view = webView;
+    self.view = self.webView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {  
@@ -58,7 +59,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	self.navigationItem.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+	self.title = self.customTitle.length ? self.customTitle : [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
