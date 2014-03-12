@@ -46,12 +46,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {  
-	[webView loadRequest:[NSURLRequest requestWithURL:self.url]];
-}
-
-- (void)viewDidUnload {
-	[super viewDidUnload];
-	self.webView = nil;
+	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
+	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+	[activityIndicatorView startAnimating];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
+	[self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -59,6 +58,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+	self.navigationItem.rightBarButtonItem = nil;
 	self.title = self.customTitle.length ? self.customTitle : [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
