@@ -126,9 +126,14 @@
 		
 		[mailViewController setToRecipients:toRecipients];
 
-    [self presentViewController:mailViewController
-                       animated:YES
-                     completion:nil];
+		mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
+		mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+		mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
+
+		UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+		[self presentViewController:mailViewController animated:YES completion:^{
+			[UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
+		}];
 		return NO;
 	}
 	
@@ -141,8 +146,7 @@
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
