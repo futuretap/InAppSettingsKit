@@ -77,10 +77,6 @@
     return [self.defaults objectForKey:key];
 }
 
-- (void)removeObjectForKey:(NSString *)key {
-    [self.defaults removeObjectForKey:key];
-}
-
 - (BOOL)synchronize {
     return [self.defaults synchronize];
 }

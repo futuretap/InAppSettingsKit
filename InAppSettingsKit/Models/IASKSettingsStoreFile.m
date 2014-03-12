@@ -44,10 +44,6 @@
     return [_dict objectForKey:key];
 }
 
-- (void) removeObjectForKey:(NSString *)key {
-    [_dict removeObjectForKey:key];
-}
-
 - (BOOL)synchronize {
     return [_dict writeToFile:_filePath atomically:YES];
 }

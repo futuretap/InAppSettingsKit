@@ -30,11 +30,6 @@
     return nil;
 }
 
-- (void)removeObjectForKey:(NSString*)key {
-    [NSException raise:@"Unimplemented"
-                format:@"removeObjectForKey: must be implemented in subclasses of IASKAbstractSettingsStore"];
-}
-
 - (void)setBool:(BOOL)value forKey:(NSString*)key {
     [self setObject:[NSNumber numberWithBool:value] forKey:key];
 }
