@@ -46,6 +46,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     
     id                      _currentFirstResponder;
     __weak UIViewController *_currentChildViewController;
+    BOOL _reloadDisabled;
 }
 
 @property (nonatomic, strong) id currentFirstResponder;
@@ -89,7 +90,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     self.tableView.contentOffset = CGPointMake(0, 0);
     self.settingsReader = nil; // automatically initializes itself
     _hiddenKeys = nil;
-    [self.tableView reloadData];
+    if (!_reloadDisabled) [self.tableView reloadData];
 }
 
 - (BOOL)isPad {
@@ -112,6 +113,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
+        _reloadDisabled = NO;
         _showDoneButton = YES;
         // If set to YES, will display credits for InAppSettingsKit creators
         _showCreditsFooter = YES;
@@ -128,7 +130,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     return [self initWithStyle:UITableViewStyleGrouped];
 }
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     if ([self isPad]) {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
@@ -292,7 +294,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             [self.tableView endUpdates];
         } else {
             self.settingsReader.hiddenKeys = theHiddenKeys;
-            [self.tableView reloadData];
+            if (!_reloadDisabled) [self.tableView reloadData];
         }
     }
     UIViewController *childViewController = _currentChildViewController;
@@ -401,8 +403,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		
 	}
-	NSString *title;
-	if ((title = [self tableView:tableView titleForHeaderInSection:section])) {
+	NSString *title = [self tableView:tableView titleForHeaderInSection:section];
+	if ([title length] > 0) {
 		CGSize size = CGSizeZero;
 		IASK_IF_PRE_IOS7
 		(
@@ -435,12 +437,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 			return [NSString stringWithFormat:@"%@\n\n%@", footerText, kIASKCredits];
 		}
 	} else {
-		if ([footerText length] == 0) {
-			return nil;
-		}
-		return [self.settingsReader footerTextForSection:section];
+		return footerText;
 	}
 }
+
 
 - (UITableViewCell*)newCellForIdentifier:(NSString*)identifier {
 	UITableViewCell *cell = nil;
@@ -662,16 +662,23 @@ CGRect IASKCGRectSwap(CGRect rect);
             return;
         }
         
+        _reloadDisabled = YES; // Disable internal unnecessary reloads
+        
         IASKAppSettingsViewController *targetViewController = [[[self class] alloc] init];
         targetViewController.showDoneButton = NO;
-        targetViewController.settingsStore = self.settingsStore;
+        targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
         targetViewController.delegate = self.delegate;
+        targetViewController.settingsStore = self.settingsStore;
         targetViewController.file = specifier.file;
         targetViewController.hiddenKeys = self.hiddenKeys;
         targetViewController.title = specifier.title;
-        targetViewController.showCreditsFooter = NO;
         _currentChildViewController = targetViewController;
+        
+        _reloadDisabled = NO;
+        [self.tableView reloadData];
+        
         [[self navigationController] pushViewController:targetViewController animated:YES];
+        
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:specifier.file]];
