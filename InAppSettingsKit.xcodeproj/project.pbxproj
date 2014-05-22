@@ -506,7 +506,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4A95F30177DB25C00FF0906 /* Debug.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -515,7 +515,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4A95F32177DB25C00FF0906 /* Release.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -525,7 +525,6 @@
 			baseConfigurationReference = E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/InAppSettingsKit.dst;
-				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

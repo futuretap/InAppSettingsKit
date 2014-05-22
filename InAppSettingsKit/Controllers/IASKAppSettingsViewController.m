@@ -27,6 +27,8 @@
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
 
+#include <tgmath.h>
+
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
 #endif
@@ -402,7 +404,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]] 
 						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
 							lineBreakMode:NSLineBreakByWordWrapping];
-		return roundf(size.height+kIASKVerticalPaddingGroupTitles);
+		return round(size.height+kIASKVerticalPaddingGroupTitles);
 	}
 	return 0;
 }

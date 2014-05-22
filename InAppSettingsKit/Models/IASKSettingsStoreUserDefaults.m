@@ -70,7 +70,7 @@
 }
 
 - (int)integerForKey:(NSString*)key {
-    return [self.defaults integerForKey:key];
+    return (int)[self.defaults integerForKey:key];
 }
 
 - (id)objectForKey:(NSString*)key {
