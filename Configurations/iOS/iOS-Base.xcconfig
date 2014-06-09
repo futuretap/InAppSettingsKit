@@ -5,7 +5,7 @@
 //
 
 // Architectures to build
-ARCHS = $(ARCHS_STANDARD)
+ARCHS = armv7 armv7s arm64
 
 // Whether to only build the active architecture (overridden from Debug/Profile)
 ONLY_ACTIVE_ARCH = NO
