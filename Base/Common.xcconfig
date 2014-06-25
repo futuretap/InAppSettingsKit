@@ -13,6 +13,9 @@ CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES
 // Whether to warn about strcpy() and strcat()
 CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES
 
+// Whether to enable module imports
+CLANG_ENABLE_MODULES = YES
+
 // Enable ARC
 CLANG_ENABLE_OBJC_ARC = YES
 
