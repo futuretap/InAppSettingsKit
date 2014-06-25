@@ -7,6 +7,9 @@
 // Whether to strip out code that isn't called from anywhere
 DEAD_CODE_STRIPPING = NO
 
+// Whether this framework should define an LLVM module
+DEFINES_MODULE = YES
+
 // Whether function calls should be position-dependent (should always be
 // disabled for library code)
 GCC_DYNAMIC_NO_PIC = NO
