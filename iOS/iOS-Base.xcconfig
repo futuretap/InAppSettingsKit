@@ -4,8 +4,8 @@
 // a configuration file for a specific type of target.
 //
 
-// Architectures to build
-ARCHS = $(ARCHS_STANDARD_INCLUDING_64_BIT)
+// Xcode needs this to find archived headers if SKIP_INSTALL is set
+HEADER_SEARCH_PATHS = $(OBJROOT)/UninstalledProducts/include
 
 // Whether to only build the active architecture (overridden from Debug/Profile)
 ONLY_ACTIVE_ARCH = NO
@@ -14,11 +14,8 @@ ONLY_ACTIVE_ARCH = NO
 // assumed)
 SDKROOT = iphoneos
 
-// Xcode needs this to find archived headers if SKIP_INSTALL is set
-HEADER_SEARCH_PATHS = $(OBJROOT)/UninstalledProducts/include
-
 // Supported SDK platforms
 SUPPORTED_PLATFORMS = iphonesimulator iphoneos
 
 // Supported architectures
-VALID_ARCHS = armv6 armv7 armv7s arm64 i386 x86_64
+VALID_ARCHS = armv7 armv7s arm64 x86_64

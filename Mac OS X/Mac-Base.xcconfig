@@ -16,4 +16,4 @@ SDKROOT = macosx
 SUPPORTED_PLATFORMS = macosx
 
 // Supported architectures
-VALID_ARCHS = i386 x86_64
+VALID_ARCHS = x86_64
