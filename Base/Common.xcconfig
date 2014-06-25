@@ -4,6 +4,9 @@
 // instead.
 //
 
+// Disable legacy-compatible header searching
+ALWAYS_SEARCH_USER_PATHS = NO
+
 // Whether to warn when a floating-point value is used as a loop counter
 CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES
 
@@ -160,6 +163,3 @@ RUN_CLANG_STATIC_ANALYZER = YES
 
 // Don't treat unknown warnings as errors, and disable GCC compatibility warnings and unused static const variable warnings
 WARNING_CFLAGS = -Wno-error=unknown-warning-option -Wno-gcc-compat -Wno-unused-const-variable
-
-// Disable legacy-compatible header searching
-ALWAYS_SEARCH_USER_PATHS = NO
