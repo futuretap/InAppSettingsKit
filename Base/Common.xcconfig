@@ -62,6 +62,9 @@ CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 // The format of debugging symbols
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
 
+// Whether to require objc_msgSend to be cast before invocation
+ENABLE_STRICT_OBJC_MSGSEND = YES
+
 // Which C variant to use
 GCC_C_LANGUAGE_STANDARD = gnu99
 
