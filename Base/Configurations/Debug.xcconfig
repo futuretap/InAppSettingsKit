@@ -27,6 +27,11 @@ ONLY_ACTIVE_ARCH = YES
 // These settings catch some errors in integer arithmetic
 OTHER_CFLAGS = -ftrapv
 
+// Other flags to pass to the Swift compiler
+//
+// This enables conditional compilation with #if DEBUG
+OTHER_SWIFT_FLAGS = -D DEBUG
+
 // Whether to strip debugging symbols when copying the built product to its
 // final installation location
 STRIP_INSTALLED_PRODUCT = NO
