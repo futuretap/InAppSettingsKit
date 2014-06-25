@@ -31,5 +31,8 @@ OTHER_CFLAGS = -ftrapv
 // final installation location
 STRIP_INSTALLED_PRODUCT = NO
 
+// The optimization level (-Onone, -O, -Ofast) for the produced Swift binary
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+
 // Disable Developer ID timestamping
 OTHER_CODE_SIGN_FLAGS = --timestamp=none
