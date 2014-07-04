@@ -37,7 +37,7 @@ CLANG_WARN_CONSTANT_CONVERSION = YES
 CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES
 
 // Warn about direct accesses to the Objective-C 'isa' pointer instead of using a runtime API.
-CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES
+CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR
 
 // Warn about declaring the same method more than once within the same @interface.
 CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
@@ -60,7 +60,7 @@ CLANG_WARN_INT_CONVERSION = YES
 CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = NO
 
 // Warn about classes that unintentionally do not subclass a root class (such as NSObject).
-CLANG_WARN_OBJC_ROOT_CLASS = YES
+CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR
 
 // Whether to warn on suspicious implicit conversions
 CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
@@ -117,7 +117,7 @@ GCC_WARN_ABOUT_POINTER_SIGNEDNESS = YES
 
 // Whether to warn when the value returned from a function/method/block does not
 // match its return type
-GCC_WARN_ABOUT_RETURN_TYPE = YES
+GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR
 
 // Whether to warn on a class not implementing all the required methods of
 // a protocol it declares conformance to
@@ -150,7 +150,7 @@ GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
 GCC_WARN_UNDECLARED_SELECTOR = YES
 
 // Warn if a variable might be clobbered by a setjmp call or if an automatic variable is used without prior initialization.
-GCC_WARN_UNINITIALIZED_AUTOS = YES
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE
 
 // Whether to warn about static functions that are unused
 GCC_WARN_UNUSED_FUNCTION = YES
