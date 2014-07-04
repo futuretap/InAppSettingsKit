@@ -71,6 +71,9 @@ CLANG_WARN_UNREACHABLE_CODE = YES
 // The format of debugging symbols
 DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
 
+// Whether to compile assertions in
+ENABLE_NS_ASSERTIONS = YES
+
 // Whether to require objc_msgSend to be cast before invocation
 ENABLE_STRICT_OBJC_MSGSEND = YES
 
