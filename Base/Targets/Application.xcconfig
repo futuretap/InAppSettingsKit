@@ -9,4 +9,4 @@ DEAD_CODE_STRIPPING = NO
 
 // Sets the @rpath for the application such that it can include frameworks in
 // the application bundle (inside the "Frameworks" folder)
-LD_RUNPATH_SEARCH_PATHS = @executable_path/../Frameworks @loader_path/../Frameworks
+LD_RUNPATH_SEARCH_PATHS = @executable_path/../Frameworks @loader_path/../Frameworks @executable_path/Frameworks
