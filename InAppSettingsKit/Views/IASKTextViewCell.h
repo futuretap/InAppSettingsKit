@@ -10,6 +10,6 @@
 
 @interface IASKTextViewCell : UITableViewCell
 
-@property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, assign) UITextView *textView;
 
 @end

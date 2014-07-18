@@ -7,7 +7,7 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#define kTextViewIdealHeight	(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 44.f*4 : 44.f*3
+#define kHeaderHeight           20.f
 #define kCellValue				@"kCellValue"
 
 #import "IASKTextEditorViewController.h"
@@ -27,6 +27,7 @@
 
 @implementation IASKTextEditorViewController
 
+//From IASKViewController protocol
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
 
@@ -46,8 +47,10 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 	self.tableView.allowsSelection = NO;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.view = self.tableView;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -102,6 +105,11 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
+- (void)viewDidUnload {
+	[super viewDidUnload];
+}
+
+
 #pragma mark -
 #pragma mark Keyboard showing/hiding methods to adjust UITextView
 
@@ -148,6 +156,7 @@
 	[self.tableView endUpdates];
 	
     [UIView commitAnimations];
+    [self.textView scrollRangeToVisible:[self.textView selectedRange]];
 }
 
 
@@ -162,6 +171,7 @@
 	
 	if (![self.textView.text isEqualToString:finalString])
 		self.textView.text = finalString;
+
 }
 
 #pragma mark -
@@ -175,16 +185,32 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	CGFloat tableHeight = tableView.frame.size.height;
-	CGFloat idealHeight = kTextViewIdealHeight;
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        return 1.0;
+    } else {
+        return self.tableView.sectionHeaderHeight;
+    }
+}
 
-	if (tableHeight >= idealHeight) {
-		return idealHeight;
-	}
-	
-	CGFloat fittingHeight = (CGFloat)ceil(0.85 * tableView.frame.size.height);
-	return fittingHeight;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //automatically resize cell for text, but keep header and footer text visible
+    CGFloat textHeight = [self.textView contentSize].height;
+    CGFloat tableHeight = self.tableView.frame.size.height;
+    tableHeight -= self.tableView.contentInset.top;
+    tableHeight -= 2 * self.tableView.sectionFooterHeight;
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        tableHeight -= 2;
+    } else {
+        tableHeight -= 2 * self.tableView.sectionHeaderHeight;
+    }
+    
+    if (textHeight > tableHeight) {
+        textHeight = tableHeight;
+    }
+    return textHeight;
+
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
@@ -199,6 +225,7 @@
 		
 		self.textView = cell.textView;
 		self.textView.delegate = self;
+
     }
 	
 	[self updateTextViewWithStoredValue];
@@ -220,6 +247,8 @@
 	 userInfo:[NSDictionary dictionaryWithObject:textView.text
 										  forKey:self.currentSpecifier.key]
 	 ];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 @end

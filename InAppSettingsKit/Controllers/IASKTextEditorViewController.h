@@ -15,6 +15,7 @@
 
 @interface IASKTextEditorViewController : UIViewController <IASKViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) IASKSpecifier *currentSpecifier;
+
+@property (nonatomic, strong) IASKSpecifier * currentSpecifier;
 
 @end

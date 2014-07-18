@@ -231,6 +231,8 @@
 			<string>ABOUT_TITLE</string>
 		</dict>
 		<dict>
+			<key>FooterText</key>
+			<string>Text view FooterText</string>
 			<key>Title</key>
 			<string>TextView editor</string>
 			<key>Type</key>
