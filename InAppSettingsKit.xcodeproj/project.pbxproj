@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		80041ADE1979E0640099BA9D /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 80041ADC1979E0640099BA9D /* IASKTextViewCell.h */; };
+		80041ADF1979E0640099BA9D /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 80041ADD1979E0640099BA9D /* IASKTextViewCell.m */; };
+		80041AE21979E0780099BA9D /* IASKTextEditorViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 80041AE01979E0780099BA9D /* IASKTextEditorViewController.h */; };
+		80041AE31979E0780099BA9D /* IASKTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80041AE11979E0780099BA9D /* IASKTextEditorViewController.m */; };
 		E401BD3C16820A0D00EAF534 /* IASKAppSettingsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC21682036500295D85 /* IASKAppSettingsViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD3D16820A1700EAF534 /* IASKSpecifierValuesViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC41682036500295D85 /* IASKSpecifierValuesViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD3E16820A1C00EAF534 /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAC61682036500295D85 /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -60,6 +64,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		80041ADC1979E0640099BA9D /* IASKTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextViewCell.h; sourceTree = "<group>"; };
+		80041ADD1979E0640099BA9D /* IASKTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextViewCell.m; sourceTree = "<group>"; };
+		80041AE01979E0780099BA9D /* IASKTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextEditorViewController.h; sourceTree = "<group>"; };
+		80041AE11979E0780099BA9D /* IASKTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextEditorViewController.m; sourceTree = "<group>"; };
 		E401BD4A16820BBA00EAF534 /* IASKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKViewController.h; sourceTree = "<group>"; };
 		E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADA92168202D700295D85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -225,6 +233,8 @@
 				E42ADAC51682036500295D85 /* IASKSpecifierValuesViewController.m */,
 				E42ADAC61682036500295D85 /* IASKAppSettingsWebViewController.h */,
 				E42ADAC71682036500295D85 /* IASKAppSettingsWebViewController.m */,
+				80041AE01979E0780099BA9D /* IASKTextEditorViewController.h */,
+				80041AE11979E0780099BA9D /* IASKTextEditorViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -250,6 +260,8 @@
 				E42ADAD71682036500295D85 /* IASKPSTextFieldSpecifierViewCell.m */,
 				E42ADAD81682036500295D85 /* IASKPSTitleValueSpecifierViewCell.h */,
 				E42ADAD91682036500295D85 /* IASKPSTitleValueSpecifierViewCell.m */,
+				80041ADC1979E0640099BA9D /* IASKTextViewCell.h */,
+				80041ADD1979E0640099BA9D /* IASKTextViewCell.m */,
 				E42ADADA1682036500295D85 /* IASKSlider.h */,
 				E42ADADB1682036500295D85 /* IASKSlider.m */,
 				E42ADADC1682036500295D85 /* IASKSwitch.h */,
@@ -335,6 +347,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80041ADE1979E0640099BA9D /* IASKTextViewCell.h in Headers */,
 				E401BD3C16820A0D00EAF534 /* IASKAppSettingsViewController.h in Headers */,
 				E401BD3D16820A1700EAF534 /* IASKSpecifierValuesViewController.h in Headers */,
 				E401BD3E16820A1C00EAF534 /* IASKAppSettingsWebViewController.h in Headers */,
@@ -343,6 +356,7 @@
 				E401BD4116820A2400EAF534 /* IASKSettingsStore.h in Headers */,
 				E401BD4216820A2400EAF534 /* IASKSettingsStoreUserDefaults.h in Headers */,
 				E401BD4316820A2400EAF534 /* IASKSettingsStoreFile.h in Headers */,
+				80041AE21979E0780099BA9D /* IASKTextEditorViewController.h in Headers */,
 				E401BD4416820A2D00EAF534 /* IASKPSSliderSpecifierViewCell.h in Headers */,
 				E401BD4516820A2D00EAF534 /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
 				E401BD4616820A2D00EAF534 /* IASKPSTitleValueSpecifierViewCell.h in Headers */,
@@ -463,6 +477,8 @@
 				E4EDC5A516820D9500BD3CA9 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				E4EDC5A616820D9500BD3CA9 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				E4EDC5A716820D9500BD3CA9 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
+				80041ADF1979E0640099BA9D /* IASKTextViewCell.m in Sources */,
+				80041AE31979E0780099BA9D /* IASKTextEditorViewController.m in Sources */,
 				E4EDC5A816820D9500BD3CA9 /* IASKSlider.m in Sources */,
 				E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */,
 				E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */,

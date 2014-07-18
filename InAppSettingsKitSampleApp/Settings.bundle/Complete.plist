@@ -680,6 +680,42 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>TextView Editor for long or multiline text settings</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Signature</string>
+			<key>Type</key>
+			<string>IASKTextViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>Sent from my iPhone/iPad</string>
+			<key>Key</key>
+			<string>longSignature</string>
+			<key>FooterText</key>
+			<string>Even comes with footer…</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>TextView Editor for long or multiline text settings</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Signature</string>
+			<key>Type</key>
+			<string>IASKTextViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>Sent from my iPhone/iPad</string>
+			<key>Key</key>
+			<string>longSignature</string>
+			<key>FooterText</key>
+			<string>Even comes with footer…</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Group with a multiline text that is word wrapped.</string>
 		</dict>
 		<dict>
