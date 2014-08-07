@@ -88,6 +88,10 @@
 	[self.textView becomeFirstResponder];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.textView resignFirstResponder];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super viewDidDisappear:animated];
