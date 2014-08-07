@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, assign) CGSize keyboardSize;
 
 @end
 
@@ -48,6 +49,7 @@
     self.tableView.dataSource = self;
 	self.tableView.allowsSelection = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.keyboardSize = CGSizeMake(0, 0);
     
     self.view = self.tableView;
 
@@ -97,6 +99,11 @@
 	[super viewDidDisappear:animated];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    [self.textView scrollRangeToVisible:[self.textView selectedRange]];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;
@@ -117,49 +124,19 @@
 #pragma mark -
 #pragma mark Keyboard showing/hiding methods to adjust UITextView
 
-// http://stackoverflow.com/a/7183223/401329
+// save the current keyboard size (based on http://stackoverflow.com/a/7183223/401329), or set to 0 if keyboard is dismissed
 - (void)resizeTableViewOnKeyboardNotification:(NSNotification*)notif {
-	
-    NSDictionary* userInfo = [notif userInfo];
-    NSTimeInterval animationDuration;
-    UIViewAnimationCurve animationCurve;
-    CGRect keyboardEndFrame;
-	
-	[[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
-	[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
-	[[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
-	
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView setAnimationCurve:animationCurve];
-	
-    CGRect newFrame = self.view.frame;
-    CGRect keyboardFrame = [self.view convertRect:keyboardEndFrame toView:nil];
-	
-	CGFloat heightAdjustment = keyboardFrame.size.height;
-
-	// Account for tabbar if any. Tabbar will be hidden by
-	// the keyboard, so we should add the height of tabbar
-	// back into the total visible height
-	UITabBarController* tabBarController = self.navigationController.tabBarController;
-	
-	if (tabBarController) {
-		heightAdjustment -=
-		tabBarController.tabBar.frame.size.height;
-	}
-	
 	if ([notif.name isEqualToString:UIKeyboardWillHideNotification]) {
-		heightAdjustment = heightAdjustment * -1;
-	}
-	
-    newFrame.size.height -= heightAdjustment;
-    self.view.frame = newFrame;
-
-	// Update the height of the text view cell row
+        self.keyboardSize = CGSizeMake(0, 0);
+	} else {
+        NSDictionary* userInfo = [notif userInfo];
+        CGRect keyboardEndFrame;
+        [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+        self.keyboardSize = keyboardEndFrame.size;
+    }
+    
 	[self.tableView beginUpdates];
 	[self.tableView endUpdates];
-	
-    [UIView commitAnimations];
     [self.textView scrollRangeToVisible:[self.textView selectedRange]];
 }
 
@@ -175,7 +152,7 @@
 	
 	if (![self.textView.text isEqualToString:finalString])
 		self.textView.text = finalString;
-
+    
 }
 
 #pragma mark -
@@ -202,6 +179,7 @@
     //automatically resize cell for text, but keep header and footer text visible
     CGFloat textHeight = [self.textView contentSize].height;
     CGFloat tableHeight = self.tableView.frame.size.height;
+    tableHeight -= [self heightCoveredByKeyboardOfSize:self.keyboardSize];
     tableHeight -= self.tableView.contentInset.top;
     tableHeight -= 2 * self.tableView.sectionFooterHeight;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -214,7 +192,7 @@
         textHeight = tableHeight;
     }
     return textHeight;
-
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
@@ -229,7 +207,7 @@
 		
 		self.textView = cell.textView;
 		self.textView.delegate = self;
-
+        
     }
 	
 	[self updateTextViewWithStoredValue];
@@ -237,9 +215,40 @@
     return cell;
 }
 
-- (CGSize)contentSizeForViewInPopover {
-    return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
+// based on http://stackoverflow.com/questions/13806282/how-can-i-find-portion-of-my-view-which-isnt-covered-by-the-keyboard-uimodalpr
+- (CGFloat)heightCoveredByKeyboardOfSize:(CGSize)keyboardSize
+{
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    CGRect frameInWindow = [self.view convertRect:self.view.bounds toView:nil];
+    CGRect windowBounds = self.view.window.bounds;
+    
+    CGFloat keyboardTop;
+    CGFloat heightCoveredByKeyboard;
+    
+    //Determine height of the view covered by the keyboard relative to current rotation
+    
+    switch (orientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+            keyboardTop = windowBounds.size.width - keyboardSize.width;
+            heightCoveredByKeyboard = CGRectGetMaxX(frameInWindow) - keyboardTop;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            keyboardTop = windowBounds.size.width - keyboardSize.width;
+            heightCoveredByKeyboard = windowBounds.size.width - frameInWindow.origin.x - keyboardTop;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            keyboardTop = windowBounds.size.height - keyboardSize.height;
+            heightCoveredByKeyboard = windowBounds.size.height - frameInWindow.origin.y - keyboardTop;
+            break;
+        default:
+            keyboardTop = windowBounds.size.height - keyboardSize.height;
+            heightCoveredByKeyboard = CGRectGetMaxY(frameInWindow) - keyboardTop;
+            break;
+    }
+    
+    return MAX(0.0f,heightCoveredByKeyboard);
 }
+
 
 #pragma mark UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView {
