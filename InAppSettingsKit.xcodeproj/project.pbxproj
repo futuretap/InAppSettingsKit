@@ -390,7 +390,7 @@
 			name = InAppSettingsKitTests;
 			productName = InAppSettingsKitTests;
 			productReference = E42ADAA2168202D700295D85 /* InAppSettingsKitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -398,6 +398,7 @@
 		E42ADA87168202D700295D85 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0600;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = InAppSettingsKit;
 			};
