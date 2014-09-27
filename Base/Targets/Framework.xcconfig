@@ -14,6 +14,10 @@ DEFINES_MODULE = YES
 // disabled for library code)
 GCC_DYNAMIC_NO_PIC = NO
 
+// Default frameworks to the name of the project, instead of any
+// platform-specific target
+PRODUCT_NAME = $(PROJECT_NAME)
+
 // Enables the framework to be included from any location as long as the
 // loader’s runpath search paths includes it. For example from an application
 // bundle (inside the "Frameworks" folder) or shared folder
