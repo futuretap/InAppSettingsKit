@@ -7,15 +7,9 @@
 // Xcode needs this to find archived headers if SKIP_INSTALL is set
 HEADER_SEARCH_PATHS = $(OBJROOT)/UninstalledProducts/include
 
-// Whether to only build the active architecture (overridden from Debug/Profile)
-ONLY_ACTIVE_ARCH = NO
+// Where to find embedded frameworks
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/Frameworks
 
 // The base SDK to use (if no version is specified, the latest version is
 // assumed)
 SDKROOT = iphoneos
-
-// Supported SDK platforms
-SUPPORTED_PLATFORMS = iphonesimulator iphoneos
-
-// Supported architectures
-VALID_ARCHS = armv7 armv7s arm64 x86_64
