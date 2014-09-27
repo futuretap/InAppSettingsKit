@@ -13,9 +13,3 @@ LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/
 // The base SDK to use (if no version is specified, the latest version is
 // assumed)
 SDKROOT = iphoneos
-
-// Supported SDK platforms
-SUPPORTED_PLATFORMS = iphonesimulator iphoneos
-
-// Supported architectures
-VALID_ARCHS = armv7 armv7s arm64 x86_64
