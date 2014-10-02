@@ -52,7 +52,7 @@
     self.keyboardSize = CGSizeMake(0, 0);
     
     self.view = self.tableView;
-
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,7 +69,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-
+    
 	NSNotificationCenter* notifCenter = [NSNotificationCenter defaultCenter];
 	
 	[notifCenter addObserver:self
@@ -81,7 +81,7 @@
 					selector:@selector(resizeTableViewOnKeyboardNotification:)
 						name:UIKeyboardWillHideNotification
 					  object:nil];
-
+    
 	[notifCenter addObserver:self
 					selector:@selector(updateTextViewWithStoredValue)
 						name:NSUserDefaultsDidChangeNotification
@@ -174,10 +174,14 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return (CGFloat)44.;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //automatically resize cell for text, but keep header and footer text visible
-    CGFloat textHeight = [self.textView contentSize].height;
+    CGFloat textHeight = [self.textView contentSize].height + [self.textView contentOffset].y;
     CGFloat tableHeight = self.tableView.frame.size.height;
     tableHeight -= [self heightCoveredByKeyboardOfSize:self.keyboardSize];
     tableHeight -= self.tableView.contentInset.top;
@@ -226,24 +230,31 @@
     CGFloat heightCoveredByKeyboard;
     
     //Determine height of the view covered by the keyboard relative to current rotation
-    
-    switch (orientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            keyboardTop = windowBounds.size.width - keyboardSize.width;
-            heightCoveredByKeyboard = CGRectGetMaxX(frameInWindow) - keyboardTop;
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            keyboardTop = windowBounds.size.width - keyboardSize.width;
-            heightCoveredByKeyboard = windowBounds.size.width - frameInWindow.origin.x - keyboardTop;
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            keyboardTop = windowBounds.size.height - keyboardSize.height;
-            heightCoveredByKeyboard = windowBounds.size.height - frameInWindow.origin.y - keyboardTop;
-            break;
-        default:
-            keyboardTop = windowBounds.size.height - keyboardSize.height;
-            heightCoveredByKeyboard = CGRectGetMaxY(frameInWindow) - keyboardTop;
-            break;
+    if (([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] == NSOrderedAscending)) {
+        
+        switch (orientation) {
+            case UIInterfaceOrientationLandscapeLeft:
+                keyboardTop = windowBounds.size.width - keyboardSize.width;
+                heightCoveredByKeyboard = CGRectGetMaxX(frameInWindow) - keyboardTop;
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                keyboardTop = windowBounds.size.width - keyboardSize.width;
+                heightCoveredByKeyboard = windowBounds.size.width - frameInWindow.origin.x - keyboardTop;
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                keyboardTop = windowBounds.size.height - keyboardSize.height;
+                heightCoveredByKeyboard = windowBounds.size.height - frameInWindow.origin.y - keyboardTop;
+                break;
+            default:
+                keyboardTop = windowBounds.size.height - keyboardSize.height;
+                heightCoveredByKeyboard = CGRectGetMaxY(frameInWindow) - keyboardTop;
+                break;
+        }
+    } else {
+        //Apple switched the window bounds to match orientation in iOS8
+        keyboardTop = windowBounds.size.height - keyboardSize.height;
+        heightCoveredByKeyboard = windowBounds.size.height - frameInWindow.origin.y - keyboardTop;
+
     }
     
     return MAX(0.0f,heightCoveredByKeyboard);
