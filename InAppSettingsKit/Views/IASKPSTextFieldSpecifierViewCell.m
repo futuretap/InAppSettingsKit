@@ -26,12 +26,12 @@
 		self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleRightMargin;
 
         // TextField
-        _textField = [[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, self.frame.size.height)];
-        _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
-        _textField.font = [UIFont systemFontOfSize:17.0f];
-        _textField.minimumFontSize = kIASKMinimumFontSize;
-        IASK_IF_PRE_IOS7(_textField.textColor = [UIColor colorWithRed:0.275f green:0.376f blue:0.522f alpha:1.000f];);
-        [self.contentView addSubview:_textField];
+        self.textField = [[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, self.frame.size.height)];
+        self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
+        self.textField.font = [UIFont systemFontOfSize:17.0f];
+        self.textField.minimumFontSize = kIASKMinimumFontSize;
+        IASK_IF_PRE_IOS7(self.textField.textColor = [UIColor colorWithRed:0.275f green:0.376f blue:0.522f alpha:1.000f];);
+        [self.contentView addSubview:self.textField];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone; 
     }
@@ -48,19 +48,19 @@
     self.textLabel.frame = (CGRect){self.textLabel.frame.origin, {MIN(kIASKMaxLabelWidth, labelSize.width), self.textLabel.frame.size.height}} ;
 
     // TextField
-    _textField.center = CGPointMake(_textField.center.x, self.contentView.center.y);
-	CGRect textFieldFrame = _textField.frame;
+    self.textField.center = CGPointMake(self.textField.center.x, self.contentView.center.y);
+	CGRect textFieldFrame = self.textField.frame;
 	textFieldFrame.origin.x = self.textLabel.frame.origin.x + MAX(kIASKMinLabelWidth - imageOffset, self.textLabel.frame.size.width) + kIASKSpacing;
-	textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
+	textFieldFrame.size.width = self.textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
 	
 	if (!self.textLabel.text.length) {
 		textFieldFrame.origin.x = kIASKPaddingLeft + imageOffset;
 		textFieldFrame.size.width = self.contentView.bounds.size.width - 2* kIASKPaddingLeft - imageOffset;
-	} else if (_textField.textAlignment == NSTextAlignmentRight) {
+	} else if (self.textField.textAlignment == NSTextAlignmentRight) {
 		textFieldFrame.origin.x = self.textLabel.frame.origin.x + labelSize.width + kIASKSpacing;
-		textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
+		textFieldFrame.size.width = self.textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
 	}
-	_textField.frame = textFieldFrame;
+	self.textField.frame = textFieldFrame;
 }
 
 @end

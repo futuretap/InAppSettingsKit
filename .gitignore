@@ -7,3 +7,4 @@ InAppSettingsKitSampleApp/build/**
 .DS_Store
 .svn
 /InAppSettingsKit.xcworkspace/xcuserdata/
+*.xccheckout

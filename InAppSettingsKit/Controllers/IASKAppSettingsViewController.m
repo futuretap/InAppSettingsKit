@@ -25,6 +25,7 @@
 #import "IASKSlider.h"
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
+#import "IASKTextEditorViewController.h"
 #import "IASKTextField.h"
 
 #if !__has_feature(objc_arc)
@@ -459,6 +460,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
 	}
+	else if ([identifier isEqualToString:kIASKTextViewSpecifier]) {
+        cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kIASKTextViewSpecifier];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	}
 	else if ([identifier isEqualToString:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
@@ -551,6 +556,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.textAlignment = specifier.textAlignment;
 		textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	}
+	else if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
+		cell.textLabel.text = specifier.title;
+		NSString *textValue = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
+		if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
+			textValue = [NSString stringWithFormat:@"%@", textValue];
+		}
+		cell.detailTextLabel.text = textValue;
+	}
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
 			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.minimumValueImage]];
@@ -584,7 +597,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	cell.imageView.image = specifier.cellImage;
 	cell.imageView.highlightedImage = specifier.highlightedCellImage;
     
-	if (![specifier.type isEqualToString:kIASKPSMultiValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTitleValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
+	if (![specifier.type isEqualToString:kIASKPSMultiValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTitleValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTextFieldSpecifier] && ![specifier.type isEqualToString:kIASKTextViewSpecifier]) {
 		cell.textLabel.textAlignment = specifier.textAlignment;
 	}
 	cell.detailTextLabel.textAlignment = specifier.textAlignment;
@@ -628,7 +641,16 @@ CGRect IASKCGRectSwap(CGRect rect);
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
         [textFieldCell.textField becomeFirstResponder];
 
-    } else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
+    } else if ([[specifier type] isEqualToString:kIASKTextViewSpecifier]) {
+		IASKTextEditorViewController *targetViewController = [[IASKTextEditorViewController alloc] init];
+        [targetViewController setCurrentSpecifier:specifier];
+        targetViewController.settingsReader = self.settingsReader;
+        targetViewController.settingsStore = self.settingsStore;
+		targetViewController.view.tintColor = self.view.tintColor;
+        _currentChildViewController = targetViewController;
+        [[self navigationController] pushViewController:targetViewController animated:YES];
+        
+	} else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
         if ([specifier viewControllerStoryBoardID]){
             NSString *storyBoardFileFromSpecifier = [specifier viewControllerStoryBoardFile];
             storyBoardFileFromSpecifier = storyBoardFileFromSpecifier && storyBoardFileFromSpecifier.length > 0 ? storyBoardFileFromSpecifier : @"MainStoryboard";

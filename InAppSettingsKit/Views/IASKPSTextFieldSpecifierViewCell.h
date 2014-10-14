@@ -20,6 +20,6 @@
 
 @interface IASKPSTextFieldSpecifierViewCell : UITableViewCell
 
-@property (nonatomic, strong) IASKTextField *textField;
+@property (nonatomic, strong) IASKTextField * textField;
 
 @end
