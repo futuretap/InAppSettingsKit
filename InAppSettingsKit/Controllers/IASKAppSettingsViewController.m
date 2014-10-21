@@ -222,8 +222,6 @@ CGRect IASKCGRectSwap(CGRect rect);
         _hiddenKeys = theHiddenKeys;
         
         if (animated) {			
-            [self.tableView beginUpdates];
-            
             NSMutableSet *showKeys = [NSMutableSet setWithSet:oldHiddenKeys];
             [showKeys minusSet:theHiddenKeys];
             
@@ -248,7 +246,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                         rowsInSection++;
                     }
                 }
-                if (rowsInSection >= [self.settingsReader numberOfRowsForSection:section]) {
+                if (rowsInSection && rowsInSection >= [self.settingsReader numberOfRowsForSection:section]) {
                     [hideSections addIndex:section];
                 }
             }
@@ -275,23 +273,34 @@ CGRect IASKCGRectSwap(CGRect rect);
                         rowsInSection++;
                     }
                 }
-                if (rowsInSection >= [self.settingsReader numberOfRowsForSection:section]) {
+                if (rowsInSection && rowsInSection >= [self.settingsReader numberOfRowsForSection:section]) {
                     [showSections addIndex:section];
                 }
-            }
-            
-            UITableViewRowAnimation animation = animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone;
-            [self.tableView deleteSections:hideSections withRowAnimation:animation];
-            [self.tableView deleteRowsAtIndexPaths:hideIndexPaths withRowAnimation:animation];
-            [self.tableView insertSections:showSections withRowAnimation:animation];
-            [self.tableView insertRowsAtIndexPaths:showIndexPaths withRowAnimation:animation];
-            [self.tableView endUpdates];
-        } else {
-            self.settingsReader.hiddenKeys = theHiddenKeys;
-            if (!_reloadDisabled) [self.tableView reloadData];
-        }
-    }
-    UIViewController *childViewController = _currentChildViewController;
+			}
+			
+			if (hideSections.count || hideIndexPaths.count || showSections.count || showIndexPaths.count) {
+				[self.tableView beginUpdates];
+				UITableViewRowAnimation animation = animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone;
+				if (hideSections.count) {
+					[self.tableView deleteSections:hideSections withRowAnimation:animation];
+				}
+				if (hideIndexPaths) {
+					[self.tableView deleteRowsAtIndexPaths:hideIndexPaths withRowAnimation:animation];
+				}
+				if (showSections.count) {
+					[self.tableView insertSections:showSections withRowAnimation:animation];
+				}
+				if (showIndexPaths) {
+					[self.tableView insertRowsAtIndexPaths:showIndexPaths withRowAnimation:animation];
+				}
+				[self.tableView endUpdates];
+			}
+		} else {
+			self.settingsReader.hiddenKeys = theHiddenKeys;
+			if (!_reloadDisabled) [self.tableView reloadData];
+		}
+	}
+	UIViewController *childViewController = _currentChildViewController;
     if([childViewController respondsToSelector:@selector(setHiddenKeys:animated:)]) {
         [(id)childViewController setHiddenKeys:theHiddenKeys animated:animated];
     }
