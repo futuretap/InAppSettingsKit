@@ -20,7 +20,6 @@
 #import "IASKSettingsStoreUserDefaults.h"
 #import "IASKPSSliderSpecifierViewCell.h"
 #import "IASKPSTextFieldSpecifierViewCell.h"
-#import "IASKPSTitleValueSpecifierViewCell.h"
 #import "IASKSwitch.h"
 #import "IASKSlider.h"
 #import "IASKSpecifier.h"
@@ -193,6 +192,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
 	[dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
 	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
+
+	[self.tableView beginUpdates];
+	[self.tableView endUpdates];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -377,7 +379,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 			return 0;
 		}
 	}
-	return tableView.rowHeight;
+	IASK_IF_IOS7_OR_GREATER
+	(
+	 NSDictionary *rowHeights = @{UIContentSizeCategoryExtraSmall: @(44),
+								  UIContentSizeCategorySmall: @(44),
+								  UIContentSizeCategoryMedium: @(44),
+								  UIContentSizeCategoryLarge: @(44),
+								  UIContentSizeCategoryExtraLarge: @(47)};
+	 return (CGFloat)[rowHeights[UIApplication.sharedApplication.preferredContentSizeCategory] doubleValue] ? : 51;
+	);
+	return 44;
 }
 
 - (NSString *)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
@@ -404,25 +415,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		
 	}
-	NSString *title = [self tableView:tableView titleForHeaderInSection:section];
-	if ([title length] > 0) {
-		CGSize size = CGSizeZero;
-		IASK_IF_PRE_IOS7
-		(
-		 size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]]
-                  constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
-					  lineBreakMode:NSLineBreakByWordWrapping];
-		 );
-		IASK_IF_IOS7_OR_GREATER
-		(
-		 size = [title boundingRectWithSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
-									options:NSStringDrawingUsesLineFragmentOrigin
-								 attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:[UIFont labelFontSize]]}
-									context:nil].size;
-		);
-		return roundf(size.height+kIASKVerticalPaddingGroupTitles);
-	}
-	return 0;
+	return UITableViewAutomaticDimension;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
@@ -452,7 +445,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSMultiValueSpecifier] || [identifier isEqualToString:kIASKPSTitleValueSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = [identifier isEqualToString:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
 	else if ([identifier isEqualToString:kIASKPSTextFieldSpecifier]) {
@@ -462,10 +455,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 	else if ([identifier isEqualToString:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
 	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
-		cell = [[IASKPSTitleValueSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];

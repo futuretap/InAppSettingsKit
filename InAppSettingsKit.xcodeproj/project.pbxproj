@@ -17,7 +17,6 @@
 		E401BD4316820A2400EAF534 /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD11682036500295D85 /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD4416820A2D00EAF534 /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD41682036500295D85 /* IASKPSSliderSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD4516820A2D00EAF534 /* IASKPSTextFieldSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD61682036500295D85 /* IASKPSTextFieldSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E401BD4616820A2D00EAF534 /* IASKPSTitleValueSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD81682036500295D85 /* IASKPSTitleValueSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD4716820A2D00EAF534 /* IASKSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADADA1682036500295D85 /* IASKSlider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD4816820A2D00EAF534 /* IASKSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADADC1682036500295D85 /* IASKSwitch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD4916820A2D00EAF534 /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADADE1682036500295D85 /* IASKTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,7 +38,6 @@
 		E4EDC5A416820D9500BD3CA9 /* IASKSettingsStoreFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD21682036500295D85 /* IASKSettingsStoreFile.m */; };
 		E4EDC5A516820D9500BD3CA9 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD51682036500295D85 /* IASKPSSliderSpecifierViewCell.m */; };
 		E4EDC5A616820D9500BD3CA9 /* IASKPSTextFieldSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD71682036500295D85 /* IASKPSTextFieldSpecifierViewCell.m */; };
-		E4EDC5A716820D9500BD3CA9 /* IASKPSTitleValueSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD91682036500295D85 /* IASKPSTitleValueSpecifierViewCell.m */; };
 		E4EDC5A816820D9500BD3CA9 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADB1682036500295D85 /* IASKSlider.m */; };
 		E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADD1682036500295D85 /* IASKSwitch.m */; };
 		E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADF1682036500295D85 /* IASKTextField.m */; };
@@ -89,8 +87,6 @@
 		E42ADAD51682036500295D85 /* IASKPSSliderSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSSliderSpecifierViewCell.m; sourceTree = "<group>"; };
 		E42ADAD61682036500295D85 /* IASKPSTextFieldSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTextFieldSpecifierViewCell.h; sourceTree = "<group>"; };
 		E42ADAD71682036500295D85 /* IASKPSTextFieldSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTextFieldSpecifierViewCell.m; sourceTree = "<group>"; };
-		E42ADAD81682036500295D85 /* IASKPSTitleValueSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKPSTitleValueSpecifierViewCell.h; sourceTree = "<group>"; };
-		E42ADAD91682036500295D85 /* IASKPSTitleValueSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKPSTitleValueSpecifierViewCell.m; sourceTree = "<group>"; };
 		E42ADADA1682036500295D85 /* IASKSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSlider.h; sourceTree = "<group>"; };
 		E42ADADB1682036500295D85 /* IASKSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSlider.m; sourceTree = "<group>"; };
 		E42ADADC1682036500295D85 /* IASKSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKSwitch.h; sourceTree = "<group>"; };
@@ -248,8 +244,6 @@
 				E42ADAD51682036500295D85 /* IASKPSSliderSpecifierViewCell.m */,
 				E42ADAD61682036500295D85 /* IASKPSTextFieldSpecifierViewCell.h */,
 				E42ADAD71682036500295D85 /* IASKPSTextFieldSpecifierViewCell.m */,
-				E42ADAD81682036500295D85 /* IASKPSTitleValueSpecifierViewCell.h */,
-				E42ADAD91682036500295D85 /* IASKPSTitleValueSpecifierViewCell.m */,
 				E42ADADA1682036500295D85 /* IASKSlider.h */,
 				E42ADADB1682036500295D85 /* IASKSlider.m */,
 				E42ADADC1682036500295D85 /* IASKSwitch.h */,
@@ -345,7 +339,6 @@
 				E401BD4316820A2400EAF534 /* IASKSettingsStoreFile.h in Headers */,
 				E401BD4416820A2D00EAF534 /* IASKPSSliderSpecifierViewCell.h in Headers */,
 				E401BD4516820A2D00EAF534 /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
-				E401BD4616820A2D00EAF534 /* IASKPSTitleValueSpecifierViewCell.h in Headers */,
 				E401BD4716820A2D00EAF534 /* IASKSlider.h in Headers */,
 				E401BD4816820A2D00EAF534 /* IASKSwitch.h in Headers */,
 				E401BD4916820A2D00EAF534 /* IASKTextField.h in Headers */,
@@ -398,7 +391,7 @@
 		E42ADA87168202D700295D85 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = InAppSettingsKit;
 			};
 			buildConfigurationList = E42ADA8A168202D700295D85 /* Build configuration list for PBXProject "InAppSettingsKit" */;
@@ -462,7 +455,6 @@
 				E4EDC5A416820D9500BD3CA9 /* IASKSettingsStoreFile.m in Sources */,
 				E4EDC5A516820D9500BD3CA9 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				E4EDC5A616820D9500BD3CA9 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
-				E4EDC5A716820D9500BD3CA9 /* IASKPSTitleValueSpecifierViewCell.m in Sources */,
 				E4EDC5A816820D9500BD3CA9 /* IASKSlider.m in Sources */,
 				E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */,
 				E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */,
@@ -506,6 +498,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4A95F30177DB25C00FF0906 /* Debug.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
@@ -517,6 +511,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4A95F32177DB25C00FF0906 /* Release.xcconfig */;
 			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 			};

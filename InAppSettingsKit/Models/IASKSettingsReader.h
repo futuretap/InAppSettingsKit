@@ -99,7 +99,7 @@
 #define kIASKSliderNoImagesPadding            11
 #define kIASKSliderImagesPadding              43
 
-#define kIASKSpacing                          5
+#define kIASKSpacing                          8
 #define kIASKMinLabelWidth                    97
 #define kIASKMaxLabelWidth                    240
 #define kIASKMinValueWidth                    35
