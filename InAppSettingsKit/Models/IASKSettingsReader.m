@@ -51,7 +51,21 @@
                 self.localizationTable = @"Root";
             }
         }
-        
+		
+		self.showPrivacySettings = NO;
+		IASK_IF_IOS8_OR_GREATER
+		(
+		 NSArray *privacyRelatedInfoPlistKeys = @[@"NSBluetoothPeripheralUsageDescription", @"NSCalendarsUsageDescription", @"NSCameraUsageDescription", @"NSContactsUsageDescription", @"NSLocationAlwaysUsageDescription", @"NSLocationUsageDescription", @"NSLocationWhenInUseUsageDescription", @"NSMicrophoneUsageDescription", @"NSMotionUsageDescription", @"NSPhotoLibraryUsageDescription", @"NSRemindersUsageDescription", @"NSHealthShareUsageDescription", @"NSHealthUpdateUsageDescription"];
+		 NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+		 if ([fileName isEqualToString:@"Root"]) {
+			 for (NSString* key in privacyRelatedInfoPlistKeys) {
+				 if (infoDictionary[key]) {
+					 self.showPrivacySettings = YES;
+					 break;
+				 }
+			 }
+		 }
+		 );
         if (self.settingsDictionary) {
             [self _reinterpretBundle:self.settingsDictionary];
         }
@@ -77,12 +91,37 @@
     }
 }
 
+- (void)setShowPrivacySettings:(BOOL)showPrivacySettings {
+	if (_showPrivacySettings != showPrivacySettings) {
+		_showPrivacySettings = showPrivacySettings;
+		[self _reinterpretBundle:self.settingsDictionary];
+	}
+}
+
+- (NSArray*)privacySettingsSpecifiers {
+	NSMutableDictionary *dict = [@{kIASKTitle: NSLocalizedStringFromTable(@"Privacy", @"IASKLocalizable", @"iOS 8+ Privacy cell: title"),
+								   kIASKKey: @"IASKPrivacySettingsCellKey",
+								   kIASKType: kIASKOpenURLSpecifier,
+								   kIASKFile: UIApplicationOpenSettingsURLString,
+								   } mutableCopy];
+	NSString *subtitle = NSLocalizedStringWithDefaultValue(@"Open in Settings app", @"IASKLocalizable", [NSBundle mainBundle], @"", @"iOS 8+ Privacy cell: subtitle");
+	if (subtitle.length) {
+		dict [kIASKSubtitle] = subtitle;
+	}
+	
+	return @[@[@{kIASKKey: @"IASKPrivacySettingsHeaderKey", kIASKType: kIASKPSGroupSpecifier},
+			   [[IASKSpecifier alloc] initWithSpecifier:dict]]];
+}
 
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
     NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
-    NSInteger sectionCount			= -1;
+    NSInteger sectionIndex			= -1;
     NSMutableArray *dataSource		= [NSMutableArray new];
-    
+	
+	if (self.showPrivacySettings) {
+		[dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
+	}
+	
     for (NSDictionary *specifier in preferenceSpecifiers) {
         if ([self.hiddenKeys containsObject:[specifier objectForKey:kIASKKey]]) {
             continue;
@@ -92,17 +131,17 @@
             
             [newArray addObject:specifier];
             [dataSource addObject:newArray];
-            sectionCount++;
+            sectionIndex++;
         }
         else {
-            if (sectionCount == -1) {
+            if (sectionIndex == -1) {
                 NSMutableArray *newArray = [[NSMutableArray alloc] init];
                 [dataSource addObject:newArray];
-                sectionCount++;
+                sectionIndex++;
             }
             
             IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier];
-            [(NSMutableArray*)[dataSource objectAtIndex:sectionCount] addObject:newSpecifier];
+            [(NSMutableArray*)[dataSource objectAtIndex:sectionIndex + self.showPrivacySettings] addObject:newSpecifier];
         }
     }
     [self setDataSource:dataSource];
@@ -113,7 +152,7 @@
 }
 
 - (NSInteger)numberOfSections {
-    return [[self dataSource] count];
+    return self.dataSource.count;
 }
 
 - (NSInteger)numberOfRowsForSection:(NSInteger)section {

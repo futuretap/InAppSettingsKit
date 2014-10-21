@@ -66,6 +66,7 @@
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) BOOL showDoneButton;
 @property (nonatomic, retain) NSSet *hiddenKeys;
+@property (nonatomic) BOOL neverShowPrivacySettings;
 
 - (void)synchronizeSettings;
 - (void)dismiss:(id)sender;

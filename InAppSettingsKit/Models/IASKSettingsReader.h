@@ -122,6 +122,10 @@
 #define kCFCoreFoundationVersionNumber_iOS_7_0 843.00
 #endif
 
+#ifndef kCFCoreFoundationVersionNumber_iOS_8_0
+#define kCFCoreFoundationVersionNumber_iOS_8_0 1129.150000
+#endif
+
 #ifdef __IPHONE_6_0
 #define IASK_IF_IOS6_OR_GREATER(...) \
 if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_6_0) \
@@ -166,6 +170,16 @@ __VA_ARGS__ \
 _Pragma("clang diagnostic pop")
 #else
 #define IASK_IF_PRE_IOS7(...)  __VA_ARGS__
+#endif
+
+#ifdef __IPHONE_8_0
+#define IASK_IF_IOS8_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IASK_IF_IOS8_OR_GREATER(...)
 #endif
 
 
@@ -215,6 +229,7 @@ _Pragma("clang diagnostic pop")
 @property (nonatomic, retain) NSString      *localizationTable;
 @property (nonatomic, retain) NSArray       *dataSource;
 @property (nonatomic, retain) NSSet         *hiddenKeys;
+@property (nonatomic) BOOL					showPrivacySettings;
 
 
 #pragma mark - internal use. public only for testing

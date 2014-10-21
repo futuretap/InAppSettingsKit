@@ -75,6 +75,15 @@ In summary, the plists are searched in this order:
 Different in-app settings are useful in a variety of situations. For example, [Where To?](http://www.futuretap.com/whereto) uses this mechanism to change the wording of "At next start" (for resetting confirmation dialogs) to be appropriate if the app is already running.
 
 
+iOS 8+: Privacy link
+--------------------
+On iOS 8.0 or newer, if the app includes a usage key for various privacy features such as camera or location access in its `Info.plist`, IASK displays a "Privacy" cell at the top of the root settings page. This cell opens the system Settings app and displays the settings pane for the app where the user can specify the privacy settings for the app.
+
+This behavior can be disabled by setting `neverShowPrivacySettings` to `NO`.
+
+The sample app defines `NSMicrophoneUsageDescription` to let the cell appear. Note that the settings page doesn't show any privacy settings yet because the app doesn't actually access the microphone. Privacy settings only show up in the Settings app after first use of the privacy-protected API.
+
+
 IASKOpenURLSpecifier
 --------------------
 InAppSettingsKit adds a new element that allows to open a specified URL using an external application (i.e. Safari or Mail). See the sample `Root.inApp.plist` for details.
@@ -142,6 +151,11 @@ For child pane elements (`PSChildPaneSpecifier`), Apple requires a `file` key th
 ##### Using Custom ViewControllers from StoryBoard
 Alternatively specify `IASKViewControllerStoryBoardId` to initiate a viewcontroller from [main storyboard](https://developer.apple.com/library/ios/documentation/general/conceptual/Devpedia-CocoaApp/Storyboard.html/).
 Specifiy `IASKViewControllerStoryBoardFile` to use a story board other than MainStoryboard file.
+
+
+Subtitles
+---------
+The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button.
 
 
 Text alignment
