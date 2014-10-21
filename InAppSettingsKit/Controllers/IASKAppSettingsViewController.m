@@ -167,10 +167,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(userDefaultsDidChange)
-													 name:NSUserDefaultsDidChangeNotification
-												   object:[NSUserDefaults standardUserDefaults]];
+		NSNotificationCenter *dc = NSNotificationCenter.defaultCenter;
+		[dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+		[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:self];
 		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
 	}
 	[super viewWillAppear:animated];
@@ -204,6 +203,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)viewDidDisappear:(BOOL)animated {
 	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
 	[dc removeObserver:self name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+	[dc removeObserver:self name:kIASKAppSettingChanged object:self];
 	[dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
 	[dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
 	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
@@ -666,8 +666,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         _currentChildViewController = targetViewController;
         
         _reloadDisabled = NO;
-        [self.tableView reloadData];
-        
+		
         [[self navigationController] pushViewController:targetViewController animated:YES];
         
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
@@ -816,28 +815,34 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 static NSDictionary *oldUserDefaults = nil;
 - (void)userDefaultsDidChange {
-	NSDictionary *currentDict = [NSUserDefaults standardUserDefaults].dictionaryRepresentation;
-	NSMutableArray *indexPathsToUpdate = [NSMutableArray array];
-	for (NSString *key in currentDict.allKeys) {
-		if (![[oldUserDefaults valueForKey:key] isEqual:[currentDict valueForKey:key]]) {
-			NSIndexPath *path = [self.settingsReader indexPathForKey:key];
-			if (path && ![[self.settingsReader specifierForKey:key].type isEqualToString:kIASKCustomViewSpecifier]) {
-				[indexPathsToUpdate addObject:path];
+	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+		NSDictionary *currentDict = [NSUserDefaults standardUserDefaults].dictionaryRepresentation;
+		NSMutableArray *indexPathsToUpdate = [NSMutableArray array];
+		for (NSString *key in currentDict.allKeys) {
+			if (oldUserDefaults && ![[oldUserDefaults valueForKey:key] isEqual:[currentDict valueForKey:key]]) {
+				NSIndexPath *path = [self.settingsReader indexPathForKey:key];
+				if (path && ![[self.settingsReader specifierForKey:key].type isEqualToString:kIASKCustomViewSpecifier]) {
+					[indexPathsToUpdate addObject:path];
+				}
 			}
 		}
-	}
-	oldUserDefaults = currentDict;
-	
-	for (UITableViewCell *cell in self.tableView.visibleCells) {
-		if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder]) {
-			[indexPathsToUpdate removeObject:[self.tableView indexPathForCell:cell]];
+		oldUserDefaults = currentDict;
+		
+		for (UITableViewCell *cell in self.tableView.visibleCells) {
+			if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder]) {
+				[indexPathsToUpdate removeObject:[self.tableView indexPathForCell:cell]];
+			}
 		}
-	}
-	if (indexPathsToUpdate.count) {
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-			[self.tableView reloadRowsAtIndexPaths:indexPathsToUpdate withRowAnimation:UITableViewRowAnimationNone];
-		});
-	}
+		if (indexPathsToUpdate.count) {
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				[self.tableView reloadRowsAtIndexPaths:indexPathsToUpdate withRowAnimation:UITableViewRowAnimationNone];
+			});
+		}
+	});
+}
+
+- (void)didChangeSettingViaIASK:(NSNotification*)notification {
+	[oldUserDefaults setValue:[self.settingsStore objectForKey:notification.object] forKey:notification.object];
 }
 
 - (void)reload {
