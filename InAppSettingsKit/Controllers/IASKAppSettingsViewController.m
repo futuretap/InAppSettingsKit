@@ -142,14 +142,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     [self.tableView addGestureRecognizer:tapGesture];
 }
 
-- (void)viewDidUnload {
-  [super viewDidUnload];
-
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-	self.view = nil;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
 	// if there's something selected, the value might have changed
 	// so reload that row
@@ -214,10 +206,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
 
 	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
 }
 
 - (void)setHiddenKeys:(NSSet *)theHiddenKeys {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0610"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E42ADAA1168202D700295D85"
-               BuildableName = "InAppSettingsKitTests.octest"
+               BuildableName = "InAppSettingsKitTests.xctest"
                BlueprintName = "InAppSettingsKitTests"
                ReferencedContainer = "container:InAppSettingsKit.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E42ADAA1168202D700295D85"
-               BuildableName = "InAppSettingsKitTests.octest"
+               BuildableName = "InAppSettingsKitTests.xctest"
                BlueprintName = "InAppSettingsKitTests"
                ReferencedContainer = "container:InAppSettingsKit.xcodeproj">
             </BuildableReference>
@@ -49,6 +49,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E42ADAA1168202D700295D85"
+            BuildableName = "InAppSettingsKitTests.xctest"
+            BlueprintName = "InAppSettingsKitTests"
+            ReferencedContainer = "container:InAppSettingsKit.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

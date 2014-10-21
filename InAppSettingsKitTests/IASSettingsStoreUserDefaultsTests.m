@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 InAppSettingsKit. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "IASKSettingsStoreUserDefaults.h"
 
-@interface IASSettingsStoreUserDefaultsTests : SenTestCase
+@interface IASSettingsStoreUserDefaultsTests : XCTestCase
 
 @end
 
@@ -30,12 +30,12 @@
 - (void)testStoreSetsCustomDefaults {
     id myObject = [NSObject new];
     IASKSettingsStoreUserDefaults* store = [[IASKSettingsStoreUserDefaults alloc] initWithUserDefaults:myObject];
-    STAssertEqualObjects(myObject, store.defaults, @"custom defaults not stored");
+    XCTAssertEqualObjects(myObject, store.defaults, @"custom defaults not stored");
 }
 
 - (void)testStoreUsesStandardDefaults {
     IASKSettingsStoreUserDefaults* store = [[IASKSettingsStoreUserDefaults alloc] init];
-    STAssertEqualObjects([NSUserDefaults standardUserDefaults], store.defaults, @"custom defaults not stored");
+    XCTAssertEqualObjects([NSUserDefaults standardUserDefaults], store.defaults, @"custom defaults not stored");
 }
 
 @end

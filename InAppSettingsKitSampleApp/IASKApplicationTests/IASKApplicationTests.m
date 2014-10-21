@@ -6,9 +6,9 @@
 //
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
-@interface IASKApplicationTests : SenTestCase
+@interface IASKApplicationTests : XCTestCase
 
 @end
 
@@ -30,7 +30,7 @@
 
 - (void)testExample
 {
-    STFail(@"Unit tests are not implemented yet in IASKApplicationTests");
+//    XCTFail(@"Unit tests are not implemented yet in IASKApplicationTests");
 }
 
 @end

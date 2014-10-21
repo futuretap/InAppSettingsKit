@@ -54,10 +54,6 @@
 	[self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
-}
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 	self.navigationItem.rightBarButtonItem = nil;
 	self.title = self.customTitle.length ? self.customTitle : [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
