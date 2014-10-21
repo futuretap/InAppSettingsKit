@@ -67,6 +67,10 @@
     return [self localizedObjectForKey:kIASKTitle];
 }
 
+- (NSString*)subtitle {
+	return [self localizedObjectForKey:kIASKSubtitle];
+}
+
 - (NSString*)footerText {
     return [self localizedObjectForKey:kIASKFooterText];
 }
