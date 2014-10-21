@@ -462,6 +462,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+
+		if ([identifier isEqualToString:kIASKOpenURLSpecifier]) {
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		}
 	}
 	IASK_IF_PRE_IOS6(cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
 					 cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;);
