@@ -1,6 +1,6 @@
 {
   "name": "InAppSettingsKit",
-  "version": "2.2",
+  "version": "2.2.1",
   "platforms": {
     "ios": "6.0"
   },
@@ -13,10 +13,10 @@
   "license": "BSD",
   "source": {
     "git": "https://github.com/futuretap/InAppSettingsKit.git",
-    "tag": "2.2"
+    "tag": "2.2.1"
   },
   "source_files": "InAppSettingsKit/**/*.{h,m}",
-  "resources": "InAppSettingsKit/**/*.{strings}",
+  "resources": "InAppSettingsKit/**/*.{lproj}",
   "frameworks": "MessageUI",
   "requires_arc": true
 }
