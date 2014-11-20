@@ -141,7 +141,10 @@
             }
             
             IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier];
-            [(NSMutableArray*)[dataSource objectAtIndex:sectionIndex + self.showPrivacySettings] addObject:newSpecifier];
+            if ([newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
+                [(NSMutableArray *) [dataSource objectAtIndex:sectionIndex +
+                    self.showPrivacySettings] addObject:newSpecifier];
+            }
         }
     }
     [self setDataSource:dataSource];
