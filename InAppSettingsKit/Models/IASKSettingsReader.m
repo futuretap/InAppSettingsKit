@@ -115,7 +115,6 @@
 
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
     NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
-    NSInteger sectionIndex			= -1;
     NSMutableArray *dataSource		= [NSMutableArray new];
 	
 	if (self.showPrivacySettings) {
@@ -131,19 +130,16 @@
             
             [newArray addObject:specifier];
             [dataSource addObject:newArray];
-            sectionIndex++;
         }
         else {
-            if (sectionIndex == -1) {
+            if (dataSource.count == 0) {
                 NSMutableArray *newArray = [[NSMutableArray alloc] init];
                 [dataSource addObject:newArray];
-                sectionIndex++;
             }
             
             IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier];
             if ([newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
-                [(NSMutableArray *) [dataSource objectAtIndex:sectionIndex +
-                    self.showPrivacySettings] addObject:newSpecifier];
+                [(NSMutableArray*)dataSource.lastObject addObject:newSpecifier];
             }
         }
     }
