@@ -41,9 +41,14 @@
 - (void)_reinterpretValues:(NSDictionary*)specifierDict {
     NSArray *values = [_specifierDict objectForKey:kIASKValues];
     NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
+	[self setMultipleValuesDictValues:values andTitles:titles];
+}
+
+-(void)setMultipleValuesDictValues:(NSArray *)values andTitles:(NSArray *)titles
+{
     NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
     NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
-    
+   
     if (values) {
 		[multipleValuesDict setObject:values forKey:kIASKValues];
 	}

@@ -510,6 +510,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if ([specifier.type isEqualToString:kIASKPSMultiValueSpecifier]) {
 		cell.textLabel.text = specifier.title;
+		[self setMultiValuesFromDelegateIfNeeded:specifier];
 		cell.detailTextLabel.text = [[specifier titleForCurrentValue:[self.settingsStore objectForKey:specifier.key] != nil ? 
 									  [self.settingsStore objectForKey:specifier.key] : specifier.defaultValue] description];
 	}
@@ -619,6 +620,9 @@ CGRect IASKCGRectSwap(CGRect rect);
     
     if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
         IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] init];
+
+        [self setMultiValuesFromDelegateIfNeeded:specifier];
+
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
@@ -865,6 +869,22 @@ static NSDictionary *oldUserDefaults = nil;
 	// wait 0.5 sec until UI is available after applicationWillEnterForeground
 	[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
 }
+
+-(void)setMultiValuesFromDelegateIfNeeded:(IASKSpecifier *)specifier
+{
+	if (specifier.multipleValues.count == 0)
+	{
+		NSLog(@"need to init from delegate");
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)] &&
+			[self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)])
+		{
+
+			[specifier setMultipleValuesDictValues:[self.delegate settingsViewController:self valuesForSpecifier:specifier]
+										 andTitles:[self.delegate settingsViewController:self titlesForSpecifier:specifier]];
+		}
+	}
+}
+
 
 #pragma mark CGRect Utility function
 CGRect IASKCGRectSwap(CGRect rect) {
