@@ -117,7 +117,7 @@
 	if (values.count != titles.count) {
 		return nil;
 	}
-    NSInteger keyIndex = [values indexOfObject:currentValue];
+    NSInteger keyIndex = [self multipleValuesIndexOfValue:currentValue];
 	if (keyIndex == NSNotFound) {
 		return nil;
 	}
@@ -127,6 +127,20 @@
 	}
 	@catch (NSException * e) {}
 	return nil;
+}
+
+- (NSInteger)multipleValuesIndexOfValue:(id)value {
+    // Apple's Settings.app ignores the type declared for values and will turn the "5" into @5 e.g.
+    // So we have to convert everything to strings before comparing.
+    NSString *stringValue = [value description];
+    int i = 0;
+    for (id possibleValue in [self multipleValues]) {
+        if ([[possibleValue description] isEqualToString:stringValue]) {
+            return i;
+        }
+        i++;
+    }
+    return NSNotFound;
 }
 
 - (NSInteger)multipleValuesCount {
