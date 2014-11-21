@@ -210,6 +210,7 @@ __VA_ARGS__ \
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfRowsForSection:(NSInteger)section;
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
+- (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section;
 - (NSIndexPath*)indexPathForKey:(NSString*)key;
 - (IASKSpecifier*)specifierForKey:(NSString*)key;
 - (NSString*)titleForSection:(NSInteger)section;

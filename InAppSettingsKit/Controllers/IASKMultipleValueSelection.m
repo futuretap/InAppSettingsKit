@@ -5,7 +5,9 @@
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
 
-@implementation IASKMultipleValueSelection
+@implementation IASKMultipleValueSelection {
+    NSInteger _checkedIndex;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -27,14 +29,17 @@
     [self updateCheckedItem];
 }
 
+- (NSIndexPath *)checkedItem {
+    return [NSIndexPath indexPathForRow:_checkedIndex inSection:_section];;
+}
+
 - (void)updateCheckedItem {
     // Find the currently checked item
     id value = [self.settingsStore objectForKey:[_specifier key]];
     if (!value) {
         value = [_specifier defaultValue];
     }
-    NSInteger index = [[_specifier multipleValues] indexOfObject:value];
-    _checkedItem = [NSIndexPath indexPathForRow:index inSection:0];
+    _checkedIndex = [[_specifier multipleValues] indexOfObject:value];
 }
 
 - (id<IASKSettingsStore>)settingsStore {
@@ -58,7 +63,7 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self deselectCell:[self.tableView cellForRowAtIndexPath:self.checkedItem]];
     [self selectCell:[self.tableView cellForRowAtIndexPath:indexPath]];
-    _checkedItem = indexPath;
+    _checkedIndex = indexPath.row;
 
     [self.settingsStore setObject:[values objectAtIndex:indexPath.row] forKey:[_specifier key]];
     [self.settingsStore synchronize];

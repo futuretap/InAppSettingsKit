@@ -9,6 +9,7 @@
 
 @property (nonatomic, assign) UITableView *tableView;
 @property (nonatomic, retain) IASKSpecifier *specifier;
+@property (nonatomic, assign) NSInteger section;
 @property (nonatomic, copy, readonly) NSIndexPath *checkedItem;
 @property (nonatomic, strong) id<IASKSettingsStore> settingsStore;
 
