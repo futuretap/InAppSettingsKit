@@ -296,6 +296,22 @@
 	return NSTextAlignmentLeft;
 }
 
+- (NSArray *)userInterfaceIdioms {
+    NSArray *idiomStrings = _specifierDict[kIASKSupportedUserInterfaceIdioms];
+    if (idiomStrings.count == 0) {
+        return @[@(UIUserInterfaceIdiomPhone), @(UIUserInterfaceIdiomPad)];
+    }
+    NSMutableArray *idioms = [NSMutableArray new];
+    for (NSString *idiomString in idiomStrings) {
+        if ([idiomString isEqualToString:@"Phone"]) {
+            [idioms addObject:@(UIUserInterfaceIdiomPhone)];
+        } else if ([idiomString isEqualToString:@"Pad"]) {
+            [idioms addObject:@(UIUserInterfaceIdiomPad)];
+        }
+    }
+    return idioms;
+}
+
 - (id)valueForKey:(NSString *)key {
 	return [_specifierDict objectForKey:key];
 }
