@@ -79,6 +79,7 @@
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
 #define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"
 #define kIASKPSMultiValueSpecifier            @"PSMultiValueSpecifier"
+#define kIASKPSRadioGroupSpecifier            @"PSRadioGroupSpecifier"
 #define kIASKPSSliderSpecifier                @"PSSliderSpecifier"
 #define kIASKPSTitleValueSpecifier            @"PSTitleValueSpecifier"
 #define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"

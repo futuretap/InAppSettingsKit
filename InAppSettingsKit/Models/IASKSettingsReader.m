@@ -128,11 +128,22 @@
         if ([self.hiddenKeys containsObject:newSpecifier.key]) {
             continue;
         }
-        if ([newSpecifier.type isEqualToString:kIASKPSGroupSpecifier]) {
-            NSMutableArray *newArray = [[NSMutableArray alloc] init];
+        NSString *type = newSpecifier.type;
+        if ([type isEqualToString:kIASKPSGroupSpecifier]
+            || [type isEqualToString:kIASKPSRadioGroupSpecifier]) {
 
+            NSMutableArray *newArray = [[NSMutableArray alloc] init];
             [newArray addObject:newSpecifier];
             [dataSource addObject:newArray];
+
+            if ([type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+                for (NSString *value in newSpecifier.multipleValues) {
+                    IASKSpecifier *valueSpecifier =
+                        [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary radioGroupValue:value];
+                    valueSpecifier.settingsReader = self;
+                    [newArray addObject:valueSpecifier];
+                }
+            }
         }
         else {
             if (dataSource.count == 0) {
@@ -155,7 +166,11 @@
 /// Returns the specifier describing the section's header, or nil if there is no header.
 - (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section {
     IASKSpecifier *specifier = self.dataSource[section][kIASKSectionHeaderIndex];
-    return [specifier.type isEqualToString:kIASKPSGroupSpecifier] ? specifier : nil;
+    if ([specifier.type isEqualToString:kIASKPSGroupSpecifier]
+        || [specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+        return specifier;
+    }
+    return nil;
 }
 
 - (NSInteger)numberOfSections {

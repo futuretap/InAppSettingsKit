@@ -579,6 +579,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 			cell.textLabel.textColor = tableView.tintColor;
 		}
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+	} else if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+		NSInteger index = [specifier.multipleValues indexOfObject:specifier.radioGroupValue];
+		cell.textLabel.text = [self.settingsReader titleForStringId:specifier.multipleTitles[index]];
 	} else {
 		cell.textLabel.text = specifier.title;
 	}

@@ -25,6 +25,10 @@
 @property (nonatomic, weak) IASKSettingsReader *settingsReader;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
+/// A specifier for one entry in a radio group preceeded by a radio group specifier.
+- (id)initWithSpecifier:(NSDictionary *)specifier
+        radioGroupValue:(NSString *)radioGroupValue;
+
 - (NSString*)localizedObjectForKey:(NSString*)key;
 - (NSString*)title;
 - (NSString*)subtitle;
@@ -60,4 +64,5 @@
 - (BOOL)adjustsFontSizeToFitWidth;
 - (NSTextAlignment)textAlignment;
 - (NSArray *)userInterfaceIdioms;
+- (NSString *)radioGroupValue;
 @end
