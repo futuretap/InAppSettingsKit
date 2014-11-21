@@ -34,14 +34,12 @@
 @synthesize settingsStore = _settingsStore;
 
 - (void) updateCheckedItem {
-    NSInteger index;
-	
 	// Find the currently checked item
-    if([self.settingsStore objectForKey:[_currentSpecifier key]]) {
-      index = [[_currentSpecifier multipleValues] indexOfObject:[self.settingsStore objectForKey:[_currentSpecifier key]]];
-    } else {
-      index = [[_currentSpecifier multipleValues] indexOfObject:[_currentSpecifier defaultValue]];
+    id selectedValue = [self.settingsStore objectForKey:[_currentSpecifier key]];
+    if (!selectedValue) {
+        selectedValue = [_currentSpecifier defaultValue];
     }
+    NSInteger index = [_currentSpecifier multipleValuesIndexOfValue:selectedValue];
 	[self setCheckedItem:[NSIndexPath indexPathForRow:index inSection:0]];
 }
 

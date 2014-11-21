@@ -31,6 +31,7 @@
 - (NSString*)key;
 - (NSString*)type;
 - (NSString*)titleForCurrentValue:(id)currentValue;
+- (NSInteger)multipleValuesIndexOfValue:(id)value;
 - (NSInteger)multipleValuesCount;
 - (NSArray*)multipleValues;
 - (NSArray*)multipleTitles;
