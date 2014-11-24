@@ -169,7 +169,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
 		NSNotificationCenter *dc = NSNotificationCenter.defaultCenter;
 		[dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
-		[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:self];
+		[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:nil];
 		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
 	}
 	[super viewWillAppear:animated];
@@ -837,7 +837,7 @@ static NSDictionary *oldUserDefaults = nil;
 		for (NSString *key in currentDict.allKeys) {
 			if (oldUserDefaults && ![[oldUserDefaults valueForKey:key] isEqual:[currentDict valueForKey:key]]) {
 				NSIndexPath *path = [self.settingsReader indexPathForKey:key];
-				if (path && ![[self.settingsReader specifierForKey:key].type isEqualToString:kIASKCustomViewSpecifier]) {
+				if (path && ![[self.settingsReader specifierForKey:key].type isEqualToString:kIASKCustomViewSpecifier] && [self.tableView.indexPathsForVisibleRows containsObject:path]) {
 					[indexPathsToUpdate addObject:path];
 				}
 			}
@@ -850,9 +850,7 @@ static NSDictionary *oldUserDefaults = nil;
 			}
 		}
 		if (indexPathsToUpdate.count) {
-			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-				[self.tableView reloadRowsAtIndexPaths:indexPathsToUpdate withRowAnimation:UITableViewRowAnimationNone];
-			});
+			[self.tableView reloadRowsAtIndexPaths:indexPathsToUpdate withRowAnimation:UITableViewRowAnimationAutomatic];
 		}
 	});
 }
