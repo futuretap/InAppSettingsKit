@@ -109,41 +109,50 @@
 		dict [kIASKSubtitle] = subtitle;
 	}
 	
-	return @[@[@{kIASKKey: @"IASKPrivacySettingsHeaderKey", kIASKType: kIASKPSGroupSpecifier},
+	return @[@[[[IASKSpecifier alloc] initWithSpecifier:@{kIASKKey: @"IASKPrivacySettingsHeaderKey", kIASKType: kIASKPSGroupSpecifier}],
 			   [[IASKSpecifier alloc] initWithSpecifier:dict]]];
 }
 
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
     NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
-    NSInteger sectionIndex			= -1;
     NSMutableArray *dataSource		= [NSMutableArray new];
 	
 	if (self.showPrivacySettings) {
 		[dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
 	}
 	
-    for (NSDictionary *specifier in preferenceSpecifiers) {
-        if ([self.hiddenKeys containsObject:[specifier objectForKey:kIASKKey]]) {
+    for (NSDictionary *specifierDictionary in preferenceSpecifiers) {
+        IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
+        newSpecifier.settingsReader = self;
+
+        if ([self.hiddenKeys containsObject:newSpecifier.key]) {
             continue;
         }
-        if ([(NSString*)[specifier objectForKey:kIASKType] isEqualToString:kIASKPSGroupSpecifier]) {
+        NSString *type = newSpecifier.type;
+        if ([type isEqualToString:kIASKPSGroupSpecifier]
+            || [type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+
             NSMutableArray *newArray = [[NSMutableArray alloc] init];
-            
-            [newArray addObject:specifier];
+            [newArray addObject:newSpecifier];
             [dataSource addObject:newArray];
-            sectionIndex++;
+
+            if ([type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+                for (NSString *value in newSpecifier.multipleValues) {
+                    IASKSpecifier *valueSpecifier =
+                        [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary radioGroupValue:value];
+                    valueSpecifier.settingsReader = self;
+                    [newArray addObject:valueSpecifier];
+                }
+            }
         }
         else {
-            if (sectionIndex == -1) {
+            if (dataSource.count == 0) {
                 NSMutableArray *newArray = [[NSMutableArray alloc] init];
                 [dataSource addObject:newArray];
-                sectionIndex++;
             }
             
-            IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier];
             if ([newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
-                [(NSMutableArray *) [dataSource objectAtIndex:sectionIndex +
-                    self.showPrivacySettings] addObject:newSpecifier];
+                [(NSMutableArray*)dataSource.lastObject addObject:newSpecifier];
             }
         }
     }
@@ -151,7 +160,17 @@
 }
 
 - (BOOL)_sectionHasHeading:(NSInteger)section {
-    return [[[[self dataSource] objectAtIndex:section] objectAtIndex:0] isKindOfClass:[NSDictionary class]];
+    return [self headerSpecifierForSection:section] != nil;
+}
+
+/// Returns the specifier describing the section's header, or nil if there is no header.
+- (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section {
+    IASKSpecifier *specifier = self.dataSource[section][kIASKSectionHeaderIndex];
+    if ([specifier.type isEqualToString:kIASKPSGroupSpecifier]
+        || [specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+        return specifier;
+    }
+    return nil;
 }
 
 - (NSInteger)numberOfSections {
@@ -199,26 +218,15 @@
 }
 
 - (NSString*)titleForSection:(NSInteger)section {
-    if ([self _sectionHasHeading:section]) {
-        NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-        return [self titleForStringId:[dict objectForKey:kIASKTitle]];
-    }
-    return nil;
+    return [self titleForStringId:[self headerSpecifierForSection:section].title];
 }
 
 - (NSString*)keyForSection:(NSInteger)section {
-    if ([self _sectionHasHeading:section]) {
-        return [[[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex] objectForKey:kIASKKey];
-    }
-    return nil;
+    return [self headerSpecifierForSection:section].key;
 }
 
 - (NSString*)footerTextForSection:(NSInteger)section {
-    if ([self _sectionHasHeading:section]) {
-        NSDictionary *dict = [[[self dataSource] objectAtIndex:section] objectAtIndex:kIASKSectionHeaderIndex];
-        return [self titleForStringId:[dict objectForKey:kIASKFooterText]];
-    }
-    return nil;
+    return [self titleForStringId:[self headerSpecifierForSection:section].footerText];
 }
 
 - (NSString*)titleForStringId:(NSString*)stringId {
