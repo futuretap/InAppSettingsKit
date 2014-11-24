@@ -98,8 +98,7 @@
 
 #define kIASKSectionHeaderIndex               0
 
-#define kIASKSliderNoImagesPadding            11
-#define kIASKSliderImagesPadding              43
+#define kIASKSliderImageGap                   10
 
 #define kIASKSpacing                          8
 #define kIASKMinLabelWidth                    97

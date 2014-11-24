@@ -41,8 +41,13 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    UIEdgeInsets padding = (UIEdgeInsets) { 0, kIASKPaddingLeft, 0, kIASKPaddingRight };
+    if ([self respondsToSelector:@selector(layoutMargins)]) {
+        padding = [self layoutMargins];
+    }
+    
     // Label
-	CGFloat imageOffset = self.imageView.image ? self.imageView.bounds.size.width + kIASKPaddingLeft : 0;
+	CGFloat imageOffset = self.imageView.image ? self.imageView.bounds.size.width + padding.left : 0;
     CGSize labelSize = [self.textLabel sizeThatFits:CGSizeZero];
 	labelSize.width = MAX(labelSize.width, kIASKMinLabelWidth - imageOffset);
     self.textLabel.frame = (CGRect){self.textLabel.frame.origin, {MIN(kIASKMaxLabelWidth, labelSize.width), self.textLabel.frame.size.height}} ;
@@ -51,14 +56,14 @@
     _textField.center = CGPointMake(_textField.center.x, self.contentView.center.y);
 	CGRect textFieldFrame = _textField.frame;
 	textFieldFrame.origin.x = self.textLabel.frame.origin.x + MAX(kIASKMinLabelWidth - imageOffset, self.textLabel.frame.size.width) + kIASKSpacing;
-	textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
+	textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - padding.right;
 	
 	if (!self.textLabel.text.length) {
-		textFieldFrame.origin.x = kIASKPaddingLeft + imageOffset;
-		textFieldFrame.size.width = self.contentView.bounds.size.width - 2* kIASKPaddingLeft - imageOffset;
+		textFieldFrame.origin.x = padding.left + imageOffset;
+		textFieldFrame.size.width = self.contentView.bounds.size.width - padding.left - padding.right - imageOffset;
 	} else if (_textField.textAlignment == NSTextAlignmentRight) {
 		textFieldFrame.origin.x = self.textLabel.frame.origin.x + labelSize.width + kIASKSpacing;
-		textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - kIASKPaddingRight;
+		textFieldFrame.size.width = _textField.superview.frame.size.width - textFieldFrame.origin.x - padding.right;
 	}
 	_textField.frame = textFieldFrame;
 }
