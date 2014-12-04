@@ -16,7 +16,7 @@
     "tag": "2.3"
   },
   "source_files": "InAppSettingsKit/**/*.{h,m}",
-  "resource_bundles": "InAppSettingsKit/**/*.{lproj}",
+  "resource_bundles": "InAppSettingsKit/Resources/*.{lproj}",
   "frameworks": "MessageUI",
   "requires_arc": true
 }
