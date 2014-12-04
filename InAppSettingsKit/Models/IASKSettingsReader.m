@@ -292,8 +292,10 @@
     NSArray *plattformSuffixes = @[[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()],
                                    @""];
     
-    NSArray *languageFolders = @[[[[NSLocale preferredLanguages] objectAtIndex:0] stringByAppendingString:kIASKBundleLocaleFolderExtension],
+    NSArray *preferredLanguages = [NSLocale preferredLanguages];
+    NSArray *languageFolders = @[[ (preferredLanguages.count ? [preferredLanguages objectAtIndex:0] : @"en") stringByAppendingString:kIASKBundleLocaleFolderExtension],
                                  @""];
+
     
     NSString *path = nil;
     NSFileManager *fileManager = [NSFileManager defaultManager];
