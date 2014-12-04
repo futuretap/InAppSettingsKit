@@ -250,11 +250,9 @@
             suffix:(NSString *)suffix
          extension:(NSString *)extension {
     
-    NSString *appBundlePath = [self.applicationBundle bundlePath];
-    bundle = [appBundlePath stringByAppendingPathComponent:bundle];
+	bundle = [self.applicationBundle pathForResource:bundle ofType:nil];
     file = [file stringByAppendingFormat:@"%@%@", suffix, extension];
     return [bundle stringByAppendingPathComponent:file];
-    
 }
 
 - (NSString *)locateSettingsFile: (NSString *)file {
