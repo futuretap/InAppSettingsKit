@@ -115,7 +115,7 @@
 
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
     NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
-    NSMutableArray *dataSource		= [NSMutableArray new];
+    NSMutableArray *dataSource		= [NSMutableArray array];
 	
 	if (self.showPrivacySettings) {
 		[dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
@@ -132,7 +132,7 @@
         if ([type isEqualToString:kIASKPSGroupSpecifier]
             || [type isEqualToString:kIASKPSRadioGroupSpecifier]) {
 
-            NSMutableArray *newArray = [[NSMutableArray alloc] init];
+            NSMutableArray *newArray = [NSMutableArray array];
             [newArray addObject:newSpecifier];
             [dataSource addObject:newArray];
 
@@ -146,9 +146,8 @@
             }
         }
         else {
-            if (dataSource.count == 0) {
-                NSMutableArray *newArray = [[NSMutableArray alloc] init];
-                [dataSource addObject:newArray];
+            if (dataSource.count == 0 || (dataSource.count == 1 && self.showPrivacySettings)) {
+                [dataSource addObject:[NSMutableArray array]];
             }
             
             if ([newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
