@@ -119,6 +119,7 @@
 	
 	if (self.showPrivacySettings) {
 		[dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
+		[dataSource addObject:[NSMutableArray array]];
 	}
 	
     for (NSDictionary *specifierDictionary in preferenceSpecifiers) {
