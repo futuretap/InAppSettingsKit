@@ -599,7 +599,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
 		NSString *value = [self.settingsStore objectForKey:specifier.key];
 		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForStringId:value] : specifier.title;
-		if (specifier.textAlignment != NSTextAlignmentLeft) {
+		if (specifier.textAlignment != NSTextAlignmentLeft && [tableView respondsToSelector:@selector(tintColor)]) {
 			cell.textLabel.textColor = tableView.tintColor;
 		}
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
