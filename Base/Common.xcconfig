@@ -156,7 +156,7 @@ GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
 GCC_WARN_UNDECLARED_SELECTOR = YES
 
 // Warn if a variable might be clobbered by a setjmp call or if an automatic variable is used without prior initialization.
-GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE
+GCC_WARN_UNINITIALIZED_AUTOS = YES
 
 // Whether to warn about static functions that are unused
 GCC_WARN_UNUSED_FUNCTION = YES
