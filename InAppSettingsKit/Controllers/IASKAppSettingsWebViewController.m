@@ -123,7 +123,7 @@
 		[mailViewController setToRecipients:toRecipients];
 
 		mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
-		mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+		IASK_IF_IOS7_OR_GREATER(mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;);
 		mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
 
 		UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
