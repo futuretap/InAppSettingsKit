@@ -460,32 +460,38 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 
-- (UITableViewCell*)newCellForIdentifier:(NSString*)identifier {
-	UITableViewCell *cell = nil;
-	if ([identifier isEqualToString:kIASKPSToggleSwitchSpecifier]) {
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForSpecifier:(IASKSpecifier*)specifier {
+
+	NSString *identifier = [NSString stringWithFormat:@"%@-%lu-%d", specifier.type, specifier.textAlignment, !!specifier.subtitle.length];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+	if (cell) {
+		return cell;
+	}
+	UITableViewCellStyle style = (specifier.textAlignment == NSTextAlignmentLeft || specifier.subtitle.length) ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault;
+	if ([identifier hasPrefix:kIASKPSToggleSwitchSpecifier]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kIASKPSToggleSwitchSpecifier];
 		cell.accessoryView = [[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)];
 		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
-	else if ([identifier isEqualToString:kIASKPSMultiValueSpecifier] || [identifier isEqualToString:kIASKPSTitleValueSpecifier]) {
+	else if ([identifier hasPrefix:kIASKPSMultiValueSpecifier] || [identifier hasPrefix:kIASKPSTitleValueSpecifier]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
-		cell.accessoryType = [identifier isEqualToString:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+		cell.accessoryType = [identifier hasPrefix:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
-	else if ([identifier isEqualToString:kIASKPSTextFieldSpecifier]) {
+	else if ([identifier hasPrefix:kIASKPSTextFieldSpecifier]) {
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
 	}
-	else if ([identifier isEqualToString:kIASKPSSliderSpecifier]) {
+	else if ([identifier hasPrefix:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
-	} else if ([identifier isEqualToString:kIASKPSChildPaneSpecifier]) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+	} else if ([identifier hasPrefix:kIASKPSChildPaneSpecifier]) {
+		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	} else {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
 
 		if ([identifier isEqualToString:kIASKOpenURLSpecifier]) {
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -506,11 +512,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 		return cell;
 	}
 	
-	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:specifier.type];
-	if(nil == cell) {
-      cell = [self newCellForIdentifier:specifier.type];
-	}
-	
+	UITableViewCell* cell = [self tableView:tableView cellForSpecifier:specifier];
+
 	if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
 		cell.textLabel.text = specifier.title;
 		cell.detailTextLabel.text = specifier.subtitle;
@@ -596,13 +599,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([specifier.type isEqualToString:kIASKOpenURLSpecifier] || [specifier.type isEqualToString:kIASKMailComposeSpecifier]) {
 		cell.textLabel.text = specifier.title;
 		cell.detailTextLabel.text = specifier.subtitle ? : [specifier.defaultValue description];
+		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
 		NSString *value = [self.settingsStore objectForKey:specifier.key];
 		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForStringId:value] : specifier.title;
+		cell.detailTextLabel.text = specifier.subtitle;
 		IASK_IF_IOS7_OR_GREATER
 		(if (specifier.textAlignment != NSTextAlignmentLeft) {
 			cell.textLabel.textColor = tableView.tintColor;
 		});
+		cell.textLabel.textAlignment = specifier.textAlignment;
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
 		NSInteger index = [specifier.multipleValues indexOfObject:specifier.radioGroupValue];

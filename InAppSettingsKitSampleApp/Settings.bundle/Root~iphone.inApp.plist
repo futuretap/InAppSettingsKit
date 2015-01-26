@@ -160,11 +160,35 @@
 			<key>File</key>
 			<string>http://www.inappsettingskit.com/</string>
 			<key>Title</key>
+			<string>Open URL</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>inappsettingskit.com</string>
+			<key>File</key>
+			<string>http://www.inappsettingskit.com/</string>
+			<key>Title</key>
 			<string>Open URL (centered)</string>
 			<key>Type</key>
 			<string>IASKOpenURLSpecifier</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentCenter</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>inappsettingskit.com</string>
+			<key>File</key>
+			<string>http://www.inappsettingskit.com/</string>
+			<key>Title</key>
+			<string>Open URL (right)</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -185,6 +209,48 @@
 			<string>Mail Compose View</string>
 			<key>Type</key>
 			<string>IASKMailComposeSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>Tell A Friend</string>
+			<key>IASKMailComposeBccRecipents</key>
+			<array/>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>IASKMailComposeBodyIsHTML</key>
+			<string>NO</string>
+			<key>IASKMailComposeCcRecipents</key>
+			<array/>
+			<key>IASKMailComposeSubject</key>
+			<string>InAppSettingsKit</string>
+			<key>IASKMailComposeToRecipents</key>
+			<array/>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
+			<key>Title</key>
+			<string>Mail Compose View</string>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+		</dict>
+		<dict>
+			<key>IASKMailComposeBccRecipents</key>
+			<array/>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>IASKMailComposeBodyIsHTML</key>
+			<string>NO</string>
+			<key>IASKMailComposeCcRecipents</key>
+			<array/>
+			<key>IASKMailComposeSubject</key>
+			<string>InAppSettingsKit</string>
+			<key>IASKMailComposeToRecipents</key>
+			<array/>
+			<key>Title</key>
+			<string>Mail Compose View (centered)</string>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentCenter</string>
 		</dict>
 		<dict>
 			<key>IASKMailComposeBccRecipents</key>
@@ -263,6 +329,16 @@
 			<string>IASKButtonSpecifier</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>ButtonDemoAction3</string>
+			<key>Title</key>
+			<string>Button</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
 		</dict>
 		<dict>
 			<key>Title</key>

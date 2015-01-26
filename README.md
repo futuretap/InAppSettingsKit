@@ -155,16 +155,16 @@ Specifiy `IASKViewControllerStoryBoardFile` to use a story board other than Main
 
 Subtitles
 ---------
-The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button.
+The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button. Using a subtitle implies left alignment.
 
 
 Text alignment
 --------------
 For some element types, a `IASKTextAlignment` attribute may be added with the following values to override the default alignment:
 
-- `IASKUITextAlignmentLeft` (Buttons, TitleValue, MultiValue, OpenURL, TextField)
-- `IASKUITextAlignmentCenter` (Buttons, OpenURL)
-- `IASKUITextAlignmentRight` (Buttons, TitleValue, MultiValue, OpenURL, TextField)
+- `IASKUITextAlignmentLeft` (ChildPane, TextField, Buttons, OpenURL, MailCompose)
+- `IASKUITextAlignmentCenter` (ChildPane, Buttons, OpenURL)
+- `IASKUITextAlignmentRight` (ChildPane, TextField, Buttons, OpenURL, MailCompose)
 
 
 Variable font size
