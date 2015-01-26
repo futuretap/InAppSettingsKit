@@ -85,7 +85,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (NSString*)file {
 	if (!_file) {
-		return @"Root";
+		self.file = @"Root";
 	}
 	return _file;
 }

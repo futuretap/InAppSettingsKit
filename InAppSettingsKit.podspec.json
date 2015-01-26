@@ -1,6 +1,6 @@
 {
   "name": "InAppSettingsKit",
-  "version": "2.4",
+  "version": "2.4.1",
   "platforms": {
     "ios": "6.0"
   },
@@ -13,7 +13,7 @@
   "license": "BSD",
   "source": {
     "git": "https://github.com/futuretap/InAppSettingsKit.git",
-    "tag": "2.4"
+    "tag": "2.4.1"
   },
   "source_files": "InAppSettingsKit/**/*.{h,m}",
   "resource_bundles": {"InAppSettingsKit": "InAppSettingsKit/Resources/*"},
