@@ -80,8 +80,8 @@
 		AA627D3819F695F30079AAE8 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		AA627D3919F695F30079AAE8 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		AA627D3A19F695F30079AAE8 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA627D6E19F69A7F0079AAE8 /* InAppSettingsKit.podspec.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = InAppSettingsKit.podspec.json; sourceTree = "<group>"; };
 		AA627D6F19F69A7F0079AAE8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		AAE500261A82A1D600C445B0 /* InAppSettingsKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InAppSettingsKit.podspec; sourceTree = "<group>"; };
 		E401BD4A16820BBA00EAF534 /* IASKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKViewController.h; sourceTree = "<group>"; };
 		E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADA92168202D700295D85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -173,7 +173,7 @@
 		E42ADA86168202D700295D85 = {
 			isa = PBXGroup;
 			children = (
-				AA627D6E19F69A7F0079AAE8 /* InAppSettingsKit.podspec.json */,
+				AAE500261A82A1D600C445B0 /* InAppSettingsKit.podspec */,
 				AA627D6F19F69A7F0079AAE8 /* README.md */,
 				E42ADA94168202D700295D85 /* InAppSettingsKit */,
 				E42ADAAB168202D700295D85 /* InAppSettingsKitTests */,
