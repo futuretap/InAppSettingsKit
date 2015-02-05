@@ -94,7 +94,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     _file = [file copy];
     self.tableView.contentOffset = CGPointMake(0, 0);
     self.settingsReader = nil; // automatically initializes itself
-    _hiddenKeys = nil;
     if (!_reloadDisabled) {
 		[self.tableView reloadData];
 		[self createSelections];
