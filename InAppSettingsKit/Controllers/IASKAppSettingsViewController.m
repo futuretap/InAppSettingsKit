@@ -459,7 +459,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 
-- (UITableViewCell*)tableView:(UITableView *)tableView cellForSpecifier:(IASKSpecifier*)specifier {
+- (UITableViewCell*)tableView:(UITableView *)tableView newCellForSpecifier:(IASKSpecifier*)specifier {
 
 	NSString *identifier = [NSString stringWithFormat:@"%@-%ld-%d", specifier.type, (long)specifier.textAlignment, !!specifier.subtitle.length];
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -511,7 +511,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		return cell;
 	}
 	
-	UITableViewCell* cell = [self tableView:tableView cellForSpecifier:specifier];
+	UITableViewCell* cell = [self tableView:tableView newCellForSpecifier:specifier];
 
 	if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
 		cell.textLabel.text = specifier.title;
