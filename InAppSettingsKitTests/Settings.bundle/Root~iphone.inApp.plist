@@ -272,7 +272,7 @@
 			<key>IASKViewControllerClass</key>
 			<string>CustomSubviewController</string>
 			<key>IASKViewControllerSelector</key>
-			<string>init</string>
+			<string>initWithFile:specifier:</string>
 			<key>Title</key>
 			<string>Custom Subview</string>
 			<key>Type</key>

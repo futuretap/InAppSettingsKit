@@ -179,14 +179,6 @@
 			<string>IASKUITextAlignmentCenter</string>
 		</dict>
 		<dict>
-			<key>File</key>
-			<string>LOCALIZED_URL</string>
-			<key>Title</key>
-			<string>LOCALIZED_URL_TITLE</string>
-			<key>Type</key>
-			<string>IASKOpenURLSpecifier</string>
-		</dict>
-		<dict>
 			<key>DefaultValue</key>
 			<string>Tell A Friend</string>
 			<key>IASKMailComposeBccRecipents</key>
@@ -272,7 +264,7 @@
 			<key>IASKViewControllerClass</key>
 			<string>CustomSubviewController</string>
 			<key>IASKViewControllerSelector</key>
-			<string>init</string>
+			<string>initWithFile:specifier:</string>
 			<key>Title</key>
 			<string>Custom Subview</string>
 			<key>Type</key>

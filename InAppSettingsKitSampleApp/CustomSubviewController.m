@@ -16,8 +16,20 @@
 //
 
 #import "CustomSubviewController.h"
+#ifdef USES_IASK_STATIC_LIBRARY
+#import "InAppSettingsKit/IASKSpecifier.h"
+#else
+#import "IASKSpecifier.h"
+#endif
 
 
 @implementation CustomSubviewController
+
+- (id)initWithFile:(NSString*)file specifier:(IASKSpecifier*)specifier {
+	if ((self = [super init])) {
+		// custom initialization
+	}
+	return self;
+}
 
 @end
