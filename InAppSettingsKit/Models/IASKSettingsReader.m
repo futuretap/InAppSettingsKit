@@ -118,9 +118,12 @@
     NSMutableArray *dataSource		= [NSMutableArray array];
 	
 	if (self.showPrivacySettings) {
-		[dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
+		IASK_IF_IOS8_OR_GREATER
+		(
+		 [dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
+		 );
 	}
-	
+
     for (NSDictionary *specifierDictionary in preferenceSpecifiers) {
         IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
         newSpecifier.settingsReader = self;
