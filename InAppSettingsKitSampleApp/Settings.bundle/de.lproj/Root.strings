@@ -55,3 +55,6 @@
 "EMPTY"                 = "";
 
 "ABOUT_TITLE"			= "Über";
+
+"LOCALIZED_URL"			= "http://www.apple.com/de";
+"LOCALIZED_URL_TITLE"	= "Apple deutsch";

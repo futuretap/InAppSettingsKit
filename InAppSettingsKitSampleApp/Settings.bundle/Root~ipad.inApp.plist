@@ -191,6 +191,14 @@
 			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
+			<key>File</key>
+			<string>LOCALIZED_URL</string>
+			<key>Title</key>
+			<string>LOCALIZED_URL_TITLE</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+		</dict>
+		<dict>
 			<key>DefaultValue</key>
 			<string>Tell A Friend</string>
 			<key>IASKMailComposeBccRecipents</key>
