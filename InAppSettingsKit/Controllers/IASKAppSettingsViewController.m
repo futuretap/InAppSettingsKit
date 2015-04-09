@@ -131,28 +131,41 @@ CGRect IASKCGRectSwap(CGRect rect);
     return [self initWithStyle:UITableViewStyleGrouped];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
     if (style != UITableViewStyleGrouped) {
-        NSLog(@"only UITableViewStyleGrouped style is supported, forcing it.");
+        NSLog(@"WARNING: only UITableViewStyleGrouped style is supported by InAppSettingsKit.");
     }
-    self = [super initWithStyle:UITableViewStyleGrouped];
-    if (self) {
-        _reloadDisabled = NO;
-        _showDoneButton = YES;
-        // If set to YES, will display credits for InAppSettingsKit creators
-        _showCreditsFooter = YES;
+    if ((self = [super initWithStyle:style])) {
+		[self configure];
     }
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if (!nibNameOrNil) {
-        return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    }
-    NSLog (@"%@ is now deprecated, we are moving away from nibs.", NSStringFromSelector(_cmd));
-    return [self initWithStyle:UITableViewStyleGrouped];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (nibNameOrNil) {
+		NSLog (@"%@ is now deprecated, we are moving away from nibs.", NSStringFromSelector(_cmd));
+		self = [super initWithStyle:UITableViewStyleGrouped];
+	} else {
+		self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	}
+	if (self) {
+		[self configure];
+	}
+	return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if ((self = [super initWithCoder:aDecoder])) {
+		[self configure];
+		_showDoneButton = NO;
+	}
+	return self;
+}
+
+- (void)configure {
+	_reloadDisabled = NO;
+	_showDoneButton = YES;
+	_showCreditsFooter = YES; // display credits for InAppSettingsKit creators
 }
 
 - (void)viewDidLoad {
