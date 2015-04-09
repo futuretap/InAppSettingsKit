@@ -204,7 +204,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
 		NSNotificationCenter *dc = NSNotificationCenter.defaultCenter;
-		[dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+		IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
+		[dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:udSettingsStore.defaults];
 		[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:nil];
 		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
 	}
@@ -238,7 +239,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)viewDidDisappear:(BOOL)animated {
 	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
-	[dc removeObserver:self name:NSUserDefaultsDidChangeNotification object:[NSUserDefaults standardUserDefaults]];
+	IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
+	[dc removeObserver:self name:NSUserDefaultsDidChangeNotification object:udSettingsStore.defaults];
 	[dc removeObserver:self name:kIASKAppSettingChanged object:self];
 	[dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
 	[dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
@@ -881,7 +883,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 static NSDictionary *oldUserDefaults = nil;
 - (void)userDefaultsDidChange {
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		NSDictionary *currentDict = [NSUserDefaults standardUserDefaults].dictionaryRepresentation;
+		IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
+		NSDictionary *currentDict = udSettingsStore.defaults.dictionaryRepresentation;
 		NSMutableArray *indexPathsToUpdate = [NSMutableArray array];
 		for (NSString *key in currentDict.allKeys) {
 			if (oldUserDefaults && ![[oldUserDefaults valueForKey:key] isEqual:[currentDict valueForKey:key]]) {
