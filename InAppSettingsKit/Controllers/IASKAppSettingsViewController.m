@@ -138,10 +138,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
-        _reloadDisabled = NO;
-        _showDoneButton = YES;
-        // If set to YES, will display credits for InAppSettingsKit creators
-        _showCreditsFooter = YES;
+        [self prepareSelf];
     }
     return self;
 }
@@ -152,7 +149,18 @@ CGRect IASKCGRectSwap(CGRect rect);
         return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     }
     NSLog (@"%@ is now deprecated, we are moving away from nibs.", NSStringFromSelector(_cmd));
-    return [self initWithStyle:UITableViewStyleGrouped];
+    self = [super initWithStyle:UITableViewStyleGrouped];
+  if (self) {
+      [self prepareSelf];
+  }
+  return self;
+}
+
+- (void)prepareSelf {
+  _reloadDisabled = NO;
+  _showDoneButton = YES;
+  // If set to YES, will display credits for InAppSettingsKit creators
+  _showCreditsFooter = YES;
 }
 
 - (void)viewDidLoad {
