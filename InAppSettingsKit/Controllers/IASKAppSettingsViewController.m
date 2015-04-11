@@ -92,7 +92,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)setFile:(NSString *)file {
     _file = [file copy];
-    self.tableView.contentOffset = CGPointMake(0, 0);
+    self.tableView.contentOffset = CGPointMake(0, -self.tableView.contentInset.top);
     self.settingsReader = nil; // automatically initializes itself
     if (!_reloadDisabled) {
 		[self.tableView reloadData];
