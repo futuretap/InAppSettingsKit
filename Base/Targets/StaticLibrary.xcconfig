@@ -24,3 +24,9 @@ PUBLIC_HEADERS_FOLDER_PATH = include/$PRODUCT_NAME
 
 // Don't include in an xcarchive
 SKIP_INSTALL = YES
+
+// Disallows use of APIs that are not available
+// to app extensions and linking to frameworks
+// that have not been built with this setting enabled.
+APPLICATION_EXTENSION_API_ONLY = YES
+
