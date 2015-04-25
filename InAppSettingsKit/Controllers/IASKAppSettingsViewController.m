@@ -127,7 +127,10 @@ CGRect IASKCGRectSwap(CGRect rect);
         return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     }
     NSLog (@"%@ is now deprecated, we are moving away from nibs.", NSStringFromSelector(_cmd));
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wobjc-designated-initializers"
     return [self initWithStyle:UITableViewStyleGrouped];
+#pragma clang diagnostic pop
 }
 
 - (void) viewDidLoad {
