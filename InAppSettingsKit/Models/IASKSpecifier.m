@@ -75,6 +75,68 @@
     
     [self setMultipleValuesDict:multipleValuesDict];
 }
+
+- (void)sortIfNeeded {
+    if (self.displaySortedByTitle) {
+        NSArray *values = [_specifierDict objectForKey:kIASKValues];
+        NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
+        NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
+        NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
+        
+        NSMutableDictionary *temporaryShortTitleMapping = [NSMutableDictionary dictionaryWithCapacity:titles.count];
+        NSMutableDictionary *temporaryValueMapping = [NSMutableDictionary dictionaryWithCapacity:titles.count];
+        NSMutableDictionary *temporaryTitlesMapping = [NSMutableDictionary dictionaryWithCapacity:titles.count];
+        IASKSettingsReader *strongSettingsReader = self.settingsReader;
+        [titles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSString *localizedTitle = [strongSettingsReader titleForStringId:obj];
+            temporaryTitlesMapping[localizedTitle] = obj;
+            temporaryShortTitleMapping[localizedTitle] = shortTitles[idx] ?: [NSNull null];
+            temporaryValueMapping[localizedTitle] = values[idx] ?: [NSNull  null];
+        }];
+        
+        NSArray *sortedLocalizedTitles = [[temporaryTitlesMapping allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        
+        NSMutableArray *sortedTitles = [NSMutableArray arrayWithCapacity:sortedLocalizedTitles.count];
+        NSMutableArray *sortedShortTitles = [NSMutableArray arrayWithCapacity:sortedLocalizedTitles.count];
+        NSMutableArray *sortedValues = [NSMutableArray arrayWithCapacity:sortedLocalizedTitles.count];
+        [sortedLocalizedTitles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            id title = temporaryTitlesMapping[obj];
+            if (title != [NSNull null]) {
+                sortedTitles[idx] = title;
+            }
+            id shortTitle = temporaryShortTitleMapping[obj];
+            if (shortTitle != [NSNull null]) {
+                sortedShortTitles[idx] = shortTitle;
+            }
+            id value = temporaryValueMapping[obj];
+            if (value != [NSNull null]) {
+                sortedValues[idx] = value;
+            }
+        }];
+        titles = [sortedTitles copy];
+        values = [sortedValues copy];
+        shortTitles = [sortedShortTitles copy];
+        
+        if (values) {
+            [multipleValuesDict setObject:values forKey:kIASKValues];
+        }
+        
+        if (titles) {
+            [multipleValuesDict setObject:titles forKey:kIASKTitles];
+        }
+        
+        if (shortTitles) {
+            [multipleValuesDict setObject:shortTitles forKey:kIASKShortTitles];
+        }
+        
+        [self setMultipleValuesDict:multipleValuesDict];
+    }
+}
+
+- (BOOL)displaySortedByTitle {
+    return [_specifierDict objectForKey:kIASKDisplaySortedByTitle];
+}
+
 - (NSString*)localizedObjectForKey:(NSString*)key {
 	IASKSettingsReader *settingsReader = self.settingsReader;
 	return [settingsReader titleForStringId:[_specifierDict objectForKey:key]];

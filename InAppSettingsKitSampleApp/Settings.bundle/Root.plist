@@ -101,6 +101,8 @@
 			<string>mulValue</string>
 			<key>DefaultValue</key>
 			<integer>0</integer>
+			<key>DisplaySortedByTitle</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Type</key>
