@@ -80,6 +80,11 @@
     XCTAssertEqualObjects([multiSpecifier multipleValues], (@[@"0", @"6", @"1", @"4", @"5", @"7", @"3", @"9", @"8", @"10", @"2"]));
 }
 
+- (void) testSettingsReaderFailsToSortMalformedMultiValueEntries {
+    XCTAssertThrows([[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Malformed"
+                                                        applicationBundle:[NSBundle bundleForClass:[self class]]]);
+}
+
 #pragma mark - parsing
 - (void) testSettingsReaderInterpretsAdvancedSettings {
   IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Advanced"

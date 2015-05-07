@@ -81,6 +81,10 @@
         NSArray *values = [_specifierDict objectForKey:kIASKValues];
         NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
         NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
+
+        NSAssert(values.count == titles.count, @"Malformed multi-value specifier found in settings bundle. Number of values and titles differ.");
+        NSAssert(shortTitles == nil || shortTitles.count == values.count, @"Malformed multi-value specifier found in settings bundle. Number of short titles and values differ.");
+
         NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
 
         NSMutableArray *temporaryMappingsForSort = [NSMutableArray arrayWithCapacity:titles.count];
@@ -93,9 +97,10 @@
         [titles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSString *localizedTitle = [strongSettingsReader titleForStringId:obj];
             [temporaryMappingsForSort addObject:@{titleKey : obj,
-                    shortTitleKey : (shortTitles[idx] ?: [NSNull null]),
-                    valueKey : (values[idx] ?: [NSNull null]),
-                    localizedTitleKey : (localizedTitle ?: [NSNull null])}];
+                                                  valueKey : values[idx],
+                                                  localizedTitleKey : localizedTitle,
+                                                  shortTitleKey : (shortTitles[idx] ?: [NSNull null]),
+                                                  }];
         }];
         
         NSArray *sortedTemporaryMappings = [temporaryMappingsForSort sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -115,17 +120,10 @@
 
         [sortedTemporaryMappings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSDictionary *mapping = obj;
-            id title = mapping[titleKey];
-            if (title != [NSNull null]) {
-                sortedTitles[idx] = title;
-            }
-            id shortTitle = mapping[shortTitleKey];
-            if (shortTitle != [NSNull null]) {
-                sortedShortTitles[idx] = shortTitle;
-            }
-            id value = mapping[valueKey];
-            if (value != [NSNull null]) {
-                sortedValues[idx] = value;
+            sortedTitles[idx] = mapping[titleKey];
+            sortedValues[idx] = mapping[valueKey];
+            if (mapping[shortTitleKey] != [NSNull null]) {
+                sortedShortTitles[idx] = mapping[shortTitleKey];
             }
         }];
         titles = [sortedTitles copy];
