@@ -147,7 +147,7 @@
 }
 
 - (BOOL)displaySortedByTitle {
-    return [_specifierDict objectForKey:kIASKDisplaySortedByTitle];
+    return [[_specifierDict objectForKey:kIASKDisplaySortedByTitle] boolValue];
 }
 
 - (NSString*)localizedObjectForKey:(NSString*)key {
