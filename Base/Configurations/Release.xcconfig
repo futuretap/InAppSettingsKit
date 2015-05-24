@@ -30,7 +30,7 @@ STRIP_INSTALLED_PRODUCT = YES
 SWIFT_OPTIMIZATION_LEVEL = -O
 
 // Whether to optimize across the whole Swift module
-SWIFT_WHOLE_MODULE_OPTIMIZATION = NO
+SWIFT_WHOLE_MODULE_OPTIMIZATION = YES
 
 // Whether to perform App Store validation checks
 VALIDATE_PRODUCT = YES
