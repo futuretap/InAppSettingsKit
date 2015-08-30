@@ -407,7 +407,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		CGSize size = [title sizeWithFont:[UIFont boldSystemFontOfSize:[UIFont labelFontSize]] 
 						constrainedToSize:CGSizeMake(tableView.frame.size.width - 2*kIASKHorizontalPaddingGroupTitles, INFINITY)
 							lineBreakMode:NSLineBreakByWordWrapping];
-		return round(size.height+kIASKVerticalPaddingGroupTitles);
+		return (CGFloat)round(size.height+kIASKVerticalPaddingGroupTitles);
 	}
 	return 0;
 }
