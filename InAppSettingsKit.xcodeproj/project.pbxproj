@@ -398,7 +398,7 @@
 		E42ADA87168202D700295D85 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastTestingUpgradeCheck = 0630;
+				LastTestingUpgradeCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = InAppSettingsKit;
 			};
