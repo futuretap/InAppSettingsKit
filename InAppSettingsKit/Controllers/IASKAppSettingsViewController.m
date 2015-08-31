@@ -681,7 +681,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         targetViewController.settingsStore = self.settingsStore;
 		IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
         _currentChildViewController = targetViewController;
-        [[self navigationController] pushViewController:targetViewController animated:YES];
+        [self pushViewController:targetViewController];
         
     } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
@@ -694,7 +694,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardFileFromSpecifier bundle:nil];
 			UIViewController * vc = [storyBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryBoardID]];
 			IASK_IF_IOS7_OR_GREATER(vc.view.tintColor = self.view.tintColor;)
-            [self.navigationController pushViewController:vc animated:YES];
+            [self pushViewController:vc];
 			return;
 		}
         
@@ -716,7 +716,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                 [vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
             }
 			IASK_IF_IOS7_OR_GREATER(vc.view.tintColor = self.view.tintColor;)
-            [self.navigationController pushViewController:vc animated:YES];
+            [self pushViewController:vc];
             return;
         }
         
@@ -740,7 +740,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         
         _reloadDisabled = NO;
 		
-        [[self navigationController] pushViewController:targetViewController animated:YES];
+        [self pushViewController:targetViewController];
         
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -840,6 +840,33 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
 }
 
+- (void)pushViewController:(UIViewController *)viewController {
+    if ([self isMasterViewController]) {
+        if ([self respondsToSelector:@selector(showDetailViewController:sender:)]) {    // iOS 8+
+            [self showDetailViewController:[[UINavigationController alloc] initWithRootViewController:viewController] sender:nil];
+        } else {                                                                        // < iOS 8
+            [self.masterViewControllerDelegate showDetailViewController:viewController];
+        }
+    } else {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+
+// Checks if self is inside the view controller heirarchy of a master view controller inside a UISplitViewController
+- (BOOL)isMasterViewController {
+    if (self.splitViewController) {
+        UIViewController *masterViewController = self.splitViewController.viewControllers[0];
+        UIViewController *parentViewController = self.parentViewController;
+        while (parentViewController != nil) {
+            if (parentViewController == masterViewController) {
+                return YES;
+            }
+            parentViewController = parentViewController.parentViewController;
+        }
+    }
+
+    return NO;
+}
 
 #pragma mark -
 #pragma mark MFMailComposeViewControllerDelegate Function

@@ -21,8 +21,10 @@
 
 #ifdef USES_IASK_STATIC_LIBRARY
   #import "InAppSettingsKit/IASKSettingsReader.h"
+  #import "InAppSettingsKit/IASKAppSettingsSplitViewController.h"
 #else
   #import "IASKSettingsReader.h"
+  #import "IASKAppSettingsSplitViewController.h"
 #endif
 
 #import "CustomViewCell.h"
@@ -49,19 +51,42 @@
 }
 
 - (IBAction)showSettingsPush:(id)sender {
-	//[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
-	// But we encourage you no to uncomment. Thank you!
-	self.appSettingsViewController.showDoneButton = NO;
-	self.appSettingsViewController.navigationItem.rightBarButtonItem = nil;
-	[self.navigationController pushViewController:self.appSettingsViewController animated:YES];
+  //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
+  // But we encourage you no to uncomment. Thank you!
+  self.appSettingsViewController.showDoneButton = NO;
+  self.appSettingsViewController.navigationItem.rightBarButtonItem = nil;
+
+  // A UISplitViewController can't be pushed onto a UINavigationController. We could use the same trick as the one we
+  // use in showSettingsModal: by placing it in a container view controller, but this doesn't quite work as the enclosing
+  // UINavigationController doesn't play nice with the UINavigationControllers in the master & detail view controllers.
+  // Therefore, if we're pushing onto an existing navigation stack we'll have to display the IASKAppSettingsViewController
+  // directly and not use a split view in large size class mode.
+  [self.navigationController pushViewController:self.appSettingsViewController animated:YES];
 }
 
 - (IBAction)showSettingsModal:(id)sender {
-    UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-    //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
-    // But we encourage you not to uncomment. Thank you!
-    self.appSettingsViewController.showDoneButton = YES;
-	[self presentViewController:aNavController animated:YES completion:nil];
+  //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
+  // But we encourage you not to uncomment. Thank you!
+  self.appSettingsViewController.showDoneButton = YES;
+
+  UIViewController *viewController;
+
+  BOOL ios8 = NO;
+  IASK_IF_IOS8_OR_GREATER(ios8 = YES;)
+  if (ios8 || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    IASKAppSettingsSplitViewController *splitViewController = [[IASKAppSettingsSplitViewController alloc] initWithSettingsViewController:self.appSettingsViewController];
+    if (ios8) {
+      viewController = splitViewController;
+    } else { // Pre iOS 8 a UISplitViewController can't be displayed modally so we place it in a container view controller
+      viewController = [[UIViewController alloc] init];
+      [viewController addChildViewController:splitViewController];
+      [viewController.view addSubview:splitViewController.view];
+      [splitViewController didMoveToParentViewController:viewController];
+    }
+  } else {
+    viewController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
+  }
+  [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)showSettingsPopover:(id)sender {
@@ -86,6 +111,23 @@
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)];
 	}
+
+  // Add settings tab
+  NSMutableArray *viewControllers = [self.tabBarController.viewControllers mutableCopy];
+  IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
+  settingsViewController.showDoneButton = NO;
+
+  UIViewController *settingsTabBarViewController;
+  BOOL ios8 = NO;
+  IASK_IF_IOS8_OR_GREATER(ios8 = YES;)
+  if (ios8 || UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    settingsTabBarViewController = [[IASKAppSettingsSplitViewController alloc] initWithSettingsViewController:settingsViewController];
+  } else {
+    settingsTabBarViewController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+  }
+  settingsTabBarViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"20-gear2"] selectedImage:[UIImage imageNamed:@"20-gear2Highlighted"]];
+  [viewControllers addObject:settingsTabBarViewController];
+  self.tabBarController.viewControllers = viewControllers;
 }
 
 #pragma mark - View Lifecycle

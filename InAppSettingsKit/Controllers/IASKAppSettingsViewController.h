@@ -58,10 +58,18 @@
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
 @end
 
+#pragma mark - delegate for when this view controller is a master view controller in a UISplitViewController on pre iOS 8 devices
+@protocol IASKSettingsMasterViewControllerDelegate
 
+- (void)showDetailViewController:(UIViewController *)viewController;
+
+@end
+
+#pragma mark - IASKAppSettingsViewController
 @interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, assign) IBOutlet id delegate;
+@property (nonatomic, assign) IBOutlet id<IASKSettingsMasterViewControllerDelegate> masterViewControllerDelegate;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) IBInspectable BOOL showDoneButton;
