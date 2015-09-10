@@ -36,7 +36,7 @@
 @end
 
 @implementation IASKAppSettingsSplitViewController {
-  IASKAppSettingsViewController *_settingsViewController;
+  IASKAppSettingsViewController *_masterSettingsViewController;
   UINavigationController *_masterNavigationViewController;
   UINavigationController *_detailNavigationViewController;
 }
@@ -49,7 +49,7 @@
 - (instancetype)initWithSettingsViewController:(IASKAppSettingsViewController *)settingsViewController {
   self = [super init];
   if (self) {
-    _settingsViewController = settingsViewController;
+    _masterSettingsViewController = settingsViewController;
   }
   return self;
 }
@@ -57,7 +57,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  _masterNavigationViewController = [[UINavigationController alloc] initWithRootViewController:_settingsViewController];
+  _masterNavigationViewController = [[UINavigationController alloc] initWithRootViewController:_masterSettingsViewController];
 
   // Show both master & detail view in portrait mode on iPad
   if ([self respondsToSelector:@selector(preferredDisplayMode)]) {            // >= iOS 8
@@ -66,10 +66,20 @@
   } else {                                                                    // < iOS 8
     _detailNavigationViewController = [[IASKAppSettingsDetailNavigationController alloc] init];
     self.delegate = (IASKAppSettingsDetailNavigationController *)_detailNavigationViewController;
-    _settingsViewController.masterViewControllerDelegate = self;
+    _masterSettingsViewController.masterViewControllerDelegate = self;
   }
 
   self.viewControllers = @[_masterNavigationViewController, _detailNavigationViewController];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+}
+
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:kIASKAppSettingChanged object:nil];
+}
+
+#pragma mark kIASKAppSettingChanged notification
+- (void)settingDidChange:(NSNotification*)notification {
+  [_masterSettingsViewController.tableView reloadData];
 }
 
 #pragma mark - IASKSettingsMasterViewDelegate - required for pre iOS 8
