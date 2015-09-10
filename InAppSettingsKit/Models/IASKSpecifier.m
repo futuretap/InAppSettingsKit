@@ -236,12 +236,12 @@
 
 - (UIImage *)cellImage
 {
-    return [UIImage imageNamed:[_specifierDict objectForKey:kIASKCellImage]];
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%@", [_specifierDict objectForKey:kIASKCellImage]]];
 }
 
 - (UIImage *)highlightedCellImage
 {
-    return [UIImage imageNamed:[[_specifierDict objectForKey:kIASKCellImage ] stringByAppendingString:@"Highlighted"]];
+    return [UIImage imageNamed:[NSString stringWithFormat:@"%@", [[_specifierDict objectForKey:kIASKCellImage ] stringByAppendingString:@"Highlighted"]]];
 }
 
 - (BOOL)adjustsFontSizeToFitWidth {
