@@ -69,7 +69,7 @@
 		[multipleValuesDict setObject:titles forKey:kIASKTitles];
 	}
     
-    if (shortTitles) {
+    if (shortTitles.count) {
 		[multipleValuesDict setObject:shortTitles forKey:kIASKShortTitles];
 	}
     
@@ -138,7 +138,7 @@
             [multipleValuesDict setObject:titles forKey:kIASKTitles];
         }
         
-        if (shortTitles) {
+        if (shortTitles.count) {
             [multipleValuesDict setObject:shortTitles forKey:kIASKShortTitles];
         }
         
@@ -214,9 +214,9 @@
 - (NSString*)titleForCurrentValue:(id)currentValue {
 	NSArray *values = [self multipleValues];
 	NSArray *titles = [self multipleShortTitles];
-    if (!titles)
+	if (!titles) {
         titles = [self multipleTitles];
-
+	}
 	if (values.count != titles.count) {
 		return nil;
 	}
