@@ -39,8 +39,5 @@ STRIP_INSTALLED_PRODUCT = NO
 // The optimization level (-Onone, -O, -Ofast) for the produced Swift binary
 SWIFT_OPTIMIZATION_LEVEL = -Onone
 
-// Whether to optimize across the whole Swift module
-SWIFT_WHOLE_MODULE_OPTIMIZATION = NO
-
 // Disable Developer ID timestamping
 OTHER_CODE_SIGN_FLAGS = --timestamp=none
