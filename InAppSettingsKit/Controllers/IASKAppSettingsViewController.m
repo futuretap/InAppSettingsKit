@@ -843,7 +843,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)pushViewController:(UIViewController *)viewController {
     if ([self isMasterViewController]) {
         if ([self respondsToSelector:@selector(showDetailViewController:sender:)]) {    // iOS 8+
-            [self showDetailViewController:[[UINavigationController alloc] initWithRootViewController:viewController] sender:nil];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+            IASK_IF_IOS7_OR_GREATER(navigationController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;);
+            navigationController.navigationBar.translucent = self.navigationController.navigationBar.translucent;
+            [self showDetailViewController:navigationController sender:nil];
         } else {                                                                        // < iOS 8
             [self.masterViewControllerDelegate showDetailViewController:viewController];
         }
