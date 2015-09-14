@@ -103,6 +103,20 @@
 	self.currentPopoverController = popover;
 }
 
+- (UIViewController *)initialDetailViewControllerForSettingsViewController:(IASKAppSettingsViewController *)sender {
+  IASKAppSettingsViewController *targetViewController = [[[sender class] alloc] init];
+  targetViewController.showDoneButton = NO;
+  targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
+  targetViewController.delegate = sender.delegate;
+  targetViewController.settingsStore = sender.settingsStore;
+  targetViewController.file = @"Complete";
+  targetViewController.hiddenKeys = sender.hiddenKeys;
+  targetViewController.title = @"Complete List";
+  IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = sender.view.tintColor;)
+
+  return targetViewController;
+}
+
 - (void)awakeFromNib {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
 	BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
@@ -116,6 +130,7 @@
   NSMutableArray *viewControllers = [self.tabBarController.viewControllers mutableCopy];
   IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
   settingsViewController.showDoneButton = NO;
+  settingsViewController.delegate = self;
 
   UIViewController *settingsTabBarViewController;
   BOOL ios8 = NO;

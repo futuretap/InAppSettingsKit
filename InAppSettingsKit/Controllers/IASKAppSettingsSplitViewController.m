@@ -33,12 +33,12 @@
 
 @interface IASKAppSettingsSplitViewController ()
 
+@property (readonly, nonatomic) UINavigationController *detailNavigationViewController;
 @end
 
 @implementation IASKAppSettingsSplitViewController {
   IASKAppSettingsViewController *_masterSettingsViewController;
   UINavigationController *_masterNavigationViewController;
-  UINavigationController *_detailNavigationViewController;
 }
 
 - (instancetype)init
@@ -58,34 +58,62 @@
   [super viewDidLoad];
 
   _masterNavigationViewController = [[UINavigationController alloc] initWithRootViewController:_masterSettingsViewController];
+  UINavigationController *detailNavigationViewController;
 
   // Show both master & detail view in portrait mode on iPad
   if ([self respondsToSelector:@selector(preferredDisplayMode)]) {            // >= iOS 8
-    _detailNavigationViewController = [[UINavigationController alloc] init];
+    detailNavigationViewController = [[UINavigationController alloc] init];
     self.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+    self.delegate = self;
   } else {                                                                    // < iOS 8
-    _detailNavigationViewController = [[IASKAppSettingsDetailNavigationController alloc] init];
-    self.delegate = (IASKAppSettingsDetailNavigationController *)_detailNavigationViewController;
+    detailNavigationViewController = [[IASKAppSettingsDetailNavigationController alloc] init];
+    self.delegate = (IASKAppSettingsDetailNavigationController *)detailNavigationViewController;
     _masterSettingsViewController.masterViewControllerDelegate = self;
   }
 
-  self.viewControllers = @[_masterNavigationViewController, _detailNavigationViewController];
+  self.viewControllers = @[_masterNavigationViewController, detailNavigationViewController];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+}
+
+- (UINavigationController *)detailNavigationViewController {
+  if (self.viewControllers.count == 2) {
+      return (UINavigationController *)self.viewControllers[1];
+  }
+
+  return nil;
 }
 
 - (void)dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:kIASKAppSettingChanged object:nil];
 }
 
+#pragma mark -
+#pragma mark UISplitViewControllerDelegate
+
+- (UIViewController *)splitViewController:(UISplitViewController *)splitViewController separateSecondaryViewControllerFromPrimaryViewController:(UIViewController *)primaryViewController {
+  if (_masterNavigationViewController.viewControllers.count == 1 &&
+      [_masterSettingsViewController.delegate respondsToSelector:@selector(initialDetailViewControllerForSettingsViewController:)]) {
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[_masterSettingsViewController.delegate initialDetailViewControllerForSettingsViewController:_masterSettingsViewController]];
+    navigationController.navigationBar.tintColor = _masterSettingsViewController.navigationController.navigationBar.tintColor;
+    navigationController.navigationBar.translucent = _masterSettingsViewController.navigationController.navigationBar.translucent;
+    return navigationController;
+  }
+
+  return nil;
+}
+
+#pragma mark -
 #pragma mark kIASKAppSettingChanged notification
+
 - (void)settingDidChange:(NSNotification*)notification {
   [_masterSettingsViewController.tableView reloadData];
 }
 
-#pragma mark - IASKSettingsMasterViewDelegate - required for pre iOS 8
+#pragma mark -
+#pragma mark IASKSettingsMasterViewDelegate - required for pre iOS 8
 
 - (void)showDetailViewController:(UIViewController *)viewController {
-  _detailNavigationViewController.viewControllers = @[viewController];
+  self.detailNavigationViewController.viewControllers = @[viewController];
 }
 
 @end

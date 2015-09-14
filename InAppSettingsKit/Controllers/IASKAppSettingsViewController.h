@@ -28,6 +28,11 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 
 @optional
+
+// A view controller that should be displayed as the initial details view controller when the settings are displayed
+// in a UISplitViewController
+- (UIViewController *)initialDetailViewControllerForSettingsViewController:(IASKAppSettingsViewController *)sender;
+
 #pragma mark - UITableView header customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView

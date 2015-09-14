@@ -18,7 +18,7 @@
 
 #import "IASKAppSettingsViewController.h"
 
-@interface IASKAppSettingsSplitViewController : UISplitViewController<IASKSettingsMasterViewControllerDelegate>
+@interface IASKAppSettingsSplitViewController : UISplitViewController<UISplitViewControllerDelegate, IASKSettingsMasterViewControllerDelegate>
 
 - (instancetype)initWithSettingsViewController:(IASKAppSettingsViewController *)settingsViewController;
 

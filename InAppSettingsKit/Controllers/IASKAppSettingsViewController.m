@@ -209,7 +209,24 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:nil];
 		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
 	}
+
+  [self setInitialDetailViewControllerIfNeeded];
+
 	[super viewWillAppear:animated];
+}
+
+// Set an initial details view controller only if the details view controller is currently being displayed,
+// the split view controller isn't collapsed (iOS 8+) & the delegate provides one
+- (void)setInitialDetailViewControllerIfNeeded {
+    if (
+        [self isMasterViewController] &&
+        self.splitViewController.viewControllers.count == 2 &&
+        ((UINavigationController *)self.splitViewController.viewControllers[1]).viewControllers.count == 0 &&
+        [self.delegate respondsToSelector:@selector(initialDetailViewControllerForSettingsViewController:)]
+        )
+    {
+        [self pushViewController:[self.delegate initialDetailViewControllerForSettingsViewController:self]];
+    }
 }
 
 - (CGSize)contentSizeForViewInPopover {
@@ -844,7 +861,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     if ([self isMasterViewController]) {
         if ([self respondsToSelector:@selector(showDetailViewController:sender:)]) {    // iOS 8+
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-            IASK_IF_IOS7_OR_GREATER(navigationController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;);
+            navigationController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
             navigationController.navigationBar.translucent = self.navigationController.navigationBar.translucent;
             [self showDetailViewController:navigationController sender:nil];
         } else {                                                                        // < iOS 8
