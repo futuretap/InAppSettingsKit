@@ -25,6 +25,7 @@
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
+#import "IASKTextViewCell.h"
 #import "IASKMultipleValueSelection.h"
 
 #if !__has_feature(objc_arc)
@@ -40,7 +41,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
 CGRect IASKCGRectSwap(CGRect rect);
 
-@interface IASKAppSettingsViewController () {
+@interface IASKAppSettingsViewController () <UITextViewDelegate> {
     IASKSettingsReader		*_settingsReader;
     id<IASKSettingsStore>  _settingsStore;
     
@@ -52,6 +53,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 @property (nonatomic, strong) id currentFirstResponder;
+@property (nonatomic, strong) NSMutableDictionary *rowHeights;
 
 - (void)_textChanged:(id)sender;
 - (void)synchronizeSettings;
@@ -166,6 +168,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	_reloadDisabled = NO;
 	_showDoneButton = YES;
 	_showCreditsFooter = YES; // display credits for InAppSettingsKit creators
+	self.rowHeights = [NSMutableDictionary dictionary];
 }
 
 - (void)viewDidLoad {
@@ -418,7 +421,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
-    if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
+	if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
+		CGFloat height = [self.rowHeights[specifier.key] doubleValue];
+		return height ? : UITableViewAutomaticDimension;
+	} else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
 		if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
 			return [self.delegate tableView:tableView heightForSpecifier:specifier];
 		} else {
@@ -503,6 +509,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	else if ([identifier hasPrefix:kIASKPSTextFieldSpecifier]) {
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
+	}
+	else if ([identifier hasPrefix:kIASKTextViewSpecifier]) {
+        cell = [[IASKTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKTextViewSpecifier];
 	}
 	else if ([identifier hasPrefix:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
@@ -598,6 +607,22 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.textAlignment = specifier.textAlignment;
 		textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	}
+	else if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
+		IASKTextViewCell *textCell = (id)cell;
+		NSString *value = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
+		if (![value isEqualToString:textCell.textView.text]) {
+			textCell.textView.text = value;
+			textCell.textView.delegate = self;
+			textCell.textView.key = specifier.key;
+			textCell.textView.keyboardType = specifier.keyboardType;
+			textCell.textView.autocapitalizationType = specifier.autocapitalizationType;
+			textCell.textView.autocorrectionType = specifier.autoCorrectionType;
+
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[self cacheRowHeightForTextView:textCell.textView];
+			});
+		}
+	}
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
 			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.minimumValueImage]];
@@ -643,7 +668,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	cell.imageView.image = specifier.cellImage;
 	cell.imageView.highlightedImage = specifier.highlightedCellImage;
     
-	if (![specifier.type isEqualToString:kIASKPSMultiValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTitleValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
+	if (![specifier.type isEqualToString:kIASKPSMultiValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTitleValueSpecifier] && ![specifier.type isEqualToString:kIASKPSTextFieldSpecifier] && ![specifier.type isEqualToString:kIASKTextViewSpecifier]) {
 		cell.textLabel.textAlignment = specifier.textAlignment;
 	}
 	cell.detailTextLabel.textAlignment = specifier.textAlignment;
@@ -685,9 +710,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         
     } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
-        [textFieldCell.textField becomeFirstResponder];
-
-    } else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
+        [textFieldCell.textField becomeFirstResponder];		
+	} else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
         if ([specifier viewControllerStoryBoardID]){
             NSString *storyBoardFileFromSpecifier = [specifier viewControllerStoryBoardFile];
             storyBoardFileFromSpecifier = storyBoardFileFromSpecifier && storyBoardFileFromSpecifier.length > 0 ? storyBoardFileFromSpecifier : [[NSBundle mainBundle].infoDictionary objectForKey:@"UIMainStoryboardFile"];
@@ -883,6 +907,36 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)singleTapToEndEdit:(UIGestureRecognizer *)sender {
     [self.tableView endEditing:NO];
+}
+
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidChange:(IASKTextView *)textView {
+	[self cacheRowHeightForTextView:textView];
+	
+	CGRect visibleTableRect = UIEdgeInsetsInsetRect(self.tableView.bounds, self.tableView.contentInset);
+	NSIndexPath *indexPath = [self.settingsReader indexPathForKey:textView.key];
+	CGRect cellFrame = [self.tableView rectForRowAtIndexPath:indexPath];
+	
+	if (!CGRectContainsRect(visibleTableRect, cellFrame)) {
+		[self.tableView scrollRectToVisible:CGRectInset(cellFrame, 0, - 30) animated:YES];
+	}
+
+	[_settingsStore setObject:textView.text forKey:textView.key];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
+														object:textView.key
+													  userInfo:@{textView.key: textView.text}];
+	
+}
+
+- (void)cacheRowHeightForTextView:(IASKTextView *)textView {
+	CGFloat maxHeight = self.tableView.bounds.size.height - self.tableView.contentInset.top - self.tableView.contentInset.bottom - 60;
+	CGFloat contentHeight = [textView sizeThatFits:CGSizeMake(textView.frame.size.width, 10000)].height + 16;
+	self.rowHeights[textView.key] = @(MAX(44, MIN(maxHeight, contentHeight)));
+	textView.scrollEnabled = contentHeight > maxHeight;
+
+	[self.tableView beginUpdates];
+	[self.tableView endUpdates];
 }
 
 #pragma mark Notifications

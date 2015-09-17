@@ -139,8 +139,6 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
-			<key>FooterText</key>
-			<string>custom segment header view:</string>
 			<key>Title</key>
 			<string>Extensions that are only available in-app, not in Settings.app:</string>
 			<key>Type</key>
@@ -305,6 +303,24 @@
 			<string>PSChildPaneSpecifier</string>
 			<key>IASKChildTitle</key>
 			<string>ABOUT_TITLE</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>custom segment header view:</string>
+			<key>Title</key>
+			<string>TextView</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKTextViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>Multiline 
+text 
+with dynamically resizing cell</string>
+			<key>Key</key>
+			<string>dynamicTextView</string>
 		</dict>
 		<dict>
 			<key>Key</key>
