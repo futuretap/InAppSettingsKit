@@ -27,6 +27,7 @@
 #define kIASKFile                             @"File"
 #define kIASKDefaultValue                     @"DefaultValue"
 #define kIASKDisplaySortedByTitle             @"DisplaySortedByTitle"
+#define kIASKNumberOfLines                    @"NumberOfLines"
 #define kIASKMinimumValue                     @"MinimumValue"
 #define kIASKMaximumValue                     @"MaximumValue"
 #define kIASKTrueValue                        @"TrueValue"
@@ -89,6 +90,8 @@
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
+#define kIASKTextViewSpecifier                @"IASKTextViewSpecifier"
+#define kIASKChildListSpecifier               @"IASKChildListSpecifier"
 
 // IASKChildTitle can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
 // If IASKChildTitle is set, the navigation title is fixed to it; otherwise, the title value is used and is overridden by the HTML title tag

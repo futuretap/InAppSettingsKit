@@ -279,6 +279,10 @@
     return [_specifierDict objectForKey:kIASKFalseValue];
 }
 
+- (NSUInteger)numberOfLines {
+    return [[_specifierDict objectForKey:kIASKNumberOfLines] unsignedIntegerValue];
+}
+
 - (float)minimumValue {
     return [[_specifierDict objectForKey:kIASKMinimumValue] floatValue];
 }

@@ -46,6 +46,7 @@
 - (BOOL)defaultBoolValue;
 - (id)trueValue;
 - (id)falseValue;
+- (NSUInteger)numberOfLines;
 - (float)minimumValue;
 - (float)maximumValue;
 - (NSString*)minimumValueImage;

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1AA106821916565D4D6221F9 /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */; };
 		1AA1073290B7DC27EB0C6A70 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */; };
+		520207E61BAAE85F00C29E80 /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 520207E41BAAE85F00C29E80 /* IASKTextView.h */; };
+		520207E71BAAE85F00C29E80 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 520207E51BAAE85F00C29E80 /* IASKTextView.m */; };
+		520207EA1BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 520207E81BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.h */; };
+		520207EB1BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 520207E91BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.m */; };
 		AA627D2819F67B7C0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
 		AA627D2919F67B8E0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
 		AA627D3B19F695F30079AAE8 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA627D2B19F695F30079AAE8 /* IASKLocalizable.strings */; };
@@ -64,6 +68,10 @@
 /* Begin PBXFileReference section */
 		1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKMultipleValueSelection.h; sourceTree = "<group>"; };
 		1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKMultipleValueSelection.m; sourceTree = "<group>"; };
+		520207E41BAAE85F00C29E80 /* IASKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextView.h; sourceTree = "<group>"; };
+		520207E51BAAE85F00C29E80 /* IASKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextView.m; sourceTree = "<group>"; };
+		520207E81BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextViewSpecifierViewCell.h; sourceTree = "<group>"; };
+		520207E91BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextViewSpecifierViewCell.m; sourceTree = "<group>"; };
 		AA627D2719F67B7C0079AAE8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AA627D2C19F695F30079AAE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		AA627D2D19F695F30079AAE8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
@@ -281,12 +289,16 @@
 				E42ADAD51682036500295D85 /* IASKPSSliderSpecifierViewCell.m */,
 				E42ADAD61682036500295D85 /* IASKPSTextFieldSpecifierViewCell.h */,
 				E42ADAD71682036500295D85 /* IASKPSTextFieldSpecifierViewCell.m */,
+				520207E81BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.h */,
+				520207E91BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.m */,
 				E42ADADA1682036500295D85 /* IASKSlider.h */,
 				E42ADADB1682036500295D85 /* IASKSlider.m */,
 				E42ADADC1682036500295D85 /* IASKSwitch.h */,
 				E42ADADD1682036500295D85 /* IASKSwitch.m */,
 				E42ADADE1682036500295D85 /* IASKTextField.h */,
 				E42ADADF1682036500295D85 /* IASKTextField.m */,
+				520207E41BAAE85F00C29E80 /* IASKTextView.h */,
+				520207E51BAAE85F00C29E80 /* IASKTextView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -367,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E401BD3C16820A0D00EAF534 /* IASKAppSettingsViewController.h in Headers */,
+				520207EA1BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.h in Headers */,
 				E401BD3D16820A1700EAF534 /* IASKSpecifierValuesViewController.h in Headers */,
 				E401BD3E16820A1C00EAF534 /* IASKAppSettingsWebViewController.h in Headers */,
 				E401BD3F16820A2400EAF534 /* IASKSettingsReader.h in Headers */,
@@ -378,6 +391,7 @@
 				E401BD4516820A2D00EAF534 /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
 				E401BD4716820A2D00EAF534 /* IASKSlider.h in Headers */,
 				E401BD4816820A2D00EAF534 /* IASKSwitch.h in Headers */,
+				520207E61BAAE85F00C29E80 /* IASKTextView.h in Headers */,
 				E401BD4916820A2D00EAF534 /* IASKTextField.h in Headers */,
 				E401BD4B16820BBA00EAF534 /* IASKViewController.h in Headers */,
 				1AA106821916565D4D6221F9 /* IASKMultipleValueSelection.h in Headers */,
@@ -503,6 +517,7 @@
 				E4EDC59E16820D9500BD3CA9 /* IASKSpecifierValuesViewController.m in Sources */,
 				E4EDC59F16820D9500BD3CA9 /* IASKAppSettingsWebViewController.m in Sources */,
 				E4EDC5A016820D9500BD3CA9 /* IASKSettingsReader.m in Sources */,
+				520207EB1BAAE94900C29E80 /* IASKTextViewSpecifierViewCell.m in Sources */,
 				E4EDC5A116820D9500BD3CA9 /* IASKSpecifier.m in Sources */,
 				E4EDC5A216820D9500BD3CA9 /* IASKSettingsStore.m in Sources */,
 				E4EDC5A316820D9500BD3CA9 /* IASKSettingsStoreUserDefaults.m in Sources */,
@@ -511,6 +526,7 @@
 				E4EDC5A616820D9500BD3CA9 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				E4EDC5A816820D9500BD3CA9 /* IASKSlider.m in Sources */,
 				E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */,
+				520207E71BAAE85F00C29E80 /* IASKTextView.m in Sources */,
 				E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */,
 				1AA1073290B7DC27EB0C6A70 /* IASKMultipleValueSelection.m in Sources */,
 			);

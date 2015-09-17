@@ -20,11 +20,13 @@
 #import "IASKSettingsStoreUserDefaults.h"
 #import "IASKPSSliderSpecifierViewCell.h"
 #import "IASKPSTextFieldSpecifierViewCell.h"
+#import "IASKTextViewSpecifierViewCell.h"
 #import "IASKSwitch.h"
 #import "IASKSlider.h"
 #import "IASKSpecifier.h"
 #import "IASKSpecifierValuesViewController.h"
 #import "IASKTextField.h"
+#import "IASKTextView.h"
 #import "IASKMultipleValueSelection.h"
 
 #if !__has_feature(objc_arc)
@@ -425,6 +427,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 			return 0;
 		}
 	}
+    else if ([[specifier type] isEqualToString:kIASKTextViewSpecifier]) {
+        NSUInteger numLines = [specifier numberOfLines];
+        if (numLines == 0) {
+            numLines = 3;
+        }
+        return numLines * 24;
+    }
+    
 	IASK_IF_IOS7_OR_GREATER
 	(
 	 NSDictionary *rowHeights = @{UIContentSizeCategoryExtraSmall: @(44),
@@ -504,7 +514,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSTextFieldSpecifier];
 		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(_textChanged:) forControlEvents:UIControlEventEditingChanged];
 	}
-	else if ([identifier hasPrefix:kIASKPSSliderSpecifier]) {
+    else if ([identifier hasPrefix:kIASKTextViewSpecifier]) {
+        IASKTextViewSpecifierViewCell * tvCell = [[IASKTextViewSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKTextViewSpecifier];
+        tvCell.textView.delegate = self;
+        cell = tvCell;
+    }
+    else if ([identifier hasPrefix:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
 	} else if ([identifier hasPrefix:kIASKPSChildPaneSpecifier]) {
 		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
@@ -598,6 +613,28 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.textAlignment = specifier.textAlignment;
 		textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	}
+    else if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
+        cell.textLabel.text = specifier.title;
+        
+        NSString *textValue = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
+        if (textValue && ![textValue isMemberOfClass:[NSString class]]) {
+            textValue = [NSString stringWithFormat:@"%@", textValue];
+        }
+        IASKTextView *textView = ((IASKTextViewSpecifierViewCell*)cell).textView;
+        textView.text = textValue;
+        textView.key = specifier.key;
+        textView.delegate = self;
+        textView.secureTextEntry = [specifier isSecure];
+        textView.keyboardType = specifier.keyboardType;
+        textView.autocapitalizationType = specifier.autocapitalizationType;
+        if([specifier isSecure]){
+            textView.autocorrectionType = UITextAutocorrectionTypeNo;
+        } else {
+            textView.autocorrectionType = specifier.autoCorrectionType;
+        }
+        textView.textAlignment = specifier.textAlignment;
+//        textView.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
+    }
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
 			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.minimumValueImage]];
@@ -687,6 +724,10 @@ CGRect IASKCGRectSwap(CGRect rect);
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
         [textFieldCell.textField becomeFirstResponder];
 
+    } else if ([[specifier type] isEqualToString:kIASKTextViewSpecifier]) {
+        IASKTextViewSpecifierViewCell *textViewCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+        [textViewCell.textView becomeFirstResponder];
+        
     } else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
         if ([specifier viewControllerStoryBoardID]){
             NSString *storyBoardFileFromSpecifier = [specifier viewControllerStoryBoardFile];
@@ -884,6 +925,33 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)singleTapToEndEdit:(UIGestureRecognizer *)sender {
     [self.tableView endEditing:NO];
 }
+
+#pragma mark -
+#pragma mark UITextViewDelegate Functions
+
+- (BOOL)textView:(IASKTextView *)aTextView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSMutableString *t = [NSMutableString stringWithString:aTextView.text];
+    [t replaceCharactersInRange:range withString:text];
+    
+    NSUInteger numberOfLines = 0;
+    for (NSUInteger i = 0; i < t.length; i++) {
+        if ([[NSCharacterSet newlineCharacterSet] characterIsMember: [t characterAtIndex: i]]) {
+            numberOfLines++;
+        }
+    }
+    
+    return (numberOfLines < [aTextView numberOfLines]);
+}
+
+- (void)textViewDidChange:(IASKTextView *)aTextView {
+    [_settingsStore setObject:[aTextView text] forKey:[aTextView key]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
+                                                        object:[aTextView key]
+                                                      userInfo:[NSDictionary dictionaryWithObject:[aTextView text]
+                                                                                           forKey:[aTextView key]]];
+
+}
+
 
 #pragma mark Notifications
 
