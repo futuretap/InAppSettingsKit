@@ -67,6 +67,7 @@
 @property (nonatomic, assign) IBInspectable BOOL showDoneButton;
 @property (nonatomic, retain) NSSet *hiddenKeys;
 @property (nonatomic) IBInspectable BOOL neverShowPrivacySettings;
+@property (nonatomic) IBInspectable BOOL cellLayoutMarginsFollowReadableWidth;
 
 - (void)synchronizeSettings;
 - (void)dismiss:(id)sender;
