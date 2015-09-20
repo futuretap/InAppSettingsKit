@@ -29,8 +29,15 @@
 
 @optional
 
+// The initial index path that should be selected when the settings are displayed in a UISplitViewController
+// If initialSelectedIndexPathForSettingsViewController: is also implemented, this method will be preferred.
+- (NSIndexPath *)initialSelectedIndexPathForSettingsViewController:(IASKAppSettingsViewController *)sender;
+
 // A view controller that should be displayed as the initial details view controller when the settings are displayed
-// in a UISplitViewController
+// in a UISplitViewController. As opposed to initialSelectedIndexPathForSettingsViewController: this method enables
+// displaying an arbitrary view controller as the details view controller. The downside is that no item in the master
+// view controller will appear selected. If both methods are implemented, initialSelectedIndexPathForSettingsViewController:
+// will be preferred.
 - (UIViewController *)initialDetailViewControllerForSettingsViewController:(IASKAppSettingsViewController *)sender;
 
 #pragma mark - UITableView header customization

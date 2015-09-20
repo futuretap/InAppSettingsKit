@@ -221,11 +221,17 @@ CGRect IASKCGRectSwap(CGRect rect);
     if (
         [self isMasterViewController] &&
         self.splitViewController.viewControllers.count == 2 &&
-        ((UINavigationController *)self.splitViewController.viewControllers[1]).viewControllers.count == 0 &&
-        [self.delegate respondsToSelector:@selector(initialDetailViewControllerForSettingsViewController:)]
-        )
-    {
-        [self pushViewController:[self.delegate initialDetailViewControllerForSettingsViewController:self]];
+        ((UINavigationController *)self.splitViewController.viewControllers[1]).viewControllers.count == 0
+        ) {
+        if ([self.delegate respondsToSelector:@selector(initialSelectedIndexPathForSettingsViewController:)]) {
+            NSIndexPath *indexPath = [self.delegate initialSelectedIndexPathForSettingsViewController:self];
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+            [self.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:UITableViewSelectionDidChangeNotification object:self.tableView];
+        } else if ([self.delegate respondsToSelector:@selector(initialDetailViewControllerForSettingsViewController:)]) {
+            [self pushViewController:[self.delegate initialDetailViewControllerForSettingsViewController:self]];
+        }
     }
 }
 
