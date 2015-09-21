@@ -610,18 +610,15 @@ CGRect IASKCGRectSwap(CGRect rect);
 	else if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
 		IASKTextViewCell *textCell = (id)cell;
 		NSString *value = [self.settingsStore objectForKey:specifier.key] != nil ? [self.settingsStore objectForKey:specifier.key] : specifier.defaultStringValue;
-		if (![value isEqualToString:textCell.textView.text]) {
-			textCell.textView.text = value;
-			textCell.textView.delegate = self;
-			textCell.textView.key = specifier.key;
-			textCell.textView.keyboardType = specifier.keyboardType;
-			textCell.textView.autocapitalizationType = specifier.autocapitalizationType;
-			textCell.textView.autocorrectionType = specifier.autoCorrectionType;
-
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[self cacheRowHeightForTextView:textCell.textView];
-			});
-		}
+		textCell.textView.text = value;
+		textCell.textView.delegate = self;
+		textCell.textView.key = specifier.key;
+		textCell.textView.keyboardType = specifier.keyboardType;
+		textCell.textView.autocapitalizationType = specifier.autocapitalizationType;
+		textCell.textView.autocorrectionType = specifier.autoCorrectionType;
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self cacheRowHeightForTextView:textCell.textView];
+		});
 	}
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
@@ -910,6 +907,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 #pragma mark - UITextViewDelegate
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+	self.currentFirstResponder = textView;
+}
 
 - (void)textViewDidChange:(IASKTextView *)textView {
 	[self cacheRowHeightForTextView:textView];
