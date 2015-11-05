@@ -22,19 +22,42 @@ We released the code under the liberal BSD license in order to make it possible 
 How to include it?
 ==================
 
-The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). Basically you have 2 options of including InAppSettingsKit:
+The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). There are several ways of installing it:
 
-1) you copy the `InAppSettingsKit` subfolder into your project and drag the files right into your application. InAppSettingsKitSampleApp.xcodeproj demonstrates this scenario. If your project is compiled without ARC, you'll need to enable it for the IASK files. You can do so by adding `-fobjc-arc` in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
+Using Carthage
+--------------
 
-2) you can use the static library project to include InAppSettingsKit. To see an example on how to do it, open InAppSettingsKit.xcworkspace. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
+Add to your `Cartfile`:
+
+    github "futuretap/InAppSettingsKit" "master"
+
+
+Using CocoaPods
+---------------
+
+Add to your `Podfile`:
+
+    pod 'InAppSettingsKit'
+
+Including the source code
+-------------------------
+
+Copy the `InAppSettingsKit` subfolder into your project and drag the files right into your application. InAppSettingsKitSampleApp.xcodeproj demonstrates this scenario. If your project is compiled without ARC, you'll need to enable it for the IASK files. You can do so by adding `-fobjc-arc` in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
+
+Using a static library
+----------------------
+
+Use the static library project to include InAppSettingsKit. To see an example on how to do it, open InAppSettingsKit.xcworkspace. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
 
 * add the InAppSettingsKit.xcodeproject into your application's workspace
 * add libInAppSettingsKit.a to your application's libraries by opening the Build-Phases pane of the main application and adding it in `Link Binary with Libraries`
 * use IASK by importing it via #import "InAppSettingsKit/..."
 * for Archive builds there's a minor annoyance: To make those work, you'll need to add `$(OBJROOT)/UninstalledProducts/include` to the `HEADER_SEARCH_PATHS`
 
-
 Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
+
+App Integration
+===============
 
 Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
