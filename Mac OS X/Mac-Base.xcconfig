@@ -17,6 +17,3 @@ SDKROOT = macosx
 
 // Supported build architectures
 VALID_ARCHS = x86_64
-
-// Bitcode is invalid on OS X
-ENABLE_BITCODE = NO
