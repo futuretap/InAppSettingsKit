@@ -10,3 +10,6 @@ LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks @loader_path/
 // The base SDK to use (if no version is specified, the latest version is
 // assumed)
 SDKROOT = appletvos
+
+// Supported device families
+TARGETED_DEVICE_FAMILY = 3

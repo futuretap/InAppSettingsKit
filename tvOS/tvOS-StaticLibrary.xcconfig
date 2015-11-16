@@ -9,6 +9,3 @@
 
 // Apply common settings specific to watchOS
 #include "tvOS-Base.xcconfig"
-
-// Supported device families
-TARGETED_DEVICE_FAMILY = 3
