@@ -65,6 +65,8 @@
 				<string>9</string>
 				<string>10</string>
 			</array>
+			<key>DisplaySortedByTitle</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -168,6 +170,26 @@
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
+			<string>inappsettingskit.com</string>
+			<key>File</key>
+			<string>http://www.inappsettingskit.com/</string>
+			<key>Title</key>
+			<string>Open URL (right)</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>LOCALIZED_URL</string>
+			<key>Title</key>
+			<string>LOCALIZED_URL_TITLE</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
 			<string>Tell A Friend</string>
 			<key>IASKMailComposeBccRecipents</key>
 			<array/>
@@ -185,6 +207,48 @@
 			<string>Mail Compose View</string>
 			<key>Type</key>
 			<string>IASKMailComposeSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>Tell A Friend</string>
+			<key>IASKMailComposeBccRecipents</key>
+			<array/>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>IASKMailComposeBodyIsHTML</key>
+			<string>NO</string>
+			<key>IASKMailComposeCcRecipents</key>
+			<array/>
+			<key>IASKMailComposeSubject</key>
+			<string>InAppSettingsKit</string>
+			<key>IASKMailComposeToRecipents</key>
+			<array/>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
+			<key>Title</key>
+			<string>Mail Compose View</string>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+		</dict>
+		<dict>
+			<key>IASKMailComposeBccRecipents</key>
+			<array/>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>IASKMailComposeBodyIsHTML</key>
+			<string>NO</string>
+			<key>IASKMailComposeCcRecipents</key>
+			<array/>
+			<key>IASKMailComposeSubject</key>
+			<string>InAppSettingsKit</string>
+			<key>IASKMailComposeToRecipents</key>
+			<array/>
+			<key>Title</key>
+			<string>Mail Compose View (centered)</string>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentCenter</string>
 		</dict>
 		<dict>
 			<key>IASKMailComposeBccRecipents</key>
@@ -210,7 +274,7 @@
 			<key>IASKViewControllerClass</key>
 			<string>CustomSubviewController</string>
 			<key>IASKViewControllerSelector</key>
-			<string>init</string>
+			<string>initWithFile:specifier:</string>
 			<key>Title</key>
 			<string>Custom Subview</string>
 			<key>Type</key>
@@ -263,6 +327,16 @@
 			<string>IASKButtonSpecifier</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>ButtonDemoAction3</string>
+			<key>Title</key>
+			<string>Button</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
 		</dict>
 		<dict>
 			<key>Title</key>

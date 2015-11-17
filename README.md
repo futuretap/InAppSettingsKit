@@ -22,19 +22,42 @@ We released the code under the liberal BSD license in order to make it possible 
 How to include it?
 ==================
 
-The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). Basically you have 2 options of including InAppSettingsKit:
+The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). There are several ways of installing it:
 
-1) you copy the `InAppSettingsKit` subfolder into your project and drag the files right into your application. InAppSettingsKitSampleApp.xcodeproj demonstrates this scenario. If your project is compiled without ARC, you'll need to enable it for the IASK files. You can do so by adding `-fobjc-arc` in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
+Using Carthage
+--------------
 
-2) you can use the static library project to include InAppSettingsKit. To see an example on how to do it, open InAppSettingsKit.xcworkspace. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
+Add to your `Cartfile`:
+
+    github "futuretap/InAppSettingsKit" "master"
+
+
+Using CocoaPods
+---------------
+
+Add to your `Podfile`:
+
+    pod 'InAppSettingsKit'
+
+Including the source code
+-------------------------
+
+Copy the `InAppSettingsKit` subfolder into your project and drag the files right into your application. InAppSettingsKitSampleApp.xcodeproj demonstrates this scenario. If your project is compiled without ARC, you'll need to enable it for the IASK files. You can do so by adding `-fobjc-arc` in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
+
+Using a static library
+----------------------
+
+Use the static library project to include InAppSettingsKit. To see an example on how to do it, open InAppSettingsKit.xcworkspace. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
 
 * add the InAppSettingsKit.xcodeproject into your application's workspace
 * add libInAppSettingsKit.a to your application's libraries by opening the Build-Phases pane of the main application and adding it in `Link Binary with Libraries`
 * use IASK by importing it via #import "InAppSettingsKit/..."
 * for Archive builds there's a minor annoyance: To make those work, you'll need to add `$(OBJROOT)/UninstalledProducts/include` to the `HEADER_SEARCH_PATHS`
 
-
 Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
+
+App Integration
+===============
 
 Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
@@ -73,6 +96,15 @@ In summary, the plists are searched in this order:
 - Settings.bundle/FILE.plist
 
 Different in-app settings are useful in a variety of situations. For example, [Where To?](http://www.futuretap.com/whereto) uses this mechanism to change the wording of "At next start" (for resetting confirmation dialogs) to be appropriate if the app is already running.
+
+
+iOS 8+: Privacy link
+--------------------
+On iOS 8.0 or newer, if the app includes a usage key for various privacy features such as camera or location access in its `Info.plist`, IASK displays a "Privacy" cell at the top of the root settings page. This cell opens the system Settings app and displays the settings pane for the app where the user can specify the privacy settings for the app.
+
+This behavior can be disabled by setting `neverShowPrivacySettings` to `NO`.
+
+The sample app defines `NSMicrophoneUsageDescription` to let the cell appear. Note that the settings page doesn't show any privacy settings yet because the app doesn't actually access the microphone. Privacy settings only show up in the Settings app after first use of the privacy-protected API.
 
 
 IASKOpenURLSpecifier
@@ -144,13 +176,18 @@ Alternatively specify `IASKViewControllerStoryBoardId` to initiate a viewcontrol
 Specifiy `IASKViewControllerStoryBoardFile` to use a story board other than MainStoryboard file.
 
 
+Subtitles
+---------
+The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button. Using a subtitle implies left alignment.
+
+
 Text alignment
 --------------
 For some element types, a `IASKTextAlignment` attribute may be added with the following values to override the default alignment:
 
-- `IASKUITextAlignmentLeft` (Buttons, TitleValue, MultiValue, OpenURL, TextField)
-- `IASKUITextAlignmentCenter` (Buttons, OpenURL)
-- `IASKUITextAlignmentRight` (Buttons, TitleValue, MultiValue, OpenURL, TextField)
+- `IASKUITextAlignmentLeft` (ChildPane, TextField, Buttons, OpenURL, MailCompose)
+- `IASKUITextAlignmentCenter` (ChildPane, Buttons, OpenURL)
+- `IASKUITextAlignmentRight` (ChildPane, TextField, Buttons, OpenURL, MailCompose)
 
 
 Variable font size

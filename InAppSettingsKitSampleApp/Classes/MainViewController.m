@@ -61,7 +61,7 @@
     //[viewController setShowCreditsFooter:NO];   // Uncomment to not display InAppSettingsKit credits for creators.
     // But we encourage you not to uncomment. Thank you!
     self.appSettingsViewController.showDoneButton = YES;
-    [self presentModalViewController:aNavController animated:YES];
+	[self presentViewController:aNavController animated:YES completion:nil];
 }
 
 - (void)showSettingsPopover:(id)sender {
@@ -104,7 +104,7 @@
 #pragma mark -
 #pragma mark IASKAppSettingsViewControllerDelegate protocol
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
-    [self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 	
 	// your code here to reconfigure the app for changed settings
 }
@@ -152,7 +152,7 @@
 	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
     label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor redColor];
     label.shadowColor = [UIColor whiteColor];
     label.shadowOffset = CGSizeMake(0, 1);
@@ -219,10 +219,6 @@
 		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:specifier.key];
 	}
 }
-
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	 return YES;
- }
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.

@@ -26,6 +26,7 @@
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
 #define kIASKDefaultValue                     @"DefaultValue"
+#define kIASKDisplaySortedByTitle             @"DisplaySortedByTitle"
 #define kIASKMinimumValue                     @"MinimumValue"
 #define kIASKMaximumValue                     @"MaximumValue"
 #define kIASKTrueValue                        @"TrueValue"
@@ -37,6 +38,8 @@
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
 #define kIASKShortTitles                      @"ShortTitles"
+#define kIASKSupportedUserInterfaceIdioms     @"SupportedUserInterfaceIdioms"
+#define kIASKSubtitle                         @"IASKSubtitle"
 #define kIASKViewControllerClass              @"IASKViewControllerClass"
 #define kIASKViewControllerSelector           @"IASKViewControllerSelector"
 #define kIASKViewControllerStoryBoardFile     @"IASKViewControllerStoryBoardFile"
@@ -77,6 +80,7 @@
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
 #define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"
 #define kIASKPSMultiValueSpecifier            @"PSMultiValueSpecifier"
+#define kIASKPSRadioGroupSpecifier            @"PSRadioGroupSpecifier"
 #define kIASKPSSliderSpecifier                @"PSSliderSpecifier"
 #define kIASKPSTitleValueSpecifier            @"PSTitleValueSpecifier"
 #define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"
@@ -96,10 +100,9 @@
 
 #define kIASKSectionHeaderIndex               0
 
-#define kIASKSliderNoImagesPadding            11
-#define kIASKSliderImagesPadding              43
+#define kIASKSliderImageGap                   10
 
-#define kIASKSpacing                          5
+#define kIASKSpacing                          8
 #define kIASKMinLabelWidth                    97
 #define kIASKMaxLabelWidth                    240
 #define kIASKMinValueWidth                    35
@@ -119,6 +122,10 @@
 
 #ifndef kCFCoreFoundationVersionNumber_iOS_7_0
 #define kCFCoreFoundationVersionNumber_iOS_7_0 843.00
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iOS_8_0
+#define kCFCoreFoundationVersionNumber_iOS_8_0 1129.150000
 #endif
 
 #ifdef __IPHONE_6_0
@@ -167,6 +174,16 @@ _Pragma("clang diagnostic pop")
 #define IASK_IF_PRE_IOS7(...)  __VA_ARGS__
 #endif
 
+#ifdef __IPHONE_8_0
+#define IASK_IF_IOS8_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IASK_IF_IOS8_OR_GREATER(...)
+#endif
+
 
 @class IASKSpecifier;
 
@@ -193,6 +210,7 @@ _Pragma("clang diagnostic pop")
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfRowsForSection:(NSInteger)section;
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
+- (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section;
 - (NSIndexPath*)indexPathForKey:(NSString*)key;
 - (IASKSpecifier*)specifierForKey:(NSString*)key;
 - (NSString*)titleForSection:(NSInteger)section;
@@ -214,6 +232,7 @@ _Pragma("clang diagnostic pop")
 @property (nonatomic, retain) NSString      *localizationTable;
 @property (nonatomic, retain) NSArray       *dataSource;
 @property (nonatomic, retain) NSSet         *hiddenKeys;
+@property (nonatomic) BOOL					showPrivacySettings;
 
 
 #pragma mark - internal use. public only for testing

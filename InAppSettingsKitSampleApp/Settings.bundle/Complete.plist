@@ -378,6 +378,18 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Boolean Toggle</string>
+			<key>Key</key>
+			<string>toggle_boolean_subtitle</string>
+			<key>DefaultValue</key>
+			<true/>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Toggle w/ image</string>
 			<key>Key</key>
 			<string>toggle_pic</string>
@@ -620,11 +632,11 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
+			<string>PSRadioGroupSpecifier</string>
 			<key>Title</key>
-			<string>EMPTY</string>
+			<string>Radio Group</string>
 			<key>Key</key>
-			<string>multivalue_notitle</string>
+			<string>radiogroup</string>
 			<key>DefaultValue</key>
 			<integer>1</integer>
 			<key>Values</key>
@@ -635,12 +647,10 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>Left One</string>
-				<string>Left Two</string>
-				<string>Left Three</string>
+				<string>One</string>
+				<string>Two</string>
+				<string>Three</string>
 			</array>
-			<key>IASKTextAlignment</key>
-			<string>IASKUITextAlignmentLeft</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -655,6 +665,16 @@
 			<string>Advanced</string>
 			<key>File</key>
 			<string>Advanced</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Advanced</string>
+			<key>File</key>
+			<string>Advanced</string>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
 		</dict>
 		<dict>
 			<key>Type</key>
