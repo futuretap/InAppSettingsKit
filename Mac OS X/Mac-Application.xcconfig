@@ -13,3 +13,9 @@
 // Whether function calls should be position-dependent (should always be
 // disabled for library code)
 GCC_DYNAMIC_NO_PIC = YES
+
+// Where to find embedded frameworks
+// Search `Frameworks` in the .app.
+// If app is cli at `/usr/local/bin/foo`, `@executable_path/../Frameworks`
+// means `/usr/local/Frameworks`.
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks

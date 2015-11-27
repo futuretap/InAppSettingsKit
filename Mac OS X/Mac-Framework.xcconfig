@@ -9,3 +9,9 @@
 
 // Import common settings specific to Mac OS X
 #include "Mac-Base.xcconfig"
+
+// Where to find embedded frameworks.
+// First search `Frameworks` in the .framework, then one in the .app.
+// If app is cli at `/usr/local/bin/foo`, `@executable_path/../Frameworks`
+// means `/usr/local/Frameworks`.
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @loader_path/Frameworks @executable_path/../Frameworks
