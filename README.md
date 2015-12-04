@@ -208,7 +208,7 @@ The default behaviour of IASK is to store the settings in `[NSUserDefaults stand
 
 Notifications
 -------------
-There's a `kIASKAppSettingChanged` notification that is sent for every changed settings key. The `object` of the notification is the userDefaults key (NSString*). The `userInfo` dictionary contains the new value of the key.
+There's a `kIASKAppSettingChanged` notification that is sent for every changed settings key. The `object` of the notification is the sending view controller  and the `userInfo` dictionary contains the key and new value of the affected key.
 
 
 Dynamic cell hiding
