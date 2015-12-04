@@ -76,7 +76,7 @@
     [self.settingsStore setObject:[values objectAtIndex:indexPath.row] forKey:[_specifier key]];
     [self.settingsStore synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
-                                                        object:[_specifier key]
+                                                        object:self
                                                       userInfo:@{
                                                           _specifier.key: values[indexPath.row]
                                                       }];
