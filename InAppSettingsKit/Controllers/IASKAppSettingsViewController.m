@@ -778,7 +778,12 @@ CGRect IASKCGRectSwap(CGRect rect);
             mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
             
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
-                [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
+                if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeSubjectForSpecifier:)]) {
+                    [mailViewController setSubject:[self.delegate settingsViewController:self
+                                                          mailComposeSubjectForSpecifier:specifier]];
+                } else {
+                    [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
+                }
             }
             if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
                 [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
@@ -798,8 +803,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                 if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
                     [mailViewController setMessageBody:[self.delegate settingsViewController:self
                                                                  mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
-                }
-                else {
+                } else {
                     [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
                 }
             }

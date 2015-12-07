@@ -44,6 +44,9 @@
 - (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
          mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
 
+- (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController
+      mailComposeSubjectForSpecifier:(IASKSpecifier *)specifier;
+
 - (UIViewController<MFMailComposeViewControllerDelegate>*) settingsViewController:(id<IASKViewController>)settingsViewController
                                      viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*) specifier;
 
