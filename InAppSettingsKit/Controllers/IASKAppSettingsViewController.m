@@ -919,7 +919,8 @@ static NSDictionary *oldUserDefaults = nil;
 }
 
 - (void)didChangeSettingViaIASK:(NSNotification*)notification {
-	[oldUserDefaults setValue:[self.settingsStore objectForKey:notification.object] forKey:notification.object];
+	NSString *key = notification.userInfo.allKeys.firstObject;
+	[oldUserDefaults setValue:notification.userInfo[key] forKey:key];
 }
 
 - (void)reload {
