@@ -28,6 +28,18 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 
 @optional
+
+// The initial index path that should be selected when the settings are displayed in a UISplitViewController
+// If initialSelectedIndexPathForSettingsViewController: is also implemented, this method will be preferred.
+- (NSIndexPath *)initialSelectedIndexPathForSettingsViewController:(IASKAppSettingsViewController *)sender;
+
+// A view controller that should be displayed as the initial details view controller when the settings are displayed
+// in a UISplitViewController. As opposed to initialSelectedIndexPathForSettingsViewController: this method enables
+// displaying an arbitrary view controller as the details view controller. The downside is that no item in the master
+// view controller will appear selected. If both methods are implemented, initialSelectedIndexPathForSettingsViewController:
+// will be preferred.
+- (UIViewController *)initialDetailViewControllerForSettingsViewController:(IASKAppSettingsViewController *)sender;
+
 #pragma mark - UITableView header customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView
@@ -58,10 +70,18 @@
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
 @end
 
+#pragma mark - delegate for when this view controller is a master view controller in a UISplitViewController on pre iOS 8 devices
+@protocol IASKSettingsMasterViewControllerDelegate
 
+- (void)showDetailViewController:(UIViewController *)viewController;
+
+@end
+
+#pragma mark - IASKAppSettingsViewController
 @interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, assign) IBOutlet id delegate;
+@property (nonatomic, assign) IBOutlet id<IASKSettingsMasterViewControllerDelegate> masterViewControllerDelegate;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, assign) BOOL showCreditsFooter;
 @property (nonatomic, assign) IBInspectable BOOL showDoneButton;

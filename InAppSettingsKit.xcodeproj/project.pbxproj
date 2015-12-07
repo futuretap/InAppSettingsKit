@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1AA106821916565D4D6221F9 /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */; };
 		1AA1073290B7DC27EB0C6A70 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */; };
+		1E3694581B94F62A000511FA /* IASKAppSettingsSplitViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E3694561B94F62A000511FA /* IASKAppSettingsSplitViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E3694591B94F62A000511FA /* IASKAppSettingsSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E3694571B94F62A000511FA /* IASKAppSettingsSplitViewController.m */; };
 		AA627D2819F67B7C0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
 		AA627D2919F67B8E0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
 		AA627D3B19F695F30079AAE8 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA627D2B19F695F30079AAE8 /* IASKLocalizable.strings */; };
@@ -95,6 +97,8 @@
 /* Begin PBXFileReference section */
 		1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKMultipleValueSelection.h; sourceTree = "<group>"; };
 		1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKMultipleValueSelection.m; sourceTree = "<group>"; };
+		1E3694561B94F62A000511FA /* IASKAppSettingsSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsSplitViewController.h; sourceTree = "<group>"; };
+		1E3694571B94F62A000511FA /* IASKAppSettingsSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsSplitViewController.m; sourceTree = "<group>"; };
 		AA627D2719F67B7C0079AAE8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AA627D2C19F695F30079AAE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		AA627D2D19F695F30079AAE8 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
@@ -310,6 +314,8 @@
 				E42ADAC71682036500295D85 /* IASKAppSettingsWebViewController.m */,
 				1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */,
 				1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */,
+				1E3694561B94F62A000511FA /* IASKAppSettingsSplitViewController.h */,
+				1E3694571B94F62A000511FA /* IASKAppSettingsSplitViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -456,6 +462,7 @@
 				E401BD4916820A2D00EAF534 /* IASKTextField.h in Headers */,
 				E401BD4B16820BBA00EAF534 /* IASKViewController.h in Headers */,
 				1AA106821916565D4D6221F9 /* IASKMultipleValueSelection.h in Headers */,
+				1E3694581B94F62A000511FA /* IASKAppSettingsSplitViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +648,7 @@
 				E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */,
 				E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */,
 				1AA1073290B7DC27EB0C6A70 /* IASKMultipleValueSelection.m in Sources */,
+				1E3694591B94F62A000511FA /* IASKAppSettingsSplitViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

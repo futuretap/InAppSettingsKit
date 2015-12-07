@@ -54,14 +54,18 @@ Use the static library project to include InAppSettingsKit. To see an example on
 * use IASK by importing it via #import "InAppSettingsKit/..."
 * for Archive builds there's a minor annoyance: To make those work, you'll need to add `$(OBJROOT)/UninstalledProducts/include` to the `HEADER_SEARCH_PATHS`
 
-Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
+Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller, a popover (on iPad) or in a separate tab of a TabBar based application. The sample app demonstrates all four ways to integrate InAppSettingsKit.
+
+InAppSettingsKit supports split view on all devices, OS versions & orientations. Setting this up correctly can be a bit tricky, especially as the behavior of UISplitViewController is different on pre iOS 8 devices. To make this easier, InAppSettingsKit includes a custom subclass of UISplitViewController which can be used (see the sample app for usage examples).
+
+Note that a UISplitViewController can't be pushed onto a UINavigationController or be used as a popover so in these cases we use the InAppSettingsViewController directly. Pre iOS 8 a UISplitViewController can't be displayed modally but there's a workaround for this which can be found in the sample app.
 
 App Integration
 ===============
 
 Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
-You may need to make two changes to your project to get it to compile: 1) Add `MessageUI.framework` and 2) enable ARC for the IASK files. Both changes can be made by finding your target and navigating to the Build Phases tab. 
+You may need to make two changes to your project to get it to compile: 1) Add `MessageUI.framework` and 2) enable ARC for the IASK files. Both changes can be made by finding your target and navigating to the Build Phases tab.
 
 `MessageUI.framework` is needed for `MFMailComposeViewController` and can be added in the "Link Binary With Libraries" Section. Use the + icon.
 

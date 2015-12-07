@@ -209,7 +209,30 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:nil];
 		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
 	}
+
+  [self setInitialDetailViewControllerIfNeeded];
+
 	[super viewWillAppear:animated];
+}
+
+// Set an initial details view controller only if the details view controller is currently being displayed,
+// the split view controller isn't collapsed (iOS 8+) & the delegate provides one
+- (void)setInitialDetailViewControllerIfNeeded {
+    if (
+        [self isMasterViewController] &&
+        self.splitViewController.viewControllers.count == 2 &&
+        ((UINavigationController *)self.splitViewController.viewControllers[1]).viewControllers.count == 0
+        ) {
+        if ([self.delegate respondsToSelector:@selector(initialSelectedIndexPathForSettingsViewController:)]) {
+            NSIndexPath *indexPath = [self.delegate initialSelectedIndexPathForSettingsViewController:self];
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+            [self.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:UITableViewSelectionDidChangeNotification object:self.tableView];
+        } else if ([self.delegate respondsToSelector:@selector(initialDetailViewControllerForSettingsViewController:)]) {
+            [self pushViewController:[self.delegate initialDetailViewControllerForSettingsViewController:self]];
+        }
+    }
 }
 
 - (CGSize)contentSizeForViewInPopover {
@@ -681,7 +704,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         targetViewController.settingsStore = self.settingsStore;
 		IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
         _currentChildViewController = targetViewController;
-        [[self navigationController] pushViewController:targetViewController animated:YES];
+        [self pushViewController:targetViewController];
         
     } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
@@ -694,7 +717,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardFileFromSpecifier bundle:nil];
 			UIViewController * vc = [storyBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryBoardID]];
 			IASK_IF_IOS7_OR_GREATER(vc.view.tintColor = self.view.tintColor;)
-            [self.navigationController pushViewController:vc animated:YES];
+            [self pushViewController:vc];
 			return;
 		}
         
@@ -716,7 +739,7 @@ CGRect IASKCGRectSwap(CGRect rect);
                 [vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
             }
 			IASK_IF_IOS7_OR_GREATER(vc.view.tintColor = self.view.tintColor;)
-            [self.navigationController pushViewController:vc animated:YES];
+            [self pushViewController:vc];
             return;
         }
         
@@ -740,7 +763,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         
         _reloadDisabled = NO;
 		
-        [[self navigationController] pushViewController:targetViewController animated:YES];
+        [self pushViewController:targetViewController];
         
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -840,6 +863,36 @@ CGRect IASKCGRectSwap(CGRect rect);
     }
 }
 
+- (void)pushViewController:(UIViewController *)viewController {
+    if ([self isMasterViewController]) {
+        if ([self respondsToSelector:@selector(showDetailViewController:sender:)]) {    // iOS 8+
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+            navigationController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+            navigationController.navigationBar.translucent = self.navigationController.navigationBar.translucent;
+            [self showDetailViewController:navigationController sender:nil];
+        } else {                                                                        // < iOS 8
+            [self.masterViewControllerDelegate showDetailViewController:viewController];
+        }
+    } else {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+
+// Checks if self is inside the view controller heirarchy of a master view controller inside a UISplitViewController
+- (BOOL)isMasterViewController {
+    if (self.splitViewController) {
+        UIViewController *masterViewController = self.splitViewController.viewControllers[0];
+        UIViewController *parentViewController = self.parentViewController;
+        while (parentViewController != nil) {
+            if (parentViewController == masterViewController) {
+                return YES;
+            }
+            parentViewController = parentViewController.parentViewController;
+        }
+    }
+
+    return NO;
+}
 
 #pragma mark -
 #pragma mark MFMailComposeViewControllerDelegate Function
