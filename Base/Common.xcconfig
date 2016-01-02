@@ -172,3 +172,8 @@ RUN_CLANG_STATIC_ANALYZER = YES
 
 // Don't treat unknown warnings as errors, and disable GCC compatibility warnings and unused static const variable warnings
 WARNING_CFLAGS = -Wno-error=unknown-warning-option -Wno-gcc-compat -Wno-unused-const-variable -Wno-nullability-completeness
+
+// This setting is on for new projects as of Xcode ~6.3, though it is still not
+// the default. It warns if the same variable is declared in two binaries that
+// are linked together.
+GCC_NO_COMMON_BLOCKS = YES
