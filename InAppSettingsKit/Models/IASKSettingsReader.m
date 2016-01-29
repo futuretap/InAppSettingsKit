@@ -222,7 +222,9 @@
 }
 
 - (NSString*)titleForSection:(NSInteger)section {
-    return [self titleForStringId:[self headerSpecifierForSection:section].title];
+    NSArray *preferredLanguages = [NSLocale preferredLanguages];
+    NSString *lang = preferredLanguages.count > 0 ? preferredLanguages[0] : @"en";
+    return [[NSBundle bundleWithPath:[self.settingsBundle pathForResource:lang ofType:@"lproj"]] localizedStringForKey:stringId value:stringId table:self.localizationTable];
 }
 
 - (NSString*)keyForSection:(NSInteger)section {
