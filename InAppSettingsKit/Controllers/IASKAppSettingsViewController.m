@@ -624,7 +624,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
 		NSString *value = [self.settingsStore objectForKey:specifier.key];
-		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForStringId:value] : specifier.title;
+		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForId:value] : specifier.title;
 		cell.detailTextLabel.text = specifier.subtitle;
 		IASK_IF_IOS7_OR_GREATER
 		(if (specifier.textAlignment != NSTextAlignmentLeft) {
@@ -634,7 +634,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
 		NSInteger index = [specifier.multipleValues indexOfObject:specifier.radioGroupValue];
-		cell.textLabel.text = [self.settingsReader titleForStringId:specifier.multipleTitles[index]];
+		cell.textLabel.text = [self.settingsReader titleForId:specifier.multipleTitles[index]];
 		[_selections[indexPath.section] updateSelectionInCell:cell indexPath:indexPath];
 	} else {
 		cell.textLabel.text = specifier.title;

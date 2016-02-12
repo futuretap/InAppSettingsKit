@@ -113,7 +113,7 @@
     [_selection updateSelectionInCell:cell indexPath:indexPath];
 
     @try {
-		[[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
+		[[cell textLabel] setText:[self.settingsReader titleForId:[titles objectAtIndex:indexPath.row]]];
 	}
 	@catch (NSException * e) {}
     return cell;
