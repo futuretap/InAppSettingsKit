@@ -222,7 +222,7 @@
 }
 
 - (NSString*)titleForSection:(NSInteger)section {
-    return [self titleForStringId:[self headerSpecifierForSection:section].title];
+    return [self titleForId:[self headerSpecifierForSection:section].title];
 }
 
 - (NSString*)keyForSection:(NSInteger)section {
@@ -230,11 +230,22 @@
 }
 
 - (NSString*)footerTextForSection:(NSInteger)section {
-    return [self titleForStringId:[self headerSpecifierForSection:section].footerText];
+    return [self titleForId:[self headerSpecifierForSection:section].footerText];
 }
 
-- (NSString*)titleForStringId:(NSString*)stringId {
-    return [self.settingsBundle localizedStringForKey:stringId value:stringId table:self.localizationTable];
+- (NSString*)titleForId:(NSObject*)titleId
+{
+	if([titleId isKindOfClass:[NSNumber class]]) {
+		NSNumber* numberTitleId = (NSNumber*)titleId;
+		NSNumberFormatter* formatter = [NSNumberFormatter new];
+		[formatter setNumberStyle:NSNumberFormatterNoStyle];
+		return [formatter stringFromNumber:numberTitleId];
+	}
+	else
+	{
+		NSString* stringTitleId = (NSString*)titleId;
+		return [self.settingsBundle localizedStringForKey:stringTitleId value:stringTitleId table:self.localizationTable];
+	}
 }
 
 - (NSString*)pathForImageNamed:(NSString*)image {
