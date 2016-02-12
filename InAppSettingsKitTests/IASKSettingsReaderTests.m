@@ -81,7 +81,7 @@
 }
 
 - (void) testSettingsReaderLocalizedNumberTitles {
-	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Root"
+	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Complete"
 																   applicationBundle:[NSBundle bundleForClass:[self class]]];
 	IASKSpecifier *multiSpecifier = [reader specifierForKey:@"mulValueWithNumbers"];
 
