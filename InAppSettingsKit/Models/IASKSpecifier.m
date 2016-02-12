@@ -95,7 +95,7 @@
         static NSString *const valueKey = @"value";
         IASKSettingsReader *strongSettingsReader = self.settingsReader;
         [titles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSString *localizedTitle = [strongSettingsReader titleForStringId:obj];
+            NSString *localizedTitle = [strongSettingsReader titleForId:obj];
             [temporaryMappingsForSort addObject:@{titleKey : obj,
                                                   valueKey : values[idx],
                                                   localizedTitleKey : localizedTitle,
@@ -152,7 +152,7 @@
 
 - (NSString*)localizedObjectForKey:(NSString*)key {
 	IASKSettingsReader *settingsReader = self.settingsReader;
-	return [settingsReader titleForStringId:[_specifierDict objectForKey:key]];
+	return [settingsReader titleForId:[_specifierDict objectForKey:key]];
 }
 
 - (NSString*)title {
@@ -226,7 +226,7 @@
 	}
 	@try {
 		IASKSettingsReader *strongSettingsReader = self.settingsReader;
-		return [strongSettingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
+		return [strongSettingsReader titleForId:[titles objectAtIndex:keyIndex]];
 	}
 	@catch (NSException * e) {}
 	return nil;

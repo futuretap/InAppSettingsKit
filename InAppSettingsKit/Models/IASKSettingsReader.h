@@ -216,7 +216,7 @@ __VA_ARGS__ \
 - (NSString*)titleForSection:(NSInteger)section;
 - (NSString*)keyForSection:(NSInteger)section;
 - (NSString*)footerTextForSection:(NSInteger)section;
-- (NSString*)titleForStringId:(NSString*)stringId;
+- (NSString*)titleForId:(NSObject*)titleId;
 - (NSString*)pathForImageNamed:(NSString*)image;
 
 ///the main application bundle. most often [NSBundle mainBundle]
