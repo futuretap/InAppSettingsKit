@@ -182,6 +182,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
 	// if there's something selected, the value might have changed
 	// so reload that row
 	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
@@ -209,7 +211,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:nil];
 		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
 	}
-	[super viewWillAppear:animated];
 }
 
 - (CGSize)contentSizeForViewInPopover {
