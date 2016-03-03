@@ -412,6 +412,22 @@
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
+        <dict>
+            <key>Title</key>
+            <string>Text View</string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+        <dict>
+            <key>DefaultValue</key>
+            <string>Multiline text example.</string>
+            <key>Key</key>
+            <string>textView</string>
+            <key>Title</key>
+            <string>Comments</string>
+            <key>Type</key>
+            <string>IASKTextViewSpecifier</string>
+        </dict>
 		<dict>
 			<key>Title</key>
 			<string>Custom View</string>

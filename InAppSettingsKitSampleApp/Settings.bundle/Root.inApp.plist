@@ -400,6 +400,22 @@
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
+        <dict>
+            <key>Title</key>
+            <string>Text View</string>
+            <key>Type</key>
+            <string>PSGroupSpecifier</string>
+        </dict>
+        <dict>
+            <key>Type</key>
+            <string>IASKTextViewSpecifier</string>
+            <key>Title</key>
+            <string>Plain</string>
+            <key>Key</key>
+            <string>text_plain</string>
+            <key>DefaultValue</key>
+            <string>Plain Text</string>
+        </dict>
 		<dict>
 			<key>Title</key>
 			<string>Custom View</string>
