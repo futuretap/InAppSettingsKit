@@ -721,6 +721,30 @@
 			<string>20-gear2</string>
 		</dict>
 		<dict>
+			<key>Title</key>
+			<string>TextView</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKTextViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>Multiline 
+text 
+with dynamically resizing cell</string>
+			<key>Key</key>
+			<string>dynamicTextView</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKTextViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>Sent from my iPhone/iPad</string>
+			<key>Key</key>
+			<string>dynamicTextView2</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
