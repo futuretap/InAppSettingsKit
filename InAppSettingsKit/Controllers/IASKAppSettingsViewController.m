@@ -626,7 +626,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
 		NSString *value = [self.settingsStore objectForKey:specifier.key];
-		cell.textLabel.text = [value isKindOfClass:[NSString class]] ? [self.settingsReader titleForId:value] : specifier.title;
+		cell.textLabel.text = ([value isKindOfClass:NSString.class] && [self.settingsReader titleForId:value].length) ? [self.settingsReader titleForId:value] : specifier.title;
 		cell.detailTextLabel.text = specifier.subtitle;
 		IASK_IF_IOS7_OR_GREATER
 		(if (specifier.textAlignment != NSTextAlignmentLeft) {
