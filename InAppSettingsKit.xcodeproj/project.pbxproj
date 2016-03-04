@@ -9,9 +9,13 @@
 /* Begin PBXBuildFile section */
 		1AA106821916565D4D6221F9 /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */; };
 		1AA1073290B7DC27EB0C6A70 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */; };
-		AA5AB52A1C88974100B20124 /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5AB5261C88974100B20124 /* IASKTextView.h */; };
+		AA0A85EB1C89C9A70036F778 /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5AB5261C88974100B20124 /* IASKTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA0A85EC1C89C9AB0036F778 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5AB5271C88974100B20124 /* IASKTextView.m */; };
+		AA0A85ED1C89C9B30036F778 /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5AB5281C88974100B20124 /* IASKTextViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA0A85EE1C89C9B70036F778 /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5AB5291C88974100B20124 /* IASKTextViewCell.m */; };
+		AA5AB52A1C88974100B20124 /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5AB5261C88974100B20124 /* IASKTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA5AB52B1C88974100B20124 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5AB5271C88974100B20124 /* IASKTextView.m */; };
-		AA5AB52C1C88974100B20124 /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5AB5281C88974100B20124 /* IASKTextViewCell.h */; };
+		AA5AB52C1C88974100B20124 /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5AB5281C88974100B20124 /* IASKTextViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA5AB52D1C88974100B20124 /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5AB5291C88974100B20124 /* IASKTextViewCell.m */; };
 		AA627D2819F67B7C0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
 		AA627D2919F67B8E0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
@@ -440,6 +444,8 @@
 				DAC1563C1B54538900655031 /* IASKSettingsReader.h in Headers */,
 				DAC1563E1B54538900655031 /* IASKSpecifier.h in Headers */,
 				DAC156481B54538D00655031 /* IASKMultipleValueSelection.h in Headers */,
+				AA0A85ED1C89C9B30036F778 /* IASKTextViewCell.h in Headers */,
+				AA0A85EB1C89C9A70036F778 /* IASKTextView.h in Headers */,
 				DAC1562D1B54537200655031 /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
 				DAC156401B54538D00655031 /* IASKViewController.h in Headers */,
 				DAC156361B54538500655031 /* IASKSettingsStore.h in Headers */,
@@ -625,6 +631,7 @@
 				DAC156421B54538D00655031 /* IASKAppSettingsViewController.m in Sources */,
 				DAC156441B54538D00655031 /* IASKSpecifierValuesViewController.m in Sources */,
 				DAC156341B54537200655031 /* IASKTextField.m in Sources */,
+				AA0A85EE1C89C9B70036F778 /* IASKTextViewCell.m in Sources */,
 				DAC156321B54537200655031 /* IASKSwitch.m in Sources */,
 				DAC1562E1B54537200655031 /* IASKPSTextFieldSpecifierViewCell.m in Sources */,
 				DAC156371B54538500655031 /* IASKSettingsStore.m in Sources */,
@@ -632,6 +639,7 @@
 				DAC1563D1B54538900655031 /* IASKSettingsReader.m in Sources */,
 				DAC156461B54538D00655031 /* IASKAppSettingsWebViewController.m in Sources */,
 				DAC1562C1B54537200655031 /* IASKPSSliderSpecifierViewCell.m in Sources */,
+				AA0A85EC1C89C9AB0036F778 /* IASKTextView.m in Sources */,
 				DAC1563F1B54538900655031 /* IASKSpecifier.m in Sources */,
 				DAC156391B54538500655031 /* IASKSettingsStoreUserDefaults.m in Sources */,
 			);
