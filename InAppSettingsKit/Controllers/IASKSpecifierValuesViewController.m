@@ -87,7 +87,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
-    _selection.tableView = nil;
+    // Fix issue #338
+    //_selection.tableView = nil;
 }
 
 - (void)didReceiveMemoryWarning {
