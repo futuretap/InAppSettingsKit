@@ -52,6 +52,13 @@
     _selection = [IASKMultipleValueSelection new];
     _selection.tableView = _tableView;
     _selection.settingsStore = _settingsStore;
+    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.preferredContentSize = [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -131,10 +138,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [_selection selectRowAtIndexPath:indexPath];
-}
-
-- (CGSize)contentSizeForViewInPopover {
-    return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 
 @end
