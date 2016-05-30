@@ -79,6 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E4C2300116BD91A100DEFE05"
+            BuildableName = "IASKApplicationTests.xctest"
+            BlueprintName = "IASKApplicationTests"
+            ReferencedContainer = "container:IASKSampleAppStaticLibrary.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
