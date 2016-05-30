@@ -427,7 +427,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
 	if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
-		CGFloat height = [self.rowHeights[specifier.key] doubleValue];
+		CGFloat height = (CGFloat)[self.rowHeights[specifier.key] doubleValue];
 		return height > 0 ? height : UITableViewAutomaticDimension;
 	} else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
 		if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
