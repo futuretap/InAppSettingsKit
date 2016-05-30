@@ -27,4 +27,6 @@ FOUNDATION_EXPORT const unsigned char InAppSettingsKitFrameworkVersionString[];
 #import <InAppSettingsKit/IASKSpecifierValuesViewController.h>
 #import <InAppSettingsKit/IASKSwitch.h>
 #import <InAppSettingsKit/IASKTextField.h>
+#import <InAppSettingsKit/IASKTextView.h>
+#import <InAppSettingsKit/IASKTextViewCell.h>
 #import <InAppSettingsKit/IASKViewController.h>
