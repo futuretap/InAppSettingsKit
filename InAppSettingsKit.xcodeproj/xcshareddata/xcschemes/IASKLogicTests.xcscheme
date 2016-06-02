@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E42ADAA1168202D700295D85"
-               BuildableName = "InAppSettingsKitTests.octest"
+               BuildableName = "InAppSettingsKitTests.xctest"
                BlueprintName = "InAppSettingsKitTests"
                ReferencedContainer = "container:InAppSettingsKit.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E42ADAA1168202D700295D85"
-               BuildableName = "InAppSettingsKitTests.octest"
+               BuildableName = "InAppSettingsKitTests.xctest"
                BlueprintName = "InAppSettingsKitTests"
                ReferencedContainer = "container:InAppSettingsKit.xcodeproj">
             </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E42ADAA1168202D700295D85"
-            BuildableName = "InAppSettingsKitTests.octest"
+            BuildableName = "InAppSettingsKitTests.xctest"
             BlueprintName = "InAppSettingsKitTests"
             ReferencedContainer = "container:InAppSettingsKit.xcodeproj">
          </BuildableReference>

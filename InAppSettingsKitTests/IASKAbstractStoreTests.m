@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 InAppSettingsKit. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "IASKSettingsStore.h"
 
 @interface CustomStore : IASKAbstractSettingsStore { }
@@ -31,7 +31,7 @@
 @end
 
 
-@interface IASKAbstractStoreTests : SenTestCase {
+@interface IASKAbstractStoreTests : XCTestCase {
     CustomStore* store;
 }
 @end
@@ -53,51 +53,51 @@
 -(void)testAbstractStoreCallsSetObjectForBool {
     [store setBool:YES forKey:@"MyKey"];
     
-    STAssertEqualObjects(@"MyKey", store.lastKey, @"Key not used or set");
-    STAssertEqualObjects([NSNumber numberWithBool:YES], store.lastValue, @"Value not set");
+    XCTAssertEqualObjects(@"MyKey", store.lastKey, @"Key not used or set");
+    XCTAssertEqualObjects([NSNumber numberWithBool:YES], store.lastValue, @"Value not set");
 }
 
 -(void)testAbstractStoreCallsSetObjectForFloat {
     [store setFloat:.12f forKey:@"MyKey1"];
     
-    STAssertEqualObjects(@"MyKey1", store.lastKey, @"Key not used or set");
-    STAssertEqualsWithAccuracy(.12f, [store.lastValue floatValue], .001f, @"Value not set");
+    XCTAssertEqualObjects(@"MyKey1", store.lastKey, @"Key not used or set");
+    XCTAssertEqualWithAccuracy(.12f, [store.lastValue floatValue], .001f, @"Value not set");
 }
 
 -(void)testAbstractStoreCallsSetObjectForInteger {
     [store setInteger:23 forKey:@"MyKey"];
     
-    STAssertEqualObjects(@"MyKey", store.lastKey, @"Key not used or set");
-    STAssertEquals(23, [store.lastValue integerValue], @"Value not set");
+    XCTAssertEqualObjects(@"MyKey", store.lastKey, @"Key not used or set");
+    XCTAssertEqual(23, [store.lastValue integerValue], @"Value not set");
 }
 
 -(void)testAbstractStoreCallsSetObjectForDouble {
     [store setDouble:23. forKey:@"MyKey"];
     
-    STAssertEqualObjects(@"MyKey", store.lastKey, @"Key not used or set");
-    STAssertEqualsWithAccuracy(23., [store.lastValue doubleValue], .001, @"Value not set");
+    XCTAssertEqualObjects(@"MyKey", store.lastKey, @"Key not used or set");
+    XCTAssertEqualWithAccuracy(23., [store.lastValue doubleValue], .001, @"Value not set");
 }
 
 -(void)testAbstractStoreCallsGetObjectForDouble {
-    STAssertNil(store.lastKey, @"Should be nil");
+    XCTAssertNil(store.lastKey, @"Should be nil");
     [store doubleForKey:@"MyKey"];
-    STAssertEquals(store.lastKey, @"MyKey", @"objectforKey not called");
+    XCTAssertEqual(store.lastKey, @"MyKey", @"objectforKey not called");
 }
 
 -(void)testAbstractStoreCallsGetObjectForFloat {
-    STAssertNil(store.lastKey, @"Should be nil");
+    XCTAssertNil(store.lastKey, @"Should be nil");
     [store floatForKey:@"MyKey"];
-    STAssertEquals(store.lastKey, @"MyKey", @"objectforKey not called");
+    XCTAssertEqual(store.lastKey, @"MyKey", @"objectforKey not called");
 }
 -(void)testAbstractStoreCallsGetObjectForInteger {
-    STAssertNil(store.lastKey, @"Should be nil");
+    XCTAssertNil(store.lastKey, @"Should be nil");
     [store integerForKey:@"MyKey"];
-    STAssertEquals(store.lastKey, @"MyKey", @"objectforKey not called");
+    XCTAssertEqual(store.lastKey, @"MyKey", @"objectforKey not called");
 }
 -(void)testAbstractStoreCallsGetObjectForBool {
-    STAssertNil(store.lastKey, @"Should be nil");
+    XCTAssertNil(store.lastKey, @"Should be nil");
     [store boolForKey:@"MyKey"];
-    STAssertEquals(store.lastKey, @"MyKey", @"objectforKey not called");
+    XCTAssertEqual(store.lastKey, @"MyKey", @"objectforKey not called");
 }
 
 @end

@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 InAppSettingsKit. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import "IASKSettingsStoreFile.h"
 
-@interface IASKFileStoreTests : SenTestCase
+@interface IASKFileStoreTests : XCTestCase
 @end
 
 
@@ -25,7 +25,7 @@
 
 -(void)testFileStoreStoresPath {
     IASKSettingsStoreFile* fileStore = [[IASKSettingsStoreFile alloc] initWithPath:@"/Users/Karl"];
-    STAssertEquals(fileStore.filePath, @"/Users/Karl", @"FilePath not stored");
+    XCTAssertEqual(fileStore.filePath, @"/Users/Karl", @"FilePath not stored");
 }
 
 - (void) testFileStoreCreatesFileOnSynchronize {
@@ -33,10 +33,10 @@
     NSString* tempFilePath = [tempDir stringByAppendingPathComponent:@"IASKFileStoreTests.settings"];
     
     IASKSettingsStoreFile* fileStore = [[IASKSettingsStoreFile alloc] initWithPath:tempFilePath];
-    STAssertTrue([fileStore synchronize], @"Failed to save file");
+    XCTAssertTrue([fileStore synchronize], @"Failed to save file");
     
     NSFileManager* fm = [NSFileManager new];
-    STAssertTrue([fm fileExistsAtPath:tempFilePath], @"Failed to create file");
+    XCTAssertTrue([fm fileExistsAtPath:tempFilePath], @"Failed to create file");
     
     [[NSFileManager defaultManager] removeItemAtPath:tempFilePath error:nil];
 }

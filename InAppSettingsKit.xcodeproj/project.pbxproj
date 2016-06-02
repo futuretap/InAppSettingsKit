@@ -23,7 +23,6 @@
 		E401BD4916820A2D00EAF534 /* IASKTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADADE1682036500295D85 /* IASKTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E401BD4B16820BBA00EAF534 /* IASKViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E401BD4A16820BBA00EAF534 /* IASKViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42ADA93168202D700295D85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA92168202D700295D85 /* Foundation.framework */; };
-		E42ADAA4168202D700295D85 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADAA3168202D700295D85 /* SenTestingKit.framework */; };
 		E42ADAA6168202D700295D85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADAA5168202D700295D85 /* UIKit.framework */; };
 		E42ADAA7168202D700295D85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA92168202D700295D85 /* Foundation.framework */; };
 		E42ADAAA168202D700295D85 /* libInAppSettingsKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */; };
@@ -63,8 +62,7 @@
 		E401BD4A16820BBA00EAF534 /* IASKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKViewController.h; sourceTree = "<group>"; };
 		E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADA92168202D700295D85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		E42ADAA2168202D700295D85 /* InAppSettingsKitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E42ADAA3168202D700295D85 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		E42ADAA2168202D700295D85 /* InAppSettingsKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADAA5168202D700295D85 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		E42ADAAD168202D700295D85 /* InAppSettingsKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitTests-Info.plist"; sourceTree = "<group>"; };
 		E42ADAAF168202D700295D85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E42ADAA4168202D700295D85 /* SenTestingKit.framework in Frameworks */,
 				E42ADAA6168202D700295D85 /* UIKit.framework in Frameworks */,
 				E42ADAA7168202D700295D85 /* Foundation.framework in Frameworks */,
 				E42ADAAA168202D700295D85 /* libInAppSettingsKit.a in Frameworks */,
@@ -157,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */,
-				E42ADAA2168202D700295D85 /* InAppSettingsKitTests.octest */,
+				E42ADAA2168202D700295D85 /* InAppSettingsKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				E42ADA92168202D700295D85 /* Foundation.framework */,
-				E42ADAA3168202D700295D85 /* SenTestingKit.framework */,
 				E42ADAA5168202D700295D85 /* UIKit.framework */,
 			);
 			name = Frameworks;
@@ -378,9 +374,8 @@
 			buildConfigurationList = E42ADAB9168202D700295D85 /* Build configuration list for PBXNativeTarget "InAppSettingsKitTests" */;
 			buildPhases = (
 				E42ADA9D168202D700295D85 /* Sources */,
-				E42ADA9E168202D700295D85 /* Frameworks */,
 				E42ADA9F168202D700295D85 /* Resources */,
-				E42ADAA0168202D700295D85 /* ShellScript */,
+				E42ADA9E168202D700295D85 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -389,8 +384,8 @@
 			);
 			name = InAppSettingsKitTests;
 			productName = InAppSettingsKitTests;
-			productReference = E42ADAA2168202D700295D85 /* InAppSettingsKitTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = E42ADAA2168202D700295D85 /* InAppSettingsKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -431,22 +426,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E42ADAA0168202D700295D85 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E42ADA8B168202D700295D85 /* Sources */ = {
@@ -549,6 +528,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -557,7 +537,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
+				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
@@ -565,6 +545,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -573,7 +554,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
+				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
