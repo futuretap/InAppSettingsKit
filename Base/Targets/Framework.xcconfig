@@ -4,6 +4,10 @@
 // instead.
 //
 
+// Disable code signing for successful device builds with Xcode 8
+CODE_SIGNING_REQUIRED = NO
+CODE_SIGN_IDENTITY = 
+
 // Whether to strip out code that isn't called from anywhere
 DEAD_CODE_STRIPPING = NO
 
@@ -29,4 +33,3 @@ SKIP_INSTALL = YES
 // to app extensions and linking to frameworks
 // that have not been built with this setting enabled.
 APPLICATION_EXTENSION_API_ONLY = YES
-
