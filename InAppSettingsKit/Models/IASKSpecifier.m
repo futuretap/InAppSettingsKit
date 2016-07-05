@@ -163,6 +163,10 @@
 	return [self localizedObjectForKey:kIASKSubtitle];
 }
 
+- (NSString *)placeholder {
+    return [self localizedObjectForKey:kIASKPlaceholder];
+}
+
 - (NSString*)footerText {
     return [self localizedObjectForKey:kIASKFooterText];
 }

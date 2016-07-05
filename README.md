@@ -186,6 +186,11 @@ Subtitles
 The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button. Using a subtitle implies left alignment.
 
 
+Placeholder
+--------------
+The `IASKPlaceholder` key allows to define plcaholer for TextField.
+
+
 Text alignment
 --------------
 For some element types, a `IASKTextAlignment` attribute may be added with the following values to override the default alignment:

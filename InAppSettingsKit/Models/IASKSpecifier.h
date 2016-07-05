@@ -34,6 +34,7 @@
 - (NSString*)localizedObjectForKey:(NSString*)key;
 - (NSString*)title;
 - (NSString*)subtitle;
+- (NSString*)placeholder;
 - (NSString*)key;
 - (NSString*)type;
 - (NSString*)titleForCurrentValue:(id)currentValue;
