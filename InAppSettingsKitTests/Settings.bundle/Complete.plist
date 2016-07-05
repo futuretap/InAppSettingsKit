@@ -26,6 +26,16 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
+			<string>Placeholder</string>
+			<key>Key</key>
+			<string>text_placeholder</string>
+			<key>IASKPlaceholder</key>
+			<string>placeholder</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
 			<string>Right</string>
 			<key>Key</key>
 			<string>text_plain_right</string>

@@ -600,6 +600,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
 		textField.text = textValue;
+		textField.placeholder = specifier.placeholder;
 		textField.key = specifier.key;
 		textField.delegate = self;
 		textField.secureTextEntry = [specifier isSecure];

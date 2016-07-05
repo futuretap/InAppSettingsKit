@@ -40,6 +40,7 @@
 #define kIASKShortTitles                      @"ShortTitles"
 #define kIASKSupportedUserInterfaceIdioms     @"SupportedUserInterfaceIdioms"
 #define kIASKSubtitle                         @"IASKSubtitle"
+#define kIASKPlaceholder                      @"IASKPlaceholder"
 #define kIASKViewControllerClass              @"IASKViewControllerClass"
 #define kIASKViewControllerSelector           @"IASKViewControllerSelector"
 #define kIASKViewControllerStoryBoardFile     @"IASKViewControllerStoryBoardFile"
