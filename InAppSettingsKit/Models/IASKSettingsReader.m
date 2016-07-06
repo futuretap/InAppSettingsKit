@@ -222,9 +222,7 @@
 }
 
 - (NSString*)titleForSection:(NSInteger)section {
-    NSArray *preferredLanguages = [NSLocale preferredLanguages];
-    NSString *lang = preferredLanguages.count > 0 ? preferredLanguages[0] : @"en";
-    return [[NSBundle bundleWithPath:[self.settingsBundle pathForResource:lang ofType:@"lproj"]] localizedStringForKey:stringId value:stringId table:self.localizationTable];
+    return [self titleForId:[self headerSpecifierForSection:section].title];
 }
 
 - (NSString*)keyForSection:(NSInteger)section {
@@ -246,7 +244,7 @@
 	else
 	{
 		NSString* stringTitleId = (NSString*)titleId;
-		return [self.settingsBundle localizedStringForKey:stringTitleId value:stringTitleId table:self.localizationTable];
+		return [[NSBundle bundleWithPath:[self.settingsBundle pathForResource:lang ofType:@"lproj"]] localizedStringForKey:stringTitleId value:stringTitleId table:self.localizationTable];
 	}
 }
 
@@ -336,3 +334,4 @@ exitFromNestedLoop:
 }
 
 @end
+
