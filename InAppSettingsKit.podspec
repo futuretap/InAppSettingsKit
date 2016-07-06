@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name                  = 'InAppSettingsKit'
-	s.version               = '2.6'
+	s.version               = '2.7.1'
 	s.summary               = 'This iPhone framework allows settings to be in-app in addition to being in the Settings app.'
 	s.authors               = {"Ortwin Gentz" => "http://www.futuretap.com", "Luc Vandal" => "http://edovia.com/company/#contact_form"}
 	s.social_media_url		= "https://twitter.com/IASettingsKit"

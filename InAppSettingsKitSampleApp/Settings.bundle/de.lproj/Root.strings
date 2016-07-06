@@ -28,6 +28,7 @@
 "MUL_VAL_NO_TITLE_2"    = "Nie";
 "MUL_VAL_NO_TITLE_3"    = "Weiß nicht";
 "MUL_VAL_NO_TITLE_NIL"  = "";
+"MUL_VAL_WITH_NUMBERS"  = "Mit Zahlen";
 
 "MULTIVALUE_FOOTER"		= "Dies ist ein Footer-Text unter einer MultiValue-Liste.";
 

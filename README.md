@@ -137,6 +137,11 @@ The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewCo
 By default, Buttons are aligned centered except if an image is specified (default: left-aligned). The default alignment may be overridden.
 
 
+IASKTextViewSpecifier
+---------------------
+Similar to `PSTextFieldSpecifier` this element displays a full-width, multi line text view that resizes according to the entered text. It also supports `KeyboardType`, `AutocapitalizationType` and `AutocorrectionType`.
+
+
 FooterText
 ----------
 The FooterText key for Group elements is available in system settings since iOS 4. It is supported in InAppSettingsKit as well. On top of that, we support this key for Multi Value elements as well. The footer text is displayed below the table of multi value options.
@@ -179,6 +184,11 @@ Specifiy `IASKViewControllerStoryBoardFile` to use a story board other than Main
 Subtitles
 ---------
 The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button. Using a subtitle implies left alignment.
+
+
+Placeholder
+--------------
+The `IASKPlaceholder` key allows to define plcaholer for TextField.
 
 
 Text alignment

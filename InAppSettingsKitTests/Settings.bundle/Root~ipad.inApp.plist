@@ -181,6 +181,18 @@
 			<string>IASKUITextAlignmentCenter</string>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<string>inappsettingskit.com</string>
+			<key>File</key>
+			<string>http://www.inappsettingskit.com/</string>
+			<key>Title</key>
+			<string>Open URL (right)</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
+		</dict>
+		<dict>
 			<key>File</key>
 			<string>LOCALIZED_URL</string>
 			<key>Title</key>
