@@ -244,6 +244,8 @@
 	else
 	{
 		NSString* stringTitleId = (NSString*)titleId;
+		NSArray *preferredLanguages = [NSLocale preferredLanguages];
+		NSString *lang = preferredLanguages.count > 0 ? preferredLanguages[0] : @"en";
 		return [[NSBundle bundleWithPath:[self.settingsBundle pathForResource:lang ofType:@"lproj"]] localizedStringForKey:stringTitleId value:stringTitleId table:self.localizationTable];
 	}
 }
