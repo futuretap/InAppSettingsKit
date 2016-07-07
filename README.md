@@ -13,44 +13,35 @@ How does it work?
 To support traditional Settings.app panes, the app must include a `Settings.bundle` with at least a `Root.plist` to specify the connection of settings UI elements with `NSUserDefaults` keys. InAppSettingsKit basically just uses the same Settings.bundle to do its work. This means there's no additional work when you want to include a new settings parameter. It just has to be added to the Settings.bundle and it will appear both in-app and in Settings.app. All settings types like text fields, sliders, toggle elements, child views etc. are supported.
 
 
-The License
-===========
-
-We released the code under the liberal BSD license in order to make it possible to include it in every project, be it a free or paid app. The only thing we ask for is giving the [original developers](http://www.inappsettingskit.com/about) some credit. The easiest way to include credits is by leaving the "Powered by InAppSettingsKit" notice in the code. If you decide to remove this notice, a noticeable mention on the App Store description page or homepage is fine, too. To gain some exposure for your app we suggest [adding your app](http://www.inappsettingskit.com/apps) to our list.
-
-
 How to include it?
 ==================
 
 The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). There are several ways of installing it:
 
-Using Carthage
---------------
+**Using Carthage**
 
 Add to your `Cartfile`:
 
     github "futuretap/InAppSettingsKit" "master"
 
 
-Using CocoaPods
----------------
+**Using CocoaPods**
 
 Add to your `Podfile`:
 
     pod 'InAppSettingsKit'
 
-Including the source code
--------------------------
+**Including the source code**
 
-Copy the `InAppSettingsKit` subfolder into your project and drag the files right into your application. InAppSettingsKitSampleApp.xcodeproj demonstrates this scenario. If your project is compiled without ARC, you'll need to enable it for the IASK files. You can do so by adding `-fobjc-arc` in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
 
-Using a static library
-----------------------
+Copy the `InAppSettingsKit` subfolder into your project and drag the files right into your application. `InAppSettingsKitSampleApp.xcodeproj` demonstrates this scenario. If your project is compiled without ARC, you'll need to enable it for the IASK files. You can do so by adding `-fobjc-arc` in the "Compile Sources" phase. You can select all the relevant files at once with shift-click and then double-click in the Compiler Flags column to enter the text.
 
-Use the static library project to include InAppSettingsKit. To see an example on how to do it, open InAppSettingsKit.xcworkspace. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
+**Using a static library**
 
-* add the InAppSettingsKit.xcodeproject into your application's workspace
-* add libInAppSettingsKit.a to your application's libraries by opening the Build-Phases pane of the main application and adding it in `Link Binary with Libraries`
+Use the static library project to include InAppSettingsKit. To see an example on how to do it, open `InAppSettingsKit.xcworkspace`. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
+
+* add the `InAppSettingsKit.xcodeproject` into your application's workspace
+* add `libInAppSettingsKit.a` to your application's libraries by opening the Build-Phases pane of the main application and adding it in `Link Binary with Libraries`
 * use IASK by importing it via #import "InAppSettingsKit/..."
 * for Archive builds there's a minor annoyance: To make those work, you'll need to add `$(OBJROOT)/UninstalledProducts/include` to the `HEADER_SEARCH_PATHS`
 
@@ -59,14 +50,46 @@ Then you can display the InAppSettingsKit view controller using a navigation pus
 App Integration
 ===============
 
+In order to start using the `InAppSettings` you must:
+
+- Add `Settings.bundle` to your project (`File` -> `Add File` -> `Settings bundle`)
+- Go and edit `Root.plist` with your settings. It's fairly self-documenting to start from. Read on to get insight into more advanced uses.
+
+Further integration depends on how your app is structured.
+
+**Apps with UI built in code**
+
+- Create a class inheriting from the `IASKAppSettingsViewController`:
+
+	#import "InAppSettingsKit/IASKAppSettingsViewController.h"
+
+	@interface SettingsTableViewController : IASKAppSettingsViewController
+
+	@end
+
+and continue with instantiating `SettingsTableViewController`.
+
+**Apps with UI built with storyboards**
+
+- Create the class like the above
+- Drag and drop UITableViewController into your app and wire the storyboard
+  to your app UI
+- Set the table's class as `SettingsTableViewController`
+
+**Additional changes**
+
 Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
-You may need to make two changes to your project to get it to compile: 1) Add `MessageUI.framework` and 2) enable ARC for the IASK files. Both changes can be made by finding your target and navigating to the Build Phases tab. 
+You may need to make two changes to your project to get it to compile:
+
+1. Add `MessageUI.framework` and
+2. Enable ARC for the IASK files.
+
+Both changes can be made by finding your target and navigating to the Build Phases tab. 
 
 `MessageUI.framework` is needed for `MFMailComposeViewController` and can be added in the "Link Binary With Libraries" Section. Use the + icon.
 
 To enable ARC select all IASK* source files in the "Compile Sources" section, press Enter, insert `-fobjc-arc` and then "Done".
-
 
 
 iCloud sync
@@ -244,3 +267,8 @@ If you'd like to customize the appearance of InAppSettingsKit, you might want to
 More information
 ----------------
 In the [Dr. Touch podcast](http://www.drobnik.com/touch/2010/01/dr-touch-010-a-new-decade/) and the [MDN Show Episode 027](http://itunes.apple.com/us/podcast/the-mdn-show/id318584787) [Ortwin Gentz](http://twitter.com/ortwingentz) talks about InAppSettingsKit.
+
+The License
+===========
+
+We released the code under the liberal BSD license in order to make it possible to include it in every project, be it a free or paid app. The only thing we ask for is giving the [original developers](http://www.inappsettingskit.com/about) some credit. The easiest way to include credits is by leaving the "Powered by InAppSettingsKit" notice in the code. If you decide to remove this notice, a noticeable mention on the App Store description page or homepage is fine, too. To gain some exposure for your app we suggest [adding your app](http://www.inappsettingskit.com/apps) to our list.
