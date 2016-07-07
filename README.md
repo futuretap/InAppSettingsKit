@@ -50,6 +50,34 @@ Then you can display the InAppSettingsKit view controller using a navigation pus
 App Integration
 ===============
 
+In order to start using the `InAppSettings` you must:
+
+- Add `Settings.bundle` to your project (`File` -> `Add File` -> `Settings bundle`)
+- Go and edit `Root.plist` with your settings. It's fairly self-documenting to start from. Read on to get insight into more advanced uses.
+
+Further integration depends on how your app is structured.
+
+**Apps with UI built in code**
+
+- Create a class inheriting from the `IASKAppSettingsViewController`:
+
+	#import "InAppSettingsKit/IASKAppSettingsViewController.h"
+
+	@interface SettingsTableViewController : IASKAppSettingsViewController
+
+	@end
+
+and continue with instantiating `SettingsTableViewController`.
+
+**Apps with UI built with storyboards**
+
+- Create the class like the above
+- Drag and drop UITableViewController into your app and wire the storyboard
+  to your app UI
+- Set the table's class as `SettingsTableViewController`
+
+**Additional changes**
+
 Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
 You may need to make two changes to your project to get it to compile:
