@@ -7,6 +7,7 @@
 //
 
 #import "SettingsTableTableViewController.h"
+#import "InAppSettingsKit/IASKAppSettingsViewController.h"
 
 @interface SettingsTableTableViewController ()
 
@@ -29,6 +30,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+/*
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -40,6 +43,10 @@
 #warning Incomplete implementation, return the number of rows
     return 0;
 }
+
+*/
+
+// JUNK FROM XCODE BELOW
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
