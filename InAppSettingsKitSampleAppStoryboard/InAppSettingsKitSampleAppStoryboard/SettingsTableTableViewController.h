@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InAppSettingsKit/IASKAppSettingsViewController.h"
 
-@interface SettingsTableTableViewController : UITableViewController
+
+@interface SettingsTableTableViewController : IASKAppSettingsViewController
 
 @end

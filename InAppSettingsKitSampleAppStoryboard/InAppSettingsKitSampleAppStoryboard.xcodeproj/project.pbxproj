@@ -15,6 +15,9 @@
 		5797A3D11D2F6E6D00B13CB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5797A3CF1D2F6E6D00B13CB2 /* LaunchScreen.storyboard */; };
 		5797A3DC1D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5797A3DB1D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.m */; };
 		5797A3E71D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5797A3E61D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.m */; };
+		5797A40F1D2F6F4400B13CB2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5797A40E1D2F6F4400B13CB2 /* Settings.bundle */; };
+		5797A4121D2F6F6700B13CB2 /* SettingsTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5797A4111D2F6F6700B13CB2 /* SettingsTableTableViewController.m */; };
+		5797A4181D2F725E00B13CB2 /* libInAppSettingsKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797A4171D2F725E00B13CB2 /* libInAppSettingsKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,10 @@
 		5797A3E21D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKitSampleAppStoryboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5797A3E61D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InAppSettingsKitSampleAppStoryboardUITests.m; sourceTree = "<group>"; };
 		5797A3E81D2F6E6D00B13CB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5797A40E1D2F6F4400B13CB2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		5797A4101D2F6F6700B13CB2 /* SettingsTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableTableViewController.h; sourceTree = "<group>"; };
+		5797A4111D2F6F6700B13CB2 /* SettingsTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableTableViewController.m; sourceTree = "<group>"; };
+		5797A4171D2F725E00B13CB2 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libInAppSettingsKit.a; path = "../../../Library/Developer/Xcode/DerivedData/InAppSettingsKit-hdcopyrkpvqrvccrfxyaksmvmzqh/Build/Products/Debug-iphonesimulator/libInAppSettingsKit.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5797A4181D2F725E00B13CB2 /* libInAppSettingsKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +89,7 @@
 		5797A3B51D2F6E6D00B13CB2 = {
 			isa = PBXGroup;
 			children = (
+				5797A4171D2F725E00B13CB2 /* libInAppSettingsKit.a */,
 				5797A3C01D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboard */,
 				5797A3DA1D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests */,
 				5797A3E51D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests */,
@@ -105,11 +114,14 @@
 				5797A3C51D2F6E6D00B13CB2 /* AppDelegate.m */,
 				5797A3C71D2F6E6D00B13CB2 /* ViewController.h */,
 				5797A3C81D2F6E6D00B13CB2 /* ViewController.m */,
+				5797A4101D2F6F6700B13CB2 /* SettingsTableTableViewController.h */,
+				5797A4111D2F6F6700B13CB2 /* SettingsTableTableViewController.m */,
 				5797A3CA1D2F6E6D00B13CB2 /* Main.storyboard */,
 				5797A3CD1D2F6E6D00B13CB2 /* Assets.xcassets */,
 				5797A3CF1D2F6E6D00B13CB2 /* LaunchScreen.storyboard */,
 				5797A3D21D2F6E6D00B13CB2 /* Info.plist */,
 				5797A3C11D2F6E6D00B13CB2 /* Supporting Files */,
+				5797A40E1D2F6F4400B13CB2 /* Settings.bundle */,
 			);
 			path = InAppSettingsKitSampleAppStoryboard;
 			sourceTree = "<group>";
@@ -243,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5797A40F1D2F6F4400B13CB2 /* Settings.bundle in Resources */,
 				5797A3D11D2F6E6D00B13CB2 /* LaunchScreen.storyboard in Resources */,
 				5797A3CE1D2F6E6D00B13CB2 /* Assets.xcassets in Resources */,
 				5797A3CC1D2F6E6D00B13CB2 /* Main.storyboard in Resources */,
@@ -271,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5797A3C91D2F6E6D00B13CB2 /* ViewController.m in Sources */,
+				5797A4121D2F6F6700B13CB2 /* SettingsTableTableViewController.m in Sources */,
 				5797A3C61D2F6E6D00B13CB2 /* AppDelegate.m in Sources */,
 				5797A3C31D2F6E6D00B13CB2 /* main.m in Sources */,
 			);

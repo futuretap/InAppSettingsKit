@@ -1,7 +1,7 @@
 InAppSettingsKit
 ================
 
-InAppSettingsKit is an open source solution to easily add in-app settings to your iPhone apps. Normally iOS apps use the `Settings.bundle` resource to [make app's settings](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/UserDefaults/Preferences/Preferences.html) to be present in "Settings" app. InAppSettingsKit takes advantage of the same bundle and allows you to present the same settings screen within your app. So the user has the choice where to change the settings. More details about the history of this development on the [FutureTap Blog](http://www.futuretap.com/blog/inappsettingskit) and the [Edovia Blog](http://www.edovia.com/blog/inappsettingskit).
+InAppSettingsKit (IASK) is an open source solution to easily add in-app settings to your iPhone apps. Normally iOS apps use the `Settings.bundle` resource to [make app's settings](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/UserDefaults/Preferences/Preferences.html) to be present in "Settings" app. InAppSettingsKit takes advantage of the same bundle and allows you to present the same settings screen within your app. So the user has the choice where to change the settings. More details about the history of this development on the [FutureTap Blog](http://www.futuretap.com/blog/inappsettingskit) and the [Edovia Blog](http://www.edovia.com/blog/inappsettingskit).
 
 <a href="https://flattr.com/thing/799297/futuretapInAppSettingsKit-on-GitHub" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a>
@@ -73,12 +73,20 @@ and continue with instantiating `SettingsTableViewController`.  This way,
 you can customize the appearance of InAppSettingsKit by overriding some
 `UITableViewDataSource` or `UITableViewDelegate` methods.
 
+
+There's a sample application called `InAppSettingsAppStaticLibrary` which is
+an example of integration of IASK (static library build) with the app.
+
 **Apps with UI built with storyboards**
 
 - Create the class like the above
 - Drag and drop UITableViewController into your app and wire the storyboard
   to your app UI
 - Set the table's class as `SettingsTableViewController`
+
+There's a sample application `InAppSettingsSampleAppStoryboard` which
+contains a basic `UITableViewController` using IASK through
+`SettingsTableViewController` and wrapper with Navigation Controller.
 
 **Additional changes**
 

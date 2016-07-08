@@ -91,6 +91,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5797A3FA1D2F6E7D00B13CB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5797A3F41D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5797A3BE1D2F6E6D00B13CB2;
+			remoteInfo = InAppSettingsKitSampleAppStoryboard;
+		};
+		5797A3FC1D2F6E7D00B13CB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5797A3F41D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5797A3D71D2F6E6D00B13CB2;
+			remoteInfo = InAppSettingsKitSampleAppStoryboardTests;
+		};
+		5797A3FE1D2F6E7D00B13CB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5797A3F41D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5797A3E21D2F6E6D00B13CB2;
+			remoteInfo = InAppSettingsKitSampleAppStoryboardUITests;
+		};
+		5797A4061D2F6EB500B13CB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5797A4001D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5797A3BE1D2F6E6D00B13CB2;
+			remoteInfo = InAppSettingsKitSampleAppStoryboard;
+		};
+		5797A4081D2F6EB500B13CB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5797A4001D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5797A3D71D2F6E6D00B13CB2;
+			remoteInfo = InAppSettingsKitSampleAppStoryboardTests;
+		};
+		5797A40A1D2F6EB500B13CB2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5797A4001D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5797A3E21D2F6E6D00B13CB2;
+			remoteInfo = InAppSettingsKitSampleAppStoryboardUITests;
+		};
 		E42ADAA8168202D700295D85 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E42ADA87168202D700295D85 /* Project object */;
@@ -103,6 +145,8 @@
 /* Begin PBXFileReference section */
 		1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKMultipleValueSelection.h; sourceTree = "<group>"; };
 		1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKMultipleValueSelection.m; sourceTree = "<group>"; };
+		5797A3F41D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InAppSettingsKitSampleAppStoryboard.xcodeproj; path = InAppSettingsKitSampleAppStoryboard/InAppSettingsKitSampleAppStoryboard.xcodeproj; sourceTree = "<group>"; };
+		5797A4001D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InAppSettingsKitSampleAppStoryboard.xcodeproj; path = InAppSettingsKitSampleAppStoryboard/InAppSettingsKitSampleAppStoryboard.xcodeproj; sourceTree = "<group>"; };
 		AA5AB5261C88974100B20124 /* IASKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextView.h; sourceTree = "<group>"; };
 		AA5AB5271C88974100B20124 /* IASKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextView.m; sourceTree = "<group>"; };
 		AA5AB5281C88974100B20124 /* IASKTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextViewCell.h; sourceTree = "<group>"; };
@@ -215,6 +259,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5797A3F51D2F6E7D00B13CB2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5797A3FB1D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboard.app */,
+				5797A3FD1D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.xctest */,
+				5797A3FF1D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5797A4011D2F6EB500B13CB2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5797A4071D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboard.app */,
+				5797A4091D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.xctest */,
+				5797A40B1D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		AA627D2A19F695F30079AAE8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +299,8 @@
 		E42ADA86168202D700295D85 = {
 			isa = PBXGroup;
 			children = (
+				5797A4001D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */,
+				5797A3F41D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */,
 				AAE500261A82A1D600C445B0 /* InAppSettingsKit.podspec */,
 				AA627D6F19F69A7F0079AAE8 /* README.md */,
 				E42ADA94168202D700295D85 /* InAppSettingsKit */,
@@ -575,6 +641,16 @@
 			mainGroup = E42ADA86168202D700295D85;
 			productRefGroup = E42ADA90168202D700295D85 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5797A4011D2F6EB500B13CB2 /* Products */;
+					ProjectRef = 5797A4001D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */;
+				},
+				{
+					ProductGroup = 5797A3F51D2F6E7D00B13CB2 /* Products */;
+					ProjectRef = 5797A3F41D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboard.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E42ADA8E168202D700295D85 /* InAppSettingsKit */,
@@ -583,6 +659,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		5797A3FB1D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboard.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = InAppSettingsKitSampleAppStoryboard.app;
+			remoteRef = 5797A3FA1D2F6E7D00B13CB2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5797A3FD1D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = InAppSettingsKitSampleAppStoryboardTests.xctest;
+			remoteRef = 5797A3FC1D2F6E7D00B13CB2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5797A3FF1D2F6E7D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = InAppSettingsKitSampleAppStoryboardUITests.xctest;
+			remoteRef = 5797A3FE1D2F6E7D00B13CB2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5797A4071D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboard.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = InAppSettingsKitSampleAppStoryboard.app;
+			remoteRef = 5797A4061D2F6EB500B13CB2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5797A4091D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = InAppSettingsKitSampleAppStoryboardTests.xctest;
+			remoteRef = 5797A4081D2F6EB500B13CB2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		5797A40B1D2F6EB500B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = InAppSettingsKitSampleAppStoryboardUITests.xctest;
+			remoteRef = 5797A40A1D2F6EB500B13CB2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DAC156211B54533D00655031 /* Resources */ = {
