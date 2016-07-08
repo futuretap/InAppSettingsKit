@@ -137,7 +137,7 @@ iOS 8+: Privacy link
 --------------------
 On iOS 8.0 or newer, if the app includes a usage key for various privacy features such as camera or location access in its `Info.plist`, IASK displays a "Privacy" cell at the top of the root settings page. This cell opens the system Settings app and displays the settings pane for the app where the user can specify the privacy settings for the app.
 
-This behavior can be disabled by setting `neverShowPrivacySettings` to `NO`.
+If you don't want to show Privacy cells, set the property `neverShowPrivacySettings` to `YES`.
 
 The sample app defines `NSMicrophoneUsageDescription` to let the cell appear. Note that the settings page doesn't show any privacy settings yet because the app doesn't actually access the microphone. Privacy settings only show up in the Settings app after first use of the privacy-protected API.
 
