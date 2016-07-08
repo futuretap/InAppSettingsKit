@@ -365,7 +365,6 @@
 				E4C22FFD16BD91A100DEFE05 /* Sources */,
 				E4C22FFE16BD91A100DEFE05 /* Frameworks */,
 				E4C22FFF16BD91A100DEFE05 /* Resources */,
-				E4C2300016BD91A100DEFE05 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -444,22 +443,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E4C2300016BD91A100DEFE05 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /usr/bin/ruby;
-			shellScript = "# Setup environment and make the simulator run the tests via ios-sim (must be installed, e.g. via brew)\n#\n# see http://stackoverflow.com/questions/5403991/xcode-4-run-tests-from-the-command-line-xcodebuild/10823483#10823483\n#\n# can be launched from command-line via:\n# xcodebuild -workspace $WORKSPACE -scheme $SCHEME -sdk iphonesimulator -arch i386 ONLY_ACTIVE_ARCH=NO build SL_RUN_UNIT_TESTS=1\n\nif ENV['SL_RUN_UNIT_TESTS'] then\n    launcher_path = \"/usr/local/bin/ios-sim\"\n    test_bundle_path= File.join(ENV['BUILT_PRODUCTS_DIR'], \"#{ENV['PRODUCT_NAME']}.#{ENV['WRAPPER_EXTENSION']}\")\n\n    environment = {\n        'DYLD_INSERT_LIBRARIES' => \"/../../Library/PrivateFrameworks/IDEBundleInjection.framework/IDEBundleInjection\",\n        'XCInjectBundle' => test_bundle_path,\n        'XCInjectBundleInto' => ENV[\"TEST_HOST\"]\n    }\n\n    environment_args = environment.collect { |key, value| \"--setenv #{key}=\\\"#{value}\\\"\"}.join(\" \")\n\n    app_test_host = File.dirname(ENV[\"TEST_HOST\"])\n    system(\"#{launcher_path} launch \\\"#{app_test_host}\\\" #{environment_args} --args -SenTest All #{test_bundle_path}\")\nelse\n    puts \"SL_RUN_UNIT_TESTS not set - Did not run unit tests!\"\nend";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
