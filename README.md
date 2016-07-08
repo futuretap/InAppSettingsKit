@@ -61,11 +61,13 @@ Further integration depends on how your app is structured.
 
 - Create a class inheriting from the `IASKAppSettingsViewController`:
 
-	#import "InAppSettingsKit/IASKAppSettingsViewController.h"
+```objective-c
+#import "InAppSettingsKit/IASKAppSettingsViewController.h"
 
-	@interface SettingsTableViewController : IASKAppSettingsViewController
+@interface SettingsTableViewController : IASKAppSettingsViewController
 
-	@end
+@end
+```
 
 and continue with instantiating `SettingsTableViewController`.
 
