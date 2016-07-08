@@ -25,10 +25,7 @@ clean:
 # With the help of a seperate scheme, it's easy to run the logic tests from the command line:
 
 LogicTests:
-	xcrun xcodebuild $(WORKSPACE) \
-									 -scheme "IASKLogicTests" \
-									 $(BUILD_OPTIONS) \
-									 TEST_AFTER_BUILD=YES
+	xcrun xcodebuild $(WORKSPACE) -scheme "IASKLogicTests" $(BUILD_OPTIONS) test
 
 # Application Tests cannot (as of 2.2.2013) be easily run form the command-line
 # Current workaround is:
@@ -37,10 +34,6 @@ LogicTests:
 #    check this script, it contains the logic to start a simulator and such
 #  * an extra scheme to run the ApplicationTests
 ApplicationTests:
-	xcrun xcodebuild $(WORKSPACE) \
-									 -scheme "IASKApplicationTests" \
-									 $(BUILD_OPTIONS) \
-									 SL_RUN_UNIT_TESTS=1
-
+	xcrun xcodebuild $(WORKSPACE) -scheme "IASKApplicationTests" $(BUILD_OPTIONS) SL_RUN_UNIT_TESTS=1 test
 
 test: LogicTests ApplicationTests
