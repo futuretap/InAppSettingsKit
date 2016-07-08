@@ -1,0 +1,12 @@
+language: objective-c
+osx_image: xcode7.3
+cache: cocoapods
+rvm:
+- 2.2
+script:
+- make LogicTests
+- make ApplicationTests
+addons:
+  ssh_known_hosts:
+  - gitlab.com
+  - github.com
