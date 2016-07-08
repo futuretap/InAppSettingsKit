@@ -61,13 +61,17 @@ Further integration depends on how your app is structured.
 
 - Create a class inheriting from the `IASKAppSettingsViewController`:
 
-	#import "InAppSettingsKit/IASKAppSettingsViewController.h"
+```objective-c
+#import "InAppSettingsKit/IASKAppSettingsViewController.h"
 
-	@interface SettingsTableViewController : IASKAppSettingsViewController
+@interface SettingsTableViewController : IASKAppSettingsViewController
 
-	@end
+@end
+```
 
-and continue with instantiating `SettingsTableViewController`.
+and continue with instantiating `SettingsTableViewController`.  This way,
+you can customize the appearance of InAppSettingsKit by overriding some
+`UITableViewDataSource` or `UITableViewDelegate` methods.
 
 **Apps with UI built with storyboards**
 
@@ -257,12 +261,6 @@ or the non-animated version:
 	@property (nonatomic, retain) NSSet *hiddenKeys;
 
 See the sample app for more details. Note that InAppSettingsKit uses Settings schema, not TableView semantics: If you want to hide a group of cells, you have to include the Group entry as well as the member entries.
-
-
-Subclassing notes
------------------
-If you'd like to customize the appearance of InAppSettingsKit, you might want to subclass `IASKAppSettingsViewController` and override some `UITableViewDataSource` or `UITableViewDelegate` methods.
-
 
 More information
 ----------------
