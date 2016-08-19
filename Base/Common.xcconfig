@@ -56,6 +56,9 @@ CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO
 // For example, this can catch issues when one incorrectly intermixes using NSNumbers and raw integers.
 CLANG_WARN_INT_CONVERSION = YES
 
+// Warn about implicit capture of self (e.g. direct ivar access)
+CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES
+
 // Don't warn about repeatedly using a weak reference without assigning the weak reference to a strong reference. Too many false positives.
 CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = NO
 
