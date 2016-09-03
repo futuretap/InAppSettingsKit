@@ -199,6 +199,10 @@
 	return [_specifierDict objectForKey:kIASKViewControllerStoryBoardId];
 }
 
+- (NSString*)segueIdentifier {
+    return [_specifierDict objectForKey:kIASKSegueIdentifier];
+}
+
 - (Class)buttonClass {
     return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
 }

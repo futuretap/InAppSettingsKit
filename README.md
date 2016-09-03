@@ -207,6 +207,10 @@ For child pane elements (`PSChildPaneSpecifier`), Apple requires a `file` key th
 Alternatively specify `IASKViewControllerStoryBoardId` to initiate a viewcontroller from [main storyboard](https://developer.apple.com/library/ios/documentation/general/conceptual/Devpedia-CocoaApp/Storyboard.html/).
 Specifiy `IASKViewControllerStoryBoardFile` to use a story board other than MainStoryboard file.
 
+Perform Segues
+--------------
+As an alternative to `IASKViewControllerClass` and `IASKViewControllerSelector` for child pane elements (`PSChildPaneSpecifier`), InAppSettingsKit is able to navigate to another view controller, by performing any segue defined in your storyboard. To do so specify the segue identifier in `IASKSegueIdentifier`.
+
 
 Subtitles
 ---------
