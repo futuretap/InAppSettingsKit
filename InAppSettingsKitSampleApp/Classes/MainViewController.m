@@ -241,10 +241,11 @@
 #endif
 
 #pragma mark -
-- (void)settingsViewController:(id)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.key isEqualToString:@"ButtonDemoAction1"]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
+		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Demo Action 1 called" message:nil preferredStyle:UIAlertControllerStyleAlert];
+		[alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"InAppSettingsKit") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {}]];
+		[sender presentViewController:alert animated:YES completion:nil];
 	} else if ([specifier.key isEqualToString:@"ButtonDemoAction2"]) {
 		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
 		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:specifier.key];

@@ -11,7 +11,6 @@
 		5797A3C61D2F6E6D00B13CB2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5797A3C51D2F6E6D00B13CB2 /* AppDelegate.m */; };
 		5797A3CC1D2F6E6D00B13CB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5797A3CA1D2F6E6D00B13CB2 /* Main.storyboard */; };
 		5797A3CE1D2F6E6D00B13CB2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5797A3CD1D2F6E6D00B13CB2 /* Assets.xcassets */; };
-		5797A3D11D2F6E6D00B13CB2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5797A3CF1D2F6E6D00B13CB2 /* LaunchScreen.storyboard */; };
 		5797A3DC1D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5797A3DB1D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.m */; };
 		5797A3E71D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5797A3E61D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardUITests.m */; };
 		5797A4181D2F725E00B13CB2 /* libInAppSettingsKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5797A4171D2F725E00B13CB2 /* libInAppSettingsKit.a */; };
@@ -62,7 +61,6 @@
 		5797A3C51D2F6E6D00B13CB2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5797A3CB1D2F6E6D00B13CB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5797A3CD1D2F6E6D00B13CB2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5797A3D01D2F6E6D00B13CB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5797A3D21D2F6E6D00B13CB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5797A3D71D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKitSampleAppStoryboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5797A3DB1D2F6E6D00B13CB2 /* InAppSettingsKitSampleAppStoryboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InAppSettingsKitSampleAppStoryboardTests.m; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 				AAC15A7E1D7D62D200627834 /* CustomViewCell.m */,
 				AAC15A801D7D62EF00627834 /* CustomViewCell.xib */,
 				5797A3D21D2F6E6D00B13CB2 /* Info.plist */,
-				5797A3CF1D2F6E6D00B13CB2 /* LaunchScreen.storyboard */,
 				5797A3CA1D2F6E6D00B13CB2 /* Main.storyboard */,
 				AAC15A7A1D7D61A200627834 /* MainViewController.h */,
 				AAC15A7B1D7D61A200627834 /* MainViewController.m */,
@@ -347,7 +344,6 @@
 				AAC15A791D7D60C900627834 /* Settings.bundle in Resources */,
 				AAC15AA61D7D6F4200627834 /* facebook.png in Resources */,
 				AAC15AB11D7D6F4200627834 /* CustomSubviewController.xib in Resources */,
-				5797A3D11D2F6E6D00B13CB2 /* LaunchScreen.storyboard in Resources */,
 				AAC15AA91D7D6F4200627834 /* twitter@2x.png in Resources */,
 				5797A3CE1D2F6E6D00B13CB2 /* Assets.xcassets in Resources */,
 				AAC15AA71D7D6F4200627834 /* facebook@2x.png in Resources */,
@@ -433,14 +429,6 @@
 				5797A3CB1D2F6E6D00B13CB2 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5797A3CF1D2F6E6D00B13CB2 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5797A3D01D2F6E6D00B13CB2 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		AAC15A971D7D6F4200627834 /* Localizable.strings */ = {
