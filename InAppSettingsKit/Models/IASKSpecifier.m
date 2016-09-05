@@ -173,7 +173,8 @@
 
 - (Class)viewControllerClass {
     [IASKAppSettingsWebViewController class]; // make sure this is linked into the binary/library
-    return [self classFromString:([_specifierDict objectForKey:kIASKViewControllerClass])];
+	NSString *classString = [_specifierDict objectForKey:kIASKViewControllerClass];
+	return classString ? ([self classFromString:classString] ?: [NSNull class]) : nil;
 }
 
 - (Class)classFromString:(NSString *)className {
