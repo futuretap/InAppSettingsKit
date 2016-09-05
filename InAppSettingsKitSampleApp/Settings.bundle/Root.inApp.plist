@@ -274,7 +274,15 @@
 			<key>IASKViewControllerSelector</key>
 			<string>initWithFile:specifier:</string>
 			<key>Title</key>
-			<string>Custom Subview</string>
+			<string>Custom Subview (by class/selector)</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>IASKSegueIdentifier</key>
+			<string>mySegue</string>
+			<key>Title</key>
+			<string>Custom Subview (via Storyboard Segue)</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>

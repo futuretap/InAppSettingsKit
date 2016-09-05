@@ -79,14 +79,14 @@ an example of integration of IASK (static library build) with the app.
 
 **Apps with UI built with storyboards**
 
-- Create the class like the above
-- Drag and drop UITableViewController into your app and wire the storyboard
+- Create the `IASKAppSettingsViewController` subclass named `SettingsTableViewController` like above
+- Drag and drop a Table View Controller embedded into a Navigation Controller into your app and wire the storyboard
   to your app UI
-- Set the table's class as `SettingsTableViewController`
+- Set the Table View Controller class to `SettingsTableViewController`
+- In the Table View Controller set "Show Done Button" under "App Settings View Controller" to "On"
+- Set the Table View to "Grouped" style
 
-There's a sample application `InAppSettingsSampleAppStoryboard` which
-contains a basic `UITableViewController` using IASK through
-`SettingsTableViewController` and wrapper with Navigation Controller.
+There's a sample application `InAppSettingsSampleAppStoryboard` which shows how to wire everything up.
 
 **Additional changes**
 
