@@ -61,6 +61,7 @@
 - (SEL)viewControllerSelector;
 - (NSString*)viewControllerStoryBoardFile;
 - (NSString*)viewControllerStoryBoardID;
+- (NSString*)segueIdentifier;
 - (Class)buttonClass;
 - (SEL)buttonAction;
 - (UIImage *)cellImage;

@@ -748,6 +748,12 @@ CGRect IASKCGRectSwap(CGRect rect);
             return;
         }
         
+        NSString *segueIdentifier = [specifier segueIdentifier];
+        if (segueIdentifier) {
+            [self performSegueWithIdentifier:segueIdentifier sender:self];
+            return;
+        }
+        
         if (nil == [specifier file]) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             return;
