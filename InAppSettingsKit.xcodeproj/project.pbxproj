@@ -512,6 +512,11 @@
 				DSTROOT = /tmp/InAppSettingsKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Wno-error=deprecated-declarations",
+					"-Wno-error=deprecated-implementations",
+				);
 			};
 			name = Debug;
 		};
@@ -522,6 +527,11 @@
 				DSTROOT = /tmp/InAppSettingsKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Wno-error=deprecated-declarations",
+					"-Wno-error=deprecated-implementations",
+				);
 			};
 			name = Release;
 		};
