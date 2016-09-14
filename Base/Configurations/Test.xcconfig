@@ -9,5 +9,5 @@
 // external bundle. So we disable sandboxing for testing.
 CODE_SIGN_ENTITLEMENTS = 
 
-// Allow testing
+// Allow @testable imports
 ENABLE_TESTABILITY = YES
