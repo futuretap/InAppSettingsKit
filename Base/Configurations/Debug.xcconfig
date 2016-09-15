@@ -15,6 +15,9 @@ GCC_OPTIMIZATION_LEVEL = 0
 // Preproccessor definitions to apply to each file compiled
 GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1
 
+// Allow @testable imports
+ENABLE_TESTABILITY = YES
+
 // Whether to enable link-time optimizations (such as inlining across translation
 // units)
 LLVM_LTO = NO
