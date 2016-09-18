@@ -35,6 +35,11 @@ OTHER_CFLAGS = -ftrapv
 // This enables conditional compilation with #if DEBUG
 OTHER_SWIFT_FLAGS = -D DEBUG
 
+// Xcode 8 introduced a new flag for conditional compilation
+//
+// This enables conditional compilation with #if DEBUG
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+
 // Whether to strip debugging symbols when copying the built product to its
 // final installation location
 STRIP_INSTALLED_PRODUCT = NO
