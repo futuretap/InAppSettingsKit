@@ -15,13 +15,11 @@
 //
 
 #import "IASKAppSettingsWebViewController.h"
+#import "IASKSettingsReader.h"
 
 @implementation IASKAppSettingsWebViewController
 
-@synthesize url;
-@synthesize webView;
-
-- (id)initWithFile:(NSString*)urlString key:(NSString*)key {
+- (id)initWithFile:(NSString*)urlString specifier:(IASKSpecifier*)specifier {
     self = [super init];
     if (self) {
         self.url = [NSURL URLWithString:urlString];
@@ -32,36 +30,33 @@
             else
                 self.url = nil;
         }
+		self.customTitle = [specifier localizedObjectForKey:kIASKChildTitle];
+		self.title = self.customTitle ? : specifier.title;
     }
     return self;
 }
 
-- (void)loadView
-{
-    webView = [[UIWebView alloc] init];
-    webView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-    UIViewAutoresizingFlexibleHeight;
-    webView.delegate = self;
+- (void)loadView {
+    self.webView = [[UIWebView alloc] init];
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.webView.delegate = self;
     
-    self.view = webView;
+    self.view = self.webView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-	[webView loadRequest:[NSURLRequest requestWithURL:self.url]];
-}
-
-- (void)viewDidUnload {
-	[super viewDidUnload];
-	self.webView = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+	[super viewWillAppear:animated];
+	
+	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
+	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+	[activityIndicatorView startAnimating];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
+	[self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	self.navigationItem.title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+	self.navigationItem.rightBarButtonItem = nil;
+	self.title = self.customTitle.length ? self.customTitle : [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -127,9 +122,14 @@
 		
 		[mailViewController setToRecipients:toRecipients];
 
-    [self presentViewController:mailViewController
-                       animated:YES
-                     completion:nil];
+		mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
+		IASK_IF_IOS7_OR_GREATER(mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;);
+		mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
+
+		UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+		[self presentViewController:mailViewController animated:YES completion:^{
+			[UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
+		}];
 		return NO;
 	}
 	
@@ -142,8 +142,7 @@
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

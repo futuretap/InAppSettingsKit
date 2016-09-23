@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <UIKit/UIKit.h>
 #import "IASKSettingsReader.h"
+#import "IASKSpecifier.h"
 
 @interface IASKSettingsReaderTests : XCTestCase {
   NSString* settingsBundlePath;
@@ -69,6 +70,31 @@
   XCTAssertEqualObjects([reader.settingsDictionary objectForKey:@"Title"],
                        @"ADVANCED_TITLE",
                        @"Advanced file not found");
+}
+
+- (void) testSettingsReaderSortsByLocalizedKey {
+  IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Root"
+                                                                   applicationBundle:[NSBundle bundleForClass:[self class]]];
+    IASKSpecifier *multiSpecifier = [reader specifierForKey:@"mulValue"];
+    XCTAssertTrue([multiSpecifier displaySortedByTitle]);
+    XCTAssertEqualObjects([multiSpecifier multipleValues], (@[@"0", @"6", @"1", @"4", @"5", @"7", @"3", @"9", @"8", @"10", @"2"]));
+}
+
+- (void) testSettingsReaderLocalizedNumberTitles {
+	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Complete"
+																   applicationBundle:[NSBundle bundleForClass:[self class]]];
+	IASKSpecifier *multiSpecifier = [reader specifierForKey:@"mulValueWithNumbers"];
+
+	NSNumberFormatter* formatter = [NSNumberFormatter new];
+	[formatter setNumberStyle:NSNumberFormatterNoStyle];
+
+	XCTAssertEqualObjects([multiSpecifier multipleTitles], (@[@(0), @(1), @(2), @(3)]));
+	XCTAssertEqualObjects([multiSpecifier titleForCurrentValue:@(3)], [formatter stringFromNumber:@(3)]);
+}
+
+- (void) testSettingsReaderFailsToSortMalformedMultiValueEntries {
+    XCTAssertThrows([[IASKSettingsReader alloc] initWithSettingsFileNamed:@"Malformed"
+                                                        applicationBundle:[NSBundle bundleForClass:[self class]]]);
 }
 
 #pragma mark - parsing

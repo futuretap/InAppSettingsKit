@@ -26,6 +26,16 @@
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
+			<string>Placeholder</string>
+			<key>Key</key>
+			<string>text_placeholder</string>
+			<key>IASKPlaceholder</key>
+			<string>placeholder</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
 			<string>Right</string>
 			<key>Key</key>
 			<string>text_plain_right</string>
@@ -378,6 +388,18 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Boolean Toggle</string>
+			<key>Key</key>
+			<string>toggle_boolean_subtitle</string>
+			<key>DefaultValue</key>
+			<true/>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Toggle w/ image</string>
 			<key>Key</key>
 			<string>toggle_pic</string>
@@ -572,11 +594,11 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
-			<string>EMPTY</string>
+			<string>MultiVal w/ short titles</string>
 			<key>Key</key>
-			<string>multivalue_notitle</string>
+			<string>multivalue_shorttitles</string>
 			<key>DefaultValue</key>
-			<integer>1</integer>
+			<integer>2</integer>
 			<key>Values</key>
 			<array>
 				<integer>1</integer>
@@ -584,6 +606,12 @@
 				<integer>3</integer>
 			</array>
 			<key>Titles</key>
+			<array>
+				<string>One (this is the long title)</string>
+				<string>Two (this is the long title)</string>
+				<string>Three (this is the long title)</string>
+			</array>
+			<key>ShortTitles</key>
 			<array>
 				<string>One</string>
 				<string>Two</string>
@@ -607,12 +635,56 @@
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>Left One</string>
-				<string>Left Two</string>
-				<string>Left Three</string>
+				<string>One</string>
+				<string>Two</string>
+				<string>Three</string>
 			</array>
-			<key>IASKTextAlignment</key>
-			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>MUL_VAL_WITH_NUMBERS</string>
+			<key>Key</key>
+			<string>mulValueWithNumbers</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Radio Group</string>
+			<key>Key</key>
+			<string>radiogroup</string>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>2</integer>
+				<integer>3</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>One</string>
+				<string>Two</string>
+				<string>Three</string>
+			</array>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -627,6 +699,16 @@
 			<string>Advanced</string>
 			<key>File</key>
 			<string>Advanced</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Advanced</string>
+			<key>File</key>
+			<string>Advanced</string>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -647,6 +729,30 @@
 			<string>Advanced</string>
 			<key>IASKCellImage</key>
 			<string>20-gear2</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>TextView</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKTextViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>Multiline 
+text 
+with dynamically resizing cell</string>
+			<key>Key</key>
+			<string>dynamicTextView</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKTextViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>Sent from my iPhone/iPad</string>
+			<key>Key</key>
+			<string>dynamicTextView2</string>
 		</dict>
 		<dict>
 			<key>Type</key>
