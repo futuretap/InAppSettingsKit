@@ -62,6 +62,7 @@
     
     if (_tableView) {
         [_tableView reloadData];
+		_selection.tableView = _tableView;
     }
 	self.didFirstLayout = NO;
 	[super viewWillAppear:animated];
