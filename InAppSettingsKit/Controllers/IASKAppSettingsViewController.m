@@ -383,7 +383,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)toggledValue:(id)sender {
     IASKSwitch *toggle    = (IASKSwitch*)sender;
     IASKSpecifier *spec   = [_settingsReader specifierForKey:[toggle key]];
-    
+
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:shouldSetSwitchForSpecifier:toValue:)] &&
+         ![(id)self.delegate settingsViewController:self shouldSetSwitchForSpecifier:spec toValue:[toggle isOn]]) {
+        [toggle setOn:![toggle isOn]];
+        return;
+    }
+
     if ([toggle isOn]) {
         if ([spec trueValue] != nil) {
             [self.settingsStore setObject:[spec trueValue] forKey:[toggle key]];
