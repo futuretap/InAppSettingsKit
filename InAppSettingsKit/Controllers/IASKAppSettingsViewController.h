@@ -28,6 +28,11 @@
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 
 @optional
+- (BOOL)settingsViewController:(IASKAppSettingsViewController *)controller
+   shouldSetSwitchForSpecifier:(IASKSpecifier *)specifier
+                       toValue:(BOOL)newValue;
+
+@optional
 #pragma mark - UITableView header customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView
