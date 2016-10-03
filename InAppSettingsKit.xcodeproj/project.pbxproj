@@ -524,7 +524,6 @@
 				E42ADA9D168202D700295D85 /* Sources */,
 				E42ADA9E168202D700295D85 /* Frameworks */,
 				E42ADA9F168202D700295D85 /* Resources */,
-				E42ADAA0168202D700295D85 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -818,7 +817,6 @@
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ENABLE_TESTABILITY = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
@@ -843,11 +841,6 @@
 				DSTROOT = /tmp/InAppSettingsKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = (
-					"$(inherited)",
-					"-Wno-error=deprecated-declarations",
-					"-Wno-error=deprecated-implementations",
-				);
 			};
 			name = Debug;
 		};
@@ -856,14 +849,8 @@
 			baseConfigurationReference = E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/InAppSettingsKit.dst;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WARNING_CFLAGS = (
-					"$(inherited)",
-					"-Wno-error=deprecated-declarations",
-					"-Wno-error=deprecated-implementations",
-				);
 			};
 			name = Release;
 		};
@@ -872,11 +859,6 @@
 			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = "InAppSettingsKitTests/InAppSettingsKitTests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.${PRODUCT_NAME:rfc1034identifier}";
@@ -890,11 +872,6 @@
 			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = "InAppSettingsKitTests/InAppSettingsKitTests-Info.plist";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.${PRODUCT_NAME:rfc1034identifier}";
