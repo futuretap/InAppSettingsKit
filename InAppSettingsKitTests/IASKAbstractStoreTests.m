@@ -11,8 +11,8 @@
 
 @interface CustomStore : IASKAbstractSettingsStore { }
 
-@property (nonatomic, assign) id lastValue;
-@property (nonatomic, assign) NSString* lastKey;
+@property (nonatomic, strong) id lastValue;
+@property (nonatomic, strong) NSString* lastKey;
 
 @end
 

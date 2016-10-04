@@ -8,12 +8,12 @@
 // TIFF
 COMBINE_HIDPI_IMAGES = YES
 
+// Where to find embedded frameworks
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/../Frameworks @loader_path/../Frameworks
+
 // The base SDK to use (if no version is specified, the latest version is
 // assumed)
 SDKROOT = macosx
 
-// Supported SDK platforms
-SUPPORTED_PLATFORMS = macosx
-
-// Supported architectures
-VALID_ARCHS = i386 x86_64
+// Supported build architectures
+VALID_ARCHS = x86_64
