@@ -223,7 +223,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 }
 
-- (CGSize)contentSizeForViewInPopover {
+- (CGSize)preferredContentSize {
     return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 

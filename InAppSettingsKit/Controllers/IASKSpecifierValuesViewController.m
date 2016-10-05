@@ -62,6 +62,7 @@
     
     if (_tableView) {
         [_tableView reloadData];
+		_selection.tableView = _tableView;
     }
 	self.didFirstLayout = NO;
 	[super viewWillAppear:animated];
@@ -133,7 +134,7 @@
     [_selection selectRowAtIndexPath:indexPath];
 }
 
-- (CGSize)contentSizeForViewInPopover {
+- (CGSize)preferredContentSize {
     return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 
