@@ -759,8 +759,8 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
 			IASK_IF_IOS7_OR_GREATER(vc.view.tintColor = self.view.tintColor;)
             [self.navigationController pushViewController:vc animated:YES];
-		}
             return;
+		}
 			
         NSString *segueIdentifier = [specifier segueIdentifier];
         if (segueIdentifier) {
