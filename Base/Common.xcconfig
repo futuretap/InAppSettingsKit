@@ -109,6 +109,7 @@ GCC_VERSION = com.apple.compilers.llvm.clang.1_0
 
 // Whether warnings are treated as errors
 GCC_TREAT_WARNINGS_AS_ERRORS = YES
+SWIFT_TREAT_WARNINGS_AS_ERRORS = YES
 
 // Whether to warn about 64-bit values being implicitly shortened to 32 bits
 GCC_WARN_64_TO_32_BIT_CONVERSION = YES
