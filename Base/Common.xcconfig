@@ -71,6 +71,9 @@ CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 // Warn about incorrect uses of nullable values
 CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES
 
+// Warn for missing nullability attributes
+CLANG_ANALYZER_NONNULL = YES
+
 // Warn about potentially unreachable code
 CLANG_WARN_UNREACHABLE_CODE = YES
 
