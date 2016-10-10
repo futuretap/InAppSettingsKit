@@ -68,6 +68,9 @@ CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR
 // Whether to warn on suspicious implicit conversions
 CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 
+// Warn about incorrect uses of nullable values
+CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES
+
 // Warn about potentially unreachable code
 CLANG_WARN_UNREACHABLE_CODE = YES
 
