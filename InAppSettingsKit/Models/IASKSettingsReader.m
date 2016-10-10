@@ -99,16 +99,17 @@
 }
 
 - (NSArray*)privacySettingsSpecifiers {
-	NSMutableDictionary *dict = [@{kIASKTitle: NSLocalizedStringFromTable(@"Privacy", @"IASKLocalizable", @"iOS 8+ Privacy cell: title"),
+	NSMutableDictionary *dict = [@{kIASKTitle: [[self bundle:NO] localizedStringForKey:@"Privacy" value:@"" table:@"IASKLocalizable"],
 								   kIASKKey: @"IASKPrivacySettingsCellKey",
 								   kIASKType: kIASKOpenURLSpecifier,
 								   kIASKFile: UIApplicationOpenSettingsURLString,
 								   } mutableCopy];
-	NSString *subtitle = NSLocalizedStringWithDefaultValue(@"Open in Settings app", @"IASKLocalizable", [NSBundle mainBundle], @"", @"iOS 8+ Privacy cell: subtitle");
+	NSString *subtitle = [[self bundle:NO] localizedStringForKey:@"Open in Settings app" value:@"" table:@"IASKLocalizable"];
+
 	if (subtitle.length) {
 		dict [kIASKSubtitle] = subtitle;
 	}
-	
+
 	return @[@[[[IASKSpecifier alloc] initWithSpecifier:@{kIASKKey: @"IASKPrivacySettingsHeaderKey", kIASKType: kIASKPSGroupSpecifier}],
 			   [[IASKSpecifier alloc] initWithSpecifier:dict]]];
 }
@@ -268,6 +269,20 @@
 	bundle = [self.applicationBundle pathForResource:bundle ofType:nil];
     file = [file stringByAppendingFormat:@"%@%@", suffix, extension];
     return [bundle stringByAppendingPathComponent:file];
+}
+
+- (NSBundle*)bundle:(BOOL)forceMainBundle {
+	NSURL *inAppSettingsBundlePath = [[NSBundle mainBundle] URLForResource:@"InAppSettingsKit" withExtension:@"bundle"];
+	NSBundle *bundle;
+
+	if (inAppSettingsBundlePath && !forceMainBundle) {
+		// Appirater.bundle will likely only exist when used via CocoaPods
+		bundle = [NSBundle bundleWithURL:inAppSettingsBundlePath];
+	} else {
+		bundle = [NSBundle mainBundle];
+	}
+
+	return bundle;
 }
 
 - (NSString *)locateSettingsFile: (NSString *)file {
