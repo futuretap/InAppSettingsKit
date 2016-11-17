@@ -116,6 +116,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell   = [tableView dequeueReusableCellWithIdentifier:kCellValue];
     NSArray *titles         = [_currentSpecifier multipleTitles];
+    NSArray *iconNames      = [_currentSpecifier multipleIconNames];
 	
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellValue];
@@ -124,9 +125,17 @@
     [_selection updateSelectionInCell:cell indexPath:indexPath];
 
     @try {
-		[[cell textLabel] setText:[self.settingsReader titleForId:[titles objectAtIndex:indexPath.row]]];
-	}
-	@catch (NSException * e) {}
+        [[cell textLabel] setText:[self.settingsReader titleForId:[titles objectAtIndex:indexPath.row]]];
+        if ((NSInteger)iconNames.count > indexPath.row) {
+            NSString *iconName = iconNames[indexPath.row];
+            // This tries to read the image from the main bundle. As this is currently not supported in
+            // system settings, this should be the correct behaviour. (Idea: abstract away and try different
+            // paths?)
+            UIImage *image = [UIImage imageNamed:iconName];
+            cell.imageView.image = image;
+        }
+    }
+    @catch (NSException * e) {}
     return cell;
 }
 
