@@ -170,6 +170,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     _reloadDisabled = NO;
     _showDoneButton = YES;
     _showCreditsFooter = YES; // display credits for InAppSettingsKit creators
+    self.clearsSelectionOnViewWillAppear = NO;
     self.rowHeights = [NSMutableDictionary dictionary];
 }
 
@@ -202,15 +203,21 @@ CGRect IASKCGRectSwap(CGRect rect);
     [super viewWillAppear:animated];
 
     // if there's something selected, the value might have changed
-    // so reload that row
+    // so reload that row, but use the default animation for deselect
     if(selectedIndexPath) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animated * UINavigationControllerHideShowBarDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView performWithoutAnimation:^{
             [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath]
                                   withRowAnimation:UITableViewRowAnimationNone];
-            // and reselect it, so we get the nice default deselect animation from UITableViewController
-            [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-            [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:YES];
-        });
+            [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO
+                                  scrollPosition:UITableViewScrollPositionNone];
+        }];
+        [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
+        } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            if ([context isCancelled]) {
+                [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+            }
+        }];
     }
 
     if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
