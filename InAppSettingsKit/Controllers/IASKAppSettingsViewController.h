@@ -45,6 +45,10 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
+- (void) settingsViewController:(id<IASKViewController>)settingsViewController
+                willDisplayCell:(UITableViewCell*) cell
+              forRowAtIndexPath:(NSIndexPath*) indexPath;
+
 #pragma mark - mail composing customization
 - (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
          mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
