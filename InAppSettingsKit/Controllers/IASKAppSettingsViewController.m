@@ -171,7 +171,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     _showDoneButton = YES;
     _showCreditsFooter = YES; // display credits for InAppSettingsKit creators
     self.rowHeights = [NSMutableDictionary dictionary];
-#pragma clang diagnostic pop
 }
 
 - (void)viewDidLoad {
