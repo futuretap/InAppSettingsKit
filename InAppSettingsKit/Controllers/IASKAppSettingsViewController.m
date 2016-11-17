@@ -1020,8 +1020,10 @@ static NSDictionary *oldUserDefaults = nil;
 }
 
 - (void)reload {
-    // wait 0.5 sec until UI is available after applicationWillEnterForeground
-    [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
+    if (self.viewLoaded) {
+        // wait 0.5 sec until UI is available after applicationWillEnterForeground
+        [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
+    }
 }
 
 #pragma mark CGRect Utility function
