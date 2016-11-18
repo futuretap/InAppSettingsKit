@@ -73,6 +73,8 @@
 			<string>Dynamic cell hiding</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>This is a Footer.</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>

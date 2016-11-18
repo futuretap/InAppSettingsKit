@@ -4,7 +4,7 @@
 <dict>
 	<key>PreferenceSpecifiers</key>
 	<array>
-        <dict>
+		<dict>
 			<key>FooterText</key>
 			<string>Root~ipad.inApp.plist is used in-App on iPad</string>
 			<key>Title</key>
@@ -65,6 +65,8 @@
 				<string>9</string>
 				<string>10</string>
 			</array>
+			<key>DisplaySortedByTitle</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -95,8 +97,8 @@
 				<string>0</string>
 				<string>2</string>
 			</array>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentLeft</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -137,8 +139,6 @@
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
-			<key>FooterText</key>
-			<string>custom segment header view:</string>
 			<key>Title</key>
 			<string>Extensions that are only available in-app, not in Settings.app:</string>
 			<key>Type</key>
@@ -160,11 +160,43 @@
 			<key>File</key>
 			<string>http://www.inappsettingskit.com/</string>
 			<key>Title</key>
+			<string>Open URL</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>inappsettingskit.com</string>
+			<key>File</key>
+			<string>http://www.inappsettingskit.com/</string>
+			<key>Title</key>
 			<string>Open URL (centered)</string>
 			<key>Type</key>
 			<string>IASKOpenURLSpecifier</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentCenter</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>inappsettingskit.com</string>
+			<key>File</key>
+			<string>http://www.inappsettingskit.com/</string>
+			<key>Title</key>
+			<string>Open URL (right)</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>LOCALIZED_URL</string>
+			<key>Title</key>
+			<string>LOCALIZED_URL_TITLE</string>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -185,6 +217,48 @@
 			<string>Mail Compose View</string>
 			<key>Type</key>
 			<string>IASKMailComposeSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>Tell A Friend</string>
+			<key>IASKMailComposeBccRecipents</key>
+			<array/>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>IASKMailComposeBodyIsHTML</key>
+			<string>NO</string>
+			<key>IASKMailComposeCcRecipents</key>
+			<array/>
+			<key>IASKMailComposeSubject</key>
+			<string>InAppSettingsKit</string>
+			<key>IASKMailComposeToRecipents</key>
+			<array/>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
+			<key>Title</key>
+			<string>Mail Compose View</string>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+		</dict>
+		<dict>
+			<key>IASKMailComposeBccRecipents</key>
+			<array/>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>IASKMailComposeBodyIsHTML</key>
+			<string>NO</string>
+			<key>IASKMailComposeCcRecipents</key>
+			<array/>
+			<key>IASKMailComposeSubject</key>
+			<string>InAppSettingsKit</string>
+			<key>IASKMailComposeToRecipents</key>
+			<array/>
+			<key>Title</key>
+			<string>Mail Compose View (centered)</string>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentCenter</string>
 		</dict>
 		<dict>
 			<key>IASKMailComposeBccRecipents</key>
@@ -210,9 +284,17 @@
 			<key>IASKViewControllerClass</key>
 			<string>CustomSubviewController</string>
 			<key>IASKViewControllerSelector</key>
-			<string>init</string>
+			<string>initWithFile:specifier:</string>
 			<key>Title</key>
-			<string>Custom Subview</string>
+			<string>Custom Subview (by class/selector)</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>IASKSegueIdentifier</key>
+			<string>mySegue</string>
+			<key>Title</key>
+			<string>Custom Subview (via Storyboard Segue)</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -222,11 +304,31 @@
 			<key>IASKViewControllerClass</key>
 			<string>IASKAppSettingsWebViewController</string>
 			<key>IASKViewControllerSelector</key>
-			<string>initWithFile:key:</string>
+			<string>initWithFile:specifier:</string>
 			<key>Title</key>
 			<string>WebView</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
+			<key>IASKChildTitle</key>
+			<string>ABOUT_TITLE</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>TextView</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>custom segment header view:</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKTextViewSpecifier</string>
+			<key>DefaultValue</key>
+			<string>Multiline 
+text 
+with dynamically resizing cell</string>
+			<key>Key</key>
+			<string>dynamicTextView</string>
 		</dict>
 		<dict>
 			<key>Key</key>
@@ -259,8 +361,18 @@
 			<string>Left Aligned</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentLeft</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>ButtonDemoAction3</string>
+			<key>Title</key>
+			<string>Button</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>IASKSubtitle</key>
+			<string>with subtitle</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -268,59 +380,59 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Key</key>
 			<string>FacebookButton</string>
 			<key>Title</key>
 			<string>Facebook</string>
-            <key>IASKCellImage</key>
-            <string>facebook</string>
+			<key>IASKCellImage</key>
+			<string>facebook</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Key</key>
 			<string>TwitterButton</string>
 			<key>Title</key>
 			<string>Twitter</string>
-            <key>IASKCellImage</key>
-            <string>twitter</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Key</key>
 			<string>Left Aligned</string>
 			<key>Title</key>
 			<string>Left Aligned</string>
-            <key>IASKCellImage</key>
-            <string>twitter</string>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentLeft</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Key</key>
 			<string>Centered</string>
 			<key>Title</key>
 			<string>Centered</string>
-            <key>IASKCellImage</key>
-            <string>facebook</string>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentCenter</string>
+			<key>IASKCellImage</key>
+			<string>facebook</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentCenter</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Key</key>
 			<string>Right Aligned</string>
 			<key>Title</key>
 			<string>Right Aligned</string>
-            <key>IASKCellImage</key>
-            <string>facebook</string>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentRight</string>
+			<key>IASKCellImage</key>
+			<string>facebook</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>

@@ -6,3 +6,6 @@ InAppSettingsKitSampleApp/build/**
 **/*.xcodeproj/xcuserdata/
 .DS_Store
 .svn
+/InAppSettingsKit.xcworkspace/xcuserdata/
+*.xccheckout
+*.xcscmblueprint

@@ -45,6 +45,10 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
+- (void) settingsViewController:(id<IASKViewController>)settingsViewController
+                willDisplayCell:(UITableViewCell*) cell
+              forRowAtIndexPath:(NSIndexPath*) indexPath;
+
 #pragma mark - mail composing customization
 - (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
          mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
@@ -69,8 +73,9 @@
 @property (nonatomic, assign) IBOutlet id delegate;
 @property (nonatomic, copy) NSString *file;
 @property (nonatomic, assign) BOOL showCreditsFooter;
-@property (nonatomic, assign) BOOL showDoneButton;
+@property (nonatomic, assign) IBInspectable BOOL showDoneButton;
 @property (nonatomic, retain) NSSet *hiddenKeys;
+@property (nonatomic) IBInspectable BOOL neverShowPrivacySettings;
 
 - (void)synchronizeSettings;
 - (void)dismiss:(id)sender;

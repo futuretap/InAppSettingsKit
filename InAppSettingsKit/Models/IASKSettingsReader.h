@@ -26,6 +26,7 @@
 #define kIASKKey                              @"Key"
 #define kIASKFile                             @"File"
 #define kIASKDefaultValue                     @"DefaultValue"
+#define kIASKDisplaySortedByTitle             @"DisplaySortedByTitle"
 #define kIASKMinimumValue                     @"MinimumValue"
 #define kIASKMaximumValue                     @"MaximumValue"
 #define kIASKTrueValue                        @"TrueValue"
@@ -36,8 +37,16 @@
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
+#define kIASKIconNames                        @"IconNames"
+#define kIASKShortTitles                      @"ShortTitles"
+#define kIASKSupportedUserInterfaceIdioms     @"SupportedUserInterfaceIdioms"
+#define kIASKSubtitle                         @"IASKSubtitle"
+#define kIASKPlaceholder                      @"IASKPlaceholder"
 #define kIASKViewControllerClass              @"IASKViewControllerClass"
 #define kIASKViewControllerSelector           @"IASKViewControllerSelector"
+#define kIASKViewControllerStoryBoardFile     @"IASKViewControllerStoryBoardFile"
+#define kIASKViewControllerStoryBoardId       @"IASKViewControllerStoryBoardId"
+#define kIASKSegueIdentifier                  @"IASKSegueIdentifier"
 #define kIASKButtonClass                      @"IASKButtonClass"
 #define kIASKButtonAction                     @"IASKButtonAction"
 #define kIASKMailComposeToRecipents           @"IASKMailComposeToRecipents"
@@ -74,28 +83,35 @@
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
 #define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"
 #define kIASKPSMultiValueSpecifier            @"PSMultiValueSpecifier"
+#define kIASKPSRadioGroupSpecifier            @"PSRadioGroupSpecifier"
 #define kIASKPSSliderSpecifier                @"PSSliderSpecifier"
 #define kIASKPSTitleValueSpecifier            @"PSTitleValueSpecifier"
 #define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"
 #define kIASKPSChildPaneSpecifier             @"PSChildPaneSpecifier"
+#define kIASKTextViewSpecifier                @"IASKTextViewSpecifier"
 #define kIASKOpenURLSpecifier                 @"IASKOpenURLSpecifier"
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
 
+// IASKChildTitle can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+// If IASKChildTitle is set, the navigation title is fixed to it; otherwise, the title value is used and is overridden by the HTML title tag
+// as soon as the web page is loaded; if IASKChildTitle is set to the empty string, the title is not shown on push but _will_ be replaced by
+// the HTML title as soon as the page is loaded. The value of IASKChildTitle is localizable.
+#define kIASKChildTitle                       @"IASKChildTitle"
+
 #define kIASKAppSettingChanged                @"kAppSettingChanged"
 
 #define kIASKSectionHeaderIndex               0
 
-#define kIASKSliderNoImagesPadding            11
-#define kIASKSliderImagesPadding              43
+#define kIASKSliderImageGap                   10
 
-#define kIASKSpacing                          5
+#define kIASKSpacing                          8
 #define kIASKMinLabelWidth                    97
 #define kIASKMaxLabelWidth                    240
 #define kIASKMinValueWidth                    35
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-#define kIASKPaddingLeft                      (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 ? 14 : 9)
+#define kIASKPaddingLeft                      (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 ? 15 : 9)
 #else
 #define kIASKPaddingLeft                      9
 #endif
@@ -108,20 +124,84 @@
 
 #define kIASKMinimumFontSize                  12.0f
 
-#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_4_0
-#define kCFCoreFoundationVersionNumber_iPhoneOS_4_0 550.32
+#ifndef kCFCoreFoundationVersionNumber_iOS_7_0
+#define kCFCoreFoundationVersionNumber_iOS_7_0 843.00
 #endif
 
-#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_4_1
-#define kCFCoreFoundationVersionNumber_iPhoneOS_4_1 550.38
+#ifndef kCFCoreFoundationVersionNumber_iOS_8_0
+#define kCFCoreFoundationVersionNumber_iOS_8_0 1129.150000
 #endif
 
-
-#define IASK_IF_IOS4_OR_GREATER(...) \
-if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iPhoneOS_4_0) \
+#ifdef __IPHONE_6_0
+#define IASK_IF_IOS6_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_6_0) \
 { \
 __VA_ARGS__ \
 }
+#else
+#define IASK_IF_IOS6_OR_GREATER(...)
+#endif
+
+#ifdef __IPHONE_6_0
+#define IASK_IF_PRE_IOS6(...) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_6_0) \
+{ \
+__VA_ARGS__ \
+} \
+_Pragma("clang diagnostic pop")
+#else
+#define IASK_IF_PRE_IOS6(...)  __VA_ARGS__
+#endif
+
+#ifdef __IPHONE_7_0
+#define IASK_IF_IOS7_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IASK_IF_IOS7_OR_GREATER(...)
+#endif
+
+#ifdef __IPHONE_7_0
+#define IASK_IF_PRE_IOS7(...) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_7_0) \
+{ \
+__VA_ARGS__ \
+} \
+_Pragma("clang diagnostic pop")
+#else
+#define IASK_IF_PRE_IOS7(...)  __VA_ARGS__
+#endif
+
+#ifdef __IPHONE_8_0
+#define IASK_IF_PRE_IOS8(...) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_8_0) \
+{ \
+__VA_ARGS__ \
+} \
+_Pragma("clang diagnostic pop")
+#else
+#define IASK_IF_PRE_IOS8(...)  __VA_ARGS__
+#endif
+
+
+#ifdef __IPHONE_8_0
+#define IASK_IF_IOS8_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IASK_IF_IOS8_OR_GREATER(...)
+#endif
+
 
 @class IASKSpecifier;
 
@@ -148,12 +228,13 @@ __VA_ARGS__ \
 - (NSInteger)numberOfSections;
 - (NSInteger)numberOfRowsForSection:(NSInteger)section;
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
+- (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section;
 - (NSIndexPath*)indexPathForKey:(NSString*)key;
 - (IASKSpecifier*)specifierForKey:(NSString*)key;
 - (NSString*)titleForSection:(NSInteger)section;
 - (NSString*)keyForSection:(NSInteger)section;
 - (NSString*)footerTextForSection:(NSInteger)section;
-- (NSString*)titleForStringId:(NSString*)stringId;
+- (NSString*)titleForId:(NSObject*)titleId;
 - (NSString*)pathForImageNamed:(NSString*)image;
 
 ///the main application bundle. most often [NSBundle mainBundle]
@@ -169,6 +250,7 @@ __VA_ARGS__ \
 @property (nonatomic, retain) NSString      *localizationTable;
 @property (nonatomic, retain) NSArray       *dataSource;
 @property (nonatomic, retain) NSSet         *hiddenKeys;
+@property (nonatomic) BOOL					showPrivacySettings;
 
 
 #pragma mark - internal use. public only for testing

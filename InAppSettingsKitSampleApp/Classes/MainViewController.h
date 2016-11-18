@@ -26,10 +26,12 @@
     IASKAppSettingsViewController *tabAppSettingsViewController;
 }
 
+#ifndef USE_STORYBOARD
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) IBOutlet IASKAppSettingsViewController *tabAppSettingsViewController;
 
 - (IBAction)showSettingsPush:(id)sender;
 - (IBAction)showSettingsModal:(id)sender;
+#endif
 
 @end

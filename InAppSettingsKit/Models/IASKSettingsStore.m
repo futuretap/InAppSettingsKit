@@ -38,8 +38,8 @@
     [self setObject:[NSNumber numberWithFloat:value] forKey:key];
 }
 
-- (void)setInteger:(int)value forKey:(NSString*)key {
-    [self setObject:[NSNumber numberWithInt:value] forKey:key];
+- (void)setInteger:(NSInteger)value forKey:(NSString*)key {
+    [self setObject:[NSNumber numberWithInteger:value] forKey:key];
 }
 
 - (void)setDouble:(double)value forKey:(NSString*)key {
@@ -53,8 +53,8 @@
 - (float)floatForKey:(NSString*)key {
     return [[self objectForKey:key] floatValue];
 }
-- (int)integerForKey:(NSString*)key {
-    return [[self objectForKey:key] intValue];
+- (NSInteger)integerForKey:(NSString*)key {
+    return [[self objectForKey:key] integerValue];
 }
 
 - (double)doubleForKey:(NSString*)key {
