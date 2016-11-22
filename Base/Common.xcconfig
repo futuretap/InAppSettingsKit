@@ -74,6 +74,9 @@ CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES
 // Warn for missing nullability attributes
 CLANG_ANALYZER_NONNULL = YES
 
+// Warn when a non-localized string is passed to a user-interface method expecting a localized string
+CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES
+
 // Warn about potentially unreachable code
 CLANG_WARN_UNREACHABLE_CODE = YES
 
