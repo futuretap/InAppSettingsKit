@@ -107,11 +107,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 	for (int i = 0; i < _settingsReader.numberOfSections; i++) {
 		IASKSpecifier *specifier = [self.settingsReader headerSpecifierForSection:i];
 		if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
-			IASKMultipleValueSelection *selection = [IASKMultipleValueSelection new];
+			IASKMultipleValueSelection *selection = [[IASKMultipleValueSelection alloc] initWithSettingsStore:self.settingsStore];
 			selection.tableView = self.tableView;
 			selection.specifier = specifier;
 			selection.section = i;
-			selection.settingsStore = self.settingsStore;
 			[sectionSelection addObject:selection];
 		} else {
 			[sectionSelection addObject:[NSNull null]];

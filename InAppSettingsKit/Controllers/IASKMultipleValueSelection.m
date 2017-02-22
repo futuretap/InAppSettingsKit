@@ -11,6 +11,15 @@
 
 @synthesize settingsStore = _settingsStore;
 
+- (instancetype)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore
+{
+    self = [super init];
+    if (self) {
+        self.settingsStore = settingsStore;
+    }
+    return self;
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
 }
