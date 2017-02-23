@@ -13,7 +13,7 @@
 @property (nonatomic, copy, readonly) NSIndexPath *checkedItem;
 @property (nonatomic, strong) id<IASKSettingsStore> settingsStore;
 
-- (instancetype)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore;
+- (id)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore;
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)updateSelectionInCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath;
 
