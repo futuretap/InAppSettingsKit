@@ -11,10 +11,8 @@
 
 @synthesize settingsStore = _settingsStore;
 
-- (instancetype)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore
-{
-    self = [super init];
-    if (self) {
+(id)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore {
+    if ((self = [super init])) {
         self.settingsStore = settingsStore;
     }
     return self;
