@@ -41,7 +41,7 @@
 - (NSInteger)multipleValuesCount;
 - (NSArray*)multipleValues;
 - (NSArray*)multipleTitles;
-- (nullable NSArray *)multipleIconNames;
+- (NSArray *)multipleIconNames;
 - (NSString*)file;
 - (id)defaultValue;
 - (id)defaultStringValue;

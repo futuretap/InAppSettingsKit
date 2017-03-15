@@ -273,7 +273,7 @@
     return [_multipleValuesDict objectForKey:kIASKTitles];
 }
 
-- (nullable NSArray *)multipleIconNames {
+- (NSArray *)multipleIconNames {
     return [_multipleValuesDict objectForKey:kIASKIconNames];
 }
 
