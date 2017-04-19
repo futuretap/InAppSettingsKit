@@ -280,7 +280,7 @@ In the [Dr. Touch podcast](http://www.drobnik.com/touch/2010/01/dr-touch-010-a-n
 
 Support
 =======
-Please don't use Github issues for support requestst, we'll close them. Instead, post your question on [StackOverflow](http://stackoverflow.com) with tag `inappsettingskit`.
+Please don't use Github issues for support requests, we'll close them. Instead, post your question on [StackOverflow](http://stackoverflow.com) with tag `inappsettingskit`.
 
 The License
 ===========
