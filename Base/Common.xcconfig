@@ -62,8 +62,14 @@ CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO
 // For example, this can catch issues when one incorrectly intermixes using NSNumbers and raw integers.
 CLANG_WARN_INT_CONVERSION = YES
 
+// Warn about non-literal expressions that evaluate to zero being treated as a null pointer.
+CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES
+
 // Warn about implicit capture of self (e.g. direct ivar access)
 CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES
+
+// Warn about implicit conversions from Objective-C literals to values of incompatible type.
+CLANG_WARN_OBJC_LITERAL_CONVERSION = YES
 
 // Don't warn about repeatedly using a weak reference without assigning the weak reference to a strong reference. Too many false positives.
 CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = NO
@@ -79,6 +85,9 @@ CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 
 // Warn about non-prototype declarations.
 CLANG_WARN_STRICT_PROTOTYPES = YES
+
+// Warn if an API that is newer than the deployment target is used without "if (@available(...))" guards.
+CLANG_WARN_UNGUARDED_AVAILABILITY = YES
 
 // Warn about incorrect uses of nullable values
 CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES
