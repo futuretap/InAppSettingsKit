@@ -236,6 +236,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[self synchronizeSettings];
 	[NSObject cancelPreviousPerformRequestsWithTarget:self];
 
 	// hide the keyboard
