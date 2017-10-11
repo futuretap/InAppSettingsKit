@@ -227,7 +227,7 @@ The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, Ch
 
 Placeholder
 --------------
-The `IASKPlaceholder` key allows to define plcaholer for TextField.
+The `IASKPlaceholder` key allows to define placeholder for TextField.
 
 
 Text alignment
