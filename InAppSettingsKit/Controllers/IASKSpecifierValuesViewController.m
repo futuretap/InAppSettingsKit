@@ -29,9 +29,6 @@
 @end
 
 @implementation IASKSpecifierValuesViewController
-
-@synthesize tableView=_tableView;
-@synthesize currentSpecifier=_currentSpecifier;
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
 
