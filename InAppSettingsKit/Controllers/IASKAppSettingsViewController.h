@@ -24,15 +24,17 @@
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
 
-@protocol IASKSettingsDelegate
+@protocol IASKSettingsDelegate <NSObject>
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender;
 
 @optional
 - (BOOL)settingsViewController:(IASKAppSettingsViewController *)controller
    shouldSetSwitchForSpecifier:(IASKSpecifier *)specifier
                        toValue:(BOOL)newValue;
+- (BOOL)settingsViewController:(id<IASKViewController>)controller
+shouldSetMultiValueForSpecifier:(IASKSpecifier *)specifier
+                toValueAtIndex:(NSInteger)index;
 
-@optional
 #pragma mark - UITableView header customization
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView
