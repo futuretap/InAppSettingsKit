@@ -19,15 +19,12 @@
 #import "IASKViewController.h"
 @class IASKSpecifier;
 @class IASKSettingsReader;
+@protocol IASKSettingsDelegate;
 
-@interface IASKSpecifierValuesViewController : UIViewController<IASKViewController,UITableViewDelegate,UITableViewDataSource> {
-    UITableView				*_tableView;
-    
-    IASKSpecifier			*_currentSpecifier;
-	IASKSettingsReader		*_settingsReader;
-}
+@interface IASKSpecifierValuesViewController : UIViewController<IASKViewController,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) IASKSpecifier *currentSpecifier;
+@property (nonatomic, weak) id<IASKSettingsDelegate> delegate;
 
 @end
