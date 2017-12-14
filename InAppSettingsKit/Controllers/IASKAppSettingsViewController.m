@@ -803,7 +803,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]]];
+        NSURL *url = [NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]];
+        [[UIApplication sharedApplication] openURL:url];
     } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForSpecifier:)]) {
@@ -945,7 +946,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     [_settingsStore setObject:[text text] forKey:[text key]];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
                                                         object:self
-                                                      userInfo:[NSDictionary dictionaryWithObject:[text text]
+                                                      userInfo:[NSDictionary dictionaryWithObject:[text text] ? : @""
                                                                                            forKey:[text key]]];
 }
 
@@ -1017,7 +1018,9 @@ static NSDictionary *oldUserDefaults = nil;
         
         for (UITableViewCell *cell in self.tableView.visibleCells) {
             if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder]) {
-                [indexPathsToUpdate removeObject:[self.tableView indexPathForCell:cell]];
+                NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+                assert(indexPath);
+                [indexPathsToUpdate removeObject:indexPath];
             }
         }
         if (indexPathsToUpdate.count) {

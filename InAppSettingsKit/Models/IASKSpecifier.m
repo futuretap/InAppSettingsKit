@@ -132,13 +132,13 @@
 
         [sortedTemporaryMappings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSDictionary *mapping = obj;
-            sortedTitles[idx] = mapping[titleKey];
-            sortedValues[idx] = mapping[valueKey];
+            sortedTitles[idx] = (id)mapping[titleKey];
+            sortedValues[idx] = (id)mapping[valueKey];
             if (mapping[shortTitleKey] != [NSNull null]) {
-                sortedShortTitles[idx] = mapping[shortTitleKey];
+                sortedShortTitles[idx] = (id)mapping[shortTitleKey];
             }
             if (mapping[iconNamesKey] != [NSNull null]) {
-                sortedIconNames[idx] = mapping[iconNamesKey];
+                sortedIconNames[idx] = (id)mapping[iconNamesKey];
             }
         }];
         titles = [sortedTitles copy];
@@ -209,7 +209,9 @@
 }
 
 - (SEL)viewControllerSelector {
-    return NSSelectorFromString([_specifierDict objectForKey:kIASKViewControllerSelector]);
+    NSString* selectorName = [_specifierDict objectForKey:kIASKViewControllerSelector];
+    assert(selectorName);
+    return NSSelectorFromString(selectorName);
 }
 
 - (NSString*)viewControllerStoryBoardFile {
@@ -225,11 +227,15 @@
 }
 
 - (Class)buttonClass {
-    return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
+    NSString* selectorName = [_specifierDict objectForKey:kIASKButtonClass];
+    assert(selectorName);
+    return NSClassFromString(selectorName);
 }
 
 - (SEL)buttonAction {
-    return NSSelectorFromString([_specifierDict objectForKey:kIASKButtonAction]);
+    NSString* selectorName = [_specifierDict objectForKey:kIASKButtonAction];
+    assert(selectorName);
+    return NSSelectorFromString(selectorName);
 }
 
 - (NSString*)key {
