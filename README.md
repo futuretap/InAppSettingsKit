@@ -227,7 +227,7 @@ The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, Ch
 
 Placeholder
 --------------
-The `IASKPlaceholder` key allows to define plcaholer for TextField.
+The `IASKPlaceholder` key allows to define placeholder for TextField.
 
 
 Text alignment
@@ -277,6 +277,10 @@ See the sample app for more details. Note that InAppSettingsKit uses Settings sc
 More information
 ----------------
 In the [Dr. Touch podcast](http://www.drobnik.com/touch/2010/01/dr-touch-010-a-new-decade/) and the [MDN Show Episode 027](http://itunes.apple.com/us/podcast/the-mdn-show/id318584787) [Ortwin Gentz](http://twitter.com/ortwingentz) talks about InAppSettingsKit.
+
+Support
+=======
+Please don't use Github issues for support requests, we'll close them. Instead, post your question on [StackOverflow](http://stackoverflow.com) with tag `inappsettingskit`.
 
 The License
 ===========

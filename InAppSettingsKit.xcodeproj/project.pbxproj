@@ -125,6 +125,14 @@
 		AA627D3A19F695F30079AAE8 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		AA627D6F19F69A7F0079AAE8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AAE500261A82A1D600C445B0 /* InAppSettingsKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = InAppSettingsKit.podspec; sourceTree = "<group>"; };
+		B1FF720F1F7771810021E9C6 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		B1FF72101F77719A0021E9C6 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		B1FF72111F7771AC0021E9C6 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		B1FF72121F7771BB0021E9C6 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		B1FF72131F7771C60021E9C6 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		B1FF72141F7771D60021E9C6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		B1FF72151F7771EA0021E9C6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		B1FF72161F7771F20021E9C6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
 		DAC156231B54533D00655031 /* InAppSettingsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InAppSettingsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC156251B54533D00655031 /* InAppSettingsKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InAppSettingsKit.h; sourceTree = "<group>"; };
 		DAC156271B54533D00655031 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -546,7 +554,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = InAppSettingsKit;
 				TargetAttributes = {
 					DAC156221B54533D00655031 = {
@@ -574,6 +582,14 @@
 				sv,
 				th,
 				tr,
+				ca,
+				hr,
+				hu,
+				nb,
+				pl,
+				uk,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = E42ADA86168202D700295D85;
 			productRefGroup = E42ADA90168202D700295D85 /* Products */;
@@ -695,6 +711,14 @@
 				AA627D3819F695F30079AAE8 /* sv */,
 				AA627D3919F695F30079AAE8 /* th */,
 				AA627D3A19F695F30079AAE8 /* tr */,
+				B1FF720F1F7771810021E9C6 /* ca */,
+				B1FF72101F77719A0021E9C6 /* hr */,
+				B1FF72111F7771AC0021E9C6 /* hu */,
+				B1FF72121F7771BB0021E9C6 /* nb */,
+				B1FF72131F7771C60021E9C6 /* pl */,
+				B1FF72141F7771D60021E9C6 /* uk */,
+				B1FF72151F7771EA0021E9C6 /* zh-Hans */,
+				B1FF72161F7771F20021E9C6 /* zh-Hant */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
@@ -764,6 +788,10 @@
 			baseConfigurationReference = E4A95F30177DB25C00FF0906 /* Debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 			};
@@ -774,6 +802,10 @@
 			baseConfigurationReference = E4A95F32177DB25C00FF0906 /* Release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 			};

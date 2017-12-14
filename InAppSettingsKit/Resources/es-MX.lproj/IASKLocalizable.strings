@@ -5,8 +5,8 @@
   Copyright (c) 2014 FutureTap. All rights reserved. */
 
 /* iOS 8+ Privacy cell: title */
-"Privacy" = "Απόρρητο";
+"Privacy" = "Privacidad";
 
 /* iOS 8+ Privacy cell: subtitle */
-"Open in Settings app" = "Open in “Settings” app";// TODO
+"Open in Settings app" = "Abrir en “Configuración” del sistema";
 
