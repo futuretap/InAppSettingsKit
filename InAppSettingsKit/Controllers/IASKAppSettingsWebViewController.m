@@ -133,7 +133,7 @@
 	}
 	
 	// open inline if host is the same, otherwise, pass to the system
-	if (![newURL host] || [[newURL host] isEqualToString:[self.url host]]) {
+	if (!newURL.host || (self.url.host && [newURL.host isEqualToString: (id) self.url.host])) {
 		return YES;
 	}
 	[[UIApplication sharedApplication] openURL:newURL];
