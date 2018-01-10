@@ -792,7 +792,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]]];
+		IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]] options:@{} completionHandler:nil];);
+		IASK_IF_PRE_IOS11([UIApplication.sharedApplication openURL:[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]]];);
     } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForSpecifier:)]) {
@@ -870,26 +871,22 @@ CGRect IASKCGRectSwap(CGRect rect);
             }];
 			
         } else {
-			IASK_IF_PRE_IOS8
-			(
-            UIAlertView *alert = [[UIAlertView alloc]
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+			UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
+																		   message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
+																	preferredStyle:UIAlertControllerStyleAlert];
+			[self presentViewController:alert animated:YES completion:nil];
+#else
+			UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
                                   message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
                                   delegate: nil
                                   cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
                                   otherButtonTitles:nil];
             [alert show];
-			 )
-			IASK_IF_IOS8_OR_GREATER
-			(
-			 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
-																			message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
-																	 preferredStyle:UIAlertControllerStyleAlert];
-			 [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"InAppSettingsKit") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {}]];
-			 [self presentViewController:alert animated:YES completion:nil];
-			)
-        }
-		
+#endif
+		}
+        
     } else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:didSelectCustomViewSpecifier:)]) {
         [self.delegate settingsViewController:self tableView:tableView didSelectCustomViewSpecifier:specifier];
 	} else if ([[specifier type] isEqualToString:kIASKPSRadioGroupSpecifier]) {

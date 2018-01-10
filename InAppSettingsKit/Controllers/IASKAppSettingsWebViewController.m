@@ -136,7 +136,8 @@
 	if (![newURL host] || [[newURL host] isEqualToString:[self.url host]]) {
 		return YES;
 	}
-	[[UIApplication sharedApplication] openURL:newURL];
+	IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:newURL options:@{} completionHandler:nil];);
+	IASK_IF_PRE_IOS11([UIApplication.sharedApplication openURL:newURL];);
 	return NO;
 }
 
