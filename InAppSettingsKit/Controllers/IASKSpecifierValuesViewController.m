@@ -29,61 +29,34 @@
 
 @implementation IASKSpecifierValuesViewController
 
-@synthesize tableView=_tableView;
 @synthesize currentSpecifier=_currentSpecifier;
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
 
 - (void)setSettingsStore:(id <IASKSettingsStore>)settingsStore {
+	_selection = [IASKMultipleValueSelection new];
     _settingsStore = settingsStore;
     _selection.settingsStore = settingsStore;
-}
-
-- (void)loadView
-{
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-    UIViewAutoresizingFlexibleHeight;
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    
-    self.view = _tableView;
-
-    _selection = [IASKMultipleValueSelection new];
-    _selection.tableView = _tableView;
-    _selection.settingsStore = _settingsStore;
+	_selection.specifier = _currentSpecifier;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
     if (_currentSpecifier) {
         [self setTitle:[_currentSpecifier title]];
         _selection.specifier = _currentSpecifier;
     }
     
-    if (_tableView) {
-        [_tableView reloadData];
-		_selection.tableView = _tableView;
-    }
-	self.didFirstLayout = NO;
-	[super viewWillAppear:animated];
-}
+    if (self.tableView) {
+		_selection.tableView = self.tableView;
+		[self.tableView reloadData];
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	[_tableView flashScrollIndicators];
-}
-
-- (void)viewDidLayoutSubviews {
-	[super viewDidLayoutSubviews];
-
-	if (!self.didFirstLayout) {
 		// Make sure the currently checked item is visible
-		// this needs to be done as early as possible when pushing the view but after the first layout
-		// otherwise scrolling to the first entry doesn't respect tableView.contentInset
-		[_tableView scrollToRowAtIndexPath:_selection.checkedItem
-						  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-		self.didFirstLayout = YES;
+		[self.tableView scrollToRowAtIndexPath:_selection.checkedItem
+							  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 	}
+	self.didFirstLayout = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -91,11 +64,15 @@
     _selection.tableView = nil;
 }
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
+- (void)viewWillLayoutSubviews {
+	[super viewWillLayoutSubviews];
+
+	if (!self.didFirstLayout) {
+		self.didFirstLayout = YES;
+		[self.tableView scrollToRowAtIndexPath:_selection.checkedItem
+							  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+		[self.tableView flashScrollIndicators];
+	}
 }
 
 #pragma mark -
