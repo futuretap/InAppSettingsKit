@@ -87,8 +87,6 @@
 		AAC15A921D7D6F4200627834 /* 20-gear2Highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2Highlighted.png"; sourceTree = "<group>"; };
 		AAC15A931D7D6F4200627834 /* InAppSettingsKitSampleApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitSampleApp-Info.plist"; sourceTree = "<group>"; };
 		AAC15A941D7D6F4200627834 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AAC15A951D7D6F4200627834 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AAC15A961D7D6F4200627834 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AAC15A981D7D6F4200627834 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/settings_about.html; sourceTree = "<group>"; };
 		AAC15A991D7D6F4200627834 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/settings_about.html; sourceTree = "<group>"; };
 		AAC15A9B1D7D6F4200627834 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainWindow.xib; sourceTree = "<group>"; };
@@ -98,6 +96,8 @@
 		AAC15AA01D7D6F4200627834 /* CustomSubviewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSubviewController.xib; sourceTree = "<group>"; };
 		AAC15AA11D7D6F4200627834 /* CustomViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViewCell.xib; sourceTree = "<group>"; };
 		AAC15AA21D7D6F4200627834 /* Launch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Launch.xib; sourceTree = "<group>"; };
+		AAE36A422006A91200927016 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AAE36A432006A91E00927016 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +320,8 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				fr,
 			);
 			mainGroup = 5797A3B51D2F6E6D00B13CB2;
 			productRefGroup = 5797A3BF1D2F6E6D00B13CB2 /* Products */;
@@ -433,8 +435,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAC15A941D7D6F4200627834 /* en */,
-				AAC15A951D7D6F4200627834 /* de */,
-				AAC15A961D7D6F4200627834 /* fr */,
+				AAE36A422006A91200927016 /* de */,
+				AAE36A432006A91E00927016 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
