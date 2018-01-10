@@ -29,6 +29,8 @@
 - (id)initWithSpecifier:(NSDictionary *)specifier
         radioGroupValue:(NSString *)radioGroupValue;
 
+- (void)setMultipleValuesDictValues:(NSArray*)values titles:(NSArray*)titles;
+
 - (void)sortIfNeeded;
 
 - (NSString*)localizedObjectForKey:(NSString*)key;

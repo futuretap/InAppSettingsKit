@@ -218,6 +218,25 @@
 	return cell;
 }
 
+- (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier *)specifier {
+	if ([specifier.key isEqualToString:@"countryCode"]) {
+		return [NSLocale ISOCountryCodes];
+	}
+	return nil;
+}
+
+- (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier *)specifier {
+	if ([specifier.key isEqualToString:@"countryCode"]) {
+		NSMutableArray *countryNames = NSMutableArray.array;
+		for (NSString *countryCode in [NSLocale ISOCountryCodes]) {
+			[countryNames addObject:[NSLocale.currentLocale displayNameForKey:NSLocaleCountryCode value:countryCode]];
+		}
+		return countryNames;
+	}
+	return nil;
+}
+
+
 #pragma mark kIASKAppSettingChanged notification
 - (void)settingDidChange:(NSNotification*)notification {
 	if ([notification.userInfo.allKeys.firstObject isEqual:@"AutoConnect"]) {

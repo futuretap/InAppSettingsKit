@@ -58,9 +58,13 @@
 - (void)updateMultiValuesDict {
     NSArray *values = [_specifierDict objectForKey:kIASKValues];
     NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
+	[self setMultipleValuesDictValues:values titles:titles];
+}
+
+- (void)setMultipleValuesDictValues:(NSArray*)values titles:(NSArray*)titles {
     NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
     NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
-    
+   
     if (values) {
 		[multipleValuesDict setObject:values forKey:kIASKValues];
 	}
@@ -78,9 +82,9 @@
 
 - (void)sortIfNeeded {
     if (self.displaySortedByTitle) {
-        NSArray *values = [_specifierDict objectForKey:kIASKValues];
-        NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
-        NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
+		NSArray *values = self.multipleValues ?: [_specifierDict objectForKey:kIASKValues];
+		NSArray *titles = self.multipleTitles ?: [_specifierDict objectForKey:kIASKTitles];
+		NSArray *shortTitles = self.multipleShortTitles ?: [_specifierDict objectForKey:kIASKShortTitles];
 
         NSAssert(values.count == titles.count, @"Malformed multi-value specifier found in settings bundle. Number of values and titles differ.");
         NSAssert(shortTitles == nil || shortTitles.count == values.count, @"Malformed multi-value specifier found in settings bundle. Number of short titles and values differ.");
@@ -222,7 +226,7 @@
 
 - (NSString*)titleForCurrentValue:(id)currentValue {
 	NSArray *values = [self multipleValues];
-	NSArray *titles = [self multipleShortTitles];
+	NSArray *titles = [self multipleShortTitles] ?: self.multipleTitles;
 	if (!titles) {
         titles = [self multipleTitles];
 	}
