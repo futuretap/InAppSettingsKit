@@ -327,18 +327,19 @@ CGRect IASKCGRectSwap(CGRect rect);
 			
 			if (hideSections.count || hideIndexPaths.count || showSections.count || showIndexPaths.count) {
 				[self.tableView beginUpdates];
-				UITableViewRowAnimation animation = animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone;
+				UITableViewRowAnimation rowAnimation = animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone;
+				UITableViewRowAnimation sectionAnimation = animated ? UITableViewRowAnimationFade : UITableViewRowAnimationNone;
 				if (hideSections.count) {
-					[self.tableView deleteSections:hideSections withRowAnimation:animation];
+					[self.tableView deleteSections:hideSections withRowAnimation:sectionAnimation];
 				}
-				if (hideIndexPaths) {
-					[self.tableView deleteRowsAtIndexPaths:hideIndexPaths withRowAnimation:animation];
+				if (hideIndexPaths.count) {
+					[self.tableView deleteRowsAtIndexPaths:hideIndexPaths withRowAnimation:rowAnimation];
 				}
 				if (showSections.count) {
-					[self.tableView insertSections:showSections withRowAnimation:animation];
+					[self.tableView insertSections:showSections withRowAnimation:sectionAnimation];
 				}
-				if (showIndexPaths) {
-					[self.tableView insertRowsAtIndexPaths:showIndexPaths withRowAnimation:animation];
+				if (showIndexPaths.count) {
+					[self.tableView insertRowsAtIndexPaths:showIndexPaths withRowAnimation:rowAnimation];
 				}
 				[self.tableView endUpdates];
 			}
