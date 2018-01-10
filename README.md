@@ -223,6 +223,7 @@ As an alternative to `IASKViewControllerClass` and `IASKViewControllerSelector` 
 Subtitles
 ---------
 The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button. Using a subtitle implies left alignment.
+A child pane displays its value as a subtitle, if available and no `IASKSubtitle` is specified.
 
 
 Placeholder

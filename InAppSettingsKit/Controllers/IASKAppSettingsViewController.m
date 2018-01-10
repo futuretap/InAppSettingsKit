@@ -645,7 +645,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if ([specifier.type isEqualToString:kIASKPSChildPaneSpecifier]) {
 		cell.textLabel.text = specifier.title;
-		cell.detailTextLabel.text = specifier.subtitle;
+		if (specifier.subtitle.length) {
+			cell.detailTextLabel.text = specifier.subtitle;
+		} else if (specifier.key) {
+			cell.detailTextLabel.text = [self.settingsStore objectForKey:specifier.key] ? : specifier.defaultValue;
+		}
 	} else if ([specifier.type isEqualToString:kIASKOpenURLSpecifier] || [specifier.type isEqualToString:kIASKMailComposeSpecifier]) {
 		cell.textLabel.text = specifier.title;
 		cell.detailTextLabel.text = specifier.subtitle ? : [specifier.defaultValue description];
