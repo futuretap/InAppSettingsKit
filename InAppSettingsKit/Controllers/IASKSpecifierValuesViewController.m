@@ -44,8 +44,10 @@
 	[super viewWillAppear:animated];
 	
     if (_currentSpecifier) {
-        [self setTitle:[_currentSpecifier title]];
-        _selection.specifier = _currentSpecifier;
+		self.title = _currentSpecifier.title;
+		IASK_IF_IOS11_OR_GREATER(if (@available(iOS 11.0, *)) {
+			self.navigationItem.largeTitleDisplayMode = self.title.length ? UINavigationItemLargeTitleDisplayModeAutomatic : UINavigationItemLargeTitleDisplayModeNever;
+		});
     }
     
     if (self.tableView) {
