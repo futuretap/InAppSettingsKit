@@ -521,6 +521,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	else if ([identifier hasPrefix:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kIASKPSSliderSpecifier];
 	} else if ([identifier hasPrefix:kIASKPSChildPaneSpecifier]) {
+		if (!specifier.subtitle.length) {
+			style = UITableViewCellStyleValue1;
+		}
 		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
@@ -599,7 +602,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
 		textField.text = textValue;
-		textField.placeholder = specifier.placeholder;
 		textField.key = specifier.key;
 		textField.delegate = self;
 		textField.secureTextEntry = [specifier isSecure];
@@ -611,6 +613,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			textField.autocorrectionType = specifier.autoCorrectionType;
 		}
 		textField.textAlignment = specifier.textAlignment;
+		textField.placeholder = specifier.placeholder;
 		textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	}
 	else if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
@@ -622,6 +625,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textCell.textView.keyboardType = specifier.keyboardType;
 		textCell.textView.autocapitalizationType = specifier.autocapitalizationType;
 		textCell.textView.autocorrectionType = specifier.autoCorrectionType;
+		textCell.textView.placeholder = specifier.placeholder;
+		
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self cacheRowHeightForTextView:textCell.textView];
 		});

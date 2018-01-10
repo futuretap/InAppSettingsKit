@@ -745,6 +745,8 @@ text
 with dynamically resizing cell</string>
 			<key>Key</key>
 			<string>dynamicTextView</string>
+			<key>IASKPlaceholder</key>
+			<string>Text placeholder</string>
 		</dict>
 		<dict>
 			<key>Type</key>
