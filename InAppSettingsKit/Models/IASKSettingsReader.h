@@ -193,7 +193,7 @@ __VA_ARGS__ \
 
 #ifdef __IPHONE_11_0
 #define IASK_IF_IOS11_OR_GREATER(...) \
-if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_11_0) \
+if (@available(iOS 11.0, *)) \
 { \
 __VA_ARGS__ \
 }
