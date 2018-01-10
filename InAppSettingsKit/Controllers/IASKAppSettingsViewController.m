@@ -368,7 +368,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark -
 #pragma mark Actions
 
-- (void)dismiss:(id)sender {
+- (IBAction)dismiss:(id)sender {
 	[self.settingsStore synchronize];
 	
 	if (self.delegate && [self.delegate conformsToProtocol:@protocol(IASKSettingsDelegate)]) {

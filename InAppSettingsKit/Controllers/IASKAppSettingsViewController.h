@@ -69,6 +69,6 @@
 @property (nonatomic) IBInspectable BOOL neverShowPrivacySettings;
 
 - (void)synchronizeSettings;
-- (void)dismiss:(id)sender;
+- (IBAction)dismiss:(id)sender;
 - (void)setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated;
 @end
