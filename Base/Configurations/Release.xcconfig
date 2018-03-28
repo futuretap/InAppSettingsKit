@@ -27,7 +27,7 @@ ONLY_ACTIVE_ARCH = NO
 STRIP_INSTALLED_PRODUCT = YES
 
 // The optimization level (-Onone, -O, -Owholemodule) for the produced Swift binary
-SWIFT_OPTIMIZATION_LEVEL = -Owholemodule
+SWIFT_OPTIMIZATION_LEVEL = -O
 
 // Compilation mode (independent of optimization level)
 SWIFT_COMPILATION_MODE = wholemodule
