@@ -145,6 +145,13 @@
         if ([self.hiddenKeys containsObject:newSpecifier.key]) {
             continue;
         }
+
+        if (![newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
+            // All specifiers without a matching idiom are ignored in the iOS Settings app, so we will do likewise here.
+            // Some specifiers may be seen as containing other elements, such as groups, but the iOS settings app will not ignore the perceived content of those unless their own supported idioms do not fit.
+            continue;
+        }
+
         NSString *type = newSpecifier.type;
         if ([type isEqualToString:kIASKPSGroupSpecifier]
             || [type isEqualToString:kIASKPSRadioGroupSpecifier]) {
@@ -168,9 +175,7 @@
                 [dataSource addObject:[NSMutableArray array]];
             }
             
-            if ([newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
-                [(NSMutableArray*)dataSource.lastObject addObject:newSpecifier];
-            }
+            [(NSMutableArray*)dataSource.lastObject addObject:newSpecifier];
         }
     }
     [self setDataSource:dataSource];
