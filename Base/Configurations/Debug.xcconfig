@@ -44,7 +44,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
 // final installation location
 STRIP_INSTALLED_PRODUCT = NO
 
-// The optimization level (-Onone, -O, -Ofast) for the produced Swift binary
+// The optimization level (-Onone, -O, -Osize) for the produced Swift binary
 SWIFT_OPTIMIZATION_LEVEL = -Onone
 
 // Disable Developer ID timestamping
