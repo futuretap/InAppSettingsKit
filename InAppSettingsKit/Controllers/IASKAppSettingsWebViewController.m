@@ -91,10 +91,9 @@
 				NSString *key = [[keyValue objectAtIndex:0] lowercaseString];
 				NSString *value = [keyValue objectAtIndex:1];
 				
-				value =  CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
-																							 (CFStringRef)value,
-																							 CFSTR(""),
-																							 kCFStringEncodingUTF8));
+				value =  CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault,
+																					  (CFStringRef)value,
+																					  CFSTR("")));
 				
 				if ([key isEqualToString:@"subject"]) {
 					[mailViewController setSubject:value];
@@ -137,7 +136,8 @@
 	if (![newURL host] || [[newURL host] isEqualToString:[self.url host]]) {
 		return YES;
 	}
-	[[UIApplication sharedApplication] openURL:newURL];
+	IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:newURL options:@{} completionHandler:nil];);
+	IASK_IF_PRE_IOS11([UIApplication.sharedApplication openURL:newURL];);
 	return NO;
 }
 

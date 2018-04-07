@@ -20,7 +20,8 @@
 #import <MessageUI/MessageUI.h>
 
 #ifdef USES_IASK_STATIC_LIBRARY
-  #import "InAppSettingsKit/IASKSettingsReader.h"
+#import "InAppSettingsKit/IASKSettingsReader.h"
+#import "InAppSettingsKit/IASKAppSettingsViewController.h"
 #else
   #import "IASKSettingsReader.h"
 #endif
@@ -30,12 +31,15 @@
 @interface MainViewController()<UIPopoverControllerDelegate>
 - (void)settingDidChange:(NSNotification*)notification;
 
+#ifndef USE_STORYBOARD
 @property (nonatomic) UIPopoverController* currentPopoverController;
+#endif
 
 @end
 
 @implementation MainViewController
 
+#ifndef USE_STORYBOARD
 @synthesize appSettingsViewController, tabAppSettingsViewController;
 
 - (IASKAppSettingsViewController*)appSettingsViewController {
@@ -78,16 +82,6 @@
 	self.currentPopoverController = popover;
 }
 
-- (void)awakeFromNib {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
-	BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
-	self.tabAppSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
-
-	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)];
-	}
-}
-
 #pragma mark - View Lifecycle
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
@@ -100,6 +94,41 @@
 	[self.currentPopoverController dismissPopoverAnimated:YES];
 	self.currentPopoverController = nil;
 }
+
+- (void)didReceiveMemoryWarning {
+	// Releases the view if it doesn't have a superview.
+	[super didReceiveMemoryWarning];
+	
+	// Release any cached data, images, etc that aren't in use.
+	self.appSettingsViewController = nil;
+}
+
+#endif
+
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+
+#ifndef USE_STORYBOARD
+	BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
+	self.tabAppSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
+	
+	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)];
+	}
+#endif
+}
+
+#ifdef USE_STORYBOARD
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	IASKAppSettingsViewController *settingsViewController = (id)((UINavigationController*)segue.destinationViewController).topViewController;
+	settingsViewController.delegate = self;
+
+	BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
+	settingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
+}
+#endif
+
 
 #pragma mark -
 #pragma mark IASKAppSettingsViewControllerDelegate protocol
@@ -189,10 +218,29 @@
 	return cell;
 }
 
+- (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier *)specifier {
+	if ([specifier.key isEqualToString:@"countryCode"]) {
+		return [NSLocale ISOCountryCodes];
+	}
+	return nil;
+}
+
+- (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier *)specifier {
+	if ([specifier.key isEqualToString:@"countryCode"]) {
+		NSMutableArray *countryNames = NSMutableArray.array;
+		for (NSString *countryCode in [NSLocale ISOCountryCodes]) {
+			[countryNames addObject:[NSLocale.currentLocale displayNameForKey:NSLocaleCountryCode value:countryCode]];
+		}
+		return countryNames;
+	}
+	return nil;
+}
+
+
 #pragma mark kIASKAppSettingChanged notification
 - (void)settingDidChange:(NSNotification*)notification {
-	if ([notification.object isEqual:@"AutoConnect"]) {
-		IASKAppSettingsViewController *activeController = self.tabBarController.selectedIndex ? self.tabAppSettingsViewController : self.appSettingsViewController;
+	if ([notification.userInfo.allKeys.firstObject isEqual:@"AutoConnect"]) {
+		IASKAppSettingsViewController *activeController = notification.object;
 		BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"AutoConnect"] intValue];
 		[activeController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil] animated:YES];
 	}
@@ -201,31 +249,26 @@
 #pragma mark UITextViewDelegate (for CustomViewCell)
 - (void)textViewDidChange:(UITextView *)textView {
     [[NSUserDefaults standardUserDefaults] setObject:textView.text forKey:@"customCell"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:@"customCell"];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:@{@"customCell" : textView.text}];
 }
 
+#ifndef USE_STORYBOARD
 #pragma mark - UIPopoverControllerDelegate
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController {
 	self.currentPopoverController = nil;
 }
+#endif
 
 #pragma mark -
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.key isEqualToString:@"ButtonDemoAction1"]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Demo Action 1 called" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
+		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Demo Action 1 called" message:nil preferredStyle:UIAlertControllerStyleAlert];
+		[alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"InAppSettingsKit") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {}]];
+		[sender presentViewController:alert animated:YES completion:nil];
 	} else if ([specifier.key isEqualToString:@"ButtonDemoAction2"]) {
 		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
 		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:specifier.key];
 	}
-}
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-	self.appSettingsViewController = nil;
 }
 
 @end

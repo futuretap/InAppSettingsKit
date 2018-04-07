@@ -29,11 +29,14 @@
 - (id)initWithSpecifier:(NSDictionary *)specifier
         radioGroupValue:(NSString *)radioGroupValue;
 
+- (void)setMultipleValuesDictValues:(NSArray*)values titles:(NSArray*)titles;
+
 - (void)sortIfNeeded;
 
 - (NSString*)localizedObjectForKey:(NSString*)key;
 - (NSString*)title;
 - (NSString*)subtitle;
+- (NSString*)placeholder;
 - (NSString*)key;
 - (NSString*)type;
 - (NSString*)titleForCurrentValue:(id)currentValue;
@@ -60,6 +63,7 @@
 - (SEL)viewControllerSelector;
 - (NSString*)viewControllerStoryBoardFile;
 - (NSString*)viewControllerStoryBoardID;
+- (NSString*)segueIdentifier;
 - (Class)buttonClass;
 - (SEL)buttonAction;
 - (UIImage *)cellImage;
