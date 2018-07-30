@@ -560,7 +560,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			} else if ([currentValue isEqual:specifier.falseValue]) {
 				toggleState = NO;
 			} else {
-				toggleState = [currentValue boolValue];
+				toggleState = [currentValue respondsToSelector:@selector(boolValue)] ? [currentValue boolValue] : NO;
 			}
 		} else {
 			toggleState = specifier.defaultBoolValue;
