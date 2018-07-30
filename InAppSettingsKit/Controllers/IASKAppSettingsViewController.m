@@ -186,10 +186,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 	// so reload that row
 	if(selectedIndexPath) {
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animated * UINavigationControllerHideShowBarDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+			[CATransaction setDisableActions:YES];
 			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath]
 								  withRowAnimation:UITableViewRowAnimationNone];
 			// and reselect it, so we get the nice default deselect animation from UITableViewController
 			[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+			[CATransaction setDisableActions:NO];
 			[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:YES];
 		});
 	}
