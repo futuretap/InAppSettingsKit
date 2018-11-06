@@ -159,41 +159,63 @@
     }
 }
 - (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController
-                        tableView:(UITableView *)tableView 
+                        tableView:(UITableView *)tableView
         heightForHeaderForSection:(NSInteger)section {
-  NSString* key = [settingsViewController.settingsReader keyForSection:section];
-	if ([key isEqualToString:@"IASKLogo"]) {
-		return [UIImage imageNamed:@"Icon.png"].size.height + 25;
-	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
-		return 55.f;    
-  }
-	return 0;
+    NSString *key = [settingsViewController.settingsReader keyForSection:section];
+    if ([key isEqualToString:@"IASKLogo"]) {
+        return [UIImage imageNamed:@"Icon.png"].size.height + 25;
+    } else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
+        return 55.f;
+    }
+    return 0;
 }
 
 - (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView 
-               viewForHeaderForSection:(NSInteger)section {
-  NSString* key = [settingsViewController.settingsReader keyForSection:section];
-	if ([key isEqualToString:@"IASKLogo"]) {
-		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
-		imageView.contentMode = UIViewContentModeCenter;
-		return imageView;
-	} else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectZero];
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor redColor];
-    label.shadowColor = [UIColor whiteColor];
-    label.shadowOffset = CGSizeMake(0, 1);
-    label.numberOfLines = 0;
-    label.font = [UIFont boldSystemFontOfSize:16.f];
-    
-    //figure out the title from settingsbundle
-    label.text = [settingsViewController.settingsReader titleForSection:section];
-    
-    return label;
-  }
+           viewForHeaderForSection:(NSInteger)section {
+    NSString *key = [settingsViewController.settingsReader keyForSection:section];
+    if ([key isEqualToString:@"IASKLogo"]) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
+        imageView.contentMode = UIViewContentModeCenter;
+        return imageView;
+    } else if ([key isEqualToString:@"IASKCustomHeaderStyle"]) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.backgroundColor = [UIColor clearColor];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor redColor];
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0, 1);
+        label.numberOfLines = 0;
+        label.font = [UIFont boldSystemFontOfSize:16.f];
+        
+        //figure out the title from settingsbundle
+        label.text = [settingsViewController.settingsReader titleForSection:section];
+        
+        return label;
+    }
 	return nil;
+}
+
+- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController
+                        tableView:(UITableView *)tableView
+        heightForFooterForSection:(NSInteger)section {
+    NSString *key = [settingsViewController.settingsReader keyForSection:section];
+    if ([key isEqualToString:@"IASKLogo"]) {
+        return [UIImage imageNamed:@"Icon.png"].size.height + 25;
+    }
+    return 0;
+}
+
+- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController
+                         tableView:(UITableView *)tableView
+           viewForFooterForSection:(NSInteger)section {
+    NSString *key = [settingsViewController.settingsReader keyForSection:section];
+    if ([key isEqualToString:@"IASKLogo"]) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
+        imageView.contentMode = UIViewContentModeCenter;
+        return imageView;
+    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
