@@ -198,8 +198,8 @@ to catch tap events for your custom view.
 
 
 
-Custom Group Header Views
--------------------------
+Custom Group Header and Footer Views
+------------------------------------
 You can define custom headers for `PSGroupSpecifier` segments by adding a `Key` attribute and implementing these methods in your `IASKSettingsDelegate`:
 
     - (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView*)tableView heightForHeaderForSection:(NSInteger)section;
@@ -207,6 +207,7 @@ You can define custom headers for `PSGroupSpecifier` segments by adding a `Key` 
 
 The behaviour is similar to the custom cells except that the methods get the key directly as a string, not via a `IASKSpecifier` object. (The reason being that custom group header views are meant to be static.) Again, check the example in the demo app.
 
+Corresponding methods are provided for footer views as well.
 
 Custom ViewControllers
 ----------------------

@@ -446,11 +446,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (NSString *)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *header = [self.settingsReader titleForSection:section];
-	if (0 == header.length) {
-		return nil;
-	}
-	return header;
+    NSString *headerText = [self.delegate respondsToSelector:@selector(settingsViewController:tableView:titleForHeaderForSection:)] ? [self.delegate settingsViewController:self tableView:tableView titleForHeaderForSection:section] : nil;
+    if (headerText.length == 0) {
+        headerText = [self.settingsReader titleForSection:section];
+    }
+    return (headerText.length != 0) ? headerText : nil;
 }
 
 - (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
@@ -467,17 +467,20 @@ CGRect IASKCGRectSwap(CGRect rect);
 		if (result > 0) {
 			return result;
 		}
-		
 	}
 	return UITableViewAutomaticDimension;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-	NSString *footerText = [self.settingsReader footerTextForSection:section];
+    NSString *footerText = [self.delegate respondsToSelector:@selector(settingsViewController:tableView:titleForFooterForSection:)] ? [self.delegate settingsViewController:self tableView:tableView titleForFooterForSection:section] : nil;
+    if (footerText.length == 0) {
+        footerText = [self.settingsReader footerTextForSection:section];
+    }
+    
 	if (_showCreditsFooter && (section == [self.settingsReader numberOfSections]-1)) {
 		// show credits since this is the last section
-		if ((footerText == nil) || ([footerText length] == 0)) {
+		if (footerText.length == 0) {
 			// show the credits on their own
 			return kIASKCredits;
 		} else {
@@ -489,6 +492,23 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 }
 
+- (UIView *)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
+    if ([self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForFooterForSection:)]) {
+        return [self.delegate settingsViewController:self tableView:tableView viewForFooterForSection:section];
+    } else {
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+    if ([self tableView:tableView viewForFooterInSection:section] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForFooterForSection:)]) {
+        CGFloat result = [self.delegate settingsViewController:self tableView:tableView heightForFooterForSection:section];
+        if (result > 0) {
+            return result;
+        }
+    }
+    return UITableViewAutomaticDimension;
+}
 
 - (UITableViewCell*)tableView:(UITableView *)tableView newCellForSpecifier:(IASKSpecifier*)specifier {
 
