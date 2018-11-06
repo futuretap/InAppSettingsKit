@@ -627,7 +627,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textCell.textView.placeholder = specifier.placeholder;
 		
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[self cacheRowHeightForTextView:textCell.textView];
+            [self cacheRowHeightForTextView:textCell.textView animated:NO];
 		});
 	}
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
@@ -954,7 +954,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)textViewDidChange:(IASKTextView *)textView {
-	[self cacheRowHeightForTextView:textView];
+    [self cacheRowHeightForTextView:textView animated:YES];
 	
 	CGRect visibleTableRect = UIEdgeInsetsInsetRect(self.tableView.bounds, self.tableView.contentInset);
 	NSIndexPath *indexPath = [self.settingsReader indexPathForKey:textView.key];
@@ -971,14 +971,23 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
 }
 
-- (void)cacheRowHeightForTextView:(IASKTextView *)textView {
+- (void)cacheRowHeightForTextView:(IASKTextView *)textView animated:(BOOL)animated {
 	CGFloat maxHeight = self.tableView.bounds.size.height - self.tableView.contentInset.top - self.tableView.contentInset.bottom - 60;
 	CGFloat contentHeight = [textView sizeThatFits:CGSizeMake(textView.frame.size.width, 10000)].height + 16;
 	self.rowHeights[textView.key] = @(MAX(44, MIN(maxHeight, contentHeight)));
 	textView.scrollEnabled = contentHeight > maxHeight;
 
-	[self.tableView beginUpdates];
-	[self.tableView endUpdates];
+    void (^actions)(void) = ^{
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    };
+    
+    if (animated) {
+        actions();
+    }
+    else {
+        [UIView performWithoutAnimation:actions];
+    }
 }
 
 #pragma mark Notifications
