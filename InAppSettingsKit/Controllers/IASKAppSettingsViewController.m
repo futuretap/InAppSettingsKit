@@ -227,8 +227,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
 	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
 
-	[self.tableView beginUpdates];
-	[self.tableView endUpdates];
+    [UIView performWithoutAnimation:^{
+        [self.tableView beginUpdates];
+        [self.tableView endUpdates];
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
