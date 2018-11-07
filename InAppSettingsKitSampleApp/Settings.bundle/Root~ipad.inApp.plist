@@ -487,6 +487,24 @@ with dynamically resizing cell</string>
 			<string>AutoConnectPassword</string>
 		</dict>
 		<dict>
+			<key>Key</key>
+			<string>CUSTOM_HEADER_FOOTER</string>
+			<key>Title</key>
+			<string></string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>ButtonDemoAction4</string>
+			<key>Title</key>
+			<string>Button</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>APPLICATION_INFO_TITLE</string>
 			<key>Type</key>

@@ -196,6 +196,14 @@
 	return nil;
 }
 
+- (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView titleForHeaderForSection:(NSInteger)section {
+    NSString *key = [settingsViewController.settingsReader keyForSection:section];
+    if ([key isEqualToString:@"CUSTOM_HEADER_FOOTER"]) {
+        return @"Custom header title";
+    }
+    return nil;
+}
+
 - (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController
                         tableView:(UITableView *)tableView
         heightForFooterForSection:(NSInteger)section {
@@ -214,6 +222,14 @@
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
         imageView.contentMode = UIViewContentModeCenter;
         return imageView;
+    }
+    return nil;
+}
+
+- (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView titleForFooterForSection:(NSInteger)section {
+    NSString *key = [settingsViewController.settingsReader keyForSection:section];
+    if ([key isEqualToString:@"CUSTOM_HEADER_FOOTER"]) {
+        return @"Custom footer title";
     }
     return nil;
 }
