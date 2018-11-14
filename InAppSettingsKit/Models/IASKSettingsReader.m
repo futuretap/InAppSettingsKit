@@ -18,8 +18,8 @@
 #import "IASKSpecifier.h"
 
 #pragma mark -
-@interface IASKSettingsReader () {
-}
+@interface NSArray (IASKAdditions)
+- (id)iaskObjectAtIndex:(NSUInteger)index;
 @end
 
 @implementation IASKSettingsReader
@@ -187,7 +187,7 @@
 
 /// Returns the specifier describing the section's header, or nil if there is no header.
 - (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section {
-    IASKSpecifier *specifier = self.dataSource[section][kIASKSectionHeaderIndex];
+    IASKSpecifier *specifier = [[self.dataSource iaskObjectAtIndex:section] iaskObjectAtIndex:kIASKSectionHeaderIndex];
     if ([specifier.type isEqualToString:kIASKPSGroupSpecifier]
         || [specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
         return specifier;
@@ -201,20 +201,20 @@
 
 - (NSInteger)numberOfRowsForSection:(NSInteger)section {
     int headingCorrection = [self _sectionHasHeading:section] ? 1 : 0;
-    return [(NSArray*)[[self dataSource] objectAtIndex:section] count] - headingCorrection;
+    return ((NSArray*)[self.dataSource iaskObjectAtIndex:section]).count - headingCorrection;
 }
 
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath {
     int headingCorrection = [self _sectionHasHeading:indexPath.section] ? 1 : 0;
     
-    IASKSpecifier *specifier = [[[self dataSource] objectAtIndex:indexPath.section] objectAtIndex:(indexPath.row+headingCorrection)];
+    IASKSpecifier *specifier = [[[self dataSource] iaskObjectAtIndex:indexPath.section] iaskObjectAtIndex:(indexPath.row+headingCorrection)];
     specifier.settingsReader = self;
     return specifier;
 }
 
 - (NSIndexPath*)indexPathForKey:(NSString *)key {
     for (NSUInteger sectionIndex = 0; sectionIndex < self.dataSource.count; sectionIndex++) {
-        NSArray *section = [self.dataSource objectAtIndex:sectionIndex];
+        NSArray *section = [self.dataSource iaskObjectAtIndex:sectionIndex];
         for (NSUInteger rowIndex = 0; rowIndex < section.count; rowIndex++) {
             IASKSpecifier *specifier = (IASKSpecifier*)[section objectAtIndex:rowIndex];
             if ([specifier isKindOfClass:[IASKSpecifier class]] && [specifier.key isEqualToString:key]) {
@@ -349,6 +349,15 @@
     
 exitFromNestedLoop:
     return path;
+}
+
+@end
+
+@implementation NSArray (IASKAdditions)
+
+- (id)iaskObjectAtIndex:(NSUInteger)index {
+    if (index >= self.count) return nil;
+    return self[index];
 }
 
 @end
