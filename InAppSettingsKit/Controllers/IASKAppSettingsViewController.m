@@ -172,7 +172,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ([self.tableView respondsToSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)]) {
+	if (@available(iOS 9.0, *)) {
         self.tableView.cellLayoutMarginsFollowReadableWidth = self.cellLayoutMarginsFollowReadableWidth;
     }
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToEndEdit:)];
@@ -358,7 +358,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)setCellLayoutMarginsFollowReadableWidth:(BOOL)cellLayoutMarginsFollowReadableWidth {
     _cellLayoutMarginsFollowReadableWidth = cellLayoutMarginsFollowReadableWidth;
-    if ([self.tableView respondsToSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)]) {
+	if (@available(iOS 9.0, *)) {
         self.tableView.cellLayoutMarginsFollowReadableWidth = cellLayoutMarginsFollowReadableWidth;
     }
 }
@@ -744,10 +744,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
         _currentChildViewController = targetViewController;
         [[self navigationController] pushViewController:targetViewController animated:YES];
-        if ([targetViewController.tableView respondsToSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)]) {
-            targetViewController.tableView.cellLayoutMarginsFollowReadableWidth = self.cellLayoutMarginsFollowReadableWidth;
-        }
-        
+		if (@available(iOS 9.0, *)) {
+			targetViewController.tableView.cellLayoutMarginsFollowReadableWidth = self.cellLayoutMarginsFollowReadableWidth;
+		}
+		
     } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
         [textFieldCell.textField becomeFirstResponder];		
