@@ -214,7 +214,7 @@ For simpler header title customization without the need for a custom view, and p
 
 If the method returns `nil` or a 0-length string, the title defined in the `.plist` will be used.
 
-This behaviour is similar to custom table view cells. When implementin a method and if you need it, the section key can be retrieved from its index conveniently with:
+This behaviour is similar to custom table view cells. When implementing a method and if you need it, the section key can be retrieved from its index conveniently with:
 
 	NSString *key = [settingsViewController.settingsReader keyForSection:section];
 
