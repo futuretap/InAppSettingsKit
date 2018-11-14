@@ -198,15 +198,29 @@ to catch tap events for your custom view.
 
 
 
-Custom Group Header Views
--------------------------
-You can define custom headers for `PSGroupSpecifier` segments by adding a `Key` attribute and implementing these methods in your `IASKSettingsDelegate`:
+Custom Group Headers and Footers
+--------------------------------
+You can define a custom header view for `PSGroupSpecifier` segments by adding a `Key` attribute and implementing the following method in your `IASKSettingsDelegate`:
+    
+	- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView viewForHeaderForSection:(NSInteger)section;
 
-    - (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView*)tableView heightForHeaderForSection:(NSInteger)section;
-    - (UIView*)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView viewForHeaderForSection:(NSString*)key;
+You can adjust the height of the header by implementing the following method:
 
-The behaviour is similar to the custom cells except that the methods get the key directly as a string, not via a `IASKSpecifier` object. (The reason being that custom group header views are meant to be static.) Again, check the example in the demo app.
+	- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView*)tableView heightForHeaderForSection:(NSInteger)section;
 
+For simpler header title customization without the need for a custom view, and provided the `-settingsViewController:tableView:viewForHeaderForSection:` method has not been implemented or returns `nil` for the section, implement the following method:
+
+	- (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView*)tableView titleForHeaderForSection:(NSInteger)section;
+
+If the method returns `nil` or a 0-length string, the title defined in the `.plist` will be used.
+
+This behaviour is similar to custom table view cells. When implementing a method and if you need it, the section key can be retrieved from its index conveniently with:
+
+	NSString *key = [settingsViewController.settingsReader keyForSection:section];
+
+Check the demo app for a concrete example.
+
+For footer customization, three methods from the `IASKSettingsDelegate` protocol can be similarly implemented.
 
 Custom ViewControllers
 ----------------------

@@ -29,12 +29,26 @@
 
 @optional
 #pragma mark - UITableView header customization
+- (NSString *) settingsViewController:(id<IASKViewController>)settingsViewController
+                            tableView:(UITableView *)tableView
+             titleForHeaderForSection:(NSInteger)section;
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView
          heightForHeaderForSection:(NSInteger)section;
 - (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
                           tableView:(UITableView *)tableView
             viewForHeaderForSection:(NSInteger)section;
+
+#pragma mark - UITableView footer customization
+- (NSString *) settingsViewController:(id<IASKViewController>)settingsViewController
+                            tableView:(UITableView *)tableView
+             titleForFooterForSection:(NSInteger)section;
+- (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
+                         tableView:(UITableView *)tableView
+         heightForFooterForSection:(NSInteger)section;
+- (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
+                          tableView:(UITableView *)tableView
+            viewForFooterForSection:(NSInteger)section;
 
 #pragma mark - UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
