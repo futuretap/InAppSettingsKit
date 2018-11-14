@@ -40,10 +40,12 @@
 #define kIASKShortTitles                      @"ShortTitles"
 #define kIASKSupportedUserInterfaceIdioms     @"SupportedUserInterfaceIdioms"
 #define kIASKSubtitle                         @"IASKSubtitle"
+#define kIASKPlaceholder                      @"IASKPlaceholder"
 #define kIASKViewControllerClass              @"IASKViewControllerClass"
 #define kIASKViewControllerSelector           @"IASKViewControllerSelector"
 #define kIASKViewControllerStoryBoardFile     @"IASKViewControllerStoryBoardFile"
 #define kIASKViewControllerStoryBoardId       @"IASKViewControllerStoryBoardId"
+#define kIASKSegueIdentifier                  @"IASKSegueIdentifier"
 #define kIASKButtonClass                      @"IASKButtonClass"
 #define kIASKButtonAction                     @"IASKButtonAction"
 #define kIASKMailComposeToRecipents           @"IASKMailComposeToRecipents"
@@ -85,6 +87,7 @@
 #define kIASKPSTitleValueSpecifier            @"PSTitleValueSpecifier"
 #define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"
 #define kIASKPSChildPaneSpecifier             @"PSChildPaneSpecifier"
+#define kIASKTextViewSpecifier                @"IASKTextViewSpecifier"
 #define kIASKOpenURLSpecifier                 @"IASKOpenURLSpecifier"
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
@@ -126,6 +129,10 @@
 
 #ifndef kCFCoreFoundationVersionNumber_iOS_8_0
 #define kCFCoreFoundationVersionNumber_iOS_8_0 1129.150000
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iOS_11_0
+#define kCFCoreFoundationVersionNumber_iOS_11_0 1429.150000
 #endif
 
 #ifdef __IPHONE_6_0
@@ -184,6 +191,26 @@ __VA_ARGS__ \
 #define IASK_IF_IOS8_OR_GREATER(...)
 #endif
 
+#ifdef __IPHONE_11_0
+#define IASK_IF_IOS11_OR_GREATER(...) \
+if (@available(iOS 11.0, *)) \
+{ \
+__VA_ARGS__ \
+}
+
+#define IASK_IF_PRE_IOS11(...) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_11_0) \
+{ \
+__VA_ARGS__ \
+} \
+_Pragma("clang diagnostic pop")
+#else
+#define IASK_IF_IOS11_OR_GREATER(...)
+#define IASK_IF_PRE_IOS11(...)
+#endif
+
 
 @class IASKSpecifier;
 
@@ -216,7 +243,7 @@ __VA_ARGS__ \
 - (NSString*)titleForSection:(NSInteger)section;
 - (NSString*)keyForSection:(NSInteger)section;
 - (NSString*)footerTextForSection:(NSInteger)section;
-- (NSString*)titleForStringId:(NSString*)stringId;
+- (NSString*)titleForId:(NSObject*)titleId;
 - (NSString*)pathForImageNamed:(NSString*)image;
 
 ///the main application bundle. most often [NSBundle mainBundle]

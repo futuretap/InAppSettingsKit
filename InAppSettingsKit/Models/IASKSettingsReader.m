@@ -55,7 +55,7 @@
 		self.showPrivacySettings = NO;
 		IASK_IF_IOS8_OR_GREATER
 		(
-		 NSArray *privacyRelatedInfoPlistKeys = @[@"NSBluetoothPeripheralUsageDescription", @"NSCalendarsUsageDescription", @"NSCameraUsageDescription", @"NSContactsUsageDescription", @"NSLocationAlwaysUsageDescription", @"NSLocationUsageDescription", @"NSLocationWhenInUseUsageDescription", @"NSMicrophoneUsageDescription", @"NSMotionUsageDescription", @"NSPhotoLibraryUsageDescription", @"NSRemindersUsageDescription", @"NSHealthShareUsageDescription", @"NSHealthUpdateUsageDescription"];
+		 NSArray *privacyRelatedInfoPlistKeys = @[@"NSBluetoothPeripheralUsageDescription", @"NSCalendarsUsageDescription", @"NSCameraUsageDescription", @"NSContactsUsageDescription", @"NSLocationAlwaysAndWhenInUseUsageDescription", @"NSLocationAlwaysUsageDescription", @"NSLocationUsageDescription", @"NSLocationWhenInUseUsageDescription", @"NSMicrophoneUsageDescription", @"NSMotionUsageDescription", @"NSPhotoLibraryAddUsageDescription", @"NSPhotoLibraryUsageDescription", @"NSRemindersUsageDescription", @"NSHealthShareUsageDescription", @"NSHealthUpdateUsageDescription"];
 		 NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
 		 if ([fileName isEqualToString:@"Root"]) {
 			 for (NSString* key in privacyRelatedInfoPlistKeys) {
@@ -99,18 +99,31 @@
 }
 
 - (NSArray*)privacySettingsSpecifiers {
-	NSMutableDictionary *dict = [@{kIASKTitle: NSLocalizedStringFromTable(@"Privacy", @"IASKLocalizable", @"iOS 8+ Privacy cell: title"),
+	NSMutableDictionary *dict = [@{kIASKTitle: [[self getBundle] localizedStringForKey:@"Privacy" value:@"" table:@"IASKLocalizable"],
 								   kIASKKey: @"IASKPrivacySettingsCellKey",
 								   kIASKType: kIASKOpenURLSpecifier,
 								   kIASKFile: UIApplicationOpenSettingsURLString,
 								   } mutableCopy];
-	NSString *subtitle = NSLocalizedStringWithDefaultValue(@"Open in Settings app", @"IASKLocalizable", [NSBundle mainBundle], @"", @"iOS 8+ Privacy cell: subtitle");
+	NSString *subtitle = [[self getBundle] localizedStringForKey:@"Open in Settings app" value:@"" table:@"IASKLocalizable"];
 	if (subtitle.length) {
 		dict [kIASKSubtitle] = subtitle;
 	}
 	
 	return @[@[[[IASKSpecifier alloc] initWithSpecifier:@{kIASKKey: @"IASKPrivacySettingsHeaderKey", kIASKType: kIASKPSGroupSpecifier}],
 			   [[IASKSpecifier alloc] initWithSpecifier:dict]]];
+}
+
+- (NSBundle*)getBundle {
+	NSURL *inAppSettingsBundlePath = [[NSBundle bundleForClass:[self class]] URLForResource:@"InAppSettingsKit" withExtension:@"bundle"];
+	NSBundle *bundle;
+	
+	if (inAppSettingsBundlePath) {
+		bundle = [NSBundle bundleWithURL:inAppSettingsBundlePath];
+	} else {
+		bundle = [NSBundle mainBundle];
+	}
+	
+	return bundle;
 }
 
 - (void)_reinterpretBundle:(NSDictionary*)settingsBundle {
@@ -132,6 +145,13 @@
         if ([self.hiddenKeys containsObject:newSpecifier.key]) {
             continue;
         }
+
+        if (![newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
+            // All specifiers without a matching idiom are ignored in the iOS Settings app, so we will do likewise here.
+            // Some specifiers may be seen as containing other elements, such as groups, but the iOS settings app will not ignore the perceived content of those unless their own supported idioms do not fit.
+            continue;
+        }
+
         NSString *type = newSpecifier.type;
         if ([type isEqualToString:kIASKPSGroupSpecifier]
             || [type isEqualToString:kIASKPSRadioGroupSpecifier]) {
@@ -155,9 +175,7 @@
                 [dataSource addObject:[NSMutableArray array]];
             }
             
-            if ([newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
-                [(NSMutableArray*)dataSource.lastObject addObject:newSpecifier];
-            }
+            [(NSMutableArray*)dataSource.lastObject addObject:newSpecifier];
         }
     }
     [self setDataSource:dataSource];
@@ -222,7 +240,7 @@
 }
 
 - (NSString*)titleForSection:(NSInteger)section {
-    return [self titleForStringId:[self headerSpecifierForSection:section].title];
+    return [self titleForId:[self headerSpecifierForSection:section].title];
 }
 
 - (NSString*)keyForSection:(NSInteger)section {
@@ -230,11 +248,22 @@
 }
 
 - (NSString*)footerTextForSection:(NSInteger)section {
-    return [self titleForStringId:[self headerSpecifierForSection:section].footerText];
+    return [self titleForId:[self headerSpecifierForSection:section].footerText];
 }
 
-- (NSString*)titleForStringId:(NSString*)stringId {
-    return [self.settingsBundle localizedStringForKey:stringId value:stringId table:self.localizationTable];
+- (NSString*)titleForId:(NSObject*)titleId
+{
+	if([titleId isKindOfClass:[NSNumber class]]) {
+		NSNumber* numberTitleId = (NSNumber*)titleId;
+		NSNumberFormatter* formatter = [NSNumberFormatter new];
+		[formatter setNumberStyle:NSNumberFormatterNoStyle];
+		return [formatter stringFromNumber:numberTitleId];
+	}
+	else
+	{
+		NSString* stringTitleId = (NSString*)titleId;
+		return [self.settingsBundle localizedStringForKey:stringTitleId value:stringTitleId table:self.localizationTable];
+	}
 }
 
 - (NSString*)pathForImageNamed:(NSString*)image {

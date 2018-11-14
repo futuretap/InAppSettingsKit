@@ -13,9 +13,6 @@
 // binaries)
 COPY_PHASE_STRIP = NO
 
-// Whether to generate debugging symbols
-GCC_GENERATE_DEBUGGING_SYMBOLS = YES
-
 // Whether to only build the active architecture
 ONLY_ACTIVE_ARCH = YES
 
@@ -25,3 +22,6 @@ STRIP_INSTALLED_PRODUCT = NO
 
 // Whether to perform App Store validation checks
 VALIDATE_PRODUCT = NO
+
+// Disable Developer ID timestamping
+OTHER_CODE_SIGN_FLAGS = --timestamp=none

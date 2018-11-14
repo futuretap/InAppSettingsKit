@@ -58,9 +58,13 @@
 - (void)updateMultiValuesDict {
     NSArray *values = [_specifierDict objectForKey:kIASKValues];
     NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
+	[self setMultipleValuesDictValues:values titles:titles];
+}
+
+- (void)setMultipleValuesDictValues:(NSArray*)values titles:(NSArray*)titles {
     NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
     NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
-    
+   
     if (values) {
 		[multipleValuesDict setObject:values forKey:kIASKValues];
 	}
@@ -78,9 +82,9 @@
 
 - (void)sortIfNeeded {
     if (self.displaySortedByTitle) {
-        NSArray *values = [_specifierDict objectForKey:kIASKValues];
-        NSArray *titles = [_specifierDict objectForKey:kIASKTitles];
-        NSArray *shortTitles = [_specifierDict objectForKey:kIASKShortTitles];
+		NSArray *values = self.multipleValues ?: [_specifierDict objectForKey:kIASKValues];
+		NSArray *titles = self.multipleTitles ?: [_specifierDict objectForKey:kIASKTitles];
+		NSArray *shortTitles = self.multipleShortTitles ?: [_specifierDict objectForKey:kIASKShortTitles];
 
         NSAssert(values.count == titles.count, @"Malformed multi-value specifier found in settings bundle. Number of values and titles differ.");
         NSAssert(shortTitles == nil || shortTitles.count == values.count, @"Malformed multi-value specifier found in settings bundle. Number of short titles and values differ.");
@@ -95,7 +99,7 @@
         static NSString *const valueKey = @"value";
         IASKSettingsReader *strongSettingsReader = self.settingsReader;
         [titles enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            NSString *localizedTitle = [strongSettingsReader titleForStringId:obj];
+            NSString *localizedTitle = [strongSettingsReader titleForId:obj];
             [temporaryMappingsForSort addObject:@{titleKey : obj,
                                                   valueKey : values[idx],
                                                   localizedTitleKey : localizedTitle,
@@ -152,7 +156,7 @@
 
 - (NSString*)localizedObjectForKey:(NSString*)key {
 	IASKSettingsReader *settingsReader = self.settingsReader;
-	return [settingsReader titleForStringId:[_specifierDict objectForKey:key]];
+	return [settingsReader titleForId:[_specifierDict objectForKey:key]];
 }
 
 - (NSString*)title {
@@ -163,13 +167,18 @@
 	return [self localizedObjectForKey:kIASKSubtitle];
 }
 
+- (NSString *)placeholder {
+    return [self localizedObjectForKey:kIASKPlaceholder];
+}
+
 - (NSString*)footerText {
     return [self localizedObjectForKey:kIASKFooterText];
 }
 
 - (Class)viewControllerClass {
     [IASKAppSettingsWebViewController class]; // make sure this is linked into the binary/library
-    return [self classFromString:([_specifierDict objectForKey:kIASKViewControllerClass])];
+	NSString *classString = [_specifierDict objectForKey:kIASKViewControllerClass];
+	return classString ? ([self classFromString:classString] ?: [NSNull class]) : nil;
 }
 
 - (Class)classFromString:(NSString *)className {
@@ -195,6 +204,10 @@
 	return [_specifierDict objectForKey:kIASKViewControllerStoryBoardId];
 }
 
+- (NSString*)segueIdentifier {
+    return [_specifierDict objectForKey:kIASKSegueIdentifier];
+}
+
 - (Class)buttonClass {
     return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
 }
@@ -213,7 +226,7 @@
 
 - (NSString*)titleForCurrentValue:(id)currentValue {
 	NSArray *values = [self multipleValues];
-	NSArray *titles = [self multipleShortTitles];
+	NSArray *titles = [self multipleShortTitles] ?: self.multipleTitles;
 	if (!titles) {
         titles = [self multipleTitles];
 	}
@@ -226,7 +239,7 @@
 	}
 	@try {
 		IASKSettingsReader *strongSettingsReader = self.settingsReader;
-		return [strongSettingsReader titleForStringId:[titles objectAtIndex:keyIndex]];
+		return [strongSettingsReader titleForId:[titles objectAtIndex:keyIndex]];
 	}
 	@catch (NSException * e) {}
 	return nil;
@@ -393,7 +406,7 @@
     }
     if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
 		return NSTextAlignmentCenter;
-	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier]) {
+	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier] || [self.type isEqualToString:kIASKTextViewSpecifier]) {
 		return NSTextAlignmentRight;
 	}
 	return NSTextAlignmentLeft;

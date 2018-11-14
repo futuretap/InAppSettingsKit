@@ -24,55 +24,39 @@
 @interface IASKSpecifierValuesViewController()
 
 @property (nonatomic, strong, readonly) IASKMultipleValueSelection *selection;
-
+@property (nonatomic) BOOL didFirstLayout;
 @end
 
 @implementation IASKSpecifierValuesViewController
 
-@synthesize tableView=_tableView;
 @synthesize currentSpecifier=_currentSpecifier;
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
 
 - (void)setSettingsStore:(id <IASKSettingsStore>)settingsStore {
+	_selection = [IASKMultipleValueSelection new];
     _settingsStore = settingsStore;
     _selection.settingsStore = settingsStore;
-}
-
-- (void)loadView
-{
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-    UIViewAutoresizingFlexibleHeight;
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    
-    self.view = _tableView;
-
-    _selection = [IASKMultipleValueSelection new];
-    _selection.tableView = _tableView;
-    _selection.settingsStore = _settingsStore;
+	_selection.specifier = _currentSpecifier;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
     if (_currentSpecifier) {
-        [self setTitle:[_currentSpecifier title]];
-        _selection.specifier = _currentSpecifier;
+		self.title = _currentSpecifier.title;
+		IASK_IF_IOS11_OR_GREATER(self.navigationItem.largeTitleDisplayMode = self.title.length ? UINavigationItemLargeTitleDisplayModeAutomatic : UINavigationItemLargeTitleDisplayModeNever;);
     }
     
-    if (_tableView) {
-        [_tableView reloadData];
+    if (self.tableView) {
+		_selection.tableView = self.tableView;
+		[self.tableView reloadData];
 
 		// Make sure the currently checked item is visible
-        [_tableView scrollToRowAtIndexPath:_selection.checkedItem
-                          atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-    }
-	[super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[_tableView flashScrollIndicators];
-	[super viewDidAppear:animated];
+		[self.tableView scrollToRowAtIndexPath:_selection.checkedItem
+							  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+	}
+	self.didFirstLayout = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -80,11 +64,15 @@
     _selection.tableView = nil;
 }
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
+- (void)viewWillLayoutSubviews {
+	[super viewWillLayoutSubviews];
+
+	if (!self.didFirstLayout) {
+		self.didFirstLayout = YES;
+		[self.tableView scrollToRowAtIndexPath:_selection.checkedItem
+							  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+		[self.tableView flashScrollIndicators];
+	}
 }
 
 #pragma mark -
@@ -113,7 +101,7 @@
     [_selection updateSelectionInCell:cell indexPath:indexPath];
 
     @try {
-		[[cell textLabel] setText:[self.settingsReader titleForStringId:[titles objectAtIndex:indexPath.row]]];
+		[[cell textLabel] setText:[self.settingsReader titleForId:[titles objectAtIndex:indexPath.row]]];
 	}
 	@catch (NSException * e) {}
     return cell;
@@ -123,7 +111,7 @@
     [_selection selectRowAtIndexPath:indexPath];
 }
 
-- (CGSize)contentSizeForViewInPopover {
+- (CGSize)preferredContentSize {
     return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 
