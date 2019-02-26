@@ -110,8 +110,8 @@ ENABLE_NS_ASSERTIONS = YES
 // Whether to require objc_msgSend to be cast before invocation
 ENABLE_STRICT_OBJC_MSGSEND = YES
 
-// Which C variant to use
-GCC_C_LANGUAGE_STANDARD = gnu99
+// Which C variant to use. gnu11 is the default value when creating a Xcode project with version 10.1 (10B61)
+GCC_C_LANGUAGE_STANDARD = gnu11
 
 // Whether to enable exceptions for Objective-C
 GCC_ENABLE_OBJC_EXCEPTIONS = YES
