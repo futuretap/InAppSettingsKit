@@ -1,14 +1,14 @@
 //
 // This file defines additional configuration options that are appropriate only
-// for a framework on OS X. This should be set at the target level for each
+// for a framework on macOS. This should be set at the target level for each
 // project configuration.
 //
 
 // Import base framework settings
 #include "../Base/Targets/Framework.xcconfig"
 
-// Import common settings specific to Mac OS X
-#include "Mac-Base.xcconfig"
+// Import common settings specific to macOS
+#include "macOS-Base.xcconfig"
 
 // Where to find embedded frameworks.
 // First search `Frameworks` in the .framework, then one in the .app.
