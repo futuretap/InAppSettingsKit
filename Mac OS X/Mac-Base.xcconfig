@@ -1,1 +1,2 @@
 #include "../macOS/macOS-Base.xcconfig"
+#include "This configuration file ('Mac OS X/Mac-Base.xcconfig') is deprecated. Please switch to 'macOS/macOS-Base.xcconfig'."

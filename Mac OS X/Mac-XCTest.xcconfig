@@ -1,1 +1,2 @@
 #include "../macOS/macOS-XCTest.xcconfig"
+#include "This configuration file ('Mac OS X/Mac-XCTest.xcconfig') is deprecated. Please switch to 'macOS/macOS-XCTest.xcconfig'."

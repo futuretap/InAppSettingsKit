@@ -1,1 +1,2 @@
 #include "../macOS/macOS-StaticLibrary.xcconfig"
+#include "This configuration file ('Mac OS X/Mac-StaticLibrary.xcconfig') is deprecated. Please switch to 'macOS/macOS-StaticLibrary.xcconfig'."

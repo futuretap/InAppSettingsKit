@@ -1,1 +1,2 @@
 #include "../macOS/macOS-DynamicLibrary.xcconfig"
+#include "This configuration file ('Mac OS X/Mac-DynamicLibrary.xcconfig') is deprecated. Please switch to 'macOS/macOS-DynamicLibrary.xcconfig'."
