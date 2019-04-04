@@ -10,6 +10,9 @@ ALWAYS_SEARCH_USER_PATHS = NO
 // Architectures to build
 ARCHS = $(ARCHS_STANDARD)
 
+// Warn when a number object, such as an instance of `NSNumber`, `CFNumberRef`, `OSNumber`, or `OSBoolean` is compared or converted to a primitive value instead of another object.
+CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE
+
 // Whether to warn when a floating-point value is used as a loop counter
 CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES
 
@@ -44,6 +47,9 @@ CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES
 
 // Warn about direct accesses to the Objective-C 'isa' pointer instead of using a runtime API.
 CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR
+
+// Warns about issues in documentation comments (`doxygen`-style) such as missing or incorrect documentation tags.
+CLANG_WARN_DOCUMENTATION_COMMENTS = YES
 
 // Warn about declaring the same method more than once within the same @interface.
 CLANG_WARN__DUPLICATE_METHOD_MATCH = YES
@@ -87,7 +93,7 @@ CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES
 CLANG_WARN_STRICT_PROTOTYPES = YES
 
 // Warn if an API that is newer than the deployment target is used without "if (@available(...))" guards.
-CLANG_WARN_UNGUARDED_AVAILABILITY = YES
+CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE
 
 // Warn about incorrect uses of nullable values
 CLANG_WARN_NULLABLE_TO_NONNULL_CONVERSION = YES
@@ -189,8 +195,8 @@ GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
 // Warn if a "@selector(...)" expression referring to an undeclared selector is found
 GCC_WARN_UNDECLARED_SELECTOR = YES
 
-// Warn if a variable might be clobbered by a setjmp call or if an automatic variable is used without prior initialization.
-GCC_WARN_UNINITIALIZED_AUTOS = YES
+// Warn if a variable might be clobbered by a `setjmp` call or if an automatic variable is used without prior initialization.
+GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE
 
 // Whether to warn about static functions that are unused
 GCC_WARN_UNUSED_FUNCTION = YES
