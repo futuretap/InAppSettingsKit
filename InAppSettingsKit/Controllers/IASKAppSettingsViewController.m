@@ -475,7 +475,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			return result;
 		}
 	}
-	return UITableViewAutomaticDimension;
+	return section > 0 || [self tableView:tableView titleForHeaderInSection:section].length ? UITableViewAutomaticDimension : 34;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
