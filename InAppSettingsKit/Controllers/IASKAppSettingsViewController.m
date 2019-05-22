@@ -428,28 +428,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
+	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
 	if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
 		CGFloat height = (CGFloat)[self.rowHeights[specifier.key] doubleValue];
 		return height > 0 ? height : UITableViewAutomaticDimension;
 	} else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
 		if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
 			return [self.delegate tableView:tableView heightForSpecifier:specifier];
-		} else {
-			return 0;
 		}
 	}
-	IASK_IF_IOS7_OR_GREATER
-	(
-	 NSDictionary *rowHeights = @{UIContentSizeCategoryExtraSmall: @(44),
-								  UIContentSizeCategorySmall: @(44),
-								  UIContentSizeCategoryMedium: @(44),
-								  UIContentSizeCategoryLarge: @(44),
-								  UIContentSizeCategoryExtraLarge: @(47)};
-	 CGFloat rowHeight = (CGFloat)[rowHeights[UIApplication.sharedApplication.preferredContentSizeCategory] doubleValue];
-	 return rowHeight != 0 ? rowHeight : 51;
-	);
-	return 44;
+	return UITableViewAutomaticDimension;
 }
 
 - (NSString *)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
