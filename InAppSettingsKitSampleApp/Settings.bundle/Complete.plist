@@ -555,18 +555,21 @@
 			<array>
 				<integer>1</integer>
 				<integer>2</integer>
-				<integer>3</integer>
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>One</string>
-				<string>Two</string>
-				<string>Three</string>
+				<string>Facebook</string>
+				<string>Twitter</string>
+			</array>
+			<key>IconNames</key>
+			<array>
+				<string>facebook</string>
+				<string>twitter</string>
 			</array>
 			<key>FooterText</key>
 			<string>MULTIVALUE_FOOTER</string>
 			<key>IASKCellImage</key>
-			<string>twitter</string>
+			<string>20-gear2</string>
 		</dict>
 		<dict>
 			<key>Type</key>
