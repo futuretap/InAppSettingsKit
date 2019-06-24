@@ -812,8 +812,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-		IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]] options:@{} completionHandler:nil];);
-		IASK_IF_PRE_IOS11([UIApplication.sharedApplication openURL:[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]]];);
+		IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:(NSURL *)[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]] options:@{} completionHandler:nil];);
+		IASK_IF_PRE_IOS11([UIApplication.sharedApplication openURL:(NSURL *)[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]]];);
     } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForSpecifier:)]) {
@@ -947,10 +947,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)_textChanged:(id)sender {
     IASKTextField *text = sender;
     [_settingsStore setObject:[text text] forKey:[text key]];
+    NSDictionary *userInfo = text.text ? @{text.key : (NSString *)text.text} : nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
                                                         object:self
-                                                      userInfo:[NSDictionary dictionaryWithObject:[text text]
-                                                                                           forKey:[text key]]];
+                                                      userInfo:userInfo];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -1029,8 +1029,9 @@ static NSDictionary *oldUserDefaults = nil;
 		oldUserDefaults = currentDict;
 		
 		for (UITableViewCell *cell in self.tableView.visibleCells) {
-			if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder]) {
-				[indexPathsToUpdate removeObject:[self.tableView indexPathForCell:cell]];
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+			if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder] && indexPath) {
+				[indexPathsToUpdate removeObject:indexPath];
 			}
 		}
 		if (indexPathsToUpdate.count) {

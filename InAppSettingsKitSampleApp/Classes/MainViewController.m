@@ -268,7 +268,7 @@
 	if ([specifier.key isEqualToString:@"countryCode"]) {
 		NSMutableArray *countryNames = NSMutableArray.array;
 		for (NSString *countryCode in [NSLocale ISOCountryCodes]) {
-			[countryNames addObject:[NSLocale.currentLocale displayNameForKey:NSLocaleCountryCode value:countryCode]];
+			[countryNames addObject:(id)[NSLocale.currentLocale displayNameForKey:NSLocaleCountryCode value:countryCode]];
 		}
 		return countryNames;
 	}

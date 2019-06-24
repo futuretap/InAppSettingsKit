@@ -1,8 +1,0 @@
-//
-// Prefix header for all source files of the 'IASKApplicationTests' target in the 'IASKApplicationTests' project
-//
-
-#ifdef __OBJC__
-  #import <UIKit/UIKit.h>
-  #import <Foundation/Foundation.h>
-#endif

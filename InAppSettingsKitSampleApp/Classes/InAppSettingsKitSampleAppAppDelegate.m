@@ -21,13 +21,12 @@
 
 @implementation InAppSettingsKitSampleAppAppDelegate
 
-@synthesize window;
-@synthesize navigationController;
-@synthesize tabBarController;
-
-
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	[window addSubview:tabBarController.view];
+  // add  the viewController from the storyboard
+  UIStoryboard *storyboardWithSettings = [UIStoryboard storyboardWithName:@"Main" bundle:NSBundle.mainBundle];
+  UIViewController *storyboardViewControllerWithSettings = [storyboardWithSettings instantiateInitialViewController];
+  _tabBarController.viewControllers = [_tabBarController.viewControllers arrayByAddingObject: storyboardViewControllerWithSettings];
+	[_window addSubview:_tabBarController.view];
 }
 
 @end

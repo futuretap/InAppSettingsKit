@@ -136,13 +136,13 @@
 
         [sortedTemporaryMappings enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             NSDictionary *mapping = obj;
-            sortedTitles[idx] = mapping[titleKey];
-            sortedValues[idx] = mapping[valueKey];
+            sortedTitles[idx] = (NSString *)mapping[titleKey];
+            sortedValues[idx] = (id)mapping[valueKey];
             if (mapping[shortTitleKey] != [NSNull null]) {
-                sortedShortTitles[idx] = mapping[shortTitleKey];
+                sortedShortTitles[idx] = (id)mapping[shortTitleKey];
             }
             if (mapping[iconNamesKey] != [NSNull null]) {
-                sortedIconNames[idx] = mapping[iconNamesKey];
+                sortedIconNames[idx] = (id)mapping[iconNamesKey];
             }
         }];
         titles = [sortedTitles copy];
@@ -213,7 +213,8 @@
 }
 
 - (SEL)viewControllerSelector {
-    return NSSelectorFromString([_specifierDict objectForKey:kIASKViewControllerSelector]);
+    NSString *selector = [_specifierDict objectForKey:kIASKViewControllerSelector];
+    return selector ? NSSelectorFromString(selector) : nil;
 }
 
 - (NSString*)viewControllerStoryBoardFile {
@@ -229,11 +230,13 @@
 }
 
 - (Class)buttonClass {
-    return NSClassFromString([_specifierDict objectForKey:kIASKButtonClass]);
+    NSString *buttonClassString = [_specifierDict objectForKey:kIASKButtonClass];
+    return buttonClassString ? NSClassFromString(buttonClassString) : nil;
 }
 
 - (SEL)buttonAction {
-    return NSSelectorFromString([_specifierDict objectForKey:kIASKButtonAction]);
+    NSString *buttonAction = [_specifierDict objectForKey:kIASKButtonAction];
+    return buttonAction ? NSSelectorFromString(buttonAction) : nil;
 }
 
 - (NSString*)key {
@@ -416,7 +419,7 @@
 
 - (BOOL)adjustsFontSizeToFitWidth {
 	NSNumber *boxedResult = [_specifierDict objectForKey:kIASKAdjustsFontSizeToFitWidth];
-	return !boxedResult || [boxedResult boolValue];
+	return (boxedResult == nil) || [boxedResult boolValue];
 }
 
 - (NSTextAlignment)textAlignment

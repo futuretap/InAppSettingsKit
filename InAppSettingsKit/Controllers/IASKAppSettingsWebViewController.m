@@ -133,7 +133,7 @@
 	}
 	
 	// open inline if host is the same, otherwise, pass to the system
-	if (![newURL host] || [[newURL host] isEqualToString:[self.url host]]) {
+	if (![newURL host] || ![self.url host] || [[newURL host] isEqualToString:(NSString *)[self.url host]]) {
 		return YES;
 	}
 	IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:newURL options:@{} completionHandler:nil];);
