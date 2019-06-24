@@ -167,6 +167,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	_reloadDisabled = NO;
 	_showDoneButton = YES;
 	_showCreditsFooter = YES; // display credits for InAppSettingsKit creators
+    self.clearsSelectionOnViewWillAppear = false;
 	self.rowHeights = [NSMutableDictionary dictionary];
 }
 
@@ -188,15 +189,19 @@ CGRect IASKCGRectSwap(CGRect rect);
 	// if there's something selected, the value might have changed
 	// so reload that row
 	if(selectedIndexPath) {
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(animated * UINavigationControllerHideShowBarDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-			[CATransaction setDisableActions:YES];
-			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath]
-								  withRowAnimation:UITableViewRowAnimationNone];
-			// and reselect it, so we get the nice default deselect animation from UITableViewController
-			[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-			[CATransaction setDisableActions:NO];
-			[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:YES];
-		});
+      [UIView performWithoutAnimation:^{
+          [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath]
+                                withRowAnimation:UITableViewRowAnimationNone];
+          [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO
+                                scrollPosition:UITableViewScrollPositionNone];
+      }];
+      [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+          [self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
+      } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+          if ([context isCancelled]) {
+              [self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+          }
+      }];
 	}
 	
 	if (_showDoneButton) {
