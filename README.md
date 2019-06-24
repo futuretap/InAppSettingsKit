@@ -275,7 +275,7 @@ MultiValue lists (`PSMultiValueSpecifier`) can fetch their values and titles dyn
 The sample app returns a list of all country codes as values and the localized country names as titles.
 
 MultiValue lists can be sorted alphabetically by adding a `true` Boolean `DisplaySortedByTitle` key in the Plist.
-
+MultiValue list entries can be given an image. Specify images via the `IconNames` attribute (next to Values/Titles/ShortTitles etc.).
 
 Settings Storage
 ----------------
