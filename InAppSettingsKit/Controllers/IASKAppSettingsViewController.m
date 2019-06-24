@@ -119,14 +119,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	_selections = sectionSelection;
 }
 
-- (BOOL)isPad {
-	BOOL isPad = NO;
-#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 30200)
-	isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-#endif
-	return isPad;
-}
-
 #pragma mark standard view controller methods
 - (id)init {
     return [self initWithStyle:UITableViewStyleGrouped];
