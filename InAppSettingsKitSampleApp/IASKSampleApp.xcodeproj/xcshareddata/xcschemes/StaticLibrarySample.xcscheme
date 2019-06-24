@@ -17,7 +17,7 @@
                BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
                BuildableName = "In App Settings Kit.app"
                BlueprintName = "IASKSampleAppStaticLibrary"
-               ReferencedContainer = "container:IASKSampleAppStaticLibrary.xcodeproj">
+               ReferencedContainer = "container:IASKSampleApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "E4C2300116BD91A100DEFE05"
                BuildableName = "IASKApplicationTests.xctest"
                BlueprintName = "IASKApplicationTests"
-               ReferencedContainer = "container:IASKSampleAppStaticLibrary.xcodeproj">
+               ReferencedContainer = "container:IASKSampleApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -55,6 +55,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
+            BuildableName = "In App Settings Kit.app"
+            BlueprintName = "IASKSampleAppStaticLibrary"
+            ReferencedContainer = "container:IASKSampleApp.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -73,21 +82,10 @@
                BlueprintIdentifier = "E4C2300116BD91A100DEFE05"
                BuildableName = "IASKApplicationTests.xctest"
                BlueprintName = "IASKApplicationTests"
-               ReferencedContainer = "container:IASKSampleAppStaticLibrary.xcodeproj">
+               ReferencedContainer = "container:IASKSampleApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
-            BuildableName = "In App Settings Kit.app"
-            BlueprintName = "IASKSampleAppStaticLibrary"
-            ReferencedContainer = "container:IASKSampleAppStaticLibrary.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -106,11 +104,9 @@
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "In App Settings Kit.app"
             BlueprintName = "IASKSampleAppStaticLibrary"
-            ReferencedContainer = "container:IASKSampleAppStaticLibrary.xcodeproj">
+            ReferencedContainer = "container:IASKSampleApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -125,7 +121,7 @@
             BlueprintIdentifier = "1D6058900D05DD3D006BFB54"
             BuildableName = "In App Settings Kit.app"
             BlueprintName = "IASKSampleAppStaticLibrary"
-            ReferencedContainer = "container:IASKSampleAppStaticLibrary.xcodeproj">
+            ReferencedContainer = "container:IASKSampleApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
