@@ -15,7 +15,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IASKTextView.h"
+#import <InAppSettingsKit/IASKTextView.h>
 
 @interface IASKTextViewCell : UITableViewCell
 

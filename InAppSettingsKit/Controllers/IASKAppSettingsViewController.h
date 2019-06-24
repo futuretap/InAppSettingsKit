@@ -17,9 +17,9 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-#import "IASKSettingsStore.h"
-#import "IASKViewController.h"
-#import "IASKSpecifier.h"
+#import <InAppSettingsKit/IASKSettingsStore.h>
+#import <InAppSettingsKit/IASKViewController.h>
+#import <InAppSettingsKit/IASKSpecifier.h>
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;

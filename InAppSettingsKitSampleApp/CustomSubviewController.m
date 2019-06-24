@@ -16,12 +16,7 @@
 //
 
 #import "CustomSubviewController.h"
-#ifdef USES_IASK_STATIC_LIBRARY
-#import "InAppSettingsKit/IASKSpecifier.h"
-#else
-#import "IASKSpecifier.h"
-#endif
-
+#import <InAppSettingsKit/IASKSpecifier.h>
 
 @implementation CustomSubviewController
 
