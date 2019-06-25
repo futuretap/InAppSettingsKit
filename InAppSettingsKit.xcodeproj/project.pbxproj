@@ -330,8 +330,8 @@
 				E42ADAC51682036500295D85 /* IASKSpecifierValuesViewController.m */,
 				E42ADAC61682036500295D85 /* IASKAppSettingsWebViewController.h */,
 				E42ADAC71682036500295D85 /* IASKAppSettingsWebViewController.m */,
-				1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */,
 				1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */,
+				1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -739,20 +739,15 @@
 			baseConfigurationReference = E4A3C2E61DA25B7A006CB66E /* iOS-Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = InAppSettingsKitFramework/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inappsettingskit.InAppSettingsKitFramework;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
-				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -763,21 +758,15 @@
 			baseConfigurationReference = E4A3C2E61DA25B7A006CB66E /* iOS-Framework.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_NS_ASSERTIONS = NO;
 				INFOPLIST_FILE = InAppSettingsKitFramework/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.inappsettingskit.InAppSettingsKitFramework;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
-				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -816,7 +805,6 @@
 			baseConfigurationReference = E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				DSTROOT = /tmp/InAppSettingsKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -827,7 +815,6 @@
 			baseConfigurationReference = E4A95F3A177DB25C00FF0906 /* iOS-StaticLibrary.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
-				DSTROOT = /tmp/InAppSettingsKit.dst;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
