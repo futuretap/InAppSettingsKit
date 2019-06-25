@@ -132,65 +132,9 @@
 #define kCFCoreFoundationVersionNumber_iOS_8_0 1129.150000
 #endif
 
-#ifdef __IPHONE_6_0
-#define IASK_IF_IOS6_OR_GREATER(...) \
-if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_6_0) \
-{ \
-__VA_ARGS__ \
-}
-#else
-#define IASK_IF_IOS6_OR_GREATER(...)
+#ifndef kCFCoreFoundationVersionNumber_iOS_11_0
+#define kCFCoreFoundationVersionNumber_iOS_11_0 1429.150000
 #endif
-
-#ifdef __IPHONE_6_0
-#define IASK_IF_PRE_IOS6(...) \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
-if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_6_0) \
-{ \
-__VA_ARGS__ \
-} \
-_Pragma("clang diagnostic pop")
-#else
-#define IASK_IF_PRE_IOS6(...)  __VA_ARGS__
-#endif
-
-#ifdef __IPHONE_7_0
-#define IASK_IF_IOS7_OR_GREATER(...) \
-if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0) \
-{ \
-__VA_ARGS__ \
-}
-#else
-#define IASK_IF_IOS7_OR_GREATER(...)
-#endif
-
-#ifdef __IPHONE_7_0
-#define IASK_IF_PRE_IOS7(...) \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
-if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_7_0) \
-{ \
-__VA_ARGS__ \
-} \
-_Pragma("clang diagnostic pop")
-#else
-#define IASK_IF_PRE_IOS7(...)  __VA_ARGS__
-#endif
-
-#ifdef __IPHONE_8_0
-#define IASK_IF_PRE_IOS8(...) \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
-if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_8_0) \
-{ \
-__VA_ARGS__ \
-} \
-_Pragma("clang diagnostic pop")
-#else
-#define IASK_IF_PRE_IOS8(...)  __VA_ARGS__
-#endif
-
 
 #ifdef __IPHONE_8_0
 #define IASK_IF_IOS8_OR_GREATER(...) \
@@ -200,6 +144,26 @@ __VA_ARGS__ \
 }
 #else
 #define IASK_IF_IOS8_OR_GREATER(...)
+#endif
+
+#ifdef __IPHONE_11_0
+#define IASK_IF_IOS11_OR_GREATER(...) \
+if (@available(iOS 11.0, *)) \
+{ \
+__VA_ARGS__ \
+}
+
+#define IASK_IF_PRE_IOS11(...) \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_11_0) \
+{ \
+__VA_ARGS__ \
+} \
+_Pragma("clang diagnostic pop")
+#else
+#define IASK_IF_IOS11_OR_GREATER(...)
+#define IASK_IF_PRE_IOS11(...)
 #endif
 
 

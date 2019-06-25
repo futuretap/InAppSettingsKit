@@ -17,9 +17,9 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-#import "IASKSettingsStore.h"
-#import "IASKViewController.h"
-#import "IASKSpecifier.h"
+#import <InAppSettingsKit/IASKSettingsStore.h>
+#import <InAppSettingsKit/IASKViewController.h>
+#import <InAppSettingsKit/IASKSpecifier.h>
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
@@ -36,12 +36,26 @@ shouldSetMultiValueForSpecifier:(IASKSpecifier *)specifier
                 toValueAtIndex:(NSInteger)index;
 
 #pragma mark - UITableView header customization
+- (NSString *) settingsViewController:(id<IASKViewController>)settingsViewController
+                            tableView:(UITableView *)tableView
+             titleForHeaderForSection:(NSInteger)section;
 - (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
                          tableView:(UITableView *)tableView
          heightForHeaderForSection:(NSInteger)section;
 - (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
                           tableView:(UITableView *)tableView
             viewForHeaderForSection:(NSInteger)section;
+
+#pragma mark - UITableView footer customization
+- (NSString *) settingsViewController:(id<IASKViewController>)settingsViewController
+                            tableView:(UITableView *)tableView
+             titleForFooterForSection:(NSInteger)section;
+- (CGFloat) settingsViewController:(id<IASKViewController>)settingsViewController
+                         tableView:(UITableView *)tableView
+         heightForFooterForSection:(NSInteger)section;
+- (UIView *) settingsViewController:(id<IASKViewController>)settingsViewController
+                          tableView:(UITableView *)tableView
+            viewForFooterForSection:(NSInteger)section;
 
 #pragma mark - UITableView cell customization
 - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
@@ -63,6 +77,10 @@ shouldSetMultiValueForSpecifier:(IASKSpecifier *)specifier
             didFinishWithResult:(MFMailComposeResult)result
                           error:(NSError*)error;
 
+#pragma mark - Custom MultiValues
+- (NSArray*)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier*)specifier;
+- (NSArray*)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier*)specifier;
+
 #pragma mark - respond to button taps
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key __attribute__((deprecated)); // use the method below with specifier instead
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier;
@@ -78,8 +96,9 @@ shouldSetMultiValueForSpecifier:(IASKSpecifier *)specifier
 @property (nonatomic, assign) IBInspectable BOOL showDoneButton;
 @property (nonatomic, retain) NSSet *hiddenKeys;
 @property (nonatomic) IBInspectable BOOL neverShowPrivacySettings;
+@property (nonatomic) IBInspectable BOOL cellLayoutMarginsFollowReadableWidth;
 
 - (void)synchronizeSettings;
-- (void)dismiss:(id)sender;
+- (IBAction)dismiss:(id)sender;
 - (void)setHiddenKeys:(NSSet*)hiddenKeys animated:(BOOL)animated;
 @end

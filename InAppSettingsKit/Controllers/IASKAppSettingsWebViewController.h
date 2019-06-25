@@ -16,7 +16,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import "IASKSpecifier.h"
+#import <InAppSettingsKit/IASKSpecifier.h>
 
 @interface IASKAppSettingsWebViewController : UIViewController <UIWebViewDelegate, MFMailComposeViewControllerDelegate>
 

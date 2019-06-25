@@ -2,10 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:InAppSettingsKitSampleAppStoryboard/InAppSettingsKitSampleAppStoryboard.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:InAppSettingsKitSampleApp/IASKSampleAppStaticLibrary.xcodeproj">
+      location = "group:InAppSettingsKitSampleApp/IASKSampleApp.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:InAppSettingsKit.xcodeproj">

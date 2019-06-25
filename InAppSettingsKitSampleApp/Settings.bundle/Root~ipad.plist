@@ -8,27 +8,27 @@
 	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
-        <dict>
+		<dict>
 			<key>Key</key>
 			<string>FacebookButton</string>
 			<key>Title</key>
 			<string>Facebook</string>
-            <key>IASKCellImage</key>
-            <string>facebook</string>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentCenter</string>
+			<key>IASKCellImage</key>
+			<string>facebook</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentCenter</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Key</key>
 			<string>TwitterButton</string>
 			<key>Title</key>
 			<string>Twitter</string>
-            <key>IASKCellImage</key>
-            <string>twitter</string>
-            <key>IASKTextAlignment</key>
-            <string>IASKUITextAlignmentLeft</string>
+			<key>IASKCellImage</key>
+			<string>twitter</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
 			<key>Type</key>
 			<string>IASKButtonSpecifier</string>
 		</dict>
@@ -161,6 +161,24 @@
 			<string>ADVANCED_TITLE</string>
 			<key>File</key>
 			<string>Advanced</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>CUSTOM_HEADER_FOOTER</string>
+			<key>Title</key>
+			<string></string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>ButtonDemoAction4</string>
+			<key>Title</key>
+			<string>Button</string>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
 		</dict>
 		<dict>
 			<key>Title</key>

@@ -30,7 +30,6 @@
         _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
         _textField.font = [UIFont systemFontOfSize:kIASKLabelFontSize];
         _textField.minimumFontSize = kIASKMinimumFontSize;
-        IASK_IF_PRE_IOS7(_textField.textColor = [UIColor colorWithRed:0.275f green:0.376f blue:0.522f alpha:1.000f];);
         [self.contentView addSubview:_textField];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone; 
