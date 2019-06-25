@@ -119,14 +119,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	_selections = sectionSelection;
 }
 
-- (BOOL)isPad {
-	BOOL isPad = NO;
-#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 30200)
-	isPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-#endif
-	return isPad;
-}
-
 #pragma mark standard view controller methods
 - (id)init {
     return [self initWithStyle:UITableViewStyleGrouped];
@@ -553,11 +545,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		}
 	}
-	IASK_IF_PRE_IOS6(cell.textLabel.minimumFontSize = kIASKMinimumFontSize;
-					 cell.detailTextLabel.minimumFontSize = kIASKMinimumFontSize;);
-	IASK_IF_IOS6_OR_GREATER(cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize / cell.textLabel.font.pointSize;
-							cell.detailTextLabel.minimumScaleFactor = kIASKMinimumFontSize / cell.detailTextLabel.font.pointSize;);
-	return cell;
+    cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize / cell.textLabel.font.pointSize;
+    cell.detailTextLabel.minimumScaleFactor = kIASKMinimumFontSize / cell.detailTextLabel.font.pointSize;
+    return cell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -680,10 +670,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		NSString *value = [self.settingsStore objectForKey:specifier.key];
 		cell.textLabel.text = ([value isKindOfClass:NSString.class] && [self.settingsReader titleForId:value].length) ? [self.settingsReader titleForId:value] : specifier.title;
 		cell.detailTextLabel.text = specifier.subtitle;
-		IASK_IF_IOS7_OR_GREATER
-		(if (specifier.textAlignment != NSTextAlignmentLeft) {
-			cell.textLabel.textColor = tableView.tintColor;
-		});
+		if (specifier.textAlignment != NSTextAlignmentLeft) {
+        cell.textLabel.textColor = tableView.tintColor;
+		};
 		cell.textLabel.textAlignment = specifier.textAlignment;
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
@@ -734,7 +723,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         [targetViewController setCurrentSpecifier:specifier];
         targetViewController.settingsReader = self.settingsReader;
         targetViewController.settingsStore = self.settingsStore;
-		IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
+        targetViewController.view.tintColor = self.view.tintColor;
         _currentChildViewController = targetViewController;
         [[self navigationController] pushViewController:targetViewController animated:YES];
 		if (@available(iOS 9.0, *)) {
@@ -748,12 +737,12 @@ CGRect IASKCGRectSwap(CGRect rect);
         if ([specifier viewControllerStoryBoardID]){
             NSString *storyBoardFileFromSpecifier = [specifier viewControllerStoryBoardFile];
             storyBoardFileFromSpecifier = storyBoardFileFromSpecifier && storyBoardFileFromSpecifier.length > 0 ? storyBoardFileFromSpecifier : [[NSBundle mainBundle].infoDictionary objectForKey:@"UIMainStoryboardFile"];
-			UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardFileFromSpecifier bundle:nil];
-			UIViewController * vc = [storyBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryBoardID]];
-			IASK_IF_IOS7_OR_GREATER(vc.view.tintColor = self.view.tintColor;)
+            UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardFileFromSpecifier bundle:nil];
+            UIViewController * vc = [storyBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryBoardID]];
+            vc.view.tintColor = self.view.tintColor;
             [self.navigationController pushViewController:vc animated:YES];
-			return;
-		}
+            return;
+        }
         
         Class vcClass = [specifier viewControllerClass];
         if (vcClass) {
@@ -777,7 +766,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             if ([vc respondsToSelector:@selector(setSettingsStore:)]) {
                 [vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
             }
-			IASK_IF_IOS7_OR_GREATER(vc.view.tintColor = self.view.tintColor;)
+            vc.view.tintColor = self.view.tintColor;
             [self.navigationController pushViewController:vc animated:YES];
             return;
 		}
@@ -808,7 +797,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         targetViewController.file = specifier.file;
         targetViewController.hiddenKeys = self.hiddenKeys;
         targetViewController.title = specifier.title;
-		IASK_IF_IOS7_OR_GREATER(targetViewController.view.tintColor = self.view.tintColor;)
+        targetViewController.view.tintColor = self.view.tintColor;
         _currentChildViewController = targetViewController;
         
         _reloadDisabled = NO;
@@ -848,7 +837,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
             mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
-			IASK_IF_IOS7_OR_GREATER(mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;);
+            mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
             mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
             
             if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {

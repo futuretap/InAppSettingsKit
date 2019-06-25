@@ -52,20 +52,17 @@
             }
         }
 		
-		self.showPrivacySettings = NO;
-		IASK_IF_IOS8_OR_GREATER
-		(
-		 NSArray *privacyRelatedInfoPlistKeys = @[@"NSBluetoothPeripheralUsageDescription", @"NSCalendarsUsageDescription", @"NSCameraUsageDescription", @"NSContactsUsageDescription", @"NSLocationAlwaysAndWhenInUseUsageDescription", @"NSLocationAlwaysUsageDescription", @"NSLocationUsageDescription", @"NSLocationWhenInUseUsageDescription", @"NSMicrophoneUsageDescription", @"NSMotionUsageDescription", @"NSPhotoLibraryAddUsageDescription", @"NSPhotoLibraryUsageDescription", @"NSRemindersUsageDescription", @"NSHealthShareUsageDescription", @"NSHealthUpdateUsageDescription"];
-		 NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-		 if ([fileName isEqualToString:@"Root"]) {
-			 for (NSString* key in privacyRelatedInfoPlistKeys) {
-				 if (infoDictionary[key]) {
-					 self.showPrivacySettings = YES;
-					 break;
-				 }
-			 }
-		 }
-		 );
+        self.showPrivacySettings = NO;
+        NSArray *privacyRelatedInfoPlistKeys = @[@"NSBluetoothPeripheralUsageDescription", @"NSCalendarsUsageDescription", @"NSCameraUsageDescription", @"NSContactsUsageDescription", @"NSLocationAlwaysAndWhenInUseUsageDescription", @"NSLocationAlwaysUsageDescription", @"NSLocationUsageDescription", @"NSLocationWhenInUseUsageDescription", @"NSMicrophoneUsageDescription", @"NSMotionUsageDescription", @"NSPhotoLibraryAddUsageDescription", @"NSPhotoLibraryUsageDescription", @"NSRemindersUsageDescription", @"NSHealthShareUsageDescription", @"NSHealthUpdateUsageDescription"];
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        if ([fileName isEqualToString:@"Root"]) {
+            for (NSString* key in privacyRelatedInfoPlistKeys) {
+                if (infoDictionary[key]) {
+                    self.showPrivacySettings = YES;
+                    break;
+                }
+            }
+        }
         if (self.settingsDictionary) {
             [self _reinterpretBundle:self.settingsDictionary];
         }
@@ -130,12 +127,9 @@
     NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:kIASKPreferenceSpecifiers];
     NSMutableArray *dataSource		= [NSMutableArray array];
 	
-	if (self.showPrivacySettings) {
-		IASK_IF_IOS8_OR_GREATER
-		(
-		 [dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
-		 );
-	}
+    if (self.showPrivacySettings) {
+        [dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
+    }
 
     for (NSDictionary *specifierDictionary in preferenceSpecifiers) {
         IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
