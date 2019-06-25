@@ -661,7 +661,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		if (specifier.subtitle.length) {
 			cell.detailTextLabel.text = specifier.subtitle;
 		} else if (specifier.key) {
-			cell.detailTextLabel.text = [self.settingsStore objectForKey:specifier.key] ? : specifier.defaultValue;
+			NSString *valueString = [self.settingsStore objectForKey:specifier.key] ? : specifier.defaultValue;
+			valueString = [valueString isKindOfClass:NSString.class] ? valueString : nil;
+			cell.detailTextLabel.text = valueString;
 		}
 	} else if ([specifier.type isEqualToString:kIASKOpenURLSpecifier] || [specifier.type isEqualToString:kIASKMailComposeSpecifier]) {
 		cell.textLabel.text = specifier.title;
