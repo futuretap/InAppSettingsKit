@@ -172,15 +172,16 @@ CGRect IASKCGRectSwap(CGRect rect);
     tapGesture.cancelsTouchesInView = NO;
     [self.tableView addGestureRecognizer:tapGesture];
 
-    if (_showDoneButton) {
-        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                    target:self
-                                                                                    action:@selector(dismiss:)];
-        self.navigationItem.rightBarButtonItem = buttonItem;
-    }
-    if (!self.title) {
-        self.title = NSLocalizedString(@"Settings", @"");
-    }
+	if (_showDoneButton) {
+		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+																					target:self
+																					action:@selector(dismiss:)];
+		self.navigationItem.rightBarButtonItem = buttonItem;
+	}
+	
+	if (!self.title) {
+		self.title = NSLocalizedString(@"Settings", @"");
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -665,6 +666,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = specifier.title;
 		if (specifier.subtitle.length) {
 			cell.detailTextLabel.text = specifier.subtitle;
+		} else if (specifier.key) {
+			NSString *valueString = [self.settingsStore objectForKey:specifier.key] ? : specifier.defaultValue;
+			valueString = [valueString isKindOfClass:NSString.class] ? valueString : nil;
+			cell.detailTextLabel.text = valueString;
 		}
 	} else if ([specifier.type isEqualToString:kIASKOpenURLSpecifier] || [specifier.type isEqualToString:kIASKMailComposeSpecifier]) {
 		cell.textLabel.text = specifier.title;
