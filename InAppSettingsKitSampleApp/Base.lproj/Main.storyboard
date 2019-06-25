@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Fhj-0H-gH6">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Storyboard-->
+        <scene sceneID="PgG-QG-i0h">
+            <objects>
+                <tableViewController title="Storyboard" id="ktO-kf-grb" customClass="IASKAppSettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="OEl-9x-FSG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="ktO-kf-grb" id="1Wm-cX-9bW"/>
+                            <outlet property="delegate" destination="ktO-kf-grb" id="wbf-Nh-jvK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="n0Y-au-gbZ"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="showDoneButton" value="NO"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="JJs-vG-94i" kind="show" identifier="mySegue" id="GYb-7x-wvU"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VbE-y4-SvR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1817" y="1734"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="8Cc-HN-2fj">
+            <objects>
+                <viewController id="JJs-vG-94i" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tG9-0h-xXq"/>
+                        <viewControllerLayoutGuide type="bottom" id="dwh-W5-87L"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XVJ-tB-fVi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="TgI-P8-Lmk">
+                                <rect key="frame" x="90" y="149" width="255" height="39.5"/>
+                                <string key="text">InAppSettingsKit
+Custom Subview</string>
+                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="c5D-Jj-4MR">
+                                <rect key="frame" x="16" y="134" width="57" height="57"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="TgI-P8-Lmk" secondAttribute="trailing" constant="14" id="1aF-vl-dcl"/>
+                            <constraint firstItem="c5D-Jj-4MR" firstAttribute="top" secondItem="tG9-0h-xXq" secondAttribute="bottom" constant="18" id="C2W-zC-ujS"/>
+                            <constraint firstItem="c5D-Jj-4MR" firstAttribute="leading" secondItem="XVJ-tB-fVi" secondAttribute="leadingMargin" id="c97-FK-QVs"/>
+                            <constraint firstItem="TgI-P8-Lmk" firstAttribute="top" secondItem="tG9-0h-xXq" secondAttribute="bottom" constant="33" id="g7g-MG-7Bc"/>
+                            <constraint firstItem="TgI-P8-Lmk" firstAttribute="leading" secondItem="c5D-Jj-4MR" secondAttribute="trailing" constant="17" id="gRx-Qr-0F0"/>
+                        </constraints>
+                    </view>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rch-OP-GCc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2717.5999999999999" y="1734.7826086956522"/>
+        </scene>
+        <!--Storyboard-->
+        <scene sceneID="dpk-V1-mqK">
+            <objects>
+                <navigationController title="Storyboard" id="Fhj-0H-gH6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Storyboard" image="20-gear2Highlighted.png" id="FeI-tm-ks9"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="dua-Mh-K7F">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ktO-kf-grb" kind="relationship" relationship="rootViewController" id="iVh-4O-vgN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WUc-hk-orv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1092" y="1734"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="20-gear2Highlighted.png" width="26" height="28"/>
+        <image name="Icon.png" width="57" height="57"/>
+    </resources>
+</document>

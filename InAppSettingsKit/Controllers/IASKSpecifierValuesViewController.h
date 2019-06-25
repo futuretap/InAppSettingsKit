@@ -15,16 +15,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IASKSettingsStore.h"
-#import "IASKViewController.h"
+#import <InAppSettingsKit/IASKSettingsStore.h>
+#import <InAppSettingsKit/IASKViewController.h>
+
 @class IASKSpecifier;
 @class IASKSettingsReader;
 @protocol IASKSettingsDelegate;
 
-@interface IASKSpecifierValuesViewController : UIViewController<IASKViewController,UITableViewDelegate,UITableViewDataSource>
+@interface IASKSpecifierValuesViewController : UITableViewController <IASKViewController>
 
-@property (nonatomic, retain) UITableView *tableView;
-@property (nonatomic, retain) IASKSpecifier *currentSpecifier;
+@property (nonatomic, strong) IASKSpecifier *currentSpecifier;
 @property (nonatomic, weak) id<IASKSettingsDelegate> delegate;
 
 @end

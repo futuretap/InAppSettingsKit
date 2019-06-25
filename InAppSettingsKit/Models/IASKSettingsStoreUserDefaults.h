@@ -16,7 +16,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IASKSettingsStore.h"
+#import <InAppSettingsKit/IASKSettingsStore.h>
 
 /** implementation of IASKSettingsStore that uses NSUserDefaults
  */

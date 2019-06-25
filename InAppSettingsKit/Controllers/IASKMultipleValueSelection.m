@@ -99,12 +99,10 @@
 
 - (void)selectCell:(UITableViewCell *)cell {
     [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
-    IASK_IF_PRE_IOS7([[cell textLabel] setTextColor:kIASKgrayBlueColor];);
 }
 
 - (void)deselectCell:(UITableViewCell *)cell {
     [cell setAccessoryType:UITableViewCellAccessoryNone];
-    IASK_IF_PRE_IOS7([[cell textLabel] setTextColor:[UIColor darkTextColor]];);
 }
 
 

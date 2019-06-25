@@ -19,5 +19,6 @@
 @interface IASKTextView : UITextView
 
 @property (nonatomic, copy) NSString *key;
+@property (strong, nonatomic) NSString *placeholder;
 
 @end
