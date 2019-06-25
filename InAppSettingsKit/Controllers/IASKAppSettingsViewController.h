@@ -59,7 +59,7 @@
          mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
 
 - (UIViewController<MFMailComposeViewControllerDelegate>*) settingsViewController:(id<IASKViewController>)settingsViewController
-                                     viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*) specifier;
+                                     viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*)specifier __attribute__((deprecated)); // let us know if you still need this, will be removed otherwise
 
 - (void) settingsViewController:(id<IASKViewController>) settingsViewController
           mailComposeController:(MFMailComposeViewController*)controller

@@ -873,7 +873,10 @@ CGRect IASKCGRectSwap(CGRect rect);
             UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
             
             if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
-                vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+				vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
+#pragma clang diagnostic pop
             }
             
             if (vc == nil) {
