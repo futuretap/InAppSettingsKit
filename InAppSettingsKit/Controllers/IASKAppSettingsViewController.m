@@ -178,6 +178,17 @@ CGRect IASKCGRectSwap(CGRect rect);
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToEndEdit:)];
     tapGesture.cancelsTouchesInView = NO;
     [self.tableView addGestureRecognizer:tapGesture];
+
+	if (_showDoneButton) {
+		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+																					target:self
+																					action:@selector(dismiss:)];
+		self.navigationItem.rightBarButtonItem = buttonItem;
+	}
+	
+	if (!self.title) {
+		self.title = NSLocalizedString(@"Settings", @"");
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -197,16 +208,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 			[CATransaction setDisableActions:NO];
 			[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:YES];
 		});
-	}
-	
-	if (_showDoneButton) {
-		UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone 
-																					target:self 
-																					action:@selector(dismiss:)];
-		self.navigationItem.rightBarButtonItem = buttonItem;
-	} 
-	if (!self.title) {
-		self.title = NSLocalizedString(@"Settings", @"");
 	}
 	
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
