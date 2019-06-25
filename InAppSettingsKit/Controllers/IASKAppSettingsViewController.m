@@ -891,7 +891,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             }];
 			
         } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 			UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
 																		   message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
 																	preferredStyle:UIAlertControllerStyleAlert];
@@ -899,15 +898,6 @@ CGRect IASKCGRectSwap(CGRect rect);
                 [alert dismissViewControllerAnimated:YES completion:nil];
             }]];
 			[self presentViewController:alert animated:YES completion:nil];
-#else
-			UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
-                                  message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
-                                  delegate: nil
-                                  cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
-                                  otherButtonTitles:nil];
-            [alert show];
-#endif
 		}
         
     } else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:didSelectCustomViewSpecifier:)]) {
