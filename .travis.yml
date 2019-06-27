@@ -1,7 +1,6 @@
 language: objective-c
 os: osx
-xcode_workspace: InAppSettingsKit.xcworkspace
-xcode_scheme: 
-  - InAppSettingsKitFramework # dynamic framework
-  - InAppSettingsKit # static library
-xcode_destination: platform=iOS Simulator,OS=10.1,name=iPhone 6s
+script: 
+  - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme InAppSettingsKitFramework build | xcpretty
+  - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme InAppSettingsKit -destination platform\=iOS\ Simulator,OS\=10.1,name\=iPhone\ 6s build test | xcpretty
+  - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App build | xcpretty
