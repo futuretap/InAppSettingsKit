@@ -1,12 +1,6 @@
 language: objective-c
-osx_image: xcode7.3
-cache: cocoapods
-rvm:
-- 2.2
-script:
-- make LogicTests
-- make ApplicationTests
-addons:
-  ssh_known_hosts:
-  - gitlab.com
-  - github.com
+os: osx
+xcode_workspace: InAppSettingsKit.xcworkspace
+xcode_scheme: 
+  - InAppSettingsKitFramework # dynamic framework
+  - InAppSettingsKit # static library
