@@ -4,3 +4,4 @@ xcode_workspace: InAppSettingsKit.xcworkspace
 xcode_scheme: 
   - InAppSettingsKitFramework # dynamic framework
   - InAppSettingsKit # static library
+xcode_destination: platform=iOS Simulator,OS=10.1,name=iPhone 6s
