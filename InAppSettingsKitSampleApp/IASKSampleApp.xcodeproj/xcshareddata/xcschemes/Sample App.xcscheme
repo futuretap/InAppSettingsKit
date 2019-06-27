@@ -34,20 +34,6 @@
                ReferencedContainer = "container:../InAppSettingsKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4C2300116BD91A100DEFE05"
-               BuildableName = "IASKApplicationTests.xctest"
-               BlueprintName = "IASKApplicationTests"
-               ReferencedContainer = "container:IASKSampleApp.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -73,16 +59,6 @@
                BuildableName = "InAppSettingsKitTests.xctest"
                BlueprintName = "InAppSettingsKitTests"
                ReferencedContainer = "container:../InAppSettingsKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4C2300116BD91A100DEFE05"
-               BuildableName = "IASKApplicationTests.xctest"
-               BlueprintName = "IASKApplicationTests"
-               ReferencedContainer = "container:IASKSampleApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
