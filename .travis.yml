@@ -12,3 +12,6 @@ matrix:
     - stage: Sample App
       script:
         - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App -destination platform\=iOS\ Simulator,OS\=10.1,name\=iPhone\ 6s build | xcpretty
+    - stage: Carthage Setup
+      script:
+        - ./scripts/test-carthage.sh
