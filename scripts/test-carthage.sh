@@ -1,7 +1,15 @@
 #!/bin/bash
 
-IASKSETTINGSKIT_DIR=`pwd`
-IASKSETTINGSKIT_BRANCH="master"
+# copied & adjusted from https://github.com/abbeycode/UnzipKit/blob/master/Scripts/carthage-validate.sh
+
+if [ -z ${TRAVIS+x} ]; then
+    IASKSETTINGSKIT_DIR=`pwd`
+    IASKSETTINGSKIT_BRANCH=`git rev-parse --abbrev-ref HEAD` #Current Git branch
+else
+    IASKSETTINGSKIT_DIR="$TRAVIS_BUILD_DIR"
+    IASKSETTINGSKIT_BRANCH="$TRAVIS_BRANCH"
+fi
+
 
 if [ ! -d "$IASKSETTINGSKIT_DIR/InAppSettingsKit.xcodeproj" ]; then
     echo "Make sure to run this from the repo root"
