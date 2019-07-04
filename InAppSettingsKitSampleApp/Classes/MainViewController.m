@@ -119,6 +119,15 @@
 }
 
 // optional delegate method for handling mail sending result
+- (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController
+shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailComposeViewController
+				  forSpecifier:(IASKSpecifier*) specifier {
+	if ([specifier.key isEqualToString:@"mail_dynamic_subject"]) {
+		[mailComposeViewController setSubject:NSDate.date.description];
+	}
+	return YES;
+}
+
 - (void)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
        
     if ( error != nil ) {

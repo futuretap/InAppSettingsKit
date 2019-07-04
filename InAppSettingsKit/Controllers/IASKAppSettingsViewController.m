@@ -837,53 +837,60 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
     } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        if ([MFMailComposeViewController canSendMail]) {
-            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-            mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
-            mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
-            mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
-            
-            if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
-                [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
-            }
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
-                [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
-            }
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]) {
-                [mailViewController setCcRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]];
-            }
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
-                [mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
-            }
-            if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
-                BOOL isHTML = NO;
-                if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
-                    isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
-                }
-                
-                if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
-                    [mailViewController setMessageBody:[self.delegate settingsViewController:self
-                                                                 mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
-                }
-                else {
-                    [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
-                }
-            }
-            
-            UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
-            
-            if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
+	
+		MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+		if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
+			[mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
+		}
+		if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
+			[mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
+		}
+		if ([[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]) {
+			[mailViewController setCcRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]];
+		}
+		if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
+			[mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
+		}
+		if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
+			BOOL isHTML = NO;
+			if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
+				isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
+			}
+			
+			if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-				vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
+				[mailViewController setMessageBody:[self.delegate settingsViewController:self
+															 mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
 #pragma clang diagnostic pop
-            }
-            
-            if (vc == nil) {
-                vc = self;
-            }
-            
-            mailViewController.mailComposeDelegate = vc;
+			}
+			else {
+				[mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
+			}
+		}
+		
+		UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
+		
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+			vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
+#pragma clang diagnostic pop
+		}
+		
+		if (vc == nil) {
+			vc = self;
+		}
+		
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:shouldPresentMailComposeViewController:forSpecifier:)]) {
+			BOOL shouldPresent = [self.delegate settingsViewController:self shouldPresentMailComposeViewController:mailViewController forSpecifier:specifier];
+			if (!shouldPresent) {
+				return;
+			}
+		}
+		
+		if ([MFMailComposeViewController canSendMail]) {
+			mailViewController.mailComposeDelegate = vc;
             _currentChildViewController = mailViewController;
             UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
             [vc presentViewController:mailViewController animated:YES completion:^{

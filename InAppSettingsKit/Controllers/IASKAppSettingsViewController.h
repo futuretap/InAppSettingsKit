@@ -55,11 +55,15 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier;
 
 #pragma mark - mail composing customization
+- (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController
+shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailComposeViewController
+				  forSpecifier:(IASKSpecifier*) specifier;
+
 - (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
-         mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
+		 mailComposeBodyForSpecifier:(IASKSpecifier*) specifier __deprecated_msg("Use settingsViewController:shouldPresentMailComposeViewController:forSpecifier: instead");
 
 - (UIViewController<MFMailComposeViewControllerDelegate>*) settingsViewController:(id<IASKViewController>)settingsViewController
-                                     viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*)specifier __attribute__((deprecated)); // let us know if you still need this, will be removed otherwise
+                                     viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*)specifier __deprecated_msg("will be removed"); // let us know if you still need this, will be removed otherwise
 
 - (void) settingsViewController:(id<IASKViewController>) settingsViewController
           mailComposeController:(MFMailComposeViewController*)controller
