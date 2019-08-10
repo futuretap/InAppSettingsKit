@@ -35,6 +35,7 @@
 #define KIASKKeyboardType                     @"KeyboardType"
 #define kIASKAutocapitalizationType           @"AutocapitalizationType"
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
+#define kIASKRegex                            @"IASKRegex"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
 #define kIASKIconNames                        @"IconNames"

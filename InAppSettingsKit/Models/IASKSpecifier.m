@@ -399,6 +399,21 @@
     return UITextAutocorrectionTypeDefault;
 }
 
+- (NSRegularExpression*)regex {
+    NSRegularExpression *regex = nil;
+    NSString *pattern;
+    NSError *error;
+
+    pattern = [_specifierDict objectForKey:kIASKRegex];
+    if (pattern != nil) {
+        regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error: &error];
+        if (error != nil) {
+            regex = nil;
+        }
+    }
+    return regex;
+}
+
 - (UIImage *)cellImage
 {
     NSString *imageName = [_specifierDict objectForKey:kIASKCellImage];

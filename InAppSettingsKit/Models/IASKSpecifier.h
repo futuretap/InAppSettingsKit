@@ -59,6 +59,7 @@
 - (UIKeyboardType)keyboardType;
 - (UITextAutocapitalizationType)autocapitalizationType;
 - (UITextAutocorrectionType)autoCorrectionType;
+- (NSRegularExpression*)regex;
 - (NSString*)footerText;
 - (Class)viewControllerClass;
 - (SEL)viewControllerSelector;
