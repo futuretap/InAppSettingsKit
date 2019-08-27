@@ -986,6 +986,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             textValue = [NSString stringWithFormat:@"%@", textValue];
         }
         text.text = textValue;
+		[text shake];
     }
 }
 
