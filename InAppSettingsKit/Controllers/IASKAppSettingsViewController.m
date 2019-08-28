@@ -966,8 +966,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     BOOL allow = true;
-    IASKTextField *text = (IASKTextField *) textField;
-    if (text.regex != nil) {
+	IASKTextField *text      = (IASKTextField *) textField;
+	IASKSpecifier *specifier = [self.settingsReader specifierForKey:text.key];
+	if (text.regex != nil) {
         NSString *textValue = text.text ?: @"";
         allow = [text.regex numberOfMatchesInString:textValue options:0 range:(NSRange){0, textValue.length}] > 0;
     }
@@ -979,14 +980,28 @@ CGRect IASKCGRectSwap(CGRect rect);
         [NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged
                                                           object:self
                                                         userInfo:userInfo];
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:validationSuccessForSpecifier:textField:)]) {
+			[self.delegate settingsViewController:self
+					validationSuccessForSpecifier:specifier
+										textField:text];
+		}
     } else {
-        IASKSpecifier *specifier = [self.settingsReader specifierForKey:text.key];
         NSString *textValue = [self.settingsStore objectForKey:text.key] ?: specifier.defaultStringValue;
         if (textValue && ![textValue isMemberOfClass:NSString.class]) {
             textValue = [NSString stringWithFormat:@"%@", textValue];
         }
-        text.text = textValue;
-		[text shake];
+		// If the delegate can handle validation failures check what response it requires
+		BOOL defaultBehaviour = true;
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:validationFailureForSpecifier:textField:prevValue:)]) {
+			defaultBehaviour = [self.delegate settingsViewController:self
+									   validationFailureForSpecifier:specifier
+														   textField:text
+														   prevValue:textValue];
+		}
+		if (defaultBehaviour) {
+			text.text = textValue;
+			[text shake];
+		}
     }
 }
 

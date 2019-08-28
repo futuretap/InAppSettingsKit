@@ -246,6 +246,10 @@ Regular expression validation
 -----------------------------
 The `IASKRegex` key can be used to specify a regular expression for validating text entered into TextField. For example checking the text entered is a valid number (only one decimal point, if a minus sign is present it must be the first charecter, etc). When this key is used the settings store is only update when editting of the field finishes. This enables easier editing as the field doesn't have to be valid after every charecter change.
 
+The following optional delegate methods can be used to customise the behaviour on a validation failure, and subsequent validation sucess. For example the text field could be set to red to indicate the value isn't valid. The delegate can prevent the default validation failure behaviour by returning `FALSE` from the `validationFailureForSpecifier` method.
+- `(BOOL)settingsViewController:(IASKAppSettingsViewController*)sender validationFailureForSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField *)field prevValue:(NSString*)prevValue;`
+- `(void)settingsViewController:(IASKAppSettingsViewController*)sender validationSuccessForSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField *)field;`
+
 
 Text alignment
 --------------

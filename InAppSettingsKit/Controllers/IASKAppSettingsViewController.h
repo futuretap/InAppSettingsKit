@@ -20,6 +20,7 @@
 #import <InAppSettingsKit/IASKSettingsStore.h>
 #import <InAppSettingsKit/IASKViewController.h>
 #import <InAppSettingsKit/IASKSpecifier.h>
+#import <InAppSettingsKit/IASKTextField.h>
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
@@ -78,6 +79,16 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key __attribute__((deprecated)); // use the method below with specifier instead
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier;
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
+
+#pragma mark - regex validation failure handling
+- (BOOL)settingsViewController:(IASKAppSettingsViewController*)sender
+ validationFailureForSpecifier:(IASKSpecifier*)specifier
+                     textField:(IASKTextField *)field
+                     prevValue:(NSString*)prevValue;
+
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender
+ validationSuccessForSpecifier:(IASKSpecifier*)specifier
+                     textField:(IASKTextField *)field;
 @end
 
 

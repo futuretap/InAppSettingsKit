@@ -118,6 +118,25 @@
 	// your code here to reconfigure the app for changed settings
 }
 
+// optional delegate methods for handling regex validation
+- (BOOL)settingsViewController:(IASKAppSettingsViewController *)sender
+ validationFailureForSpecifier:(IASKSpecifier *)specifier
+					 textField:(IASKTextField *)field
+					 prevValue:(NSString *)prevValue {
+	BOOL defaultBehaviour = YES;
+	if ([field.key isEqual: @"RegexValidation2"]) {
+		defaultBehaviour = NO;
+		field.textColor  = UIColor.redColor;
+	}
+	return defaultBehaviour;
+}
+
+- (void)settingsViewController:(IASKAppSettingsViewController *)sender
+ validationSuccessForSpecifier:(IASKSpecifier *)specifier
+					 textField:(IASKTextField *)field {
+	field.textColor = nil;
+}
+
 // optional delegate method for handling mail sending result
 - (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController
 shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailComposeViewController
