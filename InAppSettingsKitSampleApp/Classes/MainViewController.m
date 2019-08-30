@@ -122,7 +122,7 @@
 - (BOOL)settingsViewController:(IASKAppSettingsViewController *)sender
  validationFailureForSpecifier:(IASKSpecifier *)specifier
 					 textField:(IASKTextField *)field
-					 prevValue:(NSString *)prevValue {
+				 previousValue:(NSString *)prevValue {
 	BOOL defaultBehaviour = YES;
 	if ([field.key isEqual: @"RegexValidation2"]) {
 		defaultBehaviour = NO;

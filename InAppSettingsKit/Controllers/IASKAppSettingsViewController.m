@@ -992,11 +992,11 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
 		// If the delegate can handle validation failures check what response it requires
 		BOOL defaultBehaviour = true;
-		if ([self.delegate respondsToSelector:@selector(settingsViewController:validationFailureForSpecifier:textField:prevValue:)]) {
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:validationFailureForSpecifier:textField:previousValue:)]) {
 			defaultBehaviour = [self.delegate settingsViewController:self
 									   validationFailureForSpecifier:specifier
 														   textField:text
-														   prevValue:textValue];
+													   previousValue:textValue];
 		}
 		if (defaultBehaviour) {
 			text.text = textValue;

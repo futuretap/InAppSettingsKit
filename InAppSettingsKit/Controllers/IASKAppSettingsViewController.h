@@ -84,7 +84,7 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 - (BOOL)settingsViewController:(IASKAppSettingsViewController*)sender
  validationFailureForSpecifier:(IASKSpecifier*)specifier
                      textField:(IASKTextField *)field
-                     prevValue:(NSString*)prevValue;
+				 previousValue:(NSString*)prevValue;
 
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender
  validationSuccessForSpecifier:(IASKSpecifier*)specifier

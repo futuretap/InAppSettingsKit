@@ -20,13 +20,10 @@
 @implementation IASKTextField
 
 - (void)shake {
-	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-	animation.duration     = 0.1;
-	animation.repeatCount  = 2;
-	animation.autoreverses = true;
-	animation.fromValue    = [NSValue valueWithCGPoint: CGPointMake(self.center.x - 10, self.center.y)];
-	animation.toValue      = [NSValue valueWithCGPoint: CGPointMake(self.center.x + 10, self.center.y)];
-	[self.layer addAnimation:animation forKey:@"position"];
+	self.transform = CGAffineTransformMakeTranslation(20, 0);
+	[UIView animateWithDuration:0.4 delay:0.0 usingSpringWithDamping:0.2 initialSpringVelocity:1.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+		self.transform = CGAffineTransformIdentity;
+	} completion:nil];
 }
 
 @end
