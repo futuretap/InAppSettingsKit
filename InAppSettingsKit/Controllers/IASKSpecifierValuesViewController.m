@@ -130,4 +130,10 @@
     return [[self view] sizeThatFits:CGSizeMake(320, 2000)];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+  if([self.delegate respondsToSelector:@selector(settingsViewController:willDisplayCell:forRowAtIndexPath:)]) {
+    [self.delegate settingsViewController:self willDisplayCell:cell forRowAtIndexPath:indexPath];
+  }
+}
+
 @end
