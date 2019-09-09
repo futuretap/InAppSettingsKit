@@ -20,5 +20,8 @@
 @interface IASKTextField : UITextField
 
 @property (nonatomic, copy) NSString *key;
+@property (nonatomic, copy) NSRegularExpression *regex;
+
+- (void)shake;
 
 @end

@@ -617,6 +617,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		IASKTextField *textField = ((IASKPSTextFieldSpecifierViewCell*)cell).textField;
 		textField.text = textValue;
 		textField.key = specifier.key;
+		textField.regex = specifier.regex;
 		textField.delegate = self;
 		textField.secureTextEntry = [specifier isSecure];
 		textField.keyboardType = specifier.keyboardType;
@@ -844,50 +845,60 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
     } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        if ([MFMailComposeViewController canSendMail]) {
-            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-            mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
-            mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
-            mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
-            
-            if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
-                [mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
-            }
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
-                [mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
-            }
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]) {
-                [mailViewController setCcRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]];
-            }
-            if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
-                [mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
-            }
-            if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
-                BOOL isHTML = NO;
-                if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
-                    isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
-                }
-                
-                if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
-                    [mailViewController setMessageBody:[self.delegate settingsViewController:self
-                                                                 mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
-                }
-                else {
-                    [mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
-                }
-            }
-            
-            UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
-            
-            if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
-                vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
-            }
-            
-            if (vc == nil) {
-                vc = self;
-            }
-            
-            mailViewController.mailComposeDelegate = vc;
+	
+		MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+		if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
+			[mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
+		}
+		if ([[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]) {
+			[mailViewController setToRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeToRecipents]];
+		}
+		if ([[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]) {
+			[mailViewController setCcRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeCcRecipents]];
+		}
+		if ([[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]) {
+			[mailViewController setBccRecipients:[[specifier specifierDict] objectForKey:kIASKMailComposeBccRecipents]];
+		}
+		if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
+			BOOL isHTML = NO;
+			if ([[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML]) {
+				isHTML = [[[specifier specifierDict] objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
+			}
+			
+			if ([self.delegate respondsToSelector:@selector(settingsViewController:mailComposeBodyForSpecifier:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+				[mailViewController setMessageBody:[self.delegate settingsViewController:self
+															 mailComposeBodyForSpecifier:specifier] isHTML:isHTML];
+#pragma clang diagnostic pop
+			}
+			else {
+				[mailViewController setMessageBody:[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
+			}
+		}
+		
+		UIViewController<MFMailComposeViewControllerDelegate> *vc = nil;
+		
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:viewControllerForMailComposeViewForSpecifier:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+			vc = [self.delegate settingsViewController:self viewControllerForMailComposeViewForSpecifier:specifier];
+#pragma clang diagnostic pop
+		}
+		
+		if (vc == nil) {
+			vc = self;
+		}
+		
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:shouldPresentMailComposeViewController:forSpecifier:)]) {
+			BOOL shouldPresent = [self.delegate settingsViewController:self shouldPresentMailComposeViewController:mailViewController forSpecifier:specifier];
+			if (!shouldPresent) {
+				return;
+			}
+		}
+		
+		if ([MFMailComposeViewController canSendMail]) {
+			mailViewController.mailComposeDelegate = vc;
             _currentChildViewController = mailViewController;
             UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
             [vc presentViewController:mailViewController animated:YES completion:^{
@@ -895,7 +906,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             }];
 			
         } else {
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
 			UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
 																		   message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
 																	preferredStyle:UIAlertControllerStyleAlert];
@@ -903,15 +913,6 @@ CGRect IASKCGRectSwap(CGRect rect);
                 [alert dismissViewControllerAnimated:YES completion:nil];
             }]];
 			[self presentViewController:alert animated:YES completion:nil];
-#else
-			UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
-                                  message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
-                                  delegate: nil
-                                  cancelButtonTitle:NSLocalizedString(@"OK", @"InAppSettingsKit")
-                                  otherButtonTitles:nil];
-            [alert show];
-#endif
 		}
         
     } else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:didSelectCustomViewSpecifier:)]) {
@@ -955,11 +956,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)_textChanged:(id)sender {
     IASKTextField *text = sender;
-    [_settingsStore setObject:[text text] forKey:[text key]];
-    NSDictionary *userInfo = text.text ? @{text.key : (NSString *)text.text} : nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
-                                                        object:self
-                                                      userInfo:userInfo];
+    // If there's a regex to do input validation then don't set the property now. Instead it's done when editting ends
+    if (text.regex == nil) {
+        [_settingsStore setObject:text.text forKey:text.key];
+        NSDictionary *userInfo = text.text ? @{text.key : (NSString *)text.text} : nil;
+        [NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged
+                                                          object:self
+                                                        userInfo:userInfo];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -970,6 +974,47 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)singleTapToEndEdit:(UIGestureRecognizer *)sender {
     [self.tableView endEditing:NO];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    BOOL allow = true;
+	IASKTextField *text      = (IASKTextField *) textField;
+	IASKSpecifier *specifier = [self.settingsReader specifierForKey:text.key];
+	if (text.regex != nil) {
+        NSString *textValue = text.text ?: @"";
+        allow = [text.regex numberOfMatchesInString:textValue options:0 range:(NSRange){0, textValue.length}] > 0;
+    }
+    // if the input validates has passed, update the settings store and send out a notification. If it's failed set the
+    // text field back to the previous value.
+    if (allow) {
+        [_settingsStore setObject:text.text forKey:[text key]];
+        NSDictionary *userInfo = text.text ? @{text.key : (NSString *)text.text} : nil;
+        [NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged
+                                                          object:self
+                                                        userInfo:userInfo];
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:validationSuccessForSpecifier:textField:)]) {
+			[self.delegate settingsViewController:self
+					validationSuccessForSpecifier:specifier
+										textField:text];
+		}
+    } else {
+        NSString *textValue = [self.settingsStore objectForKey:text.key] ?: specifier.defaultStringValue;
+        if (textValue && ![textValue isMemberOfClass:NSString.class]) {
+            textValue = [NSString stringWithFormat:@"%@", textValue];
+        }
+		// If the delegate can handle validation failures check what response it requires
+		BOOL defaultBehaviour = true;
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:validationFailureForSpecifier:textField:previousValue:)]) {
+			defaultBehaviour = [self.delegate settingsViewController:self
+									   validationFailureForSpecifier:specifier
+														   textField:text
+													   previousValue:textValue];
+		}
+		if (defaultBehaviour) {
+			text.text = textValue;
+			[text shake];
+		}
+    }
 }
 
 #pragma mark - UITextViewDelegate

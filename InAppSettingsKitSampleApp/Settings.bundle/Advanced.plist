@@ -70,6 +70,26 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string></string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKMailComposeSpecifier</string>
+			<key>IASKMailComposeSubject</key>
+			<real>0</real>
+			<key>IASKMailComposeBody</key>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<key>Title</key>
+			<string>Send Mail</string>
+			<key>IASKSubtitle</key>
+			<string>with dynamic subject</string>
+			<key>Key</key>
+			<string>mail_dynamic_subject</string>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>Dynamic cell hiding</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>

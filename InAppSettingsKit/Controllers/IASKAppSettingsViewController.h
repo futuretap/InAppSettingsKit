@@ -20,6 +20,7 @@
 #import <InAppSettingsKit/IASKSettingsStore.h>
 #import <InAppSettingsKit/IASKViewController.h>
 #import <InAppSettingsKit/IASKSpecifier.h>
+#import <InAppSettingsKit/IASKTextField.h>
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
@@ -66,11 +67,15 @@ shouldSetMultiValueForSpecifier:(IASKSpecifier *)specifier
               forRowAtIndexPath:(NSIndexPath*) indexPath;
 
 #pragma mark - mail composing customization
+- (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController
+shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailComposeViewController
+				  forSpecifier:(IASKSpecifier*) specifier;
+
 - (NSString*) settingsViewController:(id<IASKViewController>)settingsViewController
-         mailComposeBodyForSpecifier:(IASKSpecifier*) specifier;
+		 mailComposeBodyForSpecifier:(IASKSpecifier*) specifier __deprecated_msg("Use settingsViewController:shouldPresentMailComposeViewController:forSpecifier: instead");
 
 - (UIViewController<MFMailComposeViewControllerDelegate>*) settingsViewController:(id<IASKViewController>)settingsViewController
-                                     viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*) specifier;
+                                     viewControllerForMailComposeViewForSpecifier:(IASKSpecifier*)specifier __deprecated_msg("will be removed"); // let us know if you still need this, will be removed otherwise
 
 - (void) settingsViewController:(id<IASKViewController>) settingsViewController
           mailComposeController:(MFMailComposeViewController*)controller
@@ -85,6 +90,16 @@ shouldSetMultiValueForSpecifier:(IASKSpecifier *)specifier
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForKey:(NSString*)key __attribute__((deprecated)); // use the method below with specifier instead
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier;
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender tableView:(UITableView *)tableView didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
+
+#pragma mark - regex validation failure handling
+- (BOOL)settingsViewController:(IASKAppSettingsViewController*)sender
+ validationFailureForSpecifier:(IASKSpecifier*)specifier
+                     textField:(IASKTextField *)field
+				 previousValue:(NSString*)prevValue;
+
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender
+ validationSuccessForSpecifier:(IASKSpecifier*)specifier
+                     textField:(IASKTextField *)field;
 @end
 
 

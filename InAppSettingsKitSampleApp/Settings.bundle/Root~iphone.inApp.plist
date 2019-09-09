@@ -313,6 +313,40 @@
 			<string>ABOUT_TITLE</string>
 		</dict>
 		<dict>
+			<key>Title</key>
+			<string>TextField</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>RegexValidation</string>
+			<key>Title</key>
+			<string>Regex validation</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>DefaultValue</key>
+			<string>test@example.com</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
+			<key>IASKRegex</key>
+			<string>.+\@.+</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>RegexValidation2</string>
+			<key>Title</key>
+			<string>Regex validation 2</string>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>DefaultValue</key>
+			<string>test@example.com</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
+			<key>IASKRegex</key>
+			<string>.+\@.+</string>
+		</dict>
+		<dict>
 			<key>FooterText</key>
 			<string>custom segment header view:</string>
 			<key>Title</key>

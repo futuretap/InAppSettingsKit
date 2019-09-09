@@ -1,6 +1,8 @@
 InAppSettingsKit
 ================
 
+[![Build Status](https://travis-ci.org/futuretap/InAppSettingsKit.svg?branch=master)](https://travis-ci.org/futuretap/InAppSettingsKit)
+
 InAppSettingsKit (IASK) is an open source solution to easily add in-app settings to your iPhone apps. Normally iOS apps use the `Settings.bundle` resource to [make app's settings](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/UserDefaults/Preferences/Preferences.html) to be present in "Settings" app. InAppSettingsKit takes advantage of the same bundle and allows you to present the same settings screen within your app. So the user has the choice where to change the settings. More details about the history of this development on the [FutureTap Blog](http://www.futuretap.com/blog/inappsettingskit) and the [Edovia Blog](http://www.edovia.com/blog/inappsettingskit).
 
 <a href="https://flattr.com/thing/799297/futuretapInAppSettingsKit-on-GitHub" target="_blank">
@@ -146,9 +148,9 @@ IASKMailComposeSpecifier
 ------------------------
 The custom `IASKMailComposeSpecifier` element allows to send mail from within the app by opening a mail compose view. You can set the following (optional) parameters using the settings plist: `IASKMailComposeToRecipents`, `IASKMailComposeCcRecipents`, `IASKMailComposeBccRecipents`, `IASKMailComposeSubject`, `IASKMailComposeBody`, `IASKMailComposeBodyIsHTML`. Optionally, you can implement
 
-    - (NSString*)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeBodyForSpecifier:(IASKSpecifier*)specifier;
+    - (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailComposeViewController forSpecifier:(IASKSpecifier*)specifier;
 
-in your delegate to pre-fill the body with dynamic content (great to add device-specific data in support mails for example). An alert is displayed if Email is not configured on the device. `IASKSpecifier` is the internal model object defining a single settings cell. Important IASKSpecifier properties:
+in your delegate to customize the mail (e.g. pre-fill the body with dynamic content, add attachments) modify the appearance of the compose view controller or even block the standard presentation. An alert is displayed if Email is not configured on the device. `IASKSpecifier` is the internal model object defining a single settings cell. Important IASKSpecifier properties:
 
 - `key`: corresponds to the `Key` in the Settings plist
 - `title`: the localized title of settings key
@@ -238,6 +240,15 @@ A child pane displays its value as a subtitle, if available and no `IASKSubtitle
 Placeholder
 --------------
 The `IASKPlaceholder` key allows to define placeholder for TextField and TextView (`IASKTextViewSpecifier`).
+
+
+Regular expression validation
+-----------------------------
+The `IASKRegex` key can be used to specify a regular expression for validating text entered into TextField. For example checking the text entered is a valid number (only one decimal point, if a minus sign is present it must be the first charecter, etc). When this key is used the settings store is only update when editting of the field finishes. This enables easier editing as the field doesn't have to be valid after every charecter change.
+
+By default, the text field shakes on a validation failure when leaving the field. The following optional delegate methods can be used to customise the behaviour on a validation failure and a subsequent validation sucess. For example, the text field could be set to red to indicate the value isn't valid. The delegate can prevent the default validation failure behaviour by returning `NO` from the `validationFailureForSpecifier` method.
+- `(BOOL)settingsViewController:(IASKAppSettingsViewController*)sender validationFailureForSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField *)field previousValue:(NSString*)prevValue;`
+- `(void)settingsViewController:(IASKAppSettingsViewController*)sender validationSuccessForSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField *)field;`
 
 
 Text alignment

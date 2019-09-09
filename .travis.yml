@@ -1,0 +1,17 @@
+os: osx
+language: objective-c
+xcode_workspace: InAppSettingsKit.xcworkspace
+xcode_destination: platform=iOS Simulator,OS=10.1,name=iPhone 6s
+matrix:
+  include:
+    - stage: Static Library & Tests
+      xcode_scheme: InAppSettingsKit
+    - stage: Framework
+      script:
+        - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme InAppSettingsKitFramework build | xcpretty
+    - stage: Sample App
+      script:
+        - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App -destination platform\=iOS\ Simulator,OS\=10.1,name\=iPhone\ 6s build | xcpretty
+    - stage: Carthage Setup
+      script:
+        - ./scripts/test-carthage.sh
