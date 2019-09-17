@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name                  = 'InAppSettingsKit'
-	s.version               = '2.13'
+	s.version               = '2.14'
 	s.summary               = 'This iPhone framework allows settings to be in-app in addition to being in the Settings app.'
 
   s.description      = <<-DESC
