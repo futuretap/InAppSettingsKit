@@ -15,6 +15,8 @@
 //
 
 #import "IASKTextView.h"
+#import "IASKColor.h"
+
 
 
 @implementation IASKTextView {
@@ -56,7 +58,7 @@
 	[super drawRect:rect];
 	
 	if (_shouldDrawPlaceholder && self.font) {
-		[_placeholder drawAtPoint:CGPointMake(5.0, 8.0) withAttributes:@{NSFontAttributeName: (UIFont *)self.font, NSForegroundColorAttributeName: [UIColor colorWithRed:0.f green:0.f blue:0.0981f alpha:0.22f]}];
+		[_placeholder drawAtPoint:CGPointMake(5.0, 8.0) withAttributes:@{NSFontAttributeName: (UIFont *)self.font, NSForegroundColorAttributeName: IASKColor.iaskPlaceholderColor}];
 	}
 }
 
