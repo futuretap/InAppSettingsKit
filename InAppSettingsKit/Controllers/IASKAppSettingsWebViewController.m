@@ -37,9 +37,9 @@
 }
 
 - (void)loadView {
-    self.webView = [[UIWebView alloc] init];
+    self.webView = [[WKWebView alloc] init];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.webView.delegate = self;
+    self.webView.navigationDelegate = self;
     
     self.view = self.webView;
 }
@@ -54,91 +54,100 @@
 	[self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
 	self.navigationItem.rightBarButtonItem = nil;
-	self.title = self.customTitle.length ? self.customTitle : [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+	[self.webView evaluateJavaScript:@"document.title" completionHandler:^(id result, NSError *error) {
+		NSString* title = (NSString*)result;
+		self.title = self.customTitle.length ? self.customTitle : title;
+	}];
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	NSURL *newURL = [request URL];
-	
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+	NSURL* newURL = navigationAction.request.URL;
+
 	// intercept mailto URL and send it to an in-app Mail compose view instead
 	if ([[newURL scheme] isEqualToString:@"mailto"]) {
-
-		NSArray *rawURLparts = [[newURL resourceSpecifier] componentsSeparatedByString:@"?"];
-		if (rawURLparts.count > 2) {
-			return NO; // invalid URL
-		}
-		
-		MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
-		mailViewController.mailComposeDelegate = self;
-
-		NSMutableArray *toRecipients = [NSMutableArray array];
-		NSString *defaultRecipient = [rawURLparts objectAtIndex:0];
-		if (defaultRecipient.length) {
-			[toRecipients addObject:defaultRecipient];
-		}
-		
-		if (rawURLparts.count == 2) {
-			NSString *queryString = [rawURLparts objectAtIndex:1];
-			
-			NSArray *params = [queryString componentsSeparatedByString:@"&"];
-			for (NSString *param in params) {
-				NSArray *keyValue = [param componentsSeparatedByString:@"="];
-				if (keyValue.count != 2) {
-					continue;
-				}
-				NSString *key = [[keyValue objectAtIndex:0] lowercaseString];
-				NSString *value = [keyValue objectAtIndex:1];
-				
-				value =  CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault,
-																					  (CFStringRef)value,
-																					  CFSTR("")));
-				
-				if ([key isEqualToString:@"subject"]) {
-					[mailViewController setSubject:value];
-				}
-				
-				if ([key isEqualToString:@"body"]) {
-					[mailViewController setMessageBody:value isHTML:NO];
-				}
-				
-				if ([key isEqualToString:@"to"]) {
-					[toRecipients addObjectsFromArray:[value componentsSeparatedByString:@","]];
-				}
-				
-				if ([key isEqualToString:@"cc"]) {
-					NSArray *recipients = [value componentsSeparatedByString:@","];
-					[mailViewController setCcRecipients:recipients];
-				}
-				
-				if ([key isEqualToString:@"bcc"]) {
-					NSArray *recipients = [value componentsSeparatedByString:@","];
-					[mailViewController setBccRecipients:recipients];
-				}
-			}
-		}
-		
-		[mailViewController setToRecipients:toRecipients];
-
-		mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
-		mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
-		mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
-
-		UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
-		[self presentViewController:mailViewController animated:YES completion:^{
-			[UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
-		}];
-		return NO;
+		[self handleMailto:newURL];
+		decisionHandler(WKNavigationActionPolicyCancel);
+		return;
 	}
-	
+
 	// open inline if host is the same, otherwise, pass to the system
 	if (![newURL host] || ![self.url host] || [[newURL host] isEqualToString:(NSString *)[self.url host]]) {
-		return YES;
+		decisionHandler(WKNavigationActionPolicyAllow);
+		return;
 	}
+
 	IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:newURL options:@{} completionHandler:nil];);
 	IASK_IF_PRE_IOS11([UIApplication.sharedApplication openURL:newURL];);
-	return NO;
+	decisionHandler(WKNavigationActionPolicyCancel);
+}
+
+- (void)handleMailto:(NSURL*)mailToURL {
+	NSArray *rawURLparts = [[mailToURL resourceSpecifier] componentsSeparatedByString:@"?"];
+	if (rawURLparts.count > 2 || !MFMailComposeViewController.canSendMail) {
+		return; // invalid URL or can't send mail
+	}
+
+	MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+	mailViewController.mailComposeDelegate = self;
+
+	NSMutableArray *toRecipients = [NSMutableArray array];
+	NSString *defaultRecipient = [rawURLparts objectAtIndex:0];
+	if (defaultRecipient.length) {
+		[toRecipients addObject:defaultRecipient];
+	}
+
+	if (rawURLparts.count == 2) {
+		NSString *queryString = [rawURLparts objectAtIndex:1];
+
+		NSArray *params = [queryString componentsSeparatedByString:@"&"];
+		for (NSString *param in params) {
+			NSArray *keyValue = [param componentsSeparatedByString:@"="];
+			if (keyValue.count != 2) {
+				continue;
+			}
+			NSString *key = [[keyValue objectAtIndex:0] lowercaseString];
+			NSString *value = [keyValue objectAtIndex:1];
+
+			value =  CFBridgingRelease(CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault,
+																				  (CFStringRef)value,
+																				  CFSTR("")));
+
+			if ([key isEqualToString:@"subject"]) {
+				[mailViewController setSubject:value];
+			}
+
+			if ([key isEqualToString:@"body"]) {
+				[mailViewController setMessageBody:value isHTML:NO];
+			}
+
+			if ([key isEqualToString:@"to"]) {
+				[toRecipients addObjectsFromArray:[value componentsSeparatedByString:@","]];
+			}
+
+			if ([key isEqualToString:@"cc"]) {
+				NSArray *recipients = [value componentsSeparatedByString:@","];
+				[mailViewController setCcRecipients:recipients];
+			}
+
+			if ([key isEqualToString:@"bcc"]) {
+				NSArray *recipients = [value componentsSeparatedByString:@","];
+				[mailViewController setBccRecipients:recipients];
+			}
+		}
+	}
+
+	[mailViewController setToRecipients:toRecipients];
+
+	mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
+	mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+	mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
+
+	UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+	[self presentViewController:mailViewController animated:YES completion:^{
+		[UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
+	}];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {

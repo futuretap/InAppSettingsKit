@@ -29,7 +29,7 @@
 		textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		textView.scrollEnabled = NO;
 		textView.font = [UIFont systemFontOfSize:17.0];
-		textView.backgroundColor = [UIColor whiteColor];
+		textView.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:textView];
 
 		self.textView = textView;

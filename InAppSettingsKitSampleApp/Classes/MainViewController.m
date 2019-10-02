@@ -134,7 +134,11 @@
 - (void)settingsViewController:(IASKAppSettingsViewController *)sender
  validationSuccessForSpecifier:(IASKSpecifier *)specifier
 					 textField:(IASKTextField *)field {
-	field.textColor = nil;
+	if (@available(iOS 13.0, *)) {
+		field.textColor = UIColor.labelColor;
+	} else {
+		field.textColor = UIColor.blackColor;
+	}
 }
 
 // optional delegate method for handling mail sending result
