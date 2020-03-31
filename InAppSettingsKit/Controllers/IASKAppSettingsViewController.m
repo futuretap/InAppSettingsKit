@@ -185,19 +185,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-	
 	[super viewWillAppear:animated];
-	
-	// if there's something selected, the value might have changed
-	// so reload that row
+
+	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+	NSTimeInterval duration = self.transitionCoordinator.transitionDuration;
+
 	if (selectedIndexPath) {
-		[UIView performWithoutAnimation:^{
-			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath]
-								  withRowAnimation:UITableViewRowAnimationNone];
-			[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO
-								  scrollPosition:UITableViewScrollPositionNone];
-		}];
 		[self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
 			[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
 		} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
@@ -206,7 +199,23 @@ CGRect IASKCGRectSwap(CGRect rect);
 			}
 		}];
 	}
-	
+
+	// if there's something selected, the value might have changed
+	// so reload that row
+	// (do this during the next runloop to avoid the "UITableView was told to layout its visible cells and other contents without being in the view hierarchy" warning)
+	dispatch_async(dispatch_get_main_queue(), ^(void){
+		if (selectedIndexPath) {
+			[UIView performWithoutAnimation:^{
+				[self.tableView reloadRowsAtIndexPaths:@[selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+				[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+			}];
+
+			[UIView animateWithDuration:duration animations:^{
+				[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
+			}];
+		}
+	});
+
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
 		NSNotificationCenter *dc = NSNotificationCenter.defaultCenter;
 		IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
