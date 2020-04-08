@@ -189,22 +189,23 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
 	[super viewWillAppear:animated];
 	
-	// if there's something selected, the value might have changed
-	// so reload that row
+	[self.tableView reloadData]; // values might have changed in the meantime
+
 	if (selectedIndexPath) {
-		[UIView performWithoutAnimation:^{
-			[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:selectedIndexPath]
-								  withRowAnimation:UITableViewRowAnimationNone];
-			[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO
-								  scrollPosition:UITableViewScrollPositionNone];
-		}];
 		[self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-			[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
+			// Do nothing. We're only interested in the completion handler.
 		} completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-			if ([context isCancelled]) {
-				[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+			if (![context isCancelled]) {
+				// don't deselect if the user cancelled the interactive pop gesture
+				[self.tableView deselectRowAtIndexPath:selectedIndexPath animated:animated];
 			}
 		}];
+		
+		// reloadData destroys the selection at the end of the runloop.
+		// So select again in the next runloop.
+		dispatch_async(dispatch_get_main_queue(), ^(void){
+			[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+		});
 	}
 	
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
