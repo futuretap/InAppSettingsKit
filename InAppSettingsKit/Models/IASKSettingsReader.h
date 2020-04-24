@@ -16,10 +16,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <InAppSettingsKit/IASKSettingsStore.h>
 
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKCellImage                        @"IASKCellImage"
 
+#define kIASKItemSpecifier                    @"ItemSpecifier"
+#define kIASKAddSpecifier					  @"AddSpecifier"
+#define kIASKDeletable					  	  @"Deletable"
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
 #define kIASKFooterText                       @"FooterText"
@@ -82,6 +86,7 @@
 #define kIASKTextLabelAlignmentRight          @"IASKUITextAlignmentRight"
 
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
+#define kIASKListGroupSpecifier	              @"IASKListGroupSpecifier"
 #define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"
 #define kIASKPSMultiValueSpecifier            @"PSMultiValueSpecifier"
 #define kIASKPSRadioGroupSpecifier            @"PSRadioGroupSpecifier"
@@ -94,6 +99,7 @@
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
+
 
 // IASKChildTitle can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
 // If IASKChildTitle is set, the navigation title is fixed to it; otherwise, the title value is used and is overridden by the HTML title tag
@@ -216,6 +222,7 @@ _Pragma("clang diagnostic pop")
 @property (nonatomic, retain) NSArray       *dataSource;
 @property (nonatomic, retain) NSSet         *hiddenKeys;
 @property (nonatomic) BOOL					showPrivacySettings;
+@property (nonatomic, weak)   id<IASKSettingsStore>       store;
 
 
 #pragma mark - internal use. public only for testing

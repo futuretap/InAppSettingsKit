@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>IASKListGroupSpecifier</string>
+			<key>Title</key>
+			<string>LIST_GROUP_TITLE</string>
+			<key>Key</key>
+			<string>title</string>
+			<key>FooterText</key>
+			<string>Footer goes here</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Mon</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Add ...</string>
+			<key>Key</key>
+			<string>addKey</string>
+		</dict>
+	</array>
+</dict>
+</plist>
