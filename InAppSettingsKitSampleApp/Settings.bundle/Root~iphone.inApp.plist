@@ -8,7 +8,7 @@
 			<key>FooterText</key>
 			<string>Root~iphone.inApp.plist is used in-App on iPhone</string>
 			<key>Title</key>
-			<string>TOGGLE_SWITCH_TITLE</string>
+			<string>TOGGLE_SWITCH_TITLE_AAAAA</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
@@ -127,6 +127,14 @@
 			<string>Complete</string>
 			<key>Title</key>
 			<string>Complete List</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Listgroup</string>
+			<key>Title</key>
+			<string>Listgroup</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>

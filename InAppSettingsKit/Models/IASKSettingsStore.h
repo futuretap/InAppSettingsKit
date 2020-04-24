@@ -31,7 +31,15 @@
 - (double)doubleForKey:(NSString*)key;
 - (NSInteger)integerForKey:(NSString*)key;
 - (id)objectForKey:(NSString*)key;
-- (BOOL)synchronize; // Write settings to a permanant storage. Returns YES on success, NO otherwise
+- (BOOL)synchronize;
+- (void)setObjects:(NSArray *)value forKey:(NSString*)key;
+- (NSArray *)objectsForKey:(NSString *)key;
+
+@optional
+- (NSInteger)numberOfRowsForKeySpecifier:(NSString *)key;
+- (NSString *)titleForKeySpecifier:(NSString *)key atRow:(NSInteger)indexPathRow;
+
+// Write settings to a permanant storage. Returns YES on success, NO otherwise
 @end
 
 
@@ -52,8 +60,24 @@
  */
 - (id)objectForKey:(NSString*)key;
 
+/** default implementation raises an exception
+must be overridden by subclasses
+*/
+- (void)setObjects:(NSArray *)value forKey:(NSString*)key;
+
+/** default implementation raises an exception
+must be overridden by subclasses
+*/
+- (NSArray *)objectsForKey:(NSString *)key;
+
 /** default implementation does nothing and returns NO
  */
 - (BOOL)synchronize;
+
+/**
+ addition for handling special cases for kIASKListGroupSpecifier
+ default implementation does nothing and returns NO
+*/
+- (NSInteger)numberOfRowsForKeySpecifier:(NSString *)key;
 
 @end

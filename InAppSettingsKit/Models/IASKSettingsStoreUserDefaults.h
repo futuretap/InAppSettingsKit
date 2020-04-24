@@ -30,4 +30,9 @@
 
 @property (nonatomic, retain, readonly) NSUserDefaults* defaults;
 
+///handling special cases for kIASKListGroupSpecifier
+- (NSInteger)numberOfRowsForKeySpecifier:(NSString *)key;
+
+- (NSString *)titleForKeySpecifier:(NSString *)key atRow:(NSInteger)indexPathRow;
+
 @end

@@ -75,7 +75,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 			_settingsReader.showPrivacySettings = NO;
 		}
 	}
+	_settingsReader.store = self.settingsStore;
 	return _settingsReader;
+}
+
+- (void)setSettingsStore:(id<IASKSettingsStore>)settingsStore {
+	_settingsStore = settingsStore;
+	_settingsReader.store = _settingsStore;
 }
 
 - (id<IASKSettingsStore>)settingsStore {
@@ -764,8 +770,8 @@ CGRect IASKCGRectSwap(CGRect rect);
             if ([vc respondsToSelector:@selector(setDelegate:)]) {
                 [vc performSelector:@selector(setDelegate:) withObject:self.delegate];
             }
-            if ([vc respondsToSelector:@selector(setSettingsStore:)]) {
-                [vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
+            if ([vc respondsToSelector:@selector(setStore:)]) {
+                [vc performSelector:@selector(setStore:) withObject:self.settingsStore];
             }
             vc.view.tintColor = self.view.tintColor;
             [self.navigationController pushViewController:vc animated:YES];
@@ -803,7 +809,22 @@ CGRect IASKCGRectSwap(CGRect rect);
         
         _reloadDisabled = NO;
 		
-        [[self navigationController] pushViewController:targetViewController animated:YES];
+		if (specifier.parentSpecifier != nil && [specifier.parentSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
+			if (@available(iOS 13.0, *)) {
+				UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:targetViewController];
+				navCtrl.modalPresentationStyle = UIModalPresentationAutomatic;
+				targetViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"ca" style:UIBarButtonItemStylePlain target:nil action:nil];
+				[tableView deselectRowAtIndexPath:indexPath animated:YES];
+				[self.navigationController presentViewController:navCtrl animated:YES completion:nil];
+			} else {
+				[tableView deselectRowAtIndexPath:indexPath animated:YES];
+				[[self navigationController] pushViewController:targetViewController animated:YES];
+			}
+		} else {
+			[tableView deselectRowAtIndexPath:indexPath animated:YES];
+			[[self navigationController] pushViewController:targetViewController animated:YES];
+		}
+
         
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
