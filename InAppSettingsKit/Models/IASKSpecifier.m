@@ -470,7 +470,34 @@
     return idioms;
 }
 
+- (IASKSpecifier*)itemSpecifier {
+	NSDictionary *specifierDictionary = [_specifierDict objectForKey:kIASKItemSpecifier];
+    IASKSpecifier *retValue = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
+	retValue.parentSpecifier = self;
+	return retValue;
+}
+
+- (IASKSpecifier*)addSpecifier {
+	NSDictionary *specifierDictionary = [_specifierDict objectForKey:kIASKAddSpecifier];
+    IASKSpecifier *retValue = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
+	retValue.parentSpecifier = self;
+	return retValue;
+}
+
+- (BOOL)deletable {
+    return [[_specifierDict objectForKey:kIASKDeletable] boolValue];
+}
+
 - (id)valueForKey:(NSString *)key {
 	return [_specifierDict objectForKey:key];
 }
+
+- (void)setKey:(NSString *)key {
+	[_specifierDict setValue:key forKey:kIASKKey];
+}
+
+- (void)setTitle:(NSString *)key {
+	[_specifierDict setValue:key forKey:kIASKTitle];
+}
+
 @end

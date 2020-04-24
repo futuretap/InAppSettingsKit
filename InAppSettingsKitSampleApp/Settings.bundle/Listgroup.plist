@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Key</key>
+			<string>weeksDayIterable</string>
+			<key>Type</key>
+			<string>IASKListGroupSpecifier</string>
+			<key>Title</key>
+			<string>LIST_GROUP_TITLE</string>
+			<key>ItemSpecifier</key>
+			<dict>
+				<key>Type</key>
+				<string>PSToggleSwitchSpecifier</string>
+				<key>Key</key>
+				<string>weekDayIterable</string>
+				<key>DefaultValue</key>
+				<false/>
+			</dict>
+			<key>AddSpecifier</key>
+			<dict>
+				<key>Type</key>
+				<string>PSChildPaneSpecifier</string>
+				<key>File</key>
+				<string>Sublistgroup</string>
+				<key>Title</key>
+				<string>Add ...</string>
+				<key>Key</key>
+				<string>addKey</string>
+			</dict>
+			<key>Deletable</key>
+			<false/>
+			<key>FooterText</key>
+			<string>Footer goes here</string>
+		</dict>
+	</array>
+</dict>
+</plist>

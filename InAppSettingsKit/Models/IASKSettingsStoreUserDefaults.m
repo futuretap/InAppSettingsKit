@@ -81,4 +81,43 @@
     return [self.defaults synchronize];
 }
 
+- (void)setObjects:(NSArray *)value forKey:(NSString*)key {
+	[self.defaults setObject:value forKey:key];
+}
+
+- (NSArray *)objectsForKey:(NSString *)key {
+	return [self.defaults objectForKey:key];
+}
+
+- (NSInteger)numberOfRowsForKeySpecifier:(NSString *)key {
+	if ([key isEqualToString:@"weeksDayIterable"]) {
+		return 7;
+	}
+	return 0;
+}
+
+- (NSString *)titleForKeySpecifier:(NSString *)key atRow:(NSInteger)indexPathRow {
+	if ([key isEqualToString:@"weeksDayIterable"]) {
+		switch (indexPathRow) {
+			case 0:
+				return @"Mon";
+			case 1:
+				return @"Tue";
+			case 2:
+				return @"Wed";
+			case 3:
+				return @"Thu";
+			case 4:
+				return @"Fri";
+			case 5:
+				return @"Sat";
+			case 6:
+				return @"Sun";
+			default:
+				return nil;
+		}
+	}
+	return nil;
+}
+
 @end

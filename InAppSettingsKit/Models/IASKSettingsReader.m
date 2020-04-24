@@ -150,10 +150,11 @@
         if ([type isEqualToString:kIASKPSGroupSpecifier]
             || [type isEqualToString:kIASKPSRadioGroupSpecifier]) {
 
+			///create a brand new array with the specifier above and an empty array
             NSMutableArray *newArray = [NSMutableArray array];
             [newArray addObject:newSpecifier];
             [dataSource addObject:newArray];
-
+			
             if ([type isEqualToString:kIASKPSRadioGroupSpecifier]) {
                 for (NSString *value in newSpecifier.multipleValues) {
                     IASKSpecifier *valueSpecifier =
@@ -163,7 +164,16 @@
                     [newArray addObject:valueSpecifier];
                 }
             }
-        }
+		} else if ([type isEqualToString:kIASKListGroupSpecifier]) {
+//we couldn't add directly specifiers to dataSource due to the under-the-hood architecture.
+//Accessor methods such as kIASKSectionHeaderIndex take into account an "Array-of-Specifiers"
+//[dataSource addObject:newSpecifier];
+
+			NSMutableArray *newArray = [NSMutableArray array];
+			[newArray addObject:newSpecifier];
+			[dataSource addObject:newArray];
+		}
+		
         else {
             if (dataSource.count == 0 || (dataSource.count == 1 && self.showPrivacySettings)) {
                 [dataSource addObject:[NSMutableArray array]];
@@ -183,6 +193,7 @@
 - (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section {
     IASKSpecifier *specifier = [[self.dataSource iaskObjectAtIndex:section] iaskObjectAtIndex:kIASKSectionHeaderIndex];
     if ([specifier.type isEqualToString:kIASKPSGroupSpecifier]
+		|| [specifier.type isEqualToString:kIASKListGroupSpecifier]
         || [specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
         return specifier;
     }
@@ -195,13 +206,42 @@
 
 - (NSInteger)numberOfRowsForSection:(NSInteger)section {
     int headingCorrection = [self _sectionHasHeading:section] ? 1 : 0;
-    return ((NSArray*)[self.dataSource iaskObjectAtIndex:section]).count - headingCorrection;
+    
+	IASKSpecifier *headerSpecifier = [[[self dataSource] iaskObjectAtIndex:section] iaskObjectAtIndex:kIASKSectionHeaderIndex];
+	if ([headerSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
+		
+		NSInteger retValue = [headerSpecifier.settingsReader.store numberOfRowsForKeySpecifier:headerSpecifier.key];
+	
+		if (headerSpecifier.addSpecifier != nil) {
+			retValue++;
+		}
+		return retValue;
+	}
+
+	return ((NSArray*)[self.dataSource iaskObjectAtIndex:section]).count - headingCorrection;
 }
 
 - (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath {
     int headingCorrection = [self _sectionHasHeading:indexPath.section] ? 1 : 0;
-    
-    IASKSpecifier *specifier = [[[self dataSource] iaskObjectAtIndex:indexPath.section] iaskObjectAtIndex:(indexPath.row+headingCorrection)];
+	IASKSpecifier *specifier;
+	
+	IASKSpecifier *headerSpecifier = [self headerSpecifierForSection:indexPath.section];
+	
+	if (headerSpecifier != nil && [headerSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
+		NSInteger numberOfRows = [headerSpecifier.settingsReader.store numberOfRowsForKeySpecifier:headerSpecifier.key];
+		
+		if (indexPath.row < numberOfRows && headerSpecifier.itemSpecifier) {
+			specifier = headerSpecifier.itemSpecifier;
+			specifier.key = [specifier.key stringByAppendingFormat:@"-%ld", (long)indexPath.row];
+			
+			specifier.title = [headerSpecifier.settingsReader.store titleForKeySpecifier:headerSpecifier.key atRow:indexPath.row];
+		} else if (headerSpecifier.addSpecifier != nil) {
+			specifier = headerSpecifier.addSpecifier;
+		}
+	} else {
+		specifier = [[[self dataSource] iaskObjectAtIndex:indexPath.section] iaskObjectAtIndex:(indexPath.row+headingCorrection)];
+	}
+	
     specifier.settingsReader = self;
     return specifier;
 }

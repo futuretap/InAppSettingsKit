@@ -21,8 +21,10 @@
 
 @interface IASKSpecifier : NSObject
 
+
 @property (nonatomic, retain) NSDictionary  *specifierDict;
 @property (nonatomic, weak) IASKSettingsReader *settingsReader;
+@property (nonatomic, weak) IASKSpecifier *parentSpecifier;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
 /// A specifier for one entry in a radio group preceeded by a radio group specifier.
@@ -74,4 +76,9 @@
 - (NSTextAlignment)textAlignment;
 - (NSArray *)userInterfaceIdioms;
 - (NSString *)radioGroupValue;
+- (IASKSpecifier*)itemSpecifier;
+- (IASKSpecifier*)addSpecifier;
+- (BOOL)deletable;
+- (void)setKey:(NSString *)key;
+- (void)setTitle:(NSString *)title;
 @end
