@@ -209,20 +209,19 @@ _Pragma("clang diagnostic pop")
 - (NSString*)pathForImageNamed:(NSString*)image;
 
 ///the main application bundle. most often [NSBundle mainBundle]
-@property (nonatomic, readonly) NSBundle      *applicationBundle;
+@property (nonatomic, readonly) NSBundle *applicationBundle;
 
 ///the actual settings bundle
-@property (nonatomic, readonly) NSBundle    *settingsBundle;
+@property (nonatomic, readonly) NSBundle *settingsBundle;
 
 ///the actual settings plist, parsed into a dictionary
-@property (nonatomic, readonly) NSDictionary  *settingsDictionary;
+@property (nonatomic, readonly) NSDictionary *settingsDictionary;
 
-
-@property (nonatomic, retain) NSString      *localizationTable;
-@property (nonatomic, retain) NSArray       *dataSource;
-@property (nonatomic, retain) NSSet         *hiddenKeys;
-@property (nonatomic) BOOL					showPrivacySettings;
-@property (nonatomic, weak)   id<IASKSettingsStore>       store;
+@property (nonatomic, retain) NSString *localizationTable;
+@property (nonatomic, retain) NSArray *dataSource;
+@property (nonatomic, retain) NSSet *hiddenKeys;
+@property (nonatomic) BOOL showPrivacySettings;
+@property (nonatomic, weak) id<IASKSettingsStore> settingsStore;
 
 
 #pragma mark - internal use. public only for testing

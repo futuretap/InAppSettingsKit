@@ -20,7 +20,8 @@
 // protocol all IASK view controllers implement
 @protocol IASKViewController <NSObject>
 
-@property (nonatomic, retain) IASKSettingsReader* settingsReader;
-@property (nonatomic, retain) id<IASKSettingsStore> settingsStore;
+@property (nonatomic, retain, nullable) IASKSettingsReader* settingsReader;
+@property (nonatomic, retain, nonnull) id<IASKSettingsStore> settingsStore;
+@property (nonatomic, copy, nullable) void (^performAddBlock)(void);
 
 @end

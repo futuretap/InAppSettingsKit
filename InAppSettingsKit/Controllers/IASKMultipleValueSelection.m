@@ -33,11 +33,11 @@
 
 - (void)updateCheckedItem {
     // Find the currently checked item
-    id value = [self.settingsStore objectForKey:[_specifier key]];
+	id value = [self.settingsStore objectForSpecifier:self.specifier];
     if (!value) {
-        value = [_specifier defaultValue];
+		value = self.specifier.defaultValue;
     }
-    _checkedIndex = [[_specifier multipleValues] indexOfObject:value];
+	_checkedIndex = [self.specifier.multipleValues indexOfObject:value];
 }
 
 - (id<IASKSettingsStore>)settingsStore {
@@ -80,7 +80,7 @@
     [self selectCell:[self.tableView cellForRowAtIndexPath:indexPath]];
     _checkedIndex = indexPath.row;
 
-    [self.settingsStore setObject:[values objectAtIndex:indexPath.row] forKey:[_specifier key]];
+	[self.settingsStore setObject:[values objectAtIndex:indexPath.row] forSpecifier:self.specifier];
     [self.settingsStore synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
                                                         object:self

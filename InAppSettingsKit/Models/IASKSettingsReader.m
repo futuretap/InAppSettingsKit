@@ -209,13 +209,12 @@
     
 	IASKSpecifier *headerSpecifier = [[[self dataSource] iaskObjectAtIndex:section] iaskObjectAtIndex:kIASKSectionHeaderIndex];
 	if ([headerSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
-		
-		NSInteger retValue = [headerSpecifier.settingsReader.store numberOfRowsForKeySpecifier:headerSpecifier.key];
+		NSInteger numberOfRows = [self.settingsStore arrayForSpecifier:headerSpecifier].count;
 	
-		if (headerSpecifier.addSpecifier != nil) {
-			retValue++;
+		if (headerSpecifier.addSpecifier) {
+			numberOfRows++;
 		}
-		return retValue;
+		return numberOfRows;
 	}
 
 	return ((NSArray*)[self.dataSource iaskObjectAtIndex:section]).count - headingCorrection;
@@ -228,13 +227,10 @@
 	IASKSpecifier *headerSpecifier = [self headerSpecifierForSection:indexPath.section];
 	
 	if (headerSpecifier != nil && [headerSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
-		NSInteger numberOfRows = [headerSpecifier.settingsReader.store numberOfRowsForKeySpecifier:headerSpecifier.key];
+		NSInteger numberOfRows = [self.settingsStore arrayForSpecifier:headerSpecifier].count;
 		
-		if (indexPath.row < numberOfRows && headerSpecifier.itemSpecifier) {
-			specifier = headerSpecifier.itemSpecifier;
-			specifier.key = [specifier.key stringByAppendingFormat:@"-%ld", (long)indexPath.row];
-			
-			specifier.title = [headerSpecifier.settingsReader.store titleForKeySpecifier:headerSpecifier.key atRow:indexPath.row];
+		if (indexPath.row < numberOfRows) {
+			specifier = [headerSpecifier itemSpecifierForIndex:indexPath.row];
 		} else if (headerSpecifier.addSpecifier != nil) {
 			specifier = headerSpecifier.addSpecifier;
 		}

@@ -15,11 +15,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "IASKSpecifier.h"
 
 @interface IASKTextField : UITextField
 
-@property (nonatomic, copy) NSString *key;
+@property (strong, nonatomic) IASKSpecifier *specifier;
 @property (nonatomic, copy) NSRegularExpression *regex;
 
 - (void)shake;

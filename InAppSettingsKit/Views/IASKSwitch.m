@@ -16,7 +16,6 @@
 
 #import "IASKSwitch.h"
 
-
 @implementation IASKSwitch
 
 @end
