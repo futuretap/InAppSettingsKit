@@ -124,7 +124,7 @@
 					 textField:(IASKTextField *)field
 				 previousValue:(NSString *)prevValue {
 	BOOL defaultBehaviour = YES;
-	if ([field.key isEqual: @"RegexValidation2"]) {
+	if ([field.specifier.key isEqual: @"RegexValidation2"]) {
 		defaultBehaviour = NO;
 		field.textColor  = UIColor.redColor;
 	}

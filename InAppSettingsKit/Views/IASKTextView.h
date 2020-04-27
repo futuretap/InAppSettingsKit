@@ -15,10 +15,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IASKSpecifier.h"
 
 @interface IASKTextView : UITextView
 
-@property (nonatomic, copy) NSString *key;
+@property (strong, nonatomic) IASKSpecifier *specifier;
 @property (strong, nonatomic) NSString *placeholder;
 
 @end

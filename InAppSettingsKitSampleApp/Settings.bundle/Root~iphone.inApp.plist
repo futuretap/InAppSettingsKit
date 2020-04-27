@@ -134,7 +134,7 @@
 			<key>File</key>
 			<string>Listgroup</string>
 			<key>Title</key>
-			<string>Listgroup</string>
+			<string>List groups</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>

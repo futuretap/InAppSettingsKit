@@ -16,34 +16,31 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "IASKSpecifier.h"
 
 /** protocol that needs to be implemented from a settings store
  */
 @protocol IASKSettingsStore <NSObject>
 @required
-- (void)setBool:(BOOL)value      forKey:(NSString*)key;
-- (void)setFloat:(float)value    forKey:(NSString*)key;
-- (void)setDouble:(double)value  forKey:(NSString*)key;
-- (void)setInteger:(NSInteger)value    forKey:(NSString*)key;
-- (void)setObject:(id)value      forKey:(NSString*)key;
-- (BOOL)boolForKey:(NSString*)key;
-- (float)floatForKey:(NSString*)key;
-- (double)doubleForKey:(NSString*)key;
-- (NSInteger)integerForKey:(NSString*)key;
-- (id)objectForKey:(NSString*)key;
-- (BOOL)synchronize;
-- (void)setObjects:(NSArray *)value forKey:(NSString*)key;
-- (NSArray *)objectsForKey:(NSString *)key;
-
-@optional
-- (NSInteger)numberOfRowsForKeySpecifier:(NSString *)key;
-- (NSString *)titleForKeySpecifier:(NSString *)key atRow:(NSInteger)indexPathRow;
-
-// Write settings to a permanant storage. Returns YES on success, NO otherwise
+- (void)setBool:(BOOL)value forSpecifier:(IASKSpecifier*)specifier;
+- (void)setFloat:(float)value forSpecifier:(IASKSpecifier*)specifier;
+- (void)setDouble:(double)value forSpecifier:(IASKSpecifier*)specifier;
+- (void)setInteger:(NSInteger)value forSpecifier:(IASKSpecifier*)specifier;
+- (void)setObject:(id)value forSpecifier:(IASKSpecifier*)specifier;
+- (BOOL)boolForSpecifier:(IASKSpecifier*)specifier;
+- (float)floatForSpecifier:(IASKSpecifier*)specifier;
+- (double)doubleForSpecifier:(IASKSpecifier*)specifier;
+- (NSInteger)integerForSpecifier:(IASKSpecifier*)specifier;
+- (id)objectForSpecifier:(IASKSpecifier*)specifier;
+- (BOOL)synchronize; // Write settings to a permanant storage. Returns YES on success, NO otherwise
+- (void)setArray:(NSArray *)value forSpecifier:(IASKSpecifier*)specifier;
+- (NSArray*)arrayForSpecifier:(IASKSpecifier*)specifier;
+- (void)addObject:(NSObject*)object forSpecifier:(IASKSpecifier*)specifier;
+- (void)removeObjectWithSpecifier:(IASKSpecifier*)specifier;
 @end
 
 
-/** abstract default implementation of IASKSettingsStore protocol
+/** default implementation of IASKSettingsStore protocol
 
  helper to implement a store which maps all methods to setObject:forKey:
  and objectForKey:. Those 2 methods need to be overwritten.
@@ -54,30 +51,6 @@
  must be overridden by subclasses
  */
 - (void)setObject:(id)value forKey:(NSString*)key;
-
-/** default implementation raises an exception
- must be overridden by subclasses
- */
 - (id)objectForKey:(NSString*)key;
-
-/** default implementation raises an exception
-must be overridden by subclasses
-*/
-- (void)setObjects:(NSArray *)value forKey:(NSString*)key;
-
-/** default implementation raises an exception
-must be overridden by subclasses
-*/
-- (NSArray *)objectsForKey:(NSString *)key;
-
-/** default implementation does nothing and returns NO
- */
-- (BOOL)synchronize;
-
-/**
- addition for handling special cases for kIASKListGroupSpecifier
- default implementation does nothing and returns NO
-*/
-- (NSInteger)numberOfRowsForKeySpecifier:(NSString *)key;
 
 @end

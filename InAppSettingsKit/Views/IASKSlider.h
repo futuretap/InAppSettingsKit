@@ -15,10 +15,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "IASKSpecifier.h"
 
 @interface IASKSlider : UISlider
 
-@property (nonatomic, copy) NSString *key;
+@property (strong, nonatomic) IASKSpecifier *specifier;
 
 @end

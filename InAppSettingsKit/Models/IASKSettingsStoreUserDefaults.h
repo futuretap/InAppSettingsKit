@@ -20,7 +20,7 @@
 
 /** implementation of IASKSettingsStore that uses NSUserDefaults
  */
-@interface IASKSettingsStoreUserDefaults : NSObject<IASKSettingsStore>
+@interface IASKSettingsStoreUserDefaults : IASKAbstractSettingsStore
 
 ///designated initializer
 - (id) initWithUserDefaults:(NSUserDefaults*) defaults;
@@ -29,10 +29,5 @@
 - (id) init;
 
 @property (nonatomic, retain, readonly) NSUserDefaults* defaults;
-
-///handling special cases for kIASKListGroupSpecifier
-- (NSInteger)numberOfRowsForKeySpecifier:(NSString *)key;
-
-- (NSString *)titleForKeySpecifier:(NSString *)key atRow:(NSInteger)indexPathRow;
 
 @end

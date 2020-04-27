@@ -31,6 +31,8 @@
 
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
+@synthesize performAddBlock = _performAddBlock;
+
 
 - (void)setSettingsStore:(id <IASKSettingsStore>)settingsStore {
 	_selection = [IASKMultipleValueSelection new];

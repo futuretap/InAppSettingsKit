@@ -6,29 +6,29 @@
 	<array>
 		<dict>
 			<key>Type</key>
-			<string>IASKListGroupSpecifier</string>
+			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>LIST_GROUP_TITLE</string>
+			<string>New Account</string>
 			<key>Key</key>
 			<string>title</string>
-			<key>FooterText</key>
-			<string>Footer goes here</string>
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Mon</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>Title</key>
-			<string>Add ...</string>
+			<string>Username</string>
 			<key>Key</key>
-			<string>addKey</string>
+			<string>username</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Password</string>
+			<key>Key</key>
+			<string>password</string>
+			<key>IsSecure</key>
+			<true/>
 		</dict>
 	</array>
 </dict>

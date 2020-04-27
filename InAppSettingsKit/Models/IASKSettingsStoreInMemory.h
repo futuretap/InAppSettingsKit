@@ -12,7 +12,9 @@
 
 /** implementation of IASKSettingsStore that uses InMemory NSDictionary
 */
-@interface IASKSettingsStoreInMemory : NSObject<IASKSettingsStore>
+@interface IASKSettingsStoreInMemory : IASKAbstractSettingsStore
+
+@property (nonatomic, retain, readwrite) NSMutableDictionary* dictionary;
 
 ///designated initializer
 - (id)initWithDictionary:(NSDictionary *)dictionary;

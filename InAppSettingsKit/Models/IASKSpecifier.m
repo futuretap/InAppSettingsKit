@@ -22,6 +22,7 @@
 
 @property (nonatomic, retain) NSDictionary  *multipleValuesDict;
 @property (nonatomic, copy) NSString *radioGroupValue;
+@property (nonatomic, readwrite) NSUInteger itemIndex;
 
 @end
 
@@ -470,18 +471,32 @@
     return idioms;
 }
 
-- (IASKSpecifier*)itemSpecifier {
+- (IASKSpecifier*)itemSpecifierForIndex:(NSUInteger)index {
 	NSDictionary *specifierDictionary = [_specifierDict objectForKey:kIASKItemSpecifier];
-    IASKSpecifier *retValue = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
-	retValue.parentSpecifier = self;
-	return retValue;
+    IASKSpecifier *itemSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
+	itemSpecifier.parentSpecifier = self;
+	itemSpecifier.itemIndex = index;
+	BOOL validType = [@[kIASKPSTitleValueSpecifier, kIASKPSChildPaneSpecifier, kIASKPSTextFieldSpecifier, kIASKPSMultiValueSpecifier, kIASKButtonSpecifier, kIASKCustomViewSpecifier] containsObject:itemSpecifier.type];
+	NSAssert(validType, @"unsupported AddSpecifier Type");
+	return validType ? itemSpecifier : nil;
+}
+
+- (BOOL)isItemSpecifier {
+	return self.parentSpecifier && !self.isAddSpecifier;
 }
 
 - (IASKSpecifier*)addSpecifier {
 	NSDictionary *specifierDictionary = [_specifierDict objectForKey:kIASKAddSpecifier];
-    IASKSpecifier *retValue = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
-	retValue.parentSpecifier = self;
-	return retValue;
+    IASKSpecifier *addSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
+	addSpecifier.parentSpecifier = self;
+	addSpecifier.itemIndex = NSUIntegerMax;
+	BOOL validType = [@[kIASKPSChildPaneSpecifier, kIASKPSTextFieldSpecifier, kIASKPSMultiValueSpecifier, kIASKButtonSpecifier, kIASKCustomViewSpecifier] containsObject:addSpecifier.type];
+	NSAssert(validType, @"unsupported AddSpecifier Type");
+	return validType ? addSpecifier : nil;
+}
+
+- (BOOL)isAddSpecifier {
+	return self.itemIndex == NSUIntegerMax;
 }
 
 - (BOOL)deletable {

@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSDictionary  *specifierDict;
 @property (nonatomic, weak) IASKSettingsReader *settingsReader;
 @property (nonatomic, weak) IASKSpecifier *parentSpecifier;
+@property (nonatomic, readonly) NSUInteger itemIndex;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;
 /// A specifier for one entry in a radio group preceeded by a radio group specifier.
@@ -76,8 +77,10 @@
 - (NSTextAlignment)textAlignment;
 - (NSArray *)userInterfaceIdioms;
 - (NSString *)radioGroupValue;
-- (IASKSpecifier*)itemSpecifier;
+- (IASKSpecifier*)itemSpecifierForIndex:(NSUInteger)index;
+- (BOOL)isItemSpecifier;
 - (IASKSpecifier*)addSpecifier;
+- (BOOL)isAddSpecifier;
 - (BOOL)deletable;
 - (void)setKey:(NSString *)key;
 - (void)setTitle:(NSString *)title;

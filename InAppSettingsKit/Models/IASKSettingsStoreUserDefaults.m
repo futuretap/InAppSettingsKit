@@ -37,87 +37,32 @@
     return [self initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
 }
 
-- (void)setBool:(BOOL)value forKey:(NSString*)key {
-    [self.defaults setBool:value forKey:key];
+- (void)setObject:(id)value forSpecifier:(IASKSpecifier *)specifier {
+	if (specifier.parentSpecifier) {
+		[super setObject:value forSpecifier:specifier];
+		return;
+	}
+	[self.defaults setObject:value forKey:specifier.key];
 }
 
-- (void)setFloat:(float)value forKey:(NSString*)key {
-    [self.defaults setFloat:value forKey:key];
-}
+- (id)objectForSpecifier:(IASKSpecifier*)specifier {
+	if (specifier.parentSpecifier) {
+		return [super objectForSpecifier:specifier];
+	}
 
-- (void)setDouble:(double)value forKey:(NSString*)key {
-    [self.defaults setDouble:value forKey:key];
-}
-
-- (void)setInteger:(NSInteger)value forKey:(NSString*)key {
-    [self.defaults setInteger:value forKey:key];
+	return [self.defaults objectForKey:specifier.key];
 }
 
 - (void)setObject:(id)value forKey:(NSString*)key {
-    [self.defaults setObject:value forKey:key];
-}
-
-- (BOOL)boolForKey:(NSString*)key {
-    return [self.defaults boolForKey:key];
-}
-
-- (float)floatForKey:(NSString*)key {
-    return [self.defaults floatForKey:key];
-}
-
-- (double)doubleForKey:(NSString*)key {
-    return [self.defaults doubleForKey:key];
-}
-
-- (NSInteger)integerForKey:(NSString*)key {
-    return [self.defaults integerForKey:key];
+	[self.defaults setObject:value forKey:key];
 }
 
 - (id)objectForKey:(NSString*)key {
-    return [self.defaults objectForKey:key];
+	return [self.defaults objectForKey:key];
 }
 
 - (BOOL)synchronize {
     return [self.defaults synchronize];
-}
-
-- (void)setObjects:(NSArray *)value forKey:(NSString*)key {
-	[self.defaults setObject:value forKey:key];
-}
-
-- (NSArray *)objectsForKey:(NSString *)key {
-	return [self.defaults objectForKey:key];
-}
-
-- (NSInteger)numberOfRowsForKeySpecifier:(NSString *)key {
-	if ([key isEqualToString:@"weeksDayIterable"]) {
-		return 7;
-	}
-	return 0;
-}
-
-- (NSString *)titleForKeySpecifier:(NSString *)key atRow:(NSInteger)indexPathRow {
-	if ([key isEqualToString:@"weeksDayIterable"]) {
-		switch (indexPathRow) {
-			case 0:
-				return @"Mon";
-			case 1:
-				return @"Tue";
-			case 2:
-				return @"Wed";
-			case 3:
-				return @"Thu";
-			case 4:
-				return @"Fri";
-			case 5:
-				return @"Sat";
-			case 6:
-				return @"Sun";
-			default:
-				return nil;
-		}
-	}
-	return nil;
 }
 
 @end
