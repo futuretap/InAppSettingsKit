@@ -585,9 +585,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 		toggle.specifier = specifier;
 	}
 	else if ([specifier.type isEqualToString:kIASKPSMultiValueSpecifier]) {
-		cell.textLabel.text = specifier.title;
 		[self setMultiValuesFromDelegateIfNeeded:specifier];
-		cell.detailTextLabel.text = [[specifier titleForCurrentValue:[self.settingsStore objectForKey:specifier.key] ?: specifier.defaultValue] description];
+
+		BOOL hasTitle = title.length > 0 && !specifier.isItemSpecifier;
+		cell.detailTextLabel.text = [[specifier titleForCurrentValue:currentValue ?: specifier.defaultValue] description];
+		if (hasTitle) {
+			cell.textLabel.text = title;
+		} else {
+			cell.textLabel.text = cell.detailTextLabel.text;
+			cell.detailTextLabel.text = nil;
+		}
 	}
 	else if ([specifier.type isEqualToString:kIASKPSTitleValueSpecifier]) {
 		cell.textLabel.text = title;
@@ -600,7 +607,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 			stringValue = [value description];
 		}
 		
-		cell.detailTextLabel.text = stringValue;
+		if (specifier.textAlignment == NSTextAlignmentLeft) {
+			cell.textLabel.text = stringValue;
+		} else {
+			cell.detailTextLabel.text = stringValue;
+		}
 		cell.userInteractionEnabled = NO;
 	}
 	else if ([specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
@@ -669,7 +680,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 		} else if (specifier.key) {
 			NSString *valueString = currentValue ?: specifier.defaultValue;
 			valueString = [valueString isKindOfClass:NSString.class] ? valueString : nil;
-			cell.detailTextLabel.text = valueString;
+			if (valueString) {
+				if (specifier.textAlignment == NSTextAlignmentLeft) {
+					cell.textLabel.text = valueString;
+				} else {
+					cell.detailTextLabel.text = valueString;
+				}
+			}
 		}
 	} else if ([specifier.type isEqualToString:kIASKOpenURLSpecifier] || [specifier.type isEqualToString:kIASKMailComposeSpecifier]) {
 		cell.textLabel.text = title;
