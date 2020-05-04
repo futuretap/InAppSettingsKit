@@ -390,11 +390,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 }
 
-- (void)toggledValue:(id)sender {
-    IASKSwitch *toggle = (IASKSwitch*)sender;
-	IASKSpecifier *specifier = toggle.specifier;
-    
-	if (toggle.isOn) {
+- (void)toggledValue:(IASKSwitch*)sender {
+	[self setSpecifier:sender.specifier on:sender.isOn];
+}
+
+- (void)setSpecifier:(IASKSpecifier*)specifier on:(BOOL)on {
+	if (on) {
 		if (specifier.trueValue) {
 			[self.settingsStore setObject:specifier.trueValue forSpecifier:specifier];
         } else {
@@ -528,9 +529,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	UITableViewCellStyle style = (specifier.textAlignment == NSTextAlignmentLeft || specifier.subtitle.length) ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault;
 	if ([identifier hasPrefix:kIASKPSToggleSwitchSpecifier]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-		cell.accessoryView = [[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)];
-		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	else if ([@[kIASKPSMultiValueSpecifier, kIASKPSTitleValueSpecifier, kIASKDatePickerSpecifier] containsObject:specifier.type]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
@@ -597,9 +595,17 @@ CGRect IASKCGRectSwap(CGRect rect);
 		} else {
 			toggleState = specifier.defaultBoolValue;
 		}
-		IASKSwitch *toggle = (IASKSwitch*)cell.accessoryView;
-		toggle.on = toggleState;
-		toggle.specifier = specifier;
+		if (specifier.toggleStyle == IASKToggleStyleSwitch) {
+			IASKSwitch *toggle = [[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)];
+			[toggle addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
+			toggle.on = toggleState;
+			toggle.specifier = specifier;
+			cell.accessoryView = toggle;
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		} else {
+			cell.accessoryType = toggleState ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+			cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+		}
 	}
 	else if ([specifier.type isEqualToString:kIASKPSMultiValueSpecifier]) {
 		[self setMultiValuesFromDelegateIfNeeded:specifier];
@@ -752,14 +758,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	//create a set of specifier types that can't be selected
-	static NSSet* noSelectionTypes = nil;
-	if(nil == noSelectionTypes) {
-		noSelectionTypes = [NSSet setWithObjects:kIASKPSToggleSwitchSpecifier, kIASKPSSliderSpecifier, nil];
-	}
-  
 	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
-	if([noSelectionTypes containsObject:specifier.type]) {
+	if ([specifier.type isEqualToString:kIASKPSSliderSpecifier] || ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier] && specifier.toggleStyle == IASKToggleStyleSwitch)) {
 		return nil;
 	} else {
 		return indexPath;
@@ -770,7 +770,6 @@ CGRect IASKCGRectSwap(CGRect rect);
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
     
     //switches and sliders can't be selected (should be captured by tableView:willSelectRowAtIndexPath: delegate method)
-    assert(![[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]);
     assert(![[specifier type] isEqualToString:kIASKPSSliderSpecifier]);
     
 	if (![@[kIASKPSChildPaneSpecifier, kIASKCustomViewSpecifier, kIASKPSRadioGroupSpecifier, ] containsObject:specifier.type]) {
@@ -803,7 +802,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 		[self presentChildViewController:targetViewController specifier:specifier];
 		
-    } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
+	} else if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
+		UITableViewCell *cell =	[tableView cellForRowAtIndexPath:indexPath];
+		BOOL on = cell.accessoryType == UITableViewCellAccessoryCheckmark;
+		[self setSpecifier:specifier on:!on];
+		cell.accessoryType = on ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+		
+	} else if ([specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
         [textFieldCell.textField becomeFirstResponder];		
 	} else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {

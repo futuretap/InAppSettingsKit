@@ -17,6 +17,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, IASKToggleStyle) {
+	IASKToggleStyleSwitch,
+	IASKToggleStyleCheckmark,
+};
 @class IASKSettingsReader;
 
 @interface IASKSpecifier : NSObject
@@ -87,5 +91,6 @@
 - (UIDatePickerMode)datePickerMode;
 - (NSInteger)datePickerMinuteInterval;
 - (IASKSpecifier*)editSpecifier;
+- (IASKToggleStyle)toggleStyle;
 
 @end
