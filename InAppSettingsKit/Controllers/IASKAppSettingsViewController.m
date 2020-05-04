@@ -549,18 +549,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
-		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
-		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 	} else if ([identifier hasPrefix:kIASKDatePickerControl]) {
 		cell = [[IASKDatePickerViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 		[((IASKDatePickerViewCell*)cell).datePicker addTarget:self action:@selector(datePickerChangedValue:) forControlEvents:UIControlEventValueChanged];
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
-
-		if ([identifier isEqualToString:kIASKOpenURLSpecifier]) {
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		}
 	}
     cell.textLabel.minimumScaleFactor = kIASKMinimumFontSize / cell.textLabel.font.pointSize;
     cell.detailTextLabel.minimumScaleFactor = kIASKMinimumFontSize / cell.detailTextLabel.font.pointSize;
@@ -717,7 +710,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 				}
 			}
 		}
-	} else if ([specifier.type isEqualToString:kIASKOpenURLSpecifier] || [specifier.type isEqualToString:kIASKMailComposeSpecifier]) {
+	} else if ([@[kIASKMailComposeSpecifier, kIASKOpenURLSpecifier] containsObject:specifier.type]) {
 		cell.textLabel.text = title;
 		cell.detailTextLabel.text = specifier.subtitle ? : [specifier.defaultValue description];
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
