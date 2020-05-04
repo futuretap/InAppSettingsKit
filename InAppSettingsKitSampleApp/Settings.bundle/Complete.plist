@@ -452,6 +452,22 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Checkmark Toggle</string>
+			<key>Key</key>
+			<string>toggle_checkmark</string>
+			<key>DefaultValue</key>
+			<string>bar</string>
+			<key>TrueValue</key>
+			<string>foo</string>
+			<key>FalseValue</key>
+			<string>bar</string>
+			<key>IASKToggleStyle</key>
+			<string>Checkmark</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Sliders</string>

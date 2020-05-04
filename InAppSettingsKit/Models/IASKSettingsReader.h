@@ -89,6 +89,9 @@
 #define kIASKTextLabelAlignmentLeft           @"IASKUITextAlignmentLeft"
 #define kIASKTextLabelAlignmentCenter         @"IASKUITextAlignmentCenter"
 #define kIASKTextLabelAlignmentRight          @"IASKUITextAlignmentRight"
+#define kIASKToggleStyle                      @"IASKToggleStyle"
+#define kIASKToggleStyleCheckmark             @"Checkmark"
+#define kIASKToggleStyleSwitch                @"Switch"
 
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
 #define kIASKListGroupSpecifier	              @"IASKListGroupSpecifier"

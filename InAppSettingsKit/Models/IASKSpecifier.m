@@ -535,6 +535,10 @@
 	return [_specifierDict[kIASKDatePickerMinuteInterval] integerValue] ?: 1;
 }
 
+- (IASKToggleStyle)toggleStyle {
+	return [_specifierDict[kIASKToggleStyle] isEqualToString:kIASKToggleStyleCheckmark] ? IASKToggleStyleCheckmark : IASKToggleStyleSwitch;
+}
+
 - (BOOL)isEqual:(IASKSpecifier*)specifier {
 	if (specifier.class != self.class) {
 		return NO;
