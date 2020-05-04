@@ -54,80 +54,6 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>MUL_VALUE_TITLE</string>
-		</dict>
-		<dict>
-			<key>Values</key>
-			<array>
-				<integer>0</integer>
-				<integer>1</integer>
-				<integer>2</integer>
-				<integer>3</integer>
-				<integer>4</integer>
-				<integer>5</integer>
-				<integer>6</integer>
-				<integer>7</integer>
-				<integer>8</integer>
-				<integer>9</integer>
-				<integer>10</integer>
-			</array>
-			<key>Titles</key>
-			<array>
-				<string>MUL_VAL_1</string>
-				<string>MUL_VAL_2</string>
-				<string>MUL_VAL_3</string>
-				<string>MUL_VAL_4</string>
-				<string>MUL_VAL_5</string>
-				<string>MUL_VAL_6</string>
-				<string>MUL_VAL_7</string>
-				<string>MUL_VAL_8</string>
-				<string>MUL_VAL_9</string>
-				<string>MUL_VAL_10</string>
-				<string>MUL_VAL_11</string>
-			</array>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>MUL_VAL</string>
-			<key>Key</key>
-			<string>mulValue</string>
-			<key>DefaultValue</key>
-			<integer>0</integer>
-			<key>DisplaySortedByTitle</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>MUL_VAL_NO_TITLE</string>
-		</dict>
-		<dict>
-			<key>Values</key>
-			<array>
-				<integer>1</integer>
-				<integer>0</integer>
-				<integer>2</integer>
-			</array>
-			<key>Titles</key>
-			<array>
-				<string>MUL_VAL_NO_TITLE_1</string>
-				<string>MUL_VAL_NO_TITLE_2</string>
-				<string>MUL_VAL_NO_TITLE_3</string>
-			</array>
-			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
-			<key>Title</key>
-			<string>MUL_VAL_NO_TITLE_NIL</string>
-			<key>Key</key>
-			<string>mulValueOther</string>
-			<key>DefaultValue</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
 			<string>TEXT_FIELD_TITLE</string>
 		</dict>
 		<dict>
@@ -145,14 +71,6 @@
 			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
 			<string>This is a Footer Text (supported by Settings.app in iOS 4 or higher)</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>Title</key>
-			<string>Complete List</string>
-			<key>File</key>
-			<string>Complete</string>
 		</dict>
 		<dict>
 			<key>Type</key>
