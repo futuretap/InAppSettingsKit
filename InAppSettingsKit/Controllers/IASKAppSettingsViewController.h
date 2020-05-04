@@ -89,6 +89,16 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 - (void)settingsViewController:(IASKAppSettingsViewController*)sender
  validationSuccessForSpecifier:(IASKSpecifier*)specifier
                      textField:(IASKTextField *)field;
+
+#pragma mark - Date Picker
+/// Implement this if you store the date/time in a custom format other than as `NSDate` object. Called when the user starts editing a date/time by selecting the title cell above the date/time picker.
+- (NSDate*)settingsViewController:(IASKAppSettingsViewController*)sender dateForSpecifier:(IASKSpecifier*)specifier;
+
+/// Implement this to customize the displayed value in the title cell above the date/time picker.
+- (NSString*)settingsViewController:(IASKAppSettingsViewController*)sender datePickerTitleForSpecifier:(IASKSpecifier*)specifier;
+
+/// Implement this if you store the date/time in a custom format other than an `NSDate` object. Called when the user changes the date/time value using the picker.
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender setDate:(NSDate*)date forSpecifier:(IASKSpecifier*)specifier;
 @end
 
 

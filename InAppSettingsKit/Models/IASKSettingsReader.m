@@ -88,6 +88,13 @@
     }
 }
 
+- (void)setSelectedSpecifier:(IASKSpecifier *)selectedSpecifier {
+	if (_selectedSpecifier != selectedSpecifier) {
+		_selectedSpecifier = selectedSpecifier;
+		[self _reinterpretBundle:self.settingsDictionary];
+	}
+}
+
 - (void)setShowPrivacySettings:(BOOL)showPrivacySettings {
 	if (_showPrivacySettings != showPrivacySettings) {
 		_showPrivacySettings = showPrivacySettings;
@@ -180,6 +187,10 @@
             }
             
             [(NSMutableArray*)dataSource.lastObject addObject:newSpecifier];
+			
+			if ([newSpecifier isEqual:self.selectedSpecifier]) {
+				[(NSMutableArray*)dataSource.lastObject addObject:newSpecifier.editSpecifier];
+			}
         }
     }
     [self setDataSource:dataSource];

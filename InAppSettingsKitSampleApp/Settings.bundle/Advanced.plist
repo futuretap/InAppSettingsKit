@@ -124,6 +124,44 @@
 			<key>Key</key>
 			<string>AutoConnectPassword</string>
 		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Date Picker</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Date</string>
+			<key>Key</key>
+			<string>date</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>Date</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Date &amp; Time</string>
+			<key>Key</key>
+			<string>dateAndTime</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>DateAndTime</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Time</string>
+			<key>Key</key>
+			<string>time</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>Time</string>
+			<key>MinuteInterval</key>
+			<integer>15</integer>
+		</dict>
 	</array>
 </dict>
 </plist>

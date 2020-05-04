@@ -28,6 +28,7 @@
 #import "IASKTextField.h"
 #import "IASKTextViewCell.h"
 #import "IASKMultipleValueSelection.h"
+#import "IASKDatePickerViewCell.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -281,6 +282,9 @@ CGRect IASKCGRectSwap(CGRect rect);
                 if (indexPath) {
                     [hideIndexPaths addObject:indexPath];
                 }
+				if ([self.settingsReader.selectedSpecifier.key isEqualToString:key]) {
+					[hideIndexPaths addObject:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
+				}
             }
             
             // calculate sections to be deleted
@@ -308,6 +312,9 @@ CGRect IASKCGRectSwap(CGRect rect);
                 if (indexPath) {
                     [showIndexPaths addObject:indexPath];
                 }
+				if ([self.settingsReader.selectedSpecifier.key isEqualToString:key]) {
+					[showIndexPaths addObject:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
+				}
             }
             
             // calculate sections to be inserted
@@ -414,6 +421,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 													  userInfo:@{slider.specifier.key: @(slider.value)}];
 }
 
+- (void)datePickerChangedValue:(IASKDatePicker*)datePicker {
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:setDate:forSpecifier:)]) {
+		[self.delegate settingsViewController:self setDate:datePicker.date forSpecifier:datePicker.specifier];
+	} else {
+		[self.settingsStore setObject:datePicker.date forSpecifier:datePicker.specifier];
+	}
+}
 
 #pragma mark -
 #pragma mark UITableView Functions
@@ -423,7 +437,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.settingsReader numberOfRowsForSection:section];
+	return [self.settingsReader numberOfRowsForSection:section];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -431,7 +445,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if ([specifier.type isEqualToString:kIASKTextViewSpecifier]) {
 		CGFloat height = (CGFloat)[self.rowHeights[specifier.key] doubleValue];
 		return height > 0 ? height : UITableViewAutomaticDimension;
-	} else if ([[specifier type] isEqualToString:kIASKCustomViewSpecifier]) {
+	} else if ([specifier.type isEqualToString:kIASKCustomViewSpecifier]) {
 		if ([self.delegate respondsToSelector:@selector(tableView:heightForSpecifier:)]) {
 			return [self.delegate tableView:tableView heightForSpecifier:specifier];
 		}
@@ -518,7 +532,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[((IASKSwitch*)cell.accessoryView) addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
-	else if ([identifier hasPrefix:kIASKPSMultiValueSpecifier] || [identifier hasPrefix:kIASKPSTitleValueSpecifier]) {
+	else if ([@[kIASKPSMultiValueSpecifier, kIASKPSTitleValueSpecifier, kIASKDatePickerSpecifier] containsObject:specifier.type]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = [identifier hasPrefix:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
@@ -540,6 +554,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([identifier isEqualToString:kIASKMailComposeSpecifier]) {
 		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
 		[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+	} else if ([identifier hasPrefix:kIASKDatePickerControl]) {
+		cell = [[IASKDatePickerViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+		[((IASKDatePickerViewCell*)cell).datePicker addTarget:self action:@selector(datePickerChangedValue:) forControlEvents:UIControlEventValueChanged];
 	} else {
 		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
 
@@ -596,10 +613,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 			cell.detailTextLabel.text = nil;
 		}
 	}
-	else if ([specifier.type isEqualToString:kIASKPSTitleValueSpecifier]) {
+	else if ([@[kIASKPSTitleValueSpecifier, kIASKDatePickerSpecifier] containsObject:specifier.type]) {
 		cell.textLabel.text = title;
 		id value = currentValue ?: specifier.defaultValue;
 		
+		if ([specifier.type isEqualToString:kIASKDatePickerSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:datePickerTitleForSpecifier:)]) {
+			value = [self.delegate settingsViewController:self datePickerTitleForSpecifier:specifier];
+		}
 		NSString *stringValue;
 		if (specifier.multipleValues || specifier.multipleTitles) {
 			stringValue = [specifier titleForCurrentValue:value];
@@ -612,7 +632,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		} else {
 			cell.detailTextLabel.text = stringValue;
 		}
-		cell.userInteractionEnabled = NO;
+		cell.userInteractionEnabled = [specifier.type isEqualToString:kIASKDatePickerSpecifier];
+		if ([specifier.type isEqualToString:kIASKDatePickerSpecifier]) {
+			cell.detailTextLabel.textColor = [specifier isEqual:self.settingsReader.selectedSpecifier] ? [UILabel appearanceWhenContainedIn:UITableViewCell.class, nil].textColor : self.view.tintColor;
+		}
 	}
 	else if ([specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
 		cell.textLabel.text = title;
@@ -701,6 +724,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 		NSInteger index = [specifier.multipleValues indexOfObject:specifier.radioGroupValue];
 		cell.textLabel.text = [self.settingsReader titleForId:specifier.multipleTitles[index]];
 		[_selections[indexPath.section] updateSelectionInCell:cell indexPath:indexPath];
+	} else if ([specifier.type isEqualToString:kIASKDatePickerControl]) {
+		IASKDatePickerViewCell *datePickerCell = (id)cell;
+		datePickerCell.datePicker.specifier = specifier;
+		datePickerCell.datePicker.datePickerMode = specifier.datePickerMode;
+		datePickerCell.datePicker.minuteInterval = specifier.datePickerMinuteInterval;
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:dateForSpecifier:)]) {
+			datePickerCell.datePicker.date = [self.delegate settingsViewController:self dateForSpecifier:specifier];
+		} else {
+			datePickerCell.datePicker.date = currentValue;
+		}
 	} else {
 		cell.textLabel.text = title;
 	}
@@ -740,6 +773,25 @@ CGRect IASKCGRectSwap(CGRect rect);
     assert(![[specifier type] isEqualToString:kIASKPSToggleSwitchSpecifier]);
     assert(![[specifier type] isEqualToString:kIASKPSSliderSpecifier]);
     
+	if (![@[kIASKPSChildPaneSpecifier, kIASKCustomViewSpecifier, kIASKPSRadioGroupSpecifier, ] containsObject:specifier.type]) {
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+
+	[tableView beginUpdates];
+	if ([[specifier type] isEqualToString:kIASKDatePickerSpecifier]) {
+		[tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
+	IASKSpecifier *selectedSpecifier = self.settingsReader.selectedSpecifier;
+	if (selectedSpecifier) {
+		NSIndexPath *oldIndexPath = [self.settingsReader indexPathForKey:selectedSpecifier.key];
+		self.settingsReader.selectedSpecifier = nil;
+		[tableView reloadRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+		[tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:oldIndexPath.row + 1 inSection:oldIndexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+		if (oldIndexPath.section == indexPath.section && oldIndexPath.row < indexPath.row) {
+			indexPath = [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section];
+		}
+	}
+
     if ([[specifier type] isEqualToString:kIASKPSMultiValueSpecifier]) {
         IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		targetViewController.settingsReader = self.settingsReader;
@@ -749,7 +801,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[self setMultiValuesFromDelegateIfNeeded:childSpecifier];
 		targetViewController.currentSpecifier = childSpecifier;
 
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		[self presentChildViewController:targetViewController specifier:specifier];
 		
     } else if ([[specifier type] isEqualToString:kIASKPSTextFieldSpecifier]) {
@@ -828,11 +879,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[self presentChildViewController:targetViewController specifier:specifier];
         
     } else if ([[specifier type] isEqualToString:kIASKOpenURLSpecifier]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
 		IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:(NSURL *)[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]] options:@{} completionHandler:nil];);
 		IASK_IF_PRE_IOS11([UIApplication.sharedApplication openURL:(NSURL *)[NSURL URLWithString:[specifier localizedObjectForKey:kIASKFile]]];);
     } else if ([[specifier type] isEqualToString:kIASKButtonSpecifier]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForSpecifier:)]) {
             [self.delegate settingsViewController:self buttonTappedForSpecifier:specifier];
         } else if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForKey:)]) {
@@ -856,8 +905,6 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
         }
     } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-	
 		MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
 		if ([specifier localizedObjectForKey:kIASKMailComposeSubject]) {
 			[mailViewController setSubject:[specifier localizedObjectForKey:kIASKMailComposeSubject]];
@@ -931,9 +978,17 @@ CGRect IASKCGRectSwap(CGRect rect);
         [self.delegate settingsViewController:self tableView:tableView didSelectCustomViewSpecifier:specifier];
 	} else if ([[specifier type] isEqualToString:kIASKPSRadioGroupSpecifier]) {
 		[_selections[indexPath.section] selectRowAtIndexPath:indexPath];
-    } else {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+	} else if ([[specifier type] isEqualToString:kIASKDatePickerSpecifier]) {
+		if (![selectedSpecifier isEqual:specifier]) {
+			self.settingsReader.selectedSpecifier = specifier;
+			NSIndexPath *insertedIndexPath = [NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section];
+			[tableView insertRowsAtIndexPaths:@[insertedIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+			dispatch_after(DISPATCH_TIME_NOW, dispatch_get_main_queue(), ^{
+				[tableView scrollToRowAtIndexPath:insertedIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+			});
+		}
     }
+	[tableView endUpdates];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
