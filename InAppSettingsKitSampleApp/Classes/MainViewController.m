@@ -286,6 +286,40 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 	return nil;
 }
 
+- (NSDate *)settingsViewController:(IASKAppSettingsViewController*)sender dateForSpecifier:(IASKSpecifier*)specifier {
+	id value = [sender.settingsStore objectForSpecifier:specifier];
+	if ([specifier.key isEqualToString:@"time"]) {
+		NSDateFormatter *df = [[NSDateFormatter alloc] init];
+		df.dateStyle = NSDateFormatterNoStyle;
+		df.timeStyle = NSDateFormatterShortStyle;
+		return [df dateFromString:value];
+	}
+	return value;
+}
+
+- (NSString *)settingsViewController:(IASKAppSettingsViewController *)sender datePickerTitleForSpecifier:(IASKSpecifier *)specifier {
+	NSDate *date = [sender.settingsStore objectForSpecifier:specifier];
+	if ([specifier.key isEqualToString:@"date"]) {
+		return [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+	} else if ([specifier.key isEqualToString:@"dateAndTime"]) {
+		return [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
+	} else if ([specifier.key isEqualToString:@"time"]) {
+		return (id)date;
+	}
+	return nil;
+}
+
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender setDate:(NSDate *)date forSpecifier:(IASKSpecifier *)specifier {
+	if ([specifier.key isEqualToString:@"time"]) {
+		NSDateFormatter *df = [[NSDateFormatter alloc] init];
+		df.dateStyle = NSDateFormatterNoStyle;
+		df.timeStyle = NSDateFormatterShortStyle;
+		[sender.settingsStore setObject:[df stringFromDate:date] forSpecifier:specifier];
+		return;
+	}
+	[sender.settingsStore setObject:date forSpecifier:specifier];
+}
+
 
 #pragma mark kIASKAppSettingChanged notification
 - (void)settingDidChange:(NSNotification*)notification {

@@ -84,4 +84,8 @@
 - (BOOL)deletable;
 - (void)setKey:(NSString *)key;
 - (void)setTitle:(NSString *)title;
+- (UIDatePickerMode)datePickerMode;
+- (NSInteger)datePickerMinuteInterval;
+- (IASKSpecifier*)editSpecifier;
+
 @end

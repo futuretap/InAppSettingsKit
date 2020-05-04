@@ -54,6 +54,11 @@
 #define kIASKSegueIdentifier                  @"IASKSegueIdentifier"
 #define kIASKButtonClass                      @"IASKButtonClass"
 #define kIASKButtonAction                     @"IASKButtonAction"
+#define kIASKDatePickerMode                   @"DatePickerMode"
+#define kIASKDatePickerModeTime               @"Time"
+#define kIASKDatePickerModeDate               @"Date"
+#define kIASKDatePickerModeDateAndTime        @"DateAndTime"
+#define kIASKDatePickerMinuteInterval         @"MinuteInterval"
 #define kIASKMailComposeToRecipents           @"IASKMailComposeToRecipents"
 #define kIASKMailComposeCcRecipents           @"IASKMailComposeCcRecipents"
 #define kIASKMailComposeBccRecipents          @"IASKMailComposeBccRecipents"
@@ -99,7 +104,8 @@
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
-
+#define kIASKDatePickerSpecifier              @"IASKDatePickerSpecifier"
+#define kIASKDatePickerControl                @"IASKDatePickerControl"
 
 // IASKChildTitle can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
 // If IASKChildTitle is set, the navigation title is fixed to it; otherwise, the title value is used and is overridden by the HTML title tag
@@ -222,6 +228,7 @@ _Pragma("clang diagnostic pop")
 @property (nonatomic, retain) NSSet *hiddenKeys;
 @property (nonatomic) BOOL showPrivacySettings;
 @property (nonatomic, weak) id<IASKSettingsStore> settingsStore;
+@property (nonatomic, strong) IASKSpecifier *selectedSpecifier; // currently used for date picker
 
 
 #pragma mark - internal use. public only for testing

@@ -449,7 +449,7 @@
     }
     if ([self.type isEqualToString:kIASKButtonSpecifier] && !self.cellImage) {
 		return NSTextAlignmentCenter;
-	} else if ([self.type isEqualToString:kIASKPSMultiValueSpecifier] || [self.type isEqualToString:kIASKPSTitleValueSpecifier] || [self.type isEqualToString:kIASKTextViewSpecifier]) {
+	} else if ([@[kIASKPSMultiValueSpecifier, kIASKPSTitleValueSpecifier, kIASKTextViewSpecifier, kIASKDatePickerSpecifier] containsObject:self.type]) {
 		return NSTextAlignmentRight;
 	}
 	return NSTextAlignmentLeft;
@@ -503,6 +503,14 @@
     return [[_specifierDict objectForKey:kIASKDeletable] boolValue];
 }
 
+- (IASKSpecifier*)editSpecifier {
+	NSMutableDictionary *dict = _specifierDict.mutableCopy;
+	if ([self.type isEqualToString:kIASKDatePickerSpecifier]) {
+		dict[kIASKType] = kIASKDatePickerControl;
+	}
+	return [[IASKSpecifier alloc] initWithSpecifier:dict];
+}
+
 - (id)valueForKey:(NSString *)key {
 	return [_specifierDict objectForKey:key];
 }
@@ -515,4 +523,23 @@
 	[_specifierDict setValue:key forKey:kIASKTitle];
 }
 
+- (UIDatePickerMode)datePickerMode {
+	NSDictionary *dict = @{kIASKDatePickerModeTime: @(UIDatePickerModeTime),
+						   kIASKDatePickerModeDate: @(UIDatePickerModeDate)};
+	NSString *string = [_specifierDict objectForKey:kIASKDatePickerMode];
+	NSNumber *value = dict[string];
+	return value == nil ? UIDatePickerModeDateAndTime : value.integerValue;
+}
+
+- (NSInteger)datePickerMinuteInterval {
+	return [_specifierDict[kIASKDatePickerMinuteInterval] integerValue] ?: 1;
+}
+
+- (BOOL)isEqual:(IASKSpecifier*)specifier {
+	if (specifier.class != self.class) {
+		return NO;
+	}
+	
+	return specifier == self || [specifier.key isEqualToString:self.key];
+}
 @end
