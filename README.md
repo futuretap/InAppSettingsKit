@@ -3,7 +3,9 @@ InAppSettingsKit
 
 [![Build Status](https://travis-ci.org/futuretap/InAppSettingsKit.svg?branch=master)](https://travis-ci.org/futuretap/InAppSettingsKit)
 
-InAppSettingsKit (IASK) is an open source solution to easily add in-app settings to your iPhone apps. Normally iOS apps use the `Settings.bundle` resource to [make app's settings](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/UserDefaults/Preferences/Preferences.html) to be present in "Settings" app. InAppSettingsKit takes advantage of the same bundle and allows you to present the same settings screen within your app. So the user has the choice where to change the settings. More details about the history of this development on the [FutureTap Blog](http://www.futuretap.com/blog/inappsettingskit) and the [Edovia Blog](http://www.edovia.com/blog/inappsettingskit).
+InAppSettingsKit (IASK) is an open source framework to easily add in-app settings to your iPhone apps. Normally iOS apps use the `Settings.bundle` resource to add app-specific settings in the Settings app. InAppSettingsKit takes advantage of the same bundle and allows you to present the same settings screen within your app. So the user has the choice where to change the settings.
+
+IASK not only replicates the feature set of system settings but supports a large number of additional elements and configuration options.
 
 <a href="https://flattr.com/thing/799297/futuretapInAppSettingsKit-on-GitHub" target="_blank">
 <img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a>
@@ -35,7 +37,7 @@ Add to your `Podfile`:
 
 **Using a static library**
 
-Use the static library project to include InAppSettingsKit. To see an example on how to do it, open `InAppSettingsKit.xcworkspace`. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary (the guys at [HockeyApp](http://hockeyapp.net) have a [nice tutorial](http://support.hockeyapp.net/kb/client-integration/integrate-hockeyapp-on-ios-as-a-subproject-advanced-usage) about using static libraries, just ignore the parts about the resource bundle):
+Use the static library project to include InAppSettingsKit. To see an example on how to do it, open `InAppSettingsKit.xcworkspace`. It includes the sample application that uses the static library as well as the static library project itself. To include the static library project there are only a few steps necessary:
 
 * add the `InAppSettingsKit.xcodeproject` into your application's workspace
 * add `libInAppSettingsKit.a` to your application's libraries by opening the Build-Phases pane of the main application and adding it in `Link Binary with Libraries`
@@ -44,13 +46,24 @@ Use the static library project to include InAppSettingsKit. To see an example on
 
 Then you can display the InAppSettingsKit view controller using a navigation push, as a modal view controller or in a separate tab of a TabBar based application. The sample app demonstrates all three ways to integrate InAppSettingsKit. 
 
+You may need to make two changes to your project to get it to compile:
+
+1. Add `MessageUI.framework` and
+2. Enable ARC for the IASK files.
+
+Both changes can be made by finding your target and navigating to the Build Phases tab. 
+
+`MessageUI.framework` is needed for `MFMailComposeViewController` and can be added in the "Link Binary With Libraries" Section. Use the + icon.
+
+To enable ARC select all IASK* source files in the "Compile Sources" section, press Enter, insert `-fobjc-arc` and then "Done".
+
+
 App Integration
 ===============
 
-In order to start using the `InAppSettings` you must:
+In order to start using IASK you must:
 
-- Add `Settings.bundle` to your project (`File` -> `Add File` -> `Settings bundle`)
-- Go and edit `Root.plist` with your settings. It's fairly self-documenting to start from. Read on to get insight into more advanced uses.
+- Add `Settings.bundle` to your project (`File` -> `Add File` -> `Settings bundle`) and edit `Root.plist` with your settings (see Apple's documentation on the [Schema File Root Content](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/UserDefaults/Preferences/Preferences.html)). Read on to get insight into more advanced uses.
 
 Further integration depends on how your app is structured.
 
@@ -89,17 +102,6 @@ There's a sample application `InAppSettingsSampleAppStoryboard` which shows how 
 
 Depending on your project it might be needed to make some changes in the startup code of your app. Your app has to be able to reconfigure itself at runtime if the settings are changed by the user. This could be done in a `-reconfigure` method that is being called from `-applicationDidFinishLaunching` as well as in the delegate method `-settingsViewControllerDidEnd:` of `IASKAppSettingsViewController`.
 
-You may need to make two changes to your project to get it to compile:
-
-1. Add `MessageUI.framework` and
-2. Enable ARC for the IASK files.
-
-Both changes can be made by finding your target and navigating to the Build Phases tab. 
-
-`MessageUI.framework` is needed for `MFMailComposeViewController` and can be added in the "Link Binary With Libraries" Section. Use the + icon.
-
-To enable ARC select all IASK* source files in the "Compile Sources" section, press Enter, insert `-fobjc-arc` and then "Done".
-
 
 iCloud sync
 ===========
@@ -131,7 +133,7 @@ Different in-app settings are useful in a variety of situations. For example, [W
 
 
 Privacy link
---------------------
+------------
 If the app includes a usage key for various privacy features such as camera or location access in its `Info.plist`, IASK displays a "Privacy" cell at the top of the root settings page. This cell opens the system Settings app and displays the settings pane for the app where the user can specify the privacy settings for the app.
 
 If you don't want to show Privacy cells, set the property `neverShowPrivacySettings` to `YES`.
@@ -139,13 +141,13 @@ If you don't want to show Privacy cells, set the property `neverShowPrivacySetti
 The sample app defines `NSMicrophoneUsageDescription` to let the cell appear. Note that the settings page doesn't show any privacy settings yet because the app doesn't actually access the microphone. Privacy settings only show up in the Settings app after first use of the privacy-protected API.
 
 
-IASKOpenURLSpecifier
---------------------
-InAppSettingsKit adds a new element that allows to open a specified URL using an external application (i.e. Safari or Mail). See the sample `Root.inApp.plist` for details.
+Open URL
+--------
+InAppSettingsKit adds a new element `IASKOpenURLSpecifier` that allows to open a specified URL using an external application (i.e. Safari or Mail). See the sample `Root.inApp.plist` for details.
 
 
-IASKMailComposeSpecifier
-------------------------
+Mail Composer
+-------------
 The custom `IASKMailComposeSpecifier` element allows to send mail from within the app by opening a mail compose view. You can set the following (optional) parameters using the settings plist: `IASKMailComposeToRecipents`, `IASKMailComposeCcRecipents`, `IASKMailComposeBccRecipents`, `IASKMailComposeSubject`, `IASKMailComposeBody`, `IASKMailComposeBodyIsHTML`. Optionally, you can implement
 
     - (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailComposeViewController forSpecifier:(IASKSpecifier*)specifier;
@@ -158,8 +160,8 @@ in your delegate to customize the mail (e.g. pre-fill the body with dynamic cont
 - `defaultValue`: corresponds to the `DefaultValue` in the Settings plist
 
 
-IASKButtonSpecifier
--------------------
+Buttons
+-------
 InAppSettingsKit adds a `IASKButtonSpecifier` element that allows to call a custom action. Just add the following delegate method:
 
     - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier;
@@ -169,18 +171,35 @@ The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewCo
 By default, Buttons are aligned centered except if an image is specified (default: left-aligned). The default alignment may be overridden.
 
 
-IASKTextViewSpecifier
----------------------
-Similar to `PSTextFieldSpecifier` this element displays a full-width, multi line text view that resizes according to the entered text. It also supports `KeyboardType`, `AutocapitalizationType` and `AutocorrectionType`.
+Multiline Text Views
+--------------------
+Similar to standard text fields, `IASKTextViewSpecifier` displays a full-width, multi line text view that resizes according to the entered text. It also supports `KeyboardType`, `AutocapitalizationType` and `AutocorrectionType`.
 
 
-FooterText
-----------
-The FooterText key for Group elements is available in system settings. It is supported in InAppSettingsKit as well. On top of that, we support this key for Multi Value elements as well. The footer text is displayed below the table of multi value options.
+Date Picker
+-----------
+`IASKDatePickerSpecifier` displays a `UIDatePicker` to set a date and/or time. It supports the following options:
+
+ - `DatePickerMode`: one of `Date`, `Time`, or `DateAndTime` (see [UIDatePickerMode](https://developer.apple.com/documentation/uikit/uidatepickermode)). Default is `DateAndTime`.
+ - `MinuteInterval`: The interval at which the date picker displays minutes. Default: 1.
+
+There are 3 optional delegate methods to customize how to store and display dates and times:
+
+    - (NSDate*)settingsViewController:(IASKAppSettingsViewController*)sender dateForSpecifier:(IASKSpecifier*)specifier;
+
+Implement this if you store the date/time in a custom format other than as `NSDate` object. Called when the user starts editing a date/time by selecting the title cell above the date/time picker.
+
+    - (NSString*)settingsViewController:(IASKAppSettingsViewController*)sender datePickerTitleForSpecifier:(IASKSpecifier*)specifier;
+    
+Implement this to customize the displayed value in the title cell above the date/time picker.
+
+    - (void)settingsViewController:(IASKAppSettingsViewController*)sender setDate:(NSDate*)date forSpecifier:(IASKSpecifier*)specifier;
+
+Implement this if you store the date/time in a custom format other than an `NSDate` object. Called when the user changes the date/time value using the picker.
 
 
-IASKCustomViewSpecifier
------------------------
+Custom Views
+------------
 You can specify your own `UITableViewCell` within InAppSettingsKit by using the type `IASKCustomViewSpecifier`. A mandatory field in this case is the `Key` attribute. Also, you have to support the `IASKSettingsDelegate` protocol and implement these methods:
 
     - (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier;
@@ -195,8 +214,10 @@ to catch tap events for your custom view.
 
 
 
-Custom Group Headers and Footers
---------------------------------
+Group Headers and Footers
+-------------------------
+The FooterText key for Group elements is available in system settings. It is supported in InAppSettingsKit as well. On top of that, we support this key for Multi Value elements as well. The footer text is displayed below the table of multi value options.
+
 You can define a custom header view for `PSGroupSpecifier` segments by adding a `Key` attribute and implementing the following method in your `IASKSettingsDelegate`:
     
 	- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView viewForHeaderForSection:(NSInteger)section;
@@ -219,12 +240,14 @@ Check the demo app for a concrete example.
 
 For footer customization, three methods from the `IASKSettingsDelegate` protocol can be similarly implemented.
 
+
 Custom ViewControllers
 ----------------------
 For child pane elements (`PSChildPaneSpecifier`), Apple requires a `file` key that specifies the child plist. InAppSettingsKit allow to alternatively specify `IASKViewControllerClass` and `IASKViewControllerSelector`. In this case, the child pane is displayed by instantiating a UIViewController subclass of the specified class and initializing it using the init method specified in the `IASKViewControllerSelector`. The selector must have two arguments: an `NSString` argument for the file name in the Settings bundle and the `IASKSpecifier`. The custom view controller is then pushed onto the navigation stack. See the sample app for more details.
 ##### Using Custom ViewControllers from StoryBoard
 Alternatively specify `IASKViewControllerStoryBoardId` to initiate a viewcontroller from [main storyboard](https://developer.apple.com/library/ios/documentation/general/conceptual/Devpedia-CocoaApp/Storyboard.html/).
 Specifiy `IASKViewControllerStoryBoardFile` to use a story board other than MainStoryboard file.
+
 
 Perform Segues
 --------------
@@ -238,7 +261,7 @@ A child pane displays its value as a subtitle, if available and no `IASKSubtitle
 
 
 Placeholder
---------------
+-----------
 The `IASKPlaceholder` key allows to define placeholder for TextField and TextView (`IASKTextViewSpecifier`).
 
 
@@ -258,6 +281,11 @@ For some element types, a `IASKTextAlignment` attribute may be added with the fo
 - `IASKUITextAlignmentLeft` (ChildPane, TextField, Buttons, OpenURL, MailCompose)
 - `IASKUITextAlignmentCenter` (ChildPane, Buttons, OpenURL)
 - `IASKUITextAlignmentRight` (ChildPane, TextField, Buttons, OpenURL, MailCompose)
+
+
+Toggle style
+------------
+`PSToggleSwitchSpecifier` switches use a `UISwitch` by default. By specifying the option `IASKToggleStyle` = `Checkmark`, checkmarks are displayed for selected keys and nothing for unselected keys.
 
 
 Variable font size
@@ -282,6 +310,7 @@ The sample app returns a list of all country codes as values and the localized c
 
 MultiValue lists can be sorted alphabetically by adding a `true` Boolean `DisplaySortedByTitle` key in the Plist.
 MultiValue list entries can be given an image. Specify images via the `IconNames` attribute (next to Values/Titles/ShortTitles etc.).
+
 
 Settings Storage
 ----------------
@@ -311,9 +340,11 @@ More information
 ----------------
 In the [Dr. Touch podcast](http://www.drobnik.com/touch/2010/01/dr-touch-010-a-new-decade/) and the [MDN Show Episode 027](http://itunes.apple.com/us/podcast/the-mdn-show/id318584787) [Ortwin Gentz](http://twitter.com/ortwingentz) talks about InAppSettingsKit.
 
+
 Support
 =======
 Please don't use Github issues for support requests, we'll close them. Instead, post your question on [StackOverflow](http://stackoverflow.com) with tag `inappsettingskit`.
+
 
 The License
 ===========
