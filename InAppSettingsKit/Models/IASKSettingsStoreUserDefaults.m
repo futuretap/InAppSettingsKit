@@ -37,22 +37,6 @@
     return [self initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
 }
 
-- (void)setObject:(id)value forSpecifier:(IASKSpecifier *)specifier {
-	if (specifier.parentSpecifier) {
-		[super setObject:value forSpecifier:specifier];
-		return;
-	}
-	[self.defaults setObject:value forKey:specifier.key];
-}
-
-- (id)objectForSpecifier:(IASKSpecifier*)specifier {
-	if (specifier.parentSpecifier) {
-		return [super objectForSpecifier:specifier];
-	}
-
-	return [self.defaults objectForKey:specifier.key];
-}
-
 - (void)setObject:(id)value forKey:(NSString*)key {
 	[self.defaults setObject:value forKey:key];
 }
