@@ -67,6 +67,22 @@
 			<true/>
 		</dict>
 		<dict>
+			<key>Title</key>
+			<string>Show Accounts</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<string>NO</string>
+			<key>Key</key>
+			<string>ShowAccounts</string>
+			<key>Title</key>
+			<string>Show Accounts</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Key</key>
 			<string>accounts</string>
 			<key>Type</key>
@@ -99,6 +115,44 @@
 			</dict>
 			<key>Deletable</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Roles</string>
+			<key>Key</key>
+			<string>AccountOption</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>roleUser</string>
+			<key>Title</key>
+			<string>User</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKToggleStyle</key>
+			<string>Checkmark</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>roleEditor</string>
+			<key>Title</key>
+			<string>Editor</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKToggleStyle</key>
+			<string>Checkmark</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>roleAdmin</string>
+			<key>Title</key>
+			<string>Administrator</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKToggleStyle</key>
+			<string>Checkmark</string>
 		</dict>
 		<dict>
 			<key>Key</key>

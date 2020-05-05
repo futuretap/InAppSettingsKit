@@ -138,14 +138,11 @@
         [dataSource addObjectsFromArray:self.privacySettingsSpecifiers];
     }
 
+	BOOL ignoreItemsInThisSection = NO;
     for (NSDictionary *specifierDictionary in preferenceSpecifiers) {
         IASKSpecifier *newSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
         newSpecifier.settingsReader = self;
         [newSpecifier sortIfNeeded];
-
-        if ([self.hiddenKeys containsObject:newSpecifier.key]) {
-            continue;
-        }
 
         if (![newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
             // All specifiers without a matching idiom are ignored in the iOS Settings app, so we will do likewise here.
@@ -154,8 +151,13 @@
         }
 
         NSString *type = newSpecifier.type;
-        if ([type isEqualToString:kIASKPSGroupSpecifier]
-            || [type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+        if ([@[kIASKPSGroupSpecifier, kIASKPSRadioGroupSpecifier, kIASKListGroupSpecifier] containsObject:type]) {
+			
+			if ([self.hiddenKeys containsObject:newSpecifier.key]) {
+				ignoreItemsInThisSection = YES;
+				continue;
+			}
+			ignoreItemsInThisSection = NO;
 
 			///create a brand new array with the specifier above and an empty array
             NSMutableArray *newArray = [NSMutableArray array];
@@ -171,17 +173,11 @@
                     [newArray addObject:valueSpecifier];
                 }
             }
-		} else if ([type isEqualToString:kIASKListGroupSpecifier]) {
-//we couldn't add directly specifiers to dataSource due to the under-the-hood architecture.
-//Accessor methods such as kIASKSectionHeaderIndex take into account an "Array-of-Specifiers"
-//[dataSource addObject:newSpecifier];
+		} else {
+			if (ignoreItemsInThisSection || [self.hiddenKeys containsObject:newSpecifier.key]) {
+				continue;
+			}
 
-			NSMutableArray *newArray = [NSMutableArray array];
-			[newArray addObject:newSpecifier];
-			[dataSource addObject:newArray];
-		}
-		
-        else {
             if (dataSource.count == 0 || (dataSource.count == 1 && self.showPrivacySettings)) {
                 [dataSource addObject:[NSMutableArray array]];
             }

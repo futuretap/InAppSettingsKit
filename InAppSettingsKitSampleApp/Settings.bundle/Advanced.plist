@@ -126,6 +126,22 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string>Login Options</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Key</key>
+			<string>loginOptions</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>rememberCredentials</string>
+			<key>Title</key>
+			<string>Remember Credentials</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>Date Picker</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
