@@ -277,20 +277,28 @@ CGRect IASKCGRectSwap(CGRect rect);
             
             // calculate rows to be deleted
             NSMutableArray *hideIndexPaths = [NSMutableArray array];
+            NSMutableIndexSet *hideSections = [NSMutableIndexSet indexSet];
             for (NSString *key in hideKeys) {
-                NSIndexPath *indexPath = [self.settingsReader indexPathForKey:key];
-                if (indexPath) {
-                    [hideIndexPaths addObject:indexPath];
-                }
+				NSIndexPath *indexPath = [self.settingsReader indexPathForKey:key];
+				if (indexPath) {
+					IASKSpecifier *specifier = [self.settingsReader specifierForKey:key];
+					if (specifier == [self.settingsReader headerSpecifierForSection:indexPath.section]) {
+						[hideSections addIndex:indexPath.section];
+					} else {
+						[hideIndexPaths addObject:indexPath];
+					}
+				}
 				if ([self.settingsReader.selectedSpecifier.key isEqualToString:key]) {
 					[hideIndexPaths addObject:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
 				}
-            }
+			}
             
             // calculate sections to be deleted
-            NSMutableIndexSet *hideSections = [NSMutableIndexSet indexSet];
             for (NSInteger section = 0; section < [self numberOfSectionsInTableView:self.tableView ]; section++) {
-                NSInteger rowsInSection = 0;
+				NSInteger rowsInSection = 0;
+				if ([hideSections containsIndex:section]) {
+					continue;
+				}
                 for (NSIndexPath *indexPath in hideIndexPaths) {
                     if (indexPath.section == section) {
                         rowsInSection++;
@@ -307,10 +315,16 @@ CGRect IASKCGRectSwap(CGRect rect);
             
             // calculate rows to be inserted
             NSMutableArray *showIndexPaths = [NSMutableArray array];
+            NSMutableIndexSet *showSections = [NSMutableIndexSet indexSet];
             for (NSString *key in showKeys) {
                 NSIndexPath *indexPath = [self.settingsReader indexPathForKey:key];
                 if (indexPath) {
-                    [showIndexPaths addObject:indexPath];
+					IASKSpecifier *specifier = [self.settingsReader specifierForKey:key];
+					if (specifier == [self.settingsReader headerSpecifierForSection:indexPath.section]) {
+						[showSections addIndex:indexPath.section];
+					} else {
+						[showIndexPaths addObject:indexPath];
+					}
                 }
 				if ([self.settingsReader.selectedSpecifier.key isEqualToString:key]) {
 					[showIndexPaths addObject:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section]];
@@ -318,8 +332,10 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             
             // calculate sections to be inserted
-            NSMutableIndexSet *showSections = [NSMutableIndexSet indexSet];
             for (NSInteger section = 0; section < [self.settingsReader numberOfSections]; section++) {
+				if ([showSections containsIndex:section]) {
+					continue;
+				}
                 NSInteger rowsInSection = 0;
                 for (NSIndexPath *indexPath in showIndexPaths) {
                     if (indexPath.section == section) {
