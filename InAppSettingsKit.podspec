@@ -10,7 +10,7 @@ InAppSettingsKit (IASK) is an open source solution to easily add in-app settings
 	s.authors               = {"Ortwin Gentz" => "http://www.futuretap.com", "Luc Vandal" => "http://edovia.com/company/#contact_form"}
 	s.social_media_url		= "https://twitter.com/IASettingsKit"
 	s.homepage              = 'https://github.com/futuretap/InAppSettingsKit'
-	s.license               = 'BSD'
+	s.license               = {type: 'BSD', file: 'LICENSE'}
 	s.requires_arc          = true
 	s.source                = {git: 'https://github.com/futuretap/InAppSettingsKit.git', branch: 'master', tag: s.version.to_s}
 	s.resource_bundles		= {"InAppSettingsKit" => "InAppSettingsKit/Resources/*"}
