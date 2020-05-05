@@ -37,20 +37,19 @@
 - (NSArray*)arrayForSpecifier:(IASKSpecifier*)specifier;
 - (void)addObject:(NSObject*)object forSpecifier:(IASKSpecifier*)specifier;
 - (void)removeObjectWithSpecifier:(IASKSpecifier*)specifier;
+@optional
+- (void)setObject:(id)value forKey:(NSString*)key;
+- (id)objectForKey:(NSString*)key;
 @end
 
 
-/** default implementation of IASKSettingsStore protocol
+/** default implementation of the IASKSettingsStore protocol
 
- helper to implement a store which maps all methods to setObject:forKey:
- and objectForKey:. Those 2 methods need to be overwritten.
+ Subclassing notes:
+ To implement your own store, either implement the @optional methods setObject:forKey: and objectForKey: (without calling super) or implement all @required methods (without calling super or the @optional methods).
+ 
+ IASKAbstractSettingsStore implements all @required methods by calling objectForKey: and setObject:forKey:. However, objectForKey: and setObject:forKey: itself are not implemented and raise an exception.
  */
 @interface IASKAbstractSettingsStore : NSObject <IASKSettingsStore>
-
-/** default implementation raises an exception
- must be overridden by subclasses
- */
-- (void)setObject:(id)value forKey:(NSString*)key;
-- (id)objectForKey:(NSString*)key;
 
 @end
