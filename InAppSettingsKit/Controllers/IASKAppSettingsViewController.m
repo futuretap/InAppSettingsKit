@@ -43,19 +43,13 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
 CGRect IASKCGRectSwap(CGRect rect);
 
-@interface IASKAppSettingsViewController () <UITextViewDelegate> {
-    IASKSettingsReader		*_settingsReader;
-    id<IASKSettingsStore>  _settingsStore;
-    
-    id                      _currentFirstResponder;
-    __weak UIViewController *_currentChildViewController;
-    BOOL _reloadDisabled;
-	/// The selected index for every group (in case it's a radio group).
-	NSArray *_selections;
-}
+@interface IASKAppSettingsViewController () <UITextViewDelegate>
 
-@property (nonatomic, strong) id currentFirstResponder;
+@property (nonatomic, weak) UIViewController *currentChildViewController;
 @property (nonatomic, strong) NSMutableDictionary *rowHeights;
+@property (nonatomic, strong) UIColor *tintColor;
+@property (nonatomic) BOOL reloadDisabled;
+@property (nonatomic, strong) NSArray *selections; /// The selected index for every group (in case it's a radio group).
 
 - (void)_textChanged:(id)sender;
 - (void)synchronizeSettings;
@@ -69,6 +63,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize settingsStore = _settingsStore;
 @synthesize file = _file;
 @synthesize performAddBlock = _performAddBlock;
+@synthesize currentFirstResponder = _currentFirstResponder;
 
 #pragma mark accessors
 - (IASKSettingsReader*)settingsReader {
@@ -195,6 +190,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)viewWillAppear:(BOOL)animated {
 	NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+	self.tintColor = self.view.tintColor;
 	
 	[super viewWillAppear:animated];
 	
@@ -649,7 +645,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		cell.userInteractionEnabled = [specifier.type isEqualToString:kIASKDatePickerSpecifier];
 		if ([specifier.type isEqualToString:kIASKDatePickerSpecifier]) {
-			cell.detailTextLabel.textColor = [specifier isEqual:self.settingsReader.selectedSpecifier] ? [UILabel appearanceWhenContainedIn:UITableViewCell.class, nil].textColor : self.view.tintColor;
+			cell.detailTextLabel.textColor = [specifier isEqual:self.settingsReader.selectedSpecifier] ? [UILabel appearanceWhenContainedIn:UITableViewCell.class, nil].textColor : self.tintColor;
 		}
 	}
 	else if ([specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
@@ -696,11 +692,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if ([specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		if (specifier.minimumValueImage.length > 0) {
-			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.minimumValueImage]];
+			NSString *path = [self.settingsReader pathForImageNamed:specifier.minimumValueImage];
+			((IASKPSSliderSpecifierViewCell*)cell).minImage.image = [UIImage imageWithContentsOfFile:path];
 		}
 		
 		if (specifier.maximumValueImage.length > 0) {
-			((IASKPSSliderSpecifierViewCell*)cell).maxImage.image = [UIImage imageWithContentsOfFile:[_settingsReader pathForImageNamed:specifier.maximumValueImage]];
+			NSString *path = [self.settingsReader pathForImageNamed:specifier.maximumValueImage];
+			((IASKPSSliderSpecifierViewCell*)cell).maxImage.image = [UIImage imageWithContentsOfFile:path];
 		}
 		
 		IASKSlider *slider = ((IASKPSSliderSpecifierViewCell*)cell).slider;
@@ -762,7 +760,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	cell.detailTextLabel.textAlignment = specifier.textAlignment;
 	cell.textLabel.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	cell.detailTextLabel.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
-	cell.textLabel.textColor = (specifier.isAddSpecifier || specifier.textAlignment == NSTextAlignmentCenter) ? tableView.tintColor : [UILabel appearanceWhenContainedIn:UITableViewCell.class, nil].textColor;
+	cell.textLabel.textColor = (specifier.isAddSpecifier || specifier.textAlignment == NSTextAlignmentCenter) ? self.tintColor : [UILabel appearanceWhenContainedIn:UITableViewCell.class, nil].textColor;
 	return cell;
 }
 
@@ -826,7 +824,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             storyBoardFileFromSpecifier = storyBoardFileFromSpecifier && storyBoardFileFromSpecifier.length > 0 ? storyBoardFileFromSpecifier : [[NSBundle mainBundle].infoDictionary objectForKey:@"UIMainStoryboardFile"];
             UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardFileFromSpecifier bundle:nil];
             UIViewController * vc = [storyBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryBoardID]];
-            vc.view.tintColor = self.view.tintColor;
+            vc.view.tintColor = self.tintColor;
             [self.navigationController pushViewController:vc animated:YES];
             return;
         }
@@ -853,7 +851,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             if ([vc respondsToSelector:@selector(setSettingsStore:)]) {
                 [vc performSelector:@selector(setSettingsStore:) withObject:self.settingsStore];
             }
-            vc.view.tintColor = self.view.tintColor;
+            vc.view.tintColor = self.tintColor;
             [self.navigationController pushViewController:vc animated:YES];
             return;
 		}
@@ -1022,7 +1020,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	_currentChildViewController = targetViewController;
 	targetViewController.settingsStore = self.settingsStore;
-	targetViewController.view.tintColor = self.view.tintColor;
+	targetViewController.view.tintColor = self.tintColor;
 	if ([specifier.parentSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
 		NSDictionary *itemDict = @{};
 		if (!specifier.isAddSpecifier) {
@@ -1041,6 +1039,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		
 		__weak typeof(self)weakSelf = self;
 		self.performAddBlock = ^{
+			if ([targetViewController respondsToSelector:@selector(currentFirstResponder)]) {
+				[targetViewController.currentFirstResponder resignFirstResponder];
+			}
 			if (specifier.isAddSpecifier) {
 				[weakSelf.settingsStore addObject:inMemoryStore.dictionary forSpecifier:specifier];
 			} else {

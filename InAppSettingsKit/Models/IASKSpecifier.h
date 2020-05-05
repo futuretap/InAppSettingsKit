@@ -26,9 +26,9 @@ typedef NS_ENUM(NSUInteger, IASKToggleStyle) {
 @interface IASKSpecifier : NSObject
 
 
-@property (nonatomic, retain) NSDictionary  *specifierDict;
+@property (nonatomic, strong) NSDictionary  *specifierDict;
 @property (nonatomic, weak) IASKSettingsReader *settingsReader;
-@property (nonatomic, weak) IASKSpecifier *parentSpecifier;
+@property (nonatomic, strong) IASKSpecifier *parentSpecifier;
 @property (nonatomic, readonly) NSUInteger itemIndex;
 
 - (id)initWithSpecifier:(NSDictionary*)specifier;

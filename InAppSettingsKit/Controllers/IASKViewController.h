@@ -23,5 +23,7 @@
 @property (nonatomic, retain, nullable) IASKSettingsReader* settingsReader;
 @property (nonatomic, retain, nonnull) id<IASKSettingsStore> settingsStore;
 @property (nonatomic, copy, nullable) void (^performAddBlock)(void);
+@optional
+@property (nonatomic, weak, nullable) id currentFirstResponder;
 
 @end
