@@ -1,0 +1,15 @@
+/* Class = "UIButton"; normalTitle = "Show Settings (Modal)"; ObjectID = "1JC-07-XJI"; */
+"1JC-07-XJI.normalTitle" = "Afficher les paramètres (Modal)";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "48N-oo-V69"; */
+"48N-oo-V69.title" = "Paramètres";
+
+/* Class = "UIButton"; normalTitle = "Show Settings (Push)"; ObjectID = "S4b-Ep-Pn4"; */
+"S4b-Ep-Pn4.normalTitle" = "Afficher les paramètres (Push)";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "Toe-KN-0cX"; */
+"Toe-KN-0cX.title" = "Paramètres";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "n11-vj-bkV"; */
+"n11-vj-bkV.title" = "Paramètres";
+

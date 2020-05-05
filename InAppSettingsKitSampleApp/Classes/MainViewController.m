@@ -40,8 +40,7 @@
 		appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
         appSettingsViewController.cellLayoutMarginsFollowReadableWidth = NO;
 		appSettingsViewController.delegate = self;
-		BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
-		appSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
+		[self settingDidChange:nil];
 	}
 	return appSettingsViewController;
 }
@@ -93,9 +92,8 @@
 	[super awakeFromNib];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
 
-
-	BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
-	self.tabAppSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
+	self.tabAppSettingsViewController = (id)[self.tabBarController.viewControllers.lastObject topViewController];
+	[self settingDidChange:nil];
 	
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)];
@@ -105,9 +103,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	IASKAppSettingsViewController *settingsViewController = (id)((UINavigationController*)segue.destinationViewController).topViewController;
 	settingsViewController.delegate = self;
-
-	BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
-	settingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
+	
+	[self settingDidChange:nil];
 }
 
 #pragma mark -
@@ -323,11 +320,18 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 
 #pragma mark kIASKAppSettingChanged notification
 - (void)settingDidChange:(NSNotification*)notification {
-	if ([notification.userInfo.allKeys.firstObject isEqual:@"AutoConnect"]) {
-		IASKAppSettingsViewController *activeController = notification.object;
-		BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"AutoConnect"] intValue];
-		[activeController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil] animated:YES];
+	NSMutableSet *hiddenKeys = NSMutableSet.set;
+	BOOL autoConnect = [NSUserDefaults.standardUserDefaults boolForKey:@"AutoConnect"];
+	if (!autoConnect) {
+		[hiddenKeys addObjectsFromArray:@[@"AutoConnectLogin", @"AutoConnectPassword", @"loginOptions"]];
 	}
+	BOOL showAccounts = [NSUserDefaults.standardUserDefaults boolForKey:@"ShowAccounts"];
+	if (!showAccounts) {
+		[hiddenKeys addObjectsFromArray:@[@"accounts", @"AccountOption"]];
+	}
+
+	[self.appSettingsViewController setHiddenKeys:hiddenKeys animated:YES];
+	[self.tabAppSettingsViewController setHiddenKeys:hiddenKeys animated:YES];
 }
 
 #pragma mark UITextViewDelegate (for CustomViewCell)
