@@ -22,11 +22,7 @@
 @implementation InAppSettingsKitSampleAppAppDelegate
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-  // add  the viewController from the storyboard
-  UIStoryboard *storyboardWithSettings = [UIStoryboard storyboardWithName:@"Main" bundle:NSBundle.mainBundle];
-  UIViewController *storyboardViewControllerWithSettings = [storyboardWithSettings instantiateInitialViewController];
-  _tabBarController.viewControllers = [_tabBarController.viewControllers arrayByAddingObject: storyboardViewControllerWithSettings];
-	[_window addSubview:_tabBarController.view];
+	[self.window makeKeyAndVisible];
 }
 
 @end
