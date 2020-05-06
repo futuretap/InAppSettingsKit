@@ -21,6 +21,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="Toe-KN-0cX"/>
+                    <connections>
+                        <segue destination="e9X-me-Kcp" kind="show" identifier="mySegue" id="FrQ-fZ-zWv"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ry-Ez-uuN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -85,6 +88,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="48N-oo-V69"/>
+                    <connections>
+                        <segue destination="e9X-me-Kcp" kind="show" identifier="mySegue" id="Bac-6T-Nfm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jij-hH-VbU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -125,8 +131,66 @@
             </objects>
             <point key="canvasLocation" x="183" y="-264"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XIi-OY-XNh">
+            <objects>
+                <navigationController id="e9X-me-Kcp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" selectedImage="20-gear2.png" systemItem="featured" id="Gb4-Mn-Ir9"/>
+                    <navigationItem key="navigationItem" id="OmC-Fw-Chl"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LLy-AZ-C3h">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="DUw-TC-4wJ" kind="relationship" relationship="rootViewController" id="bqU-6C-2TA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xSY-TO-FrW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2300" y="26"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="OSg-ay-cLf">
+            <objects>
+                <viewController id="DUw-TC-4wJ" customClass="MainViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0Zh-52-mjF"/>
+                        <viewControllerLayoutGuide type="bottom" id="jGX-oj-p4M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fji-CN-nws">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="nc7-Ps-6ar">
+                                <rect key="frame" x="178.5" y="419.5" width="57" height="57"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom View Controller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZK-d2-fPV">
+                                <rect key="frame" x="116.5" y="496.5" width="181" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="nc7-Ps-6ar" firstAttribute="centerX" secondItem="Fji-CN-nws" secondAttribute="centerX" id="5yz-OJ-Ad3"/>
+                            <constraint firstItem="gZK-d2-fPV" firstAttribute="centerX" secondItem="Fji-CN-nws" secondAttribute="centerX" id="cWw-Cb-CWK"/>
+                            <constraint firstItem="gZK-d2-fPV" firstAttribute="top" secondItem="nc7-Ps-6ar" secondAttribute="bottom" constant="20" id="plB-hi-a0C"/>
+                            <constraint firstItem="nc7-Ps-6ar" firstAttribute="centerY" secondItem="Fji-CN-nws" secondAttribute="centerY" id="sNM-9y-j8U"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="f4e-TP-9xU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GjR-3W-try" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2980" y="26"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="FrQ-fZ-zWv"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="20-gear2.png" width="26" height="28"/>
+        <image name="Icon.png" width="57" height="57"/>
     </resources>
 </document>
