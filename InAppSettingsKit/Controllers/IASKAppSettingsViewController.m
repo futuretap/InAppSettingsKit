@@ -1018,6 +1018,9 @@ CGRect IASKCGRectSwap(CGRect rect);
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
 	[self.settingsStore removeObjectWithSpecifier:specifier];
 	[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+	NSDictionary *userInfo = specifier.parentSpecifier.key && [self.settingsStore objectForSpecifier:specifier.parentSpecifier] ? @{specifier.parentSpecifier.key: [self.settingsStore objectForSpecifier:specifier.parentSpecifier]} : nil;
+	[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged object:self userInfo:userInfo];
 }
 
 - (void)presentChildViewController:(UITableViewController<IASKViewController> *)targetViewController specifier:(IASKSpecifier *)specifier {
@@ -1053,6 +1056,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 			} else {
 				[weakSelf.settingsStore setObject:inMemoryStore.dictionary forSpecifier:specifier];
 			}
+			NSDictionary *userInfo = specifier.parentSpecifier.key && [weakSelf.settingsStore objectForSpecifier:specifier.parentSpecifier] ? @{specifier.parentSpecifier.key: [weakSelf.settingsStore objectForSpecifier:specifier.parentSpecifier]} : nil;
+			[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged object:weakSelf userInfo:userInfo];
 			[weakSelf.tableView reloadData];
 		};
 	} else {
