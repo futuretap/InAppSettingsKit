@@ -826,6 +826,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             UIViewController * vc = [storyBoard instantiateViewControllerWithIdentifier:[specifier viewControllerStoryBoardID]];
             vc.view.tintColor = self.tintColor;
             [self.navigationController pushViewController:vc animated:YES];
+			[tableView endUpdates];
             return;
         }
         
@@ -834,6 +835,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			if (vcClass == [NSNull class]) {
 				NSLog(@"class '%@' not found", [specifier localizedObjectForKey:kIASKViewControllerClass]);
 				[tableView deselectRowAtIndexPath:indexPath animated:YES];
+				[tableView endUpdates];
 				return;
 			}
             SEL initSelector = [specifier viewControllerSelector];
@@ -853,6 +855,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             }
             vc.view.tintColor = self.tintColor;
             [self.navigationController pushViewController:vc animated:YES];
+			[tableView endUpdates];
             return;
 		}
 			
@@ -864,11 +867,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 				NSLog(@"segue with identifier '%@' not defined", segueIdentifier);
 				[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			}
+			[tableView endUpdates];
             return;
         }
         
         if (nil == [specifier file]) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
+			[tableView endUpdates];
             return;
         }
         
@@ -964,6 +969,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		if ([self.delegate respondsToSelector:@selector(settingsViewController:shouldPresentMailComposeViewController:forSpecifier:)]) {
 			BOOL shouldPresent = [self.delegate settingsViewController:self shouldPresentMailComposeViewController:mailViewController forSpecifier:specifier];
 			if (!shouldPresent) {
+				[tableView endUpdates];
 				return;
 			}
 		}
