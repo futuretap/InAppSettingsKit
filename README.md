@@ -212,6 +212,8 @@ Optionally you can implement
 
 to catch tap events for your custom view.
 
+If you specify `File`,  `IASKViewControllerClass`, `IASKViewControllerStoryBoardId`, or `IASKSegueIdentifier` (see below), the selection behavior of a custom view is identical to a child pane and the delegate is not called on selection.
+
 
 
 Group Headers and Footers
