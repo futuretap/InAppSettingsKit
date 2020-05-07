@@ -31,7 +31,7 @@
 
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
-@synthesize performAddBlock = _performAddBlock;
+@synthesize childPaneHandler = _childPaneHandler;
 
 
 - (void)setSettingsStore:(id <IASKSettingsStore>)settingsStore {

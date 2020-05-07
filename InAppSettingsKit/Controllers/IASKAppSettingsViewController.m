@@ -62,7 +62,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
 @synthesize file = _file;
-@synthesize performAddBlock = _performAddBlock;
+@synthesize childPaneHandler = _childPaneHandler;
 @synthesize currentFirstResponder = _currentFirstResponder;
 
 #pragma mark accessors
@@ -1041,13 +1041,25 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		IASKSettingsStoreInMemory *inMemoryStore = [[IASKSettingsStoreInMemory alloc] initWithDictionary:itemDict];
 		targetViewController.settingsStore = inMemoryStore;
+		[targetViewController.settingsReader applyDefaultsToStore];
 		UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:targetViewController];
 		targetViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(addListItemCancel:)];
 		targetViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addListItemDone:)];
 		[self.navigationController presentViewController:navCtrl animated:YES completion:nil];
 		
 		__weak typeof(self)weakSelf = self;
-		self.performAddBlock = ^{
+		self.childPaneHandler = ^(BOOL doneEditing){
+			if (!doneEditing) {
+				if ([weakSelf.delegate respondsToSelector:@selector(settingsViewController:childPaneIsValidForSpecifier:contentDictionary:)]) {
+					NSDictionary *oldContent = inMemoryStore.dictionary.copy;
+					BOOL valid = [weakSelf.delegate settingsViewController:weakSelf childPaneIsValidForSpecifier:specifier contentDictionary:inMemoryStore.dictionary];
+					if (![oldContent isEqualToDictionary:inMemoryStore.dictionary]) {
+						[targetViewController.tableView reloadData];
+					}
+					targetViewController.navigationItem.rightBarButtonItem.enabled = valid;
+				}
+				return;
+			}
 			if ([targetViewController respondsToSelector:@selector(currentFirstResponder)]) {
 				[targetViewController.currentFirstResponder resignFirstResponder];
 			}
@@ -1060,6 +1072,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged object:weakSelf userInfo:userInfo];
 			[weakSelf.tableView reloadData];
 		};
+		self.childPaneHandler(NO); // perform initial validation
 	} else {
 		[[self navigationController] pushViewController:targetViewController animated:YES];
 	}
@@ -1092,7 +1105,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)_textChanged:(id)sender {
     IASKTextField *text = sender;
     // If there's a regex to do input validation then don't set the property now. Instead it's done when editting ends
-    if (text.regex == nil && text.specifier.isItemSpecifier) {
+    if (text.regex == nil) {
 		[self.settingsStore setObject:text.text forSpecifier:text.specifier];
         NSDictionary *userInfo = text.text ? @{text.specifier.key : (NSString *)text.text} : nil;
         [NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged
@@ -1208,11 +1221,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 #pragma mark - List groups
 - (void)addListItemCancel:(id)sender {
+	self.childPaneHandler = nil;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)addListItemDone:(id)sender {
-	self.performAddBlock();
+	self.childPaneHandler(YES);
+	self.childPaneHandler = nil;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -1253,6 +1268,9 @@ static NSDictionary *oldUserDefaults = nil;
 - (void)didChangeSettingViaIASK:(NSNotification*)notification {
 	NSString *key = notification.userInfo.allKeys.firstObject;
 	[oldUserDefaults setValue:notification.userInfo[key] forKey:key];
+	if (self.childPaneHandler) {
+		self.childPaneHandler(NO);
+	}
 }
 
 - (void)reload {

@@ -217,6 +217,17 @@ _Pragma("clang diagnostic pop")
 - (NSString*)titleForId:(NSObject*)titleId;
 - (NSString*)pathForImageNamed:(NSString*)image;
 
+/** recursively go through all specifiers of the file/sub-files and gather default values
+ @param limitedToEditableFields limit the gathering to default values of specifiers that can be edited by the user (e.g.
+PSToggleSwitchSpecifier, PSTextFieldSpecifier).
+ */
+- (NSDictionary<NSString *,id> *)gatherDefaultsLimitedToEditableFields:(BOOL)limitedToEditableFields;
+
+/**
+ recursively go through all specifiers of the file/sub-files and populate the store with the specified default values
+ */
+- (void)applyDefaultsToStore;
+
 ///the main application bundle. most often [NSBundle mainBundle]
 @property (nonatomic, readonly) NSBundle *applicationBundle;
 

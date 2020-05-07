@@ -318,6 +318,19 @@ Settings Storage
 ----------------
 The default behaviour of IASK is to store the settings in `[NSUserDefaults standardUserDefaults]`. However, it is possible to change this behavior by setting the `settingsStore` property on an `IASKAppSettingsViewController`. IASK comes with two store implementations: `IASKSettingsStoreUserDefaults` (the default one) and `IASKSettingsStoreFile`, which read and write the settings in a file of the path you choose. If you need something more specific, you can also choose to create your own store. The easiest way to create your own store is to create a subclass of `IASKAbstractSettingsStore`. Only 3 methods are required to override. See `IASKSettingsStore.{h,m}` for more details.
 
+Register default values
+-----------------------
+Settings property lists support the `DefaultValue` parameter to display default values in case there’s no value stored in `NSUserDefaults`. However, when the app queries `NSUserDefaults` for the value, that default value is not propagated. This makes sense since `NSUserDefaults` doesn’t know about settings property lists.
+
+To initially set values for the various settings keys, `NSUserDefaults` provides the `registerDefaults:` method that takes a dictionary of "fallback" values that are returned from `NSUserDefaults` if no value has been stored. This is typically called at app launch.
+
+However, creating and maintaining that dictionary can be cumbersome and there’s a risk that this dictionary and the settings default values get out of sync.
+
+To address this, `IASKSettingsReader` provides a method that generates this dictionary by traversing the Root.plist and all child plists and gathering the `DefaultValue` for all keys.
+
+    NSDictionary *defaultDict = [appSettingsViewController.settingsReader gatherDefaultsLimitedToEditableFields:YES];
+    [NSUserDefaults.standardUserDefaults registerDefaults:defaultDict];
+
 
 Notifications
 -------------
