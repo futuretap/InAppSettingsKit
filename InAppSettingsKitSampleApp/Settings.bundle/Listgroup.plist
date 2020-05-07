@@ -92,11 +92,9 @@
 			<key>ItemSpecifier</key>
 			<dict>
 				<key>Type</key>
-				<string>PSChildPaneSpecifier</string>
-				<key>Key</key>
-				<string>username</string>
+				<string>IASKCustomViewSpecifier</string>
 				<key>File</key>
-				<string>NewAccount</string>
+				<string>Account</string>
 				<key>Title</key>
 				<string>Account</string>
 				<key>IASKTextAlignment</key>
@@ -107,7 +105,7 @@
 				<key>Type</key>
 				<string>PSChildPaneSpecifier</string>
 				<key>File</key>
-				<string>NewAccount</string>
+				<string>Account</string>
 				<key>Title</key>
 				<string>Add Account...</string>
 				<key>Key</key>

@@ -247,10 +247,21 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 	if ([specifier.key isEqualToString:@"customCell"]) {
 		return 44*3;
 	}
-	return 0;
+	return UITableViewAutomaticDimension;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.parentSpecifier.key isEqualToString:@"accounts"]) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"accountCell"];
+		if (!cell) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"accountCell"];
+		}
+		NSDictionary *dict = [self.appSettingsViewController.settingsStore objectForSpecifier:specifier];
+		cell.textLabel.text = dict[@"username"];
+		cell.detailTextLabel.text = dict[@"email"];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		return cell;
+	}
 	CustomViewCell *cell = (CustomViewCell*)[tableView dequeueReusableCellWithIdentifier:specifier.key];
 	
 	if (!cell) {
