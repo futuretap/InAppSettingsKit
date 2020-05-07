@@ -58,7 +58,7 @@
 			return nil;
 		}
 		NSDictionary *value = array[specifier.itemIndex];
-		return [value isKindOfClass:NSDictionary.class] ? value[specifier.key] : value;
+		return [value isKindOfClass:NSDictionary.class] && specifier.key ? value[specifier.key] : value;
 	}
 
 	return [self objectForKey:specifier.key];

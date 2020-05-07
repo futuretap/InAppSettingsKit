@@ -30,6 +30,14 @@
 			<key>IsSecure</key>
 			<true/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Email</string>
+			<key>Key</key>
+			<string>email</string>
+		</dict>
 	</array>
 </dict>
 </plist>
