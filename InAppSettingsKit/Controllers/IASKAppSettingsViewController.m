@@ -818,8 +818,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 	} else if ([specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
         IASKPSTextFieldSpecifierViewCell *textFieldCell = (id)[tableView cellForRowAtIndexPath:indexPath];
         [textFieldCell.textField becomeFirstResponder];		
-	} else if ([[specifier type] isEqualToString:kIASKPSChildPaneSpecifier]) {
-        if ([specifier viewControllerStoryBoardID]){
+	} else if ([specifier.type isEqualToString:kIASKPSChildPaneSpecifier] || ([specifier.type isEqualToString:kIASKCustomViewSpecifier] && (specifier.file || specifier.viewControllerStoryBoardID || specifier.viewControllerClass || specifier.segueIdentifier))) {
+		if ([specifier viewControllerStoryBoardID]){
             NSString *storyBoardFileFromSpecifier = [specifier viewControllerStoryBoardFile];
             storyBoardFileFromSpecifier = storyBoardFileFromSpecifier && storyBoardFileFromSpecifier.length > 0 ? storyBoardFileFromSpecifier : [[NSBundle mainBundle].infoDictionary objectForKey:@"UIMainStoryboardFile"];
             UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:storyBoardFileFromSpecifier bundle:nil];
