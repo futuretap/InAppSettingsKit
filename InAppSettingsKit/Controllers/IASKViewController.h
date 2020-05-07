@@ -22,7 +22,7 @@
 
 @property (nonatomic, retain, nullable) IASKSettingsReader* settingsReader;
 @property (nonatomic, retain, nonnull) id<IASKSettingsStore> settingsStore;
-@property (nonatomic, copy, nullable) void (^performAddBlock)(void);
+@property (nonatomic, copy, nullable) void (^childPaneHandler)(BOOL doneEditing);
 @optional
 @property (nonatomic, weak, nullable) id currentFirstResponder;
 

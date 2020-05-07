@@ -294,6 +294,17 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 	return nil;
 }
 
+- (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController childPaneIsValidForSpecifier:(IASKSpecifier *)specifier contentDictionary:(NSMutableDictionary *)contentDictionary {
+	if ([specifier.parentSpecifier.key isEqualToString:@"accounts"]) {
+		if (contentDictionary[@"email"] == nil) {
+			contentDictionary[@"email"] = @"foo@bar.com";
+		}
+		return [contentDictionary[@"username"] length] > 1 && [contentDictionary[@"password"] length] > 3
+		&& ([contentDictionary[@"roleUser"] boolValue] || [contentDictionary[@"roleEditor"] boolValue] || [contentDictionary[@"roleAdmin"] boolValue]);
+	}
+	return YES;
+}
+
 - (NSDate *)settingsViewController:(IASKAppSettingsViewController*)sender dateForSpecifier:(IASKSpecifier*)specifier {
 	id value = [sender.settingsStore objectForSpecifier:specifier];
 	if ([specifier.key isEqualToString:@"time"]) {
@@ -338,7 +349,7 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 	}
 	BOOL showAccounts = [NSUserDefaults.standardUserDefaults boolForKey:@"ShowAccounts"];
 	if (!showAccounts) {
-		[hiddenKeys addObjectsFromArray:@[@"accounts", @"AccountOption"]];
+		[hiddenKeys addObjectsFromArray:@[@"accounts"]];
 	}
 
 	[self.appSettingsViewController setHiddenKeys:hiddenKeys animated:YES];

@@ -303,6 +303,35 @@
 	}
 }
 
+- (NSDictionary*)gatherDefaultsLimitedToEditableFields:(BOOL)limitedToEditableFields {
+	NSMutableDictionary *dictionary = NSMutableDictionary.dictionary;
+	[self gatherDefaultsInDictionary:dictionary limitedToEditableFields:limitedToEditableFields apply:NO];
+	return dictionary;
+}
+
+- (void)applyDefaultsToStore {
+	[self gatherDefaultsInDictionary:nil limitedToEditableFields:YES apply:YES];
+}
+
+- (void)gatherDefaultsInDictionary:(NSMutableDictionary*)dictionary limitedToEditableFields:(BOOL)limitedToEditableFields apply:(BOOL)apply {
+	NSArray *editableTypes = @[kIASKPSToggleSwitchSpecifier, kIASKPSMultiValueSpecifier, kIASKPSRadioGroupSpecifier, kIASKPSSliderSpecifier, kIASKPSTextFieldSpecifier, kIASKTextViewSpecifier, kIASKCustomViewSpecifier, kIASKDatePickerSpecifier];
+	for (NSArray *section in self.dataSource) {
+		for (IASKSpecifier *specifier in section) {
+			if (specifier.key && specifier.defaultValue && (!limitedToEditableFields || [editableTypes containsObject:specifier.type])) {
+				if (apply && ![self.settingsStore objectForSpecifier:specifier]) {
+					[self.settingsStore setObject:specifier.defaultValue forSpecifier:specifier];
+				}
+				[dictionary setObject:specifier.defaultValue forKey:specifier.key];
+			}
+			if ([specifier.type isEqualToString:kIASKPSChildPaneSpecifier] && specifier.file) {
+				IASKSettingsReader *childReader = [[IASKSettingsReader alloc] initWithFile:specifier.file];
+				childReader.settingsStore = self.settingsStore;
+				[childReader gatherDefaultsInDictionary:dictionary limitedToEditableFields:limitedToEditableFields apply:apply];
+			}
+		}
+	}
+}
+
 - (NSString*)pathForImageNamed:(NSString*)image {
     return [[self.settingsBundle bundlePath] stringByAppendingPathComponent:image];
 }
