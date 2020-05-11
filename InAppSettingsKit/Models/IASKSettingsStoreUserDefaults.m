@@ -1,6 +1,5 @@
 //
 //  IASKSettingsStoreUserDefaults.m
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -19,7 +18,7 @@
 
 @interface IASKSettingsStoreUserDefaults ()
 
-@property (nonatomic, retain, readwrite) NSUserDefaults* defaults;
+@property (nonatomic, strong, readwrite) NSUserDefaults* defaults;
 
 @end
 

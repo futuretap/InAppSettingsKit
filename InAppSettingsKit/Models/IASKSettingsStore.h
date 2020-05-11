@@ -1,6 +1,5 @@
 //
 //  IASKSettingsStore.h
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -18,6 +17,8 @@
 #import <Foundation/Foundation.h>
 #import "IASKSpecifier.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /** protocol that needs to be implemented from a settings store
  */
 @protocol IASKSettingsStore <NSObject>
@@ -26,20 +27,20 @@
 - (void)setFloat:(float)value forSpecifier:(IASKSpecifier*)specifier;
 - (void)setDouble:(double)value forSpecifier:(IASKSpecifier*)specifier;
 - (void)setInteger:(NSInteger)value forSpecifier:(IASKSpecifier*)specifier;
-- (void)setObject:(id)value forSpecifier:(IASKSpecifier*)specifier;
+- (void)setObject:(nullable id)value forSpecifier:(IASKSpecifier*)specifier;
 - (BOOL)boolForSpecifier:(IASKSpecifier*)specifier;
 - (float)floatForSpecifier:(IASKSpecifier*)specifier;
 - (double)doubleForSpecifier:(IASKSpecifier*)specifier;
 - (NSInteger)integerForSpecifier:(IASKSpecifier*)specifier;
-- (id)objectForSpecifier:(IASKSpecifier*)specifier;
+- (nullable id)objectForSpecifier:(IASKSpecifier*)specifier;
 - (BOOL)synchronize; // Write settings to a permanant storage. Returns YES on success, NO otherwise
-- (void)setArray:(NSArray *)value forSpecifier:(IASKSpecifier*)specifier;
+- (void)setArray:(NSArray*)array forSpecifier:(IASKSpecifier*)specifier;
 - (NSArray*)arrayForSpecifier:(IASKSpecifier*)specifier;
 - (void)addObject:(NSObject*)object forSpecifier:(IASKSpecifier*)specifier;
 - (void)removeObjectWithSpecifier:(IASKSpecifier*)specifier;
 @optional
 - (void)setObject:(id)value forKey:(NSString*)key;
-- (id)objectForKey:(NSString*)key;
+- (nullable id)objectForKey:(NSString*)key;
 @end
 
 
@@ -53,3 +54,5 @@
 @interface IASKAbstractSettingsStore : NSObject <IASKSettingsStore>
 
 @end
+
+NS_ASSUME_NONNULL_END

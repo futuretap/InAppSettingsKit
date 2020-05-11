@@ -1,9 +1,8 @@
 //
 //  MainViewController.h
 //  InAppSettingsKitSampleApp
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009-2010:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -14,6 +13,13 @@
 //
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
+
+
+
+// Superseded by MainViewController.swift
+// Code no longer compiled / in target, left here just for reference.
+
+
 
 #import <InAppSettingsKit/IASKAppSettingsViewController.h>
 

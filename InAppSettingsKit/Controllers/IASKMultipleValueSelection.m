@@ -1,3 +1,16 @@
+//
+//  IASKMultipleValueSelection.m
+//  InAppSettingsKit
+//
+//  All rights reserved.
+//
+//  It is appreciated but not required that you give credit to Luc Vandal and Ortwin Gentz,
+//  as the original authors of this code. You can give credit in a blog post, a tweet or on
+//  a info page of your app. Also, the original authors appreciate letting them know if you use this code.
+//
+//  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
+//
+
 #import "IASKMultipleValueSelection.h"
 
 #import "IASKSettingsStore.h"
@@ -5,15 +18,26 @@
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
 
-@implementation IASKMultipleValueSelection {
-    NSInteger _checkedIndex;
-}
+@interface IASKMultipleValueSelection ()
+@property (nonatomic, strong) IASKSpecifier *specifier;
+@property (nonatomic) NSInteger section;
+@property (nonatomic, strong) id<IASKSettingsStore> settingsStore;
+@property (nonatomic) NSInteger checkedIndex;
+@end
+
+@implementation IASKMultipleValueSelection
 
 @synthesize settingsStore = _settingsStore;
 
-- (id)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore {
+- (id)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore
+				  tableView:(UITableView*)tableView
+				  specifier:(IASKSpecifier*)specifier
+					section:(NSInteger)section {
     if ((self = [super init])) {
         self.settingsStore = settingsStore;
+		self.tableView = tableView;
+		self.specifier = specifier;
+		self.section = section;
     }
     return self;
 }
@@ -27,8 +51,8 @@
     [self updateCheckedItem];
 }
 
-- (NSIndexPath *)checkedItem {
-    return [NSIndexPath indexPathForRow:_checkedIndex inSection:_section];;
+- (NSIndexPath *)checkedIndexPath {
+	return [NSIndexPath indexPathForRow:self.checkedIndex inSection:_section];;
 }
 
 - (void)updateCheckedItem {
@@ -37,7 +61,7 @@
     if (!value) {
 		value = self.specifier.defaultValue;
     }
-	_checkedIndex = [self.specifier.multipleValues indexOfObject:value];
+	self.checkedIndex = [self.specifier.multipleValues indexOfObject:value];
 }
 
 - (id<IASKSettingsStore>)settingsStore {
@@ -68,29 +92,26 @@
 
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (indexPath == self.checkedItem) {
+    if (indexPath == self.checkedIndexPath) {
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
         return;
     }
 
-    NSArray *values = [_specifier multipleValues];
+	NSArray *values = self.specifier.multipleValues;
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self deselectCell:[self.tableView cellForRowAtIndexPath:self.checkedItem]];
+    [self deselectCell:[self.tableView cellForRowAtIndexPath:self.checkedIndexPath]];
     [self selectCell:[self.tableView cellForRowAtIndexPath:indexPath]];
-    _checkedIndex = indexPath.row;
+	self.checkedIndex = indexPath.row;
 
 	[self.settingsStore setObject:[values objectAtIndex:indexPath.row] forSpecifier:self.specifier];
     [self.settingsStore synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
-                                                        object:self
-                                                      userInfo:@{
-                                                          _specifier.key: values[indexPath.row]
-                                                      }];
+	NSDictionary *userInfo = self.specifier.key && values[indexPath.row] ? @{(id)self.specifier.key: (id)values[indexPath.row]} : nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:userInfo];
 };
 
 - (void)updateSelectionInCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
-    if ([indexPath isEqual:self.checkedItem]) {
+    if ([indexPath isEqual:self.checkedIndexPath]) {
         [self selectCell:cell];
     } else {
         [self deselectCell:cell];
@@ -109,13 +130,13 @@
 #pragma mark Notifications
 
 - (void)userDefaultsDidChange {
-    NSIndexPath *oldCheckedItem = self.checkedItem;
+    NSIndexPath *oldCheckedItem = self.checkedIndexPath;
     if (_specifier) {
         [self updateCheckedItem];
     }
 
     // only reload the table if it had changed; prevents animation cancellation
-    if (![self.checkedItem isEqual:oldCheckedItem]) {
+    if (![self.checkedIndexPath isEqual:oldCheckedItem]) {
         [self.tableView reloadData];
     }
 }

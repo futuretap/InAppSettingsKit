@@ -1,8 +1,7 @@
 //
 //  IASKAppSettingsViewController.h
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -20,9 +19,10 @@
 // protocol all IASK view controllers implement
 @protocol IASKViewController <NSObject>
 
-@property (nonatomic, retain, nullable) IASKSettingsReader* settingsReader;
-@property (nonatomic, retain, nonnull) id<IASKSettingsStore> settingsStore;
+@property (nonatomic, strong, nullable) IASKSettingsReader* settingsReader;
+@property (nonatomic, strong, nonnull) id<IASKSettingsStore> settingsStore;
 @property (nonatomic, copy, nullable) void (^childPaneHandler)(BOOL doneEditing);
+
 @optional
 @property (nonatomic, weak, nullable) id currentFirstResponder;
 

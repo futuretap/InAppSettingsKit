@@ -1,8 +1,8 @@
 //
 //	IASKSettingsReader.m
-//	http://www.inappsettingskit.com
+//	InAppSettingsKit
 //
-//	Copyright (c) 2009:
+//	Copyright (c) 2009-2020:
 //	Luc Vandal, Edovia Inc., http://www.edovia.com
 //	Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //	All rights reserved.
@@ -17,6 +17,8 @@
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
 
+NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotification";
+
 #pragma mark -
 @interface NSArray (IASKAdditions)
 - (id)iaskObjectAtIndex:(NSUInteger)index;
@@ -24,38 +26,40 @@
 
 @implementation IASKSettingsReader
 
-- (id) initWithSettingsFileNamed:(NSString*) fileName
-               applicationBundle:(NSBundle*) bundle {
-    self = [super init];
-    if (self) {
+- (nonnull id)initWithFile:(nonnull NSString*)file bundle:(nonnull NSBundle*)bundle {
+    if ((self = [super init])) {
         _applicationBundle = bundle;
         
-        NSString* plistFilePath = [self locateSettingsFile: fileName];
-        _settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
+        NSString* plistFilePath = [self locateSettingsFile:file];
+        NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
+		NSAssert(settingsDictionary, @"invalid settings plist");
+		_settingsDictionary = settingsDictionary;
         
         //store the bundle which we'll need later for getting localizations
-        NSString* settingsBundlePath = [plistFilePath stringByDeletingLastPathComponent];
-        _settingsBundle = [NSBundle bundleWithPath:settingsBundlePath];
+		NSString* settingsBundlePath = plistFilePath.stringByDeletingLastPathComponent;
+		NSBundle *settingsBundle = [NSBundle bundleWithPath:settingsBundlePath];
+		NSAssert(settingsBundle, @"invalid settings bundle");
+		_settingsBundle = settingsBundle;
         
         // Look for localization file
-        self.localizationTable = [_settingsDictionary objectForKey:@"StringsTable"];
-        if (!self.localizationTable)
-        {
+        NSString *localizationTable = [_settingsDictionary objectForKey:@"StringsTable"];
+        if (!localizationTable) {
             // Look for localization file using filename
-            self.localizationTable = [[[[plistFilePath stringByDeletingPathExtension] // removes '.plist'
-                                        stringByDeletingPathExtension] // removes potential '.inApp'
-                                       lastPathComponent] // strip absolute path
-                                      stringByReplacingOccurrencesOfString:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
-            if([self.settingsBundle pathForResource:self.localizationTable ofType:@"strings"] == nil){
+			localizationTable = [plistFilePath.stringByDeletingPathExtension // removes '.plist'
+								 .stringByDeletingPathExtension // removes potential '.inApp'
+								 .lastPathComponent // strip absolute path
+								 stringByReplacingOccurrencesOfString:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
+			if ([self.settingsBundle pathForResource:localizationTable ofType:@"strings"] == nil) {
                 // Could not find the specified localization: use default
-                self.localizationTable = @"Root";
+                localizationTable = @"Root";
             }
         }
+		self.localizationTable = localizationTable ?: @"Root";
 		
         self.showPrivacySettings = NO;
         NSArray *privacyRelatedInfoPlistKeys = @[@"NSBluetoothPeripheralUsageDescription", @"NSCalendarsUsageDescription", @"NSCameraUsageDescription", @"NSContactsUsageDescription", @"NSLocationAlwaysAndWhenInUseUsageDescription", @"NSLocationAlwaysUsageDescription", @"NSLocationUsageDescription", @"NSLocationWhenInUseUsageDescription", @"NSMicrophoneUsageDescription", @"NSMotionUsageDescription", @"NSPhotoLibraryAddUsageDescription", @"NSPhotoLibraryUsageDescription", @"NSRemindersUsageDescription", @"NSHealthShareUsageDescription", @"NSHealthUpdateUsageDescription"];
         NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        if ([fileName isEqualToString:@"Root"]) {
+        if ([file isEqualToString:@"Root"]) {
             for (NSString* key in privacyRelatedInfoPlistKeys) {
                 if (infoDictionary[key]) {
                     self.showPrivacySettings = YES;
@@ -70,8 +74,8 @@
     return self;
 }
 
-- (id)initWithFile:(NSString*)file {
-    return [self initWithSettingsFileNamed:file applicationBundle:[NSBundle mainBundle]];
+- (nonnull id)initWithFile:(nonnull NSString*)file {
+    return [self initWithFile:file bundle:[NSBundle mainBundle]];
 }
 
 - (id)init {
@@ -150,10 +154,9 @@
             continue;
         }
 
-        NSString *type = newSpecifier.type;
-        if ([@[kIASKPSGroupSpecifier, kIASKPSRadioGroupSpecifier, kIASKListGroupSpecifier] containsObject:type]) {
+        if ([@[kIASKPSGroupSpecifier, kIASKPSRadioGroupSpecifier, kIASKListGroupSpecifier] containsObject:newSpecifier.type]) {
 			
-			if ([self.hiddenKeys containsObject:newSpecifier.key]) {
+			if (newSpecifier.key && [self.hiddenKeys containsObject:(id)newSpecifier.key]) {
 				ignoreItemsInThisSection = YES;
 				continue;
 			}
@@ -164,7 +167,7 @@
             [newArray addObject:newSpecifier];
             [dataSource addObject:newArray];
 			
-            if ([type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+            if ([newSpecifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
                 for (NSString *value in newSpecifier.multipleValues) {
                     IASKSpecifier *valueSpecifier =
                         [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary radioGroupValue:value];
@@ -174,7 +177,7 @@
                 }
             }
 		} else {
-			if (ignoreItemsInThisSection || [self.hiddenKeys containsObject:newSpecifier.key]) {
+			if (ignoreItemsInThisSection || (newSpecifier.key && [self.hiddenKeys containsObject:(id)newSpecifier.key])) {
 				continue;
 			}
 
@@ -197,7 +200,7 @@
 }
 
 /// Returns the specifier describing the section's header, or nil if there is no header.
-- (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section {
+- (nullable IASKSpecifier*)headerSpecifierForSection:(NSInteger)section {
     IASKSpecifier *specifier = [[self.dataSource iaskObjectAtIndex:section] iaskObjectAtIndex:kIASKSectionHeaderIndex];
     if ([specifier.type isEqualToString:kIASKPSGroupSpecifier]
 		|| [specifier.type isEqualToString:kIASKListGroupSpecifier]
@@ -211,7 +214,7 @@
     return self.dataSource.count;
 }
 
-- (NSInteger)numberOfRowsForSection:(NSInteger)section {
+- (NSInteger)numberOfRowsInSection:(NSInteger)section {
     int headingCorrection = [self _sectionHasHeading:section] ? 1 : 0;
     
 	IASKSpecifier *headerSpecifier = [[[self dataSource] iaskObjectAtIndex:section] iaskObjectAtIndex:kIASKSectionHeaderIndex];
@@ -227,7 +230,7 @@
 	return ((NSArray*)[self.dataSource iaskObjectAtIndex:section]).count - headingCorrection;
 }
 
-- (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath {
+- (nullable IASKSpecifier*)specifierForIndexPath:(nonnull NSIndexPath*)indexPath {
     int headingCorrection = [self _sectionHasHeading:indexPath.section] ? 1 : 0;
 	IASKSpecifier *specifier;
 	
@@ -249,7 +252,7 @@
     return specifier;
 }
 
-- (NSIndexPath*)indexPathForKey:(NSString *)key {
+- (nullable NSIndexPath*)indexPathForKey:(NSString *)key {
     for (NSUInteger sectionIndex = 0; sectionIndex < self.dataSource.count; sectionIndex++) {
         NSArray *section = [self.dataSource iaskObjectAtIndex:sectionIndex];
         for (NSUInteger rowIndex = 0; rowIndex < section.count; rowIndex++) {
@@ -263,7 +266,7 @@
     return nil;
 }
 
-- (IASKSpecifier*)specifierForKey:(NSString*)key {
+- (nullable IASKSpecifier*)specifierForKey:(NSString*)key {
     for (NSArray *specifiers in _dataSource) {
         for (id sp in specifiers) {
             if ([sp isKindOfClass:[IASKSpecifier class]]) {
@@ -276,30 +279,29 @@
     return nil;
 }
 
-- (NSString*)titleForSection:(NSInteger)section {
+- (nullable NSString*)titleForSection:(NSInteger)section {
     return [self titleForId:[self headerSpecifierForSection:section].title];
 }
 
-- (NSString*)keyForSection:(NSInteger)section {
+- (nullable NSString*)keyForSection:(NSInteger)section {
     return [self headerSpecifierForSection:section].key;
 }
 
-- (NSString*)footerTextForSection:(NSInteger)section {
+- (nullable NSString*)footerTextForSection:(NSInteger)section {
     return [self titleForId:[self headerSpecifierForSection:section].footerText];
 }
 
-- (NSString*)titleForId:(NSObject*)titleId
-{
-	if([titleId isKindOfClass:[NSNumber class]]) {
+- (nullable NSString*)titleForId:(nullable NSObject*)titleId {
+	if ([titleId isKindOfClass:NSNumber.class]) {
 		NSNumber* numberTitleId = (NSNumber*)titleId;
 		NSNumberFormatter* formatter = [NSNumberFormatter new];
 		[formatter setNumberStyle:NSNumberFormatterNoStyle];
 		return [formatter stringFromNumber:numberTitleId];
-	}
-	else
-	{
+	} else if ([titleId isKindOfClass:NSString.class]) {
 		NSString* stringTitleId = (NSString*)titleId;
 		return [self.settingsBundle localizedStringForKey:stringTitleId value:stringTitleId table:self.localizationTable];
+	} else {
+		return nil;
 	}
 }
 
@@ -321,10 +323,10 @@
 				if (apply && ![self.settingsStore objectForSpecifier:specifier]) {
 					[self.settingsStore setObject:specifier.defaultValue forSpecifier:specifier];
 				}
-				[dictionary setObject:specifier.defaultValue forKey:specifier.key];
+				[dictionary setObject:(id)specifier.defaultValue forKey:(id)specifier.key];
 			}
 			if ([specifier.type isEqualToString:kIASKPSChildPaneSpecifier] && specifier.file) {
-				IASKSettingsReader *childReader = [[IASKSettingsReader alloc] initWithFile:specifier.file];
+				IASKSettingsReader *childReader = [[IASKSettingsReader alloc] initWithFile:(id)specifier.file];
 				childReader.settingsStore = self.settingsStore;
 				[childReader gatherDefaultsInDictionary:dictionary limitedToEditableFields:limitedToEditableFields apply:apply];
 			}
@@ -332,8 +334,8 @@
 	}
 }
 
-- (NSString*)pathForImageNamed:(NSString*)image {
-    return [[self.settingsBundle bundlePath] stringByAppendingPathComponent:image];
+- (nonnull NSString*)pathForImageNamed:(nonnull NSString*)image {
+	return image ? [self.settingsBundle.bundlePath stringByAppendingPathComponent:(id)image] : @"";
 }
 
 - (NSString *)platformSuffixForInterfaceIdiom:(UIUserInterfaceIdiom) interfaceIdiom {

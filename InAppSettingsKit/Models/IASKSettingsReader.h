@@ -1,8 +1,8 @@
 //
 //  IASKSettingsReader.h
-//  http://www.inappsettingskit.com
+//  InAppSettingsKit
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -17,6 +17,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <InAppSettingsKit/IASKSettingsStore.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKCellImage                        @"IASKCellImage"
@@ -39,7 +41,6 @@
 #define KIASKKeyboardType                     @"KeyboardType"
 #define kIASKAutocapitalizationType           @"AutocapitalizationType"
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
-#define kIASKRegex                            @"IASKRegex"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
 #define kIASKIconNames                        @"IconNames"
@@ -52,8 +53,6 @@
 #define kIASKViewControllerStoryBoardFile     @"IASKViewControllerStoryBoardFile"
 #define kIASKViewControllerStoryBoardId       @"IASKViewControllerStoryBoardId"
 #define kIASKSegueIdentifier                  @"IASKSegueIdentifier"
-#define kIASKButtonClass                      @"IASKButtonClass"
-#define kIASKButtonAction                     @"IASKButtonAction"
 #define kIASKDatePickerMode                   @"DatePickerMode"
 #define kIASKDatePickerModeTime               @"Time"
 #define kIASKDatePickerModeDate               @"Date"
@@ -116,7 +115,8 @@
 // the HTML title as soon as the page is loaded. The value of IASKChildTitle is localizable.
 #define kIASKChildTitle                       @"IASKChildTitle"
 
-#define kIASKAppSettingChanged                @"kAppSettingChanged"
+extern NSString * const IASKSettingChangedNotification;
+#define kIASKAppSettingChanged                IASKSettingChangedNotification
 
 #define kIASKSectionHeaderIndex               0
 
@@ -193,29 +193,31 @@ _Pragma("clang diagnostic pop")
 @interface IASKSettingsReader : NSObject
 
 /** designated initializer
- searches for a settings bundle that contains
- a plist with the specified fileName that must
+ searches for a settings bundle that contains a plist with the specified fileName that must
  be contained in the given bundle
- 
- calls initWithFile where applicationBundle is
- set to [NSBundle mainBundle]
+ @param file   settings file name without the ".plist" suffix
+ @param bundle bundle that contains a plist with the specified file
+  */
+- (id)initWithFile:(NSString*)file bundle:(NSBundle*)bundle;
+
+/** convenience initializer
+ calls initWithFile where applicationBundle is set to NSBundle.mainBundle
+ @param file   settings file name without the ".plist" suffix
  */
-- (id) initWithSettingsFileNamed:(NSString*) fileName
-               applicationBundle:(NSBundle*) bundle;
+- (id)initWithFile:(NSString*)file;
 
-- (id) initWithFile:(NSString*)file;
-
-- (NSInteger)numberOfSections;
-- (NSInteger)numberOfRowsForSection:(NSInteger)section;
-- (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
-- (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section;
-- (NSIndexPath*)indexPathForKey:(NSString*)key;
-- (IASKSpecifier*)specifierForKey:(NSString*)key;
-- (NSString*)titleForSection:(NSInteger)section;
-- (NSString*)keyForSection:(NSInteger)section;
-- (NSString*)footerTextForSection:(NSInteger)section;
-- (NSString*)titleForId:(NSObject*)titleId;
+@property (nonatomic, readonly) NSInteger numberOfSections;
+- (NSInteger)numberOfRowsInSection:(NSInteger)section;
+- (nullable IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
+- (nullable IASKSpecifier*)headerSpecifierForSection:(NSInteger)section;
+- (nullable NSIndexPath*)indexPathForKey:(NSString*)key;
+- (nullable IASKSpecifier*)specifierForKey:(NSString*)key;
+- (nullable NSString*)titleForSection:(NSInteger)section;
+- (nullable NSString*)keyForSection:(NSInteger)section;
+- (nullable NSString*)footerTextForSection:(NSInteger)section;
+- (nullable NSString*)titleForId:(nullable NSObject*)titleId;
 - (NSString*)pathForImageNamed:(NSString*)image;
+- (nullable NSString*)locateSettingsFile:(NSString *)file;
 
 /** recursively go through all specifiers of the file/sub-files and gather default values
  @param limitedToEditableFields limit the gathering to default values of specifiers that can be edited by the user (e.g.
@@ -223,34 +225,26 @@ PSToggleSwitchSpecifier, PSTextFieldSpecifier).
  */
 - (NSDictionary<NSString *,id> *)gatherDefaultsLimitedToEditableFields:(BOOL)limitedToEditableFields;
 
-/**
- recursively go through all specifiers of the file/sub-files and populate the store with the specified default values
- */
+/// recursively go through all specifiers of the file/sub-files and populate the store with the specified default values
 - (void)applyDefaultsToStore;
 
-///the main application bundle. most often [NSBundle mainBundle]
+/// the main application bundle. most often NSBundle.mainBundle
 @property (nonatomic, readonly) NSBundle *applicationBundle;
 
-///the actual settings bundle
+/// the actual settings bundle
 @property (nonatomic, readonly) NSBundle *settingsBundle;
 
-///the actual settings plist, parsed into a dictionary
+/// the actual settings plist, parsed into a dictionary
 @property (nonatomic, readonly) NSDictionary *settingsDictionary;
 
-@property (nonatomic, retain) NSString *localizationTable;
-@property (nonatomic, retain) NSArray *dataSource;
-@property (nonatomic, retain) NSSet *hiddenKeys;
+@property (nonatomic, strong) NSString *localizationTable;
+@property (nonatomic, strong) NSArray *dataSource;
+@property (nullable, nonatomic, strong) NSSet *hiddenKeys;
 @property (nonatomic) BOOL showPrivacySettings;
-@property (nonatomic, weak) id<IASKSettingsStore> settingsStore;
-@property (nonatomic, strong) IASKSpecifier *selectedSpecifier; // currently used for date picker
+@property (nullable, nonatomic, weak) id<IASKSettingsStore> settingsStore;
+@property (nullable, nonatomic, strong) IASKSpecifier *selectedSpecifier; // currently used for date picker
 
-
-#pragma mark - internal use. public only for testing
-- (NSString *)file:(NSString *)file
-        withBundle:(NSString *)bundle
-            suffix:(NSString *)suffix
-         extension:(NSString *)extension;
-- (NSString *)locateSettingsFile:(NSString *)file;
-
-- (NSString *)platformSuffixForInterfaceIdiom:(UIUserInterfaceIdiom) interfaceIdiom;
 @end
+
+NS_ASSUME_NONNULL_END
+

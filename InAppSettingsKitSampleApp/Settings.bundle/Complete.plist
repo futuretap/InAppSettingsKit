@@ -128,7 +128,7 @@
 			<key>Key</key>
 			<string>text_URL</string>
 			<key>DefaultValue</key>
-			<string>http://www.inappsettingskit.com</string>
+			<string>https://github.com/futuretap/InAppSettingsKit</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>

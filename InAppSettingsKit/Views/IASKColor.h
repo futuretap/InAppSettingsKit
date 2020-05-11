@@ -3,7 +3,8 @@
 //  InAppSettingsKit
 //
 //  Created by valvoline on 17/09/2019.
-//  Copyright © 2019 InAppSettingsKit. All rights reserved.
+//  Copyright (c) 2019-2020:
+//  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //
 
 #import <UIKit/UIKit.h>

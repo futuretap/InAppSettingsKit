@@ -1,6 +1,5 @@
 //
 //  IASKSettingsStore.m
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -29,12 +28,16 @@
 }
 
 - (void)setObject:(id)value forSpecifier:(IASKSpecifier*)specifier {
+	if (!value) {
+		[self removeObjectWithSpecifier:specifier];
+		return;
+	}
 	if (specifier.parentSpecifier) {
 		if (specifier.isAddSpecifier) {
 			[self addObject:value forSpecifier:specifier];
 			return;
 		}
-		NSMutableArray *array = ([self arrayForSpecifier:specifier.parentSpecifier] ?: @[]).mutableCopy;
+		NSMutableArray *array = ([self arrayForSpecifier:(id)specifier.parentSpecifier] ?: @[]).mutableCopy;
 		if (array.count <= specifier.itemIndex) {
 			return;
 		}
@@ -42,26 +45,28 @@
 		if ([value isKindOfClass:NSDictionary.class] || ![object isKindOfClass:NSDictionary.class]) {
 			object = value;
 		} else {
-			[object setValue:value forKey:specifier.key];
+			[object setValue:value forKey:(id)specifier.key];
 		}
 		array[specifier.itemIndex] = object;
-		[self setObject:array forSpecifier:specifier.parentSpecifier];
+		[self setObject:array forSpecifier:(id)specifier.parentSpecifier];
 		return;
 	}
-	[self setObject:value forKey:specifier.key];
+	if (specifier.key) {
+		[self setObject:value forKey:(id)specifier.key];
+	}
 }
 
 - (id)objectForSpecifier:(IASKSpecifier*)specifier {
 	if (specifier.parentSpecifier) {
-		NSArray *array = [self arrayForSpecifier:specifier.parentSpecifier] ?: @[];
+		NSArray *array = [self arrayForSpecifier:(id)specifier.parentSpecifier] ?: @[];
 		if (array.count <= specifier.itemIndex) {
 			return nil;
 		}
 		NSDictionary *value = array[specifier.itemIndex];
-		return [value isKindOfClass:NSDictionary.class] && specifier.key ? value[specifier.key] : value;
+		return [value isKindOfClass:NSDictionary.class] && specifier.key ? value[(id)specifier.key] : value;
 	}
 
-	return [self objectForKey:specifier.key];
+	return specifier.key ? [self objectForKey:(id)specifier.key] : nil;
 }
 
 - (void)setBool:(BOOL)value forSpecifier:(IASKSpecifier*)specifier {
@@ -100,24 +105,24 @@
 	[self setObject:array forSpecifier:specifier];
 }
 
-- (NSArray *)arrayForSpecifier:(IASKSpecifier*)specifier {
+- (NSArray*)arrayForSpecifier:(IASKSpecifier*)specifier {
 	NSArray *array = [self objectForSpecifier:specifier];
-	return [array isKindOfClass:NSArray.class] ? array : nil;
+	return [array isKindOfClass:NSArray.class] ? array : @[];
 }
 
 - (void)addObject:(NSObject*)object forSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.parentSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
-		NSMutableArray *array = [NSMutableArray arrayWithArray:[self objectForSpecifier:specifier.parentSpecifier]];
+		NSMutableArray *array = [self arrayForSpecifier:(id)specifier.parentSpecifier].mutableCopy;
 		[array addObject:object];
-		[self setArray:array forSpecifier:specifier.parentSpecifier];
+		[self setArray:array forSpecifier:(id)specifier.parentSpecifier];
 	}
 }
 
 - (void)removeObjectWithSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.parentSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
-		NSMutableArray *array = [NSMutableArray arrayWithArray:[self objectForSpecifier:specifier.parentSpecifier]];
+		NSMutableArray *array = [self arrayForSpecifier:(id)specifier.parentSpecifier].mutableCopy;
 		[array removeObjectAtIndex:specifier.itemIndex];
-		[self setArray:array forSpecifier:specifier.parentSpecifier];
+		[self setArray:array forSpecifier:(id)specifier.parentSpecifier];
 	}
 }
 

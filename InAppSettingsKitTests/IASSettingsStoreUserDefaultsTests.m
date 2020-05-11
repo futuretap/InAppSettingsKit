@@ -3,7 +3,8 @@
 //  IASSettingsStoreUserDefaultsTests
 //
 //  Created by Stephan Diederich on 19.12.12.
-//  Copyright (c) 2012 InAppSettingsKit. All rights reserved.
+//  Copyright (c) 2012-2020:
+//  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //
 
 #import <XCTest/XCTest.h>

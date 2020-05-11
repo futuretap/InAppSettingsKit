@@ -3,7 +3,8 @@
 //  InAppSettingsKit
 //
 //  Created by Costantino Pistagna on 24/04/2020.
-//  Copyright © 2020 InAppSettingsKit. All rights reserved.
+//  Copyright (c) 2009-2020:
+//  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //
 
 #import "IASKSettingsStoreInMemory.h"
