@@ -41,11 +41,12 @@
 		if (array.count <= specifier.itemIndex) {
 			return;
 		}
-		NSObject *object = [array[specifier.itemIndex] mutableCopy];
-		if ([value isKindOfClass:NSDictionary.class] || ![object isKindOfClass:NSDictionary.class]) {
-			object = value;
-		} else {
+		NSObject *object = array[specifier.itemIndex];
+		if (![value isKindOfClass:NSDictionary.class] && [object isKindOfClass:NSDictionary.class] && [object respondsToSelector:@selector(mutableCopy)]) {
+			object = [object mutableCopy];
 			[object setValue:value forKey:(id)specifier.key];
+		} else {
+			object = value;
 		}
 		array[specifier.itemIndex] = object;
 		[self setObject:array forSpecifier:(id)specifier.parentSpecifier];
@@ -63,7 +64,7 @@
 			return nil;
 		}
 		NSDictionary *value = array[specifier.itemIndex];
-		return [value isKindOfClass:NSDictionary.class] && specifier.key ? value[(id)specifier.key] : value;
+		return specifier.key && [value valueForKey:(id)specifier.key] ? [value valueForKey:(id)specifier.key] : value;
 	}
 
 	return specifier.key ? [self objectForKey:(id)specifier.key] : nil;

@@ -49,8 +49,6 @@
 			<dict>
 				<key>Type</key>
 				<string>PSTextFieldSpecifier</string>
-				<key>Key</key>
-				<string>tag</string>
 				<key>IASKTextAlignment</key>
 				<string>IASKUITextAlignmentLeft</string>
 			</dict>

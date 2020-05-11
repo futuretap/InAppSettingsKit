@@ -1212,7 +1212,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[self.settingsStore synchronize];
 }
 
-static NSDictionary *oldUserDefaults = nil;
+static NSMutableDictionary *oldUserDefaults = nil;
 - (void)userDefaultsDidChange {
 	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 		IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
@@ -1226,7 +1226,7 @@ static NSDictionary *oldUserDefaults = nil;
 				}
 			}
 		}
-		oldUserDefaults = currentDict;
+		oldUserDefaults = currentDict.mutableCopy;
 		
 		for (UITableViewCell *cell in self.tableView.visibleCells) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
@@ -1242,7 +1242,9 @@ static NSDictionary *oldUserDefaults = nil;
 
 - (void)didChangeSettingViaIASK:(NSNotification*)notification {
 	NSString *key = notification.userInfo.allKeys.firstObject;
-	[oldUserDefaults setValue:notification.userInfo[key] forKey:key];
+	if (key) {
+		[oldUserDefaults setValue:notification.userInfo[key] forKey:key];
+	}
 	if (self.childPaneHandler) {
 		self.childPaneHandler(NO);
 	}
