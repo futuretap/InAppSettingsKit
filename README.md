@@ -143,7 +143,7 @@ The sample app defines `NSMicrophoneUsageDescription` to let the cell appear. No
 
 Open URL
 --------
-InAppSettingsKit adds a new element `IASKOpenURLSpecifier` that allows to open a specified URL using an external application (i.e. Safari or Mail). See the sample `Root.inApp.plist` for details.
+InAppSettingsKit adds a new element `IASKOpenURLSpecifier` that allows to open a specified URL using an external application (i.e. Safari or Mail). The URL to launch is specified in the `File` parameter. See the sample `Root.inApp.plist` for details.
 
 
 Mail Composer
@@ -196,6 +196,20 @@ Implement this to customize the displayed value in the title cell above the date
     - (void)settingsViewController:(IASKAppSettingsViewController*)sender setDate:(NSDate*)date forSpecifier:(IASKSpecifier*)specifier;
 
 Implement this if you store the date/time in a custom format other than an `NSDate` object. Called when the user changes the date/time value using the picker.
+
+
+List Groups
+-----------
+List groups (`IASKListGroupSpecifier`) are an IASK-only feature that allow you to manage a variable number of items, including adding and deleting items. Arrays of tags, accounts, names are typical use cases. A list group consists of a variable number of `ItemSpecifier` items. The number of these items is determined by your actual content in your NSUserDefaults (or your custom settings store). In other words, `ItemSpecifier` defines the type of cell, whereas the number of cells and their content comes from NSUserDefaults or your store. Cells can be deleted via swipe if the `Deletable` parameter is set to YES.
+
+Optionally, a list group also has an `AddSpecifier` that controls the last item of the list group section. It is used to add items and could be a text field, a toggle, a slider, or a child pane. While the first three create a new item after editing is complete, a child pane presents a modal child view controller to configure a complex item, saved as a dictionary. Such child panes work very similarly to normal child panes with a few differences: They are presented not via push but modally and have a Cancel and Done button in the navigation bar. A new item is created by tapping the Done button.
+
+You may want to specify some validation rules that need to be met before enabling the Done button. This can be achieved with the delegate method:
+
+    - (BOOL)settingsViewController:childPaneIsValidForSpecifier:contentDictionary:
+
+The Done button is disabled when returning false from this method. Also note that the `contentDictionary` is a mutable dictionary. If you change some of the values, the UI will reflect that. This allows you to autocorrect invalid settings.
+
 
 
 Custom Views
@@ -267,13 +281,13 @@ Placeholder
 The `IASKPlaceholder` key allows to define placeholder for TextField and TextView (`IASKTextViewSpecifier`).
 
 
-Regular expression validation
------------------------------
-The `IASKRegex` key can be used to specify a regular expression for validating text entered into TextField. For example checking the text entered is a valid number (only one decimal point, if a minus sign is present it must be the first charecter, etc). When this key is used the settings store is only update when editting of the field finishes. This enables easier editing as the field doesn't have to be valid after every charecter change.
+Text field validation
+---------------------
+Text fields can be validated using the delegate callback:
 
-By default, the text field shakes on a validation failure when leaving the field. The following optional delegate methods can be used to customise the behaviour on a validation failure and a subsequent validation sucess. For example, the text field could be set to red to indicate the value isn't valid. The delegate can prevent the default validation failure behaviour by returning `NO` from the `validationFailureForSpecifier` method.
-- `(BOOL)settingsViewController:(IASKAppSettingsViewController*)sender validationFailureForSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField *)field previousValue:(NSString*)prevValue;`
-- `(void)settingsViewController:(IASKAppSettingsViewController*)sender validationSuccessForSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField *)field;`
+	- (IASKValidationResult)settingsViewController:(IASKAppSettingsViewController*)settingsViewController validateSpecifier:(IASKSpecifier*)specifier textField:(IASKTextField*)textField previousValue:(nullable NSString*)previousValue replacement:(NSString* _Nonnull __autoreleasing *_Nullable)replacement;
+
+The callback receives the `IASKTextField` which is a `UITextField` subclass to allow styling of the text field in case of a validation error (e.g. red text). It contains a replacement out parameter to replace invalid text. Returning IASKValidationResultFailedWithShake lets the text field shake to visually indicate the validation error.
 
 
 Text alignment
@@ -287,7 +301,7 @@ For some element types, a `IASKTextAlignment` attribute may be added with the fo
 
 Toggle style
 ------------
-`PSToggleSwitchSpecifier` switches use a `UISwitch` by default. By specifying the option `IASKToggleStyle` = `Checkmark`, checkmarks are displayed for selected keys and nothing for unselected keys.
+`PSToggleSwitchSpecifier` switches use a `UISwitch` by default. By specifying the option `IASKToggleStyle` = `Checkmark`, checkmarks are displayed for selected keys.
 
 
 Variable font size
@@ -347,7 +361,7 @@ To hide a set of cells use:
 
 or the non-animated version:
 
-	@property (nonatomic, retain) NSSet *hiddenKeys;
+	@property (nonatomic, strong) NSSet *hiddenKeys;
 
 See the sample app for more details. Note that InAppSettingsKit uses Settings schema, not TableView semantics: If you want to hide a group of cells, you have to include the Group entry as well as the member entries.
 

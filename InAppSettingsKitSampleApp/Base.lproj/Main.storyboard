@@ -14,7 +14,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="443-2y-GSG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <connections>
                             <outlet property="dataSource" destination="3Zf-yv-ugt" id="flp-a1-BRh"/>
                             <outlet property="delegate" destination="3Zf-yv-ugt" id="RnA-sC-U7c"/>
@@ -35,7 +35,7 @@
                 <navigationController id="S2w-zu-zJk" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="20-gear2.png" id="n11-vj-bkV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fgk-j7-eRM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -49,7 +49,7 @@
         <!--Settings-->
         <scene sceneID="9xI-Rm-Ufl">
             <objects>
-                <viewController id="1li-qh-ARP" customClass="MainViewController" sceneMemberID="viewController">
+                <viewController id="1li-qh-ARP" customClass="MainViewController" customModule="In_App_Settings_Kit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aex-PX-YAG"/>
                         <viewControllerLayoutGuide type="bottom" id="1lu-Kk-k54"/>
@@ -65,7 +65,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="showSettingsPush:" destination="1li-qh-ARP" eventType="touchUpInside" id="vSK-uF-ehA"/>
+                                    <segue destination="3Zf-yv-ugt" kind="show" id="bIc-2K-M2Q"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1JC-07-XJI">
@@ -75,7 +75,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="showSettingsModal:" destination="1li-qh-ARP" eventType="touchUpInside" id="2Ab-xY-JJL"/>
+                                    <segue destination="S2w-zu-zJk" kind="presentation" identifier="modal" id="EaZ-im-nY2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -87,7 +87,15 @@
                             <constraint firstItem="S4b-Ep-Pn4" firstAttribute="centerY" secondItem="3VK-Jj-4Bv" secondAttribute="centerY" id="wA9-SU-8cj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="48N-oo-V69"/>
+                    <navigationItem key="navigationItem" title="Settings" id="48N-oo-V69">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="cRL-aL-oNP">
+                            <connections>
+                                <segue destination="S2w-zu-zJk" kind="popoverPresentation" popoverAnchorBarButtonItem="cRL-aL-oNP" id="brk-YH-1WW">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="e9X-me-Kcp" kind="show" identifier="mySegue" id="Bac-6T-Nfm"/>
                     </connections>
@@ -188,6 +196,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="FrQ-fZ-zWv"/>
+        <segue reference="EaZ-im-nY2"/>
+        <segue reference="bIc-2K-M2Q"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="20-gear2.png" width="26" height="28"/>

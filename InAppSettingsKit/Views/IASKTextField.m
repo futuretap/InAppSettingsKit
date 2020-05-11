@@ -1,8 +1,7 @@
 //
 //  IASKTextField.m
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -16,8 +15,19 @@
 
 #import "IASKTextField.h"
 
+@interface IASKTextField ()
+@property (strong, nonatomic, nullable, readwrite) NSString *oldText;
+@end
 
 @implementation IASKTextField
+
+- (BOOL)becomeFirstResponder {
+	BOOL result = [super becomeFirstResponder];
+	if (result) {
+		self.oldText = self.text;
+	}
+	return result;
+}
 
 - (void)shake {
 	self.transform = CGAffineTransformMakeTranslation(20.f, 0.f);

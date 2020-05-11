@@ -12,11 +12,11 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
-		289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A90DB2D0DB0083E9F9 /* MainViewController.m */; };
 		575C01E8127CE845009FBEA2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575C01E7127CE845009FBEA2 /* MessageUI.framework */; };
 		6A1F35EE11490727003E6295 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F35ED11490727003E6295 /* Icon.png */; };
 		6A9BBF591148F1DA003D97FA /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A9BBF581148F1DA003D97FA /* 20-gear2.png */; };
 		AA092DC915B73A0500081FBC /* settings_about.html in Resources */ = {isa = PBXBuildFile; fileRef = AA092DC415B73A0500081FBC /* settings_about.html */; };
+		AA3966952464B88D00820E0C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3966942464B88D00820E0C /* MainViewController.swift */; };
 		AA6508E71F790A3000724BA9 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA1552131F79054700F2CEA1 /* IASKLocalizable.strings */; };
 		AAA468D8125CD9680057A662 /* CustomSubviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA468D6125CD9680057A662 /* CustomSubviewController.m */; };
 		AAA468D9125CD9680057A662 /* CustomSubviewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAA468D7125CD9680057A662 /* CustomSubviewController.xib */; };
@@ -75,6 +75,8 @@
 		AA1552281F79054700F2CEA1 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "../InAppSettingsKit/Resources/es-MX.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
 		AA1552291F79054700F2CEA1 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "../InAppSettingsKit/Resources/zh-Hant.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
 		AA15522A1F79054700F2CEA1 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ../InAppSettingsKit/Resources/ca.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA3966932464B88C00820E0C /* IASKSampleAppStaticLibrary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IASKSampleAppStaticLibrary-Bridging-Header.h"; sourceTree = "<group>"; };
+		AA3966942464B88D00820E0C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Classes/MainViewController.swift; sourceTree = "<group>"; };
 		AAA468D5125CD9680057A662 /* CustomSubviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSubviewController.h; sourceTree = "<group>"; };
 		AAA468D6125CD9680057A662 /* CustomSubviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSubviewController.m; sourceTree = "<group>"; };
 		AAA468D7125CD9680057A662 /* CustomSubviewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomSubviewController.xib; sourceTree = "<group>"; };
@@ -153,11 +155,13 @@
 			isa = PBXGroup;
 			children = (
 				289233A80DB2D0DB0083E9F9 /* MainViewController.h */,
+				AA3966942464B88D00820E0C /* MainViewController.swift */,
 				289233A90DB2D0DB0083E9F9 /* MainViewController.m */,
 				AAA468D5125CD9680057A662 /* CustomSubviewController.h */,
 				AAA468D6125CD9680057A662 /* CustomSubviewController.m */,
 				AAB8389E12846D850042FF80 /* CustomViewCell.h */,
 				AAB8389F12846D850042FF80 /* CustomViewCell.m */,
+				AA3966932464B88C00820E0C /* IASKSampleAppStaticLibrary-Bridging-Header.h */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -338,6 +342,11 @@
 			attributes = {
 				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0920;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						LastSwiftMigration = 1150;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "IASKSampleApp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -411,7 +420,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.m in Sources */,
-				289233AE0DB2D0DB0083E9F9 /* MainViewController.m in Sources */,
+				AA3966952464B88D00820E0C /* MainViewController.swift in Sources */,
 				AAA468D8125CD9680057A662 /* CustomSubviewController.m in Sources */,
 				AAB838A012846D850042FF80 /* CustomViewCell.m in Sources */,
 			);
@@ -478,11 +487,16 @@
 			baseConfigurationReference = E4D558E7177DC0BC00362644 /* iOS-Application.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.$(PRODUCT_NAME:rfc1034identifier)";
+				SWIFT_OBJC_BRIDGING_HEADER = "IASKSampleAppStaticLibrary-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -491,11 +505,15 @@
 			baseConfigurationReference = E4D558E7177DC0BC00362644 /* iOS-Application.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.$(PRODUCT_NAME:rfc1034identifier)";
+				SWIFT_OBJC_BRIDGING_HEADER = "IASKSampleAppStaticLibrary-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

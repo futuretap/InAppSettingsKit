@@ -1,8 +1,7 @@
 //
 //  IASKSpecifier.m
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -20,8 +19,10 @@
 
 @interface IASKSpecifier ()
 
-@property (nonatomic, retain) NSDictionary  *multipleValuesDict;
-@property (nonatomic, copy) NSString *radioGroupValue;
+@property (nonnull, nonatomic, strong, readwrite) NSDictionary *specifierDict;
+@property (nullable, nonatomic, strong, readwrite) IASKSpecifier *parentSpecifier;
+@property (nonatomic, strong) NSDictionary  *multipleValuesDict;
+@property (nullable, nonatomic, copy, readwrite) NSString *radioGroupValue;
 @property (nonatomic, readwrite) NSUInteger itemIndex;
 
 @end
@@ -29,13 +30,21 @@
 @implementation IASKSpecifier
 
 - (id)initWithSpecifier:(NSDictionary*)specifier {
-    if ((self = [super init])) {
-        [self setSpecifierDict:specifier];
+	NSAssert(specifier[kIASKType], @"specifier type missing");
+	if ((self = [super init])) {
+		self.specifierDict = specifier;
 
         if ([self isMultiValueSpecifierType]) {
             [self updateMultiValuesDict];
         }
     }
+    return self;
+}
+
+- (id)initWithSpecifier:(NSDictionary *)specifier radioGroupValue:(NSString *)radioGroupValue {
+	if ((self = [self initWithSpecifier:specifier])) {
+		self.radioGroupValue = radioGroupValue;
+	}
     return self;
 }
 
@@ -45,16 +54,6 @@
         types = @[kIASKPSMultiValueSpecifier, kIASKPSTitleValueSpecifier, kIASKPSRadioGroupSpecifier];
     }
     return [types containsObject:[self type]];
-}
-
-- (id)initWithSpecifier:(NSDictionary *)specifier
-        radioGroupValue:(NSString *)radioGroupValue {
-
-    self = [self initWithSpecifier:specifier];
-    if (self) {
-        self.radioGroupValue = radioGroupValue;
-    }
-    return self;
 }
 
 - (void)updateMultiValuesDict {
@@ -230,22 +229,12 @@
     return [_specifierDict objectForKey:kIASKSegueIdentifier];
 }
 
-- (Class)buttonClass {
-    NSString *buttonClassString = [_specifierDict objectForKey:kIASKButtonClass];
-    return buttonClassString ? NSClassFromString(buttonClassString) : nil;
-}
-
-- (SEL)buttonAction {
-    NSString *buttonAction = [_specifierDict objectForKey:kIASKButtonAction];
-    return buttonAction ? NSSelectorFromString(buttonAction) : nil;
-}
-
 - (NSString*)key {
     return [_specifierDict objectForKey:kIASKKey];
 }
 
 - (NSString*)type {
-    return [_specifierDict objectForKey:kIASKType];
+    return (id)[_specifierDict objectForKey:kIASKType];
 }
 
 - (NSString*)titleForCurrentValue:(id)currentValue {
@@ -400,23 +389,7 @@
     return UITextAutocorrectionTypeDefault;
 }
 
-- (NSRegularExpression*)regex {
-    NSRegularExpression *regex = nil;
-    NSString *pattern;
-    NSError *error;
-
-    pattern = [_specifierDict objectForKey:kIASKRegex];
-    if (pattern != nil) {
-        regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error: &error];
-        if (error != nil) {
-            regex = nil;
-        }
-    }
-    return regex;
-}
-
-- (UIImage *)cellImage
-{
+- (UIImage *)cellImage {
     NSString *imageName = [_specifierDict objectForKey:kIASKCellImage];
     if( imageName.length == 0 )
         return nil;
@@ -424,8 +397,7 @@
     return [UIImage imageNamed:imageName];
 }
 
-- (UIImage *)highlightedCellImage
-{
+- (UIImage *)highlightedCellImage {
     NSString *imageName = [[_specifierDict objectForKey:kIASKCellImage ] stringByAppendingString:@"Highlighted"];
     if( imageName.length == 0 )
         return nil;
@@ -544,6 +516,6 @@
 		return NO;
 	}
 	
-	return specifier == self || [specifier.key isEqualToString:self.key];
+	return specifier == self || [specifier.key isEqual:self.key];
 }
 @end

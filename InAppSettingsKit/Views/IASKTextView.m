@@ -1,6 +1,5 @@
 //
 //  IASKTextView.m
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2009-2015:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com

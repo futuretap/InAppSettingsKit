@@ -1,6 +1,6 @@
 //
 //  IASKAppSettingsWebViewController.h
-//  http://www.inappsettingskit.com
+//  InAppSettingsKit
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -17,23 +17,28 @@
 #import "IASKAppSettingsWebViewController.h"
 #import "IASKSettingsReader.h"
 
+@interface IASKAppSettingsWebViewController()
+@property (nullable, nonatomic, strong, readwrite) WKWebView *webView;
+@property (nonatomic, strong, readwrite) NSURL *url;
+@end
+
 @implementation IASKAppSettingsWebViewController
 
 - (id)initWithFile:(NSString*)urlString specifier:(IASKSpecifier*)specifier {
-    self = [super init];
-    if (self) {
-        self.url = [NSURL URLWithString:urlString];
-        if (!self.url || ![self.url scheme]) {
-            NSString *path = [[NSBundle mainBundle] pathForResource:[urlString stringByDeletingPathExtension] ofType:[urlString pathExtension]];
-            if(path)
-                self.url = [NSURL fileURLWithPath:path];
-            else
-                self.url = nil;
+    if ((self = [super init])) {
+        NSURL *url = [NSURL URLWithString:urlString];
+		if (!url.scheme) {
+			NSString *path = [NSBundle.mainBundle pathForResource:urlString.stringByDeletingPathExtension ofType:urlString.pathExtension];
+			url = path ? [NSURL fileURLWithPath:path] : nil;
         }
 		self.customTitle = [specifier localizedObjectForKey:kIASKChildTitle];
 		self.title = self.customTitle ? : specifier.title;
-    }
-    return self;
+		if (!url) {
+			return nil;
+		}
+		self.url = url;
+	}
+	return self;
 }
 
 - (void)loadView {
