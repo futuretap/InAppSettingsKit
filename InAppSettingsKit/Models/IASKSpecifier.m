@@ -425,6 +425,11 @@
 										 kIASKTextContentTypeOneTimeCode: UITextContentTypeOneTimeCode}];
 	}
 	NSString *value = [_specifierDict objectForKey:kIASKTextContentType];
+	if (value.length > 1) {
+		// also accept Swift form (e.g. "telephoneNumber" instead of "TelephoneNumber")
+		NSString *firstChar = [value substringToIndex:1].uppercaseString;
+		value = [value stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:firstChar];
+	}
 	return value ? [dict objectForKey:value] : nil;
 }
 
