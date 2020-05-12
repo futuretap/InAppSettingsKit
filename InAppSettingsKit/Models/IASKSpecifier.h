@@ -114,6 +114,11 @@ typedef NS_ENUM(NSUInteger, IASKToggleStyle) {
 /// Settings schema: `IASKPlaceholder`
 @property (nullable, nonatomic, copy, readonly) NSString *placeholder;
 
+/** Settings schema: `IASKTextContentType`
+ @discussion The plist values correspond to the naming of the UIKit constants, e.g. for `UITextContentTypeAddressCityAndState` use the value `AddressCityAndState`.
+ */
+@property (nullable, nonatomic, copy, readonly) UITextContentType textContentType;
+
 /*!
  @group Radio Groups
 */
