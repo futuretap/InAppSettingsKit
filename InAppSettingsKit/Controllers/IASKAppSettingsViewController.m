@@ -667,20 +667,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 		textField.text = textValue;
 		textField.specifier = specifier;
 		textField.delegate = self;
-		textField.secureTextEntry = [specifier isSecure];
-		textField.keyboardType = specifier.keyboardType;
-		textField.autocapitalizationType = specifier.autocapitalizationType;
-		if([specifier isSecure]){
-			textField.autocorrectionType = UITextAutocorrectionTypeNo;
-		} else {
-			textField.autocorrectionType = specifier.autoCorrectionType;
-		}
-		textField.textAlignment = specifier.textAlignment;
-		textField.placeholder = specifier.placeholder;
-		textField.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
-		if (specifier.isAddSpecifier) {
-			textField.returnKeyType = UIReturnKeyDone;
-		}
 		if ([self.delegate respondsToSelector:@selector(settingsViewController:validateSpecifier:textField:previousValue:replacement:)]) {
 			NSString *replacement = textField.text ?: @"";
 			IASKValidationResult result = [self.delegate settingsViewController:self validateSpecifier:specifier textField:textField previousValue:textValue replacement:&replacement];

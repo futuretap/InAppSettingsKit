@@ -21,6 +21,23 @@
 
 @implementation IASKTextField
 
+- (void)setSpecifier:(IASKSpecifier *)specifier {
+	_specifier = specifier;
+	self.secureTextEntry = specifier.isSecure;
+	self.keyboardType = specifier.keyboardType;
+	self.autocapitalizationType = specifier.autocapitalizationType;
+	self.autocorrectionType = specifier.isSecure ? UITextAutocorrectionTypeNo : specifier.autoCorrectionType;
+	self.textAlignment = specifier.textAlignment;
+	self.placeholder = specifier.placeholder;
+	self.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
+	if (specifier.isAddSpecifier) {
+		self.returnKeyType = UIReturnKeyDone;
+	}
+	if (@available(iOS 10.0, *)) {
+		self.textContentType = specifier.textContentType;
+	}
+}
+
 - (BOOL)becomeFirstResponder {
 	BOOL result = [super becomeFirstResponder];
 	if (result) {

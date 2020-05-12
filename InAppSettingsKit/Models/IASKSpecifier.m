@@ -389,6 +389,45 @@
     return UITextAutocorrectionTypeDefault;
 }
 
+- (nullable UITextContentType)textContentType {
+	NSMutableDictionary *dict;
+	if (@available(iOS 10.0, *)) {
+		dict = @{kIASKTextContentTypeName: UITextContentTypeName,
+				 kIASKTextContentTypeNamePrefix: UITextContentTypeNamePrefix,
+				 kIASKTextContentTypeGivenName: UITextContentTypeGivenName,
+				 kIASKTextContentTypeMiddleName: UITextContentTypeMiddleName,
+				 kIASKTextContentTypeFamilyName: UITextContentTypeFamilyName,
+				 kIASKTextContentTypeNameSuffix: UITextContentTypeNameSuffix,
+				 kIASKTextContentTypeNickname: UITextContentTypeNickname,
+				 kIASKTextContentTypeJobTitle: UITextContentTypeJobTitle,
+				 kIASKTextContentTypeOrganizationName: UITextContentTypeOrganizationName,
+				 kIASKTextContentTypeLocation: UITextContentTypeLocation,
+				 kIASKTextContentTypeFullStreetAddress: UITextContentTypeFullStreetAddress,
+				 kIASKTextContentTypeStreetAddressLine1: UITextContentTypeStreetAddressLine1,
+				 kIASKTextContentTypeStreetAddressLine2: UITextContentTypeStreetAddressLine2,
+				 kIASKTextContentTypeAddressCity: UITextContentTypeAddressCity,
+				 kIASKTextContentTypeAddressState: UITextContentTypeAddressState,
+				 kIASKTextContentTypeAddressCityAndState: UITextContentTypeAddressCityAndState,
+				 kIASKTextContentTypeSublocality: UITextContentTypeSublocality,
+				 kIASKTextContentTypeCountryName: UITextContentTypeCountryName,
+				 kIASKTextContentTypePostalCode: UITextContentTypePostalCode,
+				 kIASKTextContentTypeTelephoneNumber: UITextContentTypeTelephoneNumber,
+				 kIASKTextContentTypeEmailAddress: UITextContentTypeEmailAddress,
+				 kIASKTextContentTypeURL: UITextContentTypeURL,
+				 kIASKTextContentTypeCreditCardNumber: UITextContentTypeCreditCardNumber}.mutableCopy;
+	}
+	if (@available(iOS 11.0, *)) {
+		[dict addEntriesFromDictionary:@{kIASKTextContentTypeUsername: UITextContentTypeUsername,
+										 kIASKTextContentTypePassword: UITextContentTypePassword}];
+	}
+	if (@available(iOS 12.0, *)) {
+		[dict addEntriesFromDictionary:@{kIASKTextContentTypeNewPassword: UITextContentTypeNewPassword,
+										 kIASKTextContentTypeOneTimeCode: UITextContentTypeOneTimeCode}];
+	}
+	NSString *value = [_specifierDict objectForKey:kIASKTextContentType];
+	return value ? [dict objectForKey:value] : nil;
+}
+
 - (UIImage *)cellImage {
     NSString *imageName = [_specifierDict objectForKey:kIASKCellImage];
     if( imageName.length == 0 )
