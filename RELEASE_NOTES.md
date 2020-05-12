@@ -42,3 +42,15 @@ The following deprecated methods have been removed:
 
 
 The `IASKRegex` key to validate text fields using regular expressions is no longer supported. Instead, the `settingsViewController:validateSpecifier:textField:previousValue:replacement:` delegate callback allows for much more flexibility to validate the text field in code.
+
+### New features (see Readme)
+
+- List Groups 
+- Date Picker
+- Toggles with checkmarks
+- Support hiding sections
+- Custom views can present a child pane on selection
+- Text field validation
+- Support of text content type
+- Migrated the sample app to Swift
+- Added extensive header documentation
