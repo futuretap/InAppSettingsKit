@@ -1,10 +1,10 @@
-Release Notes
+# Release Notes
 
-# InAppSettingsKit 3.0
+## InAppSettingsKit 3.0
 
-### `IASKSettingsDelegate`
+### Changes in `IASKSettingsDelegate`
 
-For consistency, all delegate callbacks now include `settingsViewController` as the first argument. They no longer include the `tableView` argument. To access the table view, use the `tableView` property of the `settingsViewController`. Also, all delegate callbacks now include the `IASKSpecifier` which is more useful than a section index or index path.
+For consistency, all delegate callbacks now include `settingsViewController` as the first argument. They no longer include the `tableView` argument. To access the table view, use the `tableView` property of the `settingsViewController`. Also, all delegate callbacks now include the `IASKSpecifier` which is more useful than a section index or index path. To access the key, you can simply use the `key` property on `IASKSpecifier`.
 
 - `-settingsViewController:tableView:titleForHeaderForSection:` ⇒
 `-settingsViewController:titleForHeaderInSection:specifier:`
@@ -41,7 +41,12 @@ The following deprecated methods have been removed:
 - `settingsViewController:validationSuccessForSpecifier:textField:` (use the new `settingsViewController:validateSpecifier:textField:previousValue:replacement:` instead)
 
 
+### Changes in settings schema
+
 The `IASKRegex` key to validate text fields using regular expressions is no longer supported. Instead, the `settingsViewController:validateSpecifier:textField:previousValue:replacement:` delegate callback allows for much more flexibility to validate the text field in code.
+
+### Improved Swift compatibility
+All classes now use properties instead of getter methods and are nullability-annotated making it much easier to interoperate from Swift code. In fact, the sample app was rewritten in Swift – so we eat our own dog food! 🐶
 
 ### New features (see Readme)
 
