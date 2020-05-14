@@ -16,6 +16,7 @@
 
 #import "IASKAppSettingsWebViewController.h"
 #import "IASKSettingsReader.h"
+#import "IASKSpecifier.h"
 
 @interface IASKAppSettingsWebViewController()
 @property (nullable, nonatomic, strong, readwrite) WKWebView *webView;

@@ -14,6 +14,7 @@
 //
 
 #import "IASKTextField.h"
+#import "IASKSpecifier.h"
 
 @interface IASKTextField ()
 @property (strong, nonatomic, nullable, readwrite) NSString *oldText;

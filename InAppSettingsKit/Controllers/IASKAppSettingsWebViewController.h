@@ -17,7 +17,7 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 #import <WebKit/WebKit.h>
-#import <InAppSettingsKit/IASKSpecifier.h>
+@class IASKSpecifier;
 
 NS_ASSUME_NONNULL_BEGIN
 

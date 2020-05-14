@@ -16,6 +16,7 @@
 
 #import "IASKSettingsStore.h"
 #import "IASKSettingsReader.h"
+#import "IASKSpecifier.h"
 
 @implementation IASKAbstractSettingsStore
 

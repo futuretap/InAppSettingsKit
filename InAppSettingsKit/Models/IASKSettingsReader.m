@@ -16,6 +16,7 @@
 
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
+#import "IASKSettingsStore.h"
 
 NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotification";
 

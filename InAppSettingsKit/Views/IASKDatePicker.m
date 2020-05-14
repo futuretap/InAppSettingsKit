@@ -7,6 +7,7 @@
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 
 #import "IASKDatePicker.h"
+#import "IASKSpecifier.h"
 
 @implementation IASKDatePicker
 

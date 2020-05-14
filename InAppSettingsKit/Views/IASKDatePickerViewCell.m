@@ -8,6 +8,7 @@
 //
 
 #import "IASKDatePickerViewCell.h"
+#import "IASKDatePicker.h"
 
 @implementation IASKDatePickerViewCell
 

@@ -15,7 +15,7 @@
 
 #import "IASKTextView.h"
 #import "IASKColor.h"
-
+#import "IASKSpecifier.h"
 
 
 @implementation IASKTextView {

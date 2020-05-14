@@ -14,7 +14,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IASKSpecifier.h"
+@class IASKSpecifier;
 
 @interface IASKTextField : UITextField
 

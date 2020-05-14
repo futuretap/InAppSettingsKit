@@ -15,7 +15,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IASKSpecifier.h"
+@class IASKSpecifier;
 
 NS_ASSUME_NONNULL_BEGIN
 

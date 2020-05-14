@@ -7,7 +7,8 @@
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //
 
-#import "IASKSpecifier.h"
+#import <UIKit/UIKit.h>
+@class IASKSpecifier;
 
 @interface IASKDatePicker : UIDatePicker
 @property (strong, nonatomic, nonnull) IASKSpecifier *specifier;

@@ -8,7 +8,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IASKDatePicker.h"
+@class IASKDatePicker;
 
 @interface IASKDatePickerViewCell : UITableViewCell
 @property (nonatomic, nonnull) IASKDatePicker *datePicker;

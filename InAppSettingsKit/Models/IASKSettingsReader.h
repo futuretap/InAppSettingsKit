@@ -16,7 +16,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <InAppSettingsKit/IASKSettingsStore.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -211,6 +210,7 @@ _Pragma("clang diagnostic pop")
 
 
 @class IASKSpecifier;
+@protocol IASKSettingsStore;
 
 /** settings reader transform iOS's settings plist files
  to the IASKSpecifier model objects.

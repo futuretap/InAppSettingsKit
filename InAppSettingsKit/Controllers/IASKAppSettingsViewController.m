@@ -28,6 +28,7 @@
 #import "IASKTextField.h"
 #import "IASKTextViewCell.h"
 #import "IASKMultipleValueSelection.h"
+#import "IASKDatePicker.h"
 #import "IASKDatePickerViewCell.h"
 
 #if !__has_feature(objc_arc)

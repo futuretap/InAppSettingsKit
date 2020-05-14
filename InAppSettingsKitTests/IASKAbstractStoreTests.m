@@ -10,6 +10,7 @@
 #import <XCTest/XCTest.h>
 #import "IASKSettingsStore.h"
 #import "IASKSettingsReader.h"
+#import "IASKSpecifier.h"
 
 @interface CustomStore : IASKAbstractSettingsStore { }
 

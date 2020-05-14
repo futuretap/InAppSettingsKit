@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1AA106821916565D4D6221F9 /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */; };
+		1AA106821916565D4D6221F9 /* IASKMultipleValueSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AA1013C46B6050E24DEBCE2 /* IASKMultipleValueSelection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1AA1073290B7DC27EB0C6A70 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */; };
-		2B81DB912452F59F00714832 /* IASKSettingsStoreInMemory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B81DB8F2452F59F00714832 /* IASKSettingsStoreInMemory.h */; };
+		2B81DB912452F59F00714832 /* IASKSettingsStoreInMemory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B81DB8F2452F59F00714832 /* IASKSettingsStoreInMemory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B81DB922452F59F00714832 /* IASKSettingsStoreInMemory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B81DB902452F59F00714832 /* IASKSettingsStoreInMemory.m */; };
+		AA028087246DFB0300681B8E /* IASKSettingsStoreInMemory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B81DB902452F59F00714832 /* IASKSettingsStoreInMemory.m */; };
 		AA0A85EB1C89C9A70036F778 /* IASKTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5AB5261C88974100B20124 /* IASKTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA0A85EC1C89C9AB0036F778 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5AB5271C88974100B20124 /* IASKTextView.m */; };
 		AA0A85ED1C89C9B30036F778 /* IASKTextViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5AB5281C88974100B20124 /* IASKTextViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA0A85EE1C89C9B70036F778 /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5AB5291C88974100B20124 /* IASKTextViewCell.m */; };
-		AA1C3ADA24602B660081582F /* IASKDatePickerViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AA1C3AD824602B650081582F /* IASKDatePickerViewCell.h */; };
+		AA1C3ADA24602B660081582F /* IASKDatePickerViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AA1C3AD824602B650081582F /* IASKDatePickerViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA1C3ADB24602B660081582F /* IASKDatePickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1C3AD924602B650081582F /* IASKDatePickerViewCell.m */; };
 		AA1C3ADC246035570081582F /* IASKDatePickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1C3AD924602B650081582F /* IASKDatePickerViewCell.m */; };
-		AA1C3ADF24604C220081582F /* IASKDatePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = AA1C3ADD24604C220081582F /* IASKDatePicker.h */; };
+		AA1C3ADF24604C220081582F /* IASKDatePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = AA1C3ADD24604C220081582F /* IASKDatePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA1C3AE024604C220081582F /* IASKDatePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = AA1C3ADD24604C220081582F /* IASKDatePicker.h */; };
 		AA1C3AE124604C220081582F /* IASKDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1C3ADE24604C220081582F /* IASKDatePicker.m */; };
 		AA1C3AE224604C220081582F /* IASKDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1C3ADE24604C220081582F /* IASKDatePicker.m */; };
@@ -30,7 +31,7 @@
 		AA627D2919F67B8E0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
 		AA627D3B19F695F30079AAE8 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA627D2B19F695F30079AAE8 /* IASKLocalizable.strings */; };
 		AADCA136233142C700D55F13 /* IASKColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AADCA134233142C700D55F13 /* IASKColor.m */; };
-		AADCA137233142C700D55F13 /* IASKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = AADCA135233142C700D55F13 /* IASKColor.h */; };
+		AADCA137233142C700D55F13 /* IASKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = AADCA135233142C700D55F13 /* IASKColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAC156261B54533D00655031 /* InAppSettingsKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DAC156251B54533D00655031 /* InAppSettingsKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAC1562B1B54537200655031 /* IASKPSSliderSpecifierViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E42ADAD41682036500295D85 /* IASKPSSliderSpecifierViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAC1562C1B54537200655031 /* IASKPSSliderSpecifierViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAD51682036500295D85 /* IASKPSSliderSpecifierViewCell.m */; };
@@ -505,7 +506,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AADCA137233142C700D55F13 /* IASKColor.h in Headers */,
 				E401BD3C16820A0D00EAF534 /* IASKAppSettingsViewController.h in Headers */,
 				E401BD3D16820A1700EAF534 /* IASKSpecifierValuesViewController.h in Headers */,
 				E401BD3E16820A1C00EAF534 /* IASKAppSettingsWebViewController.h in Headers */,
@@ -515,17 +515,18 @@
 				E401BD4216820A2400EAF534 /* IASKSettingsStoreUserDefaults.h in Headers */,
 				E401BD4316820A2400EAF534 /* IASKSettingsStoreFile.h in Headers */,
 				E401BD4416820A2D00EAF534 /* IASKPSSliderSpecifierViewCell.h in Headers */,
-				AA1C3ADA24602B660081582F /* IASKDatePickerViewCell.h in Headers */,
 				E401BD4516820A2D00EAF534 /* IASKPSTextFieldSpecifierViewCell.h in Headers */,
 				AA5AB52C1C88974100B20124 /* IASKTextViewCell.h in Headers */,
 				E401BD4716820A2D00EAF534 /* IASKSlider.h in Headers */,
 				E401BD4816820A2D00EAF534 /* IASKSwitch.h in Headers */,
 				AA5AB52A1C88974100B20124 /* IASKTextView.h in Headers */,
+				AADCA137233142C700D55F13 /* IASKColor.h in Headers */,
 				E401BD4916820A2D00EAF534 /* IASKTextField.h in Headers */,
+				AA1C3ADA24602B660081582F /* IASKDatePickerViewCell.h in Headers */,
 				2B81DB912452F59F00714832 /* IASKSettingsStoreInMemory.h in Headers */,
-				E401BD4B16820BBA00EAF534 /* IASKViewController.h in Headers */,
 				AA1C3ADF24604C220081582F /* IASKDatePicker.h in Headers */,
 				1AA106821916565D4D6221F9 /* IASKMultipleValueSelection.h in Headers */,
+				E401BD4B16820BBA00EAF534 /* IASKViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,6 +680,7 @@
 				DAC156371B54538500655031 /* IASKSettingsStore.m in Sources */,
 				DAC156471B54538D00655031 /* IASKMultipleValueSelection.m in Sources */,
 				DAC1563D1B54538900655031 /* IASKSettingsReader.m in Sources */,
+				AA028087246DFB0300681B8E /* IASKSettingsStoreInMemory.m in Sources */,
 				DAC156461B54538D00655031 /* IASKAppSettingsWebViewController.m in Sources */,
 				DAC1562C1B54537200655031 /* IASKPSSliderSpecifierViewCell.m in Sources */,
 				AA0A85EC1C89C9AB0036F778 /* IASKTextView.m in Sources */,
