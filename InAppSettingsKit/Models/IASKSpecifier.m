@@ -183,8 +183,25 @@
     return [self localizedObjectForKey:kIASKTitle];
 }
 
+- (BOOL)hasSubtitle {
+	return [_specifierDict objectForKey:kIASKSubtitle] != nil;
+}
+
 - (NSString*)subtitle {
 	return [self localizedObjectForKey:kIASKSubtitle];
+}
+
+- (NSString*)subtitle:(id)value {
+	id subtitleValue = [_specifierDict objectForKey:kIASKSubtitle];
+	if ([subtitleValue isKindOfClass:[NSDictionary class]]) {
+		if (value == nil) {
+			return nil;
+		}
+		IASKSettingsReader *settingsReader = self.settingsReader;
+		id subtitleForValue = [(NSDictionary*) subtitleValue objectForKey:value];
+		return [settingsReader titleForId:subtitleForValue];
+	}
+	return [self subtitle];
 }
 
 - (NSString *)placeholder {
@@ -456,7 +473,7 @@
 
 - (NSTextAlignment)textAlignment
 {
-    if (self.subtitle.length || [[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentLeft]) {
+    if (self.hasSubtitle || [[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentLeft]) {
         return NSTextAlignmentLeft;
     } else if ([[_specifierDict objectForKey:kIASKTextLabelAlignment] isEqualToString:kIASKTextLabelAlignmentCenter]) {
         return NSTextAlignmentCenter;

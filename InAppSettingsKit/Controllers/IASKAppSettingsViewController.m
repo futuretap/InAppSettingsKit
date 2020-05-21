@@ -418,6 +418,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 			[self.settingsStore setBool:NO forSpecifier:specifier];
 		}
 	}
+	NSString* key = specifier.key;
+	if (key != nil) {
+		NSIndexPath* indexPath = [_settingsReader indexPathForKey:key];
+		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
+		cell.detailTextLabel.text = [specifier subtitle:on ? @"YES" : @"NO"];
+	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
 														object:self
 													  userInfo:@{(id)specifier.key: [self.settingsStore objectForSpecifier:specifier] ?: NSNull.null}];
@@ -542,12 +548,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (UITableViewCell*)tableView:(UITableView *)tableView newCellForSpecifier:(IASKSpecifier*)specifier {
 
-	NSString *identifier = [NSString stringWithFormat:@"%@-%ld-%d", specifier.type, (long)specifier.textAlignment, !!specifier.subtitle.length];
+	NSString *identifier = [NSString stringWithFormat:@"%@-%ld-%d", specifier.type, (long)specifier.textAlignment, specifier.hasSubtitle];
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 	if (cell) {
 		return cell;
 	}
-	UITableViewCellStyle style = (specifier.textAlignment == NSTextAlignmentLeft || specifier.subtitle.length) ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault;
+	UITableViewCellStyle style = (specifier.textAlignment == NSTextAlignmentLeft || specifier.hasSubtitle) ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault;
 	if ([identifier hasPrefix:kIASKPSToggleSwitchSpecifier]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
 	}
@@ -565,7 +571,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	else if ([identifier hasPrefix:kIASKPSSliderSpecifier]) {
         cell = [[IASKPSSliderSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	} else if ([identifier hasPrefix:kIASKPSChildPaneSpecifier]) {
-		if (!specifier.subtitle.length) {
+		if (!specifier.hasSubtitle) {
 			style = UITableViewCellStyleValue1;
 		}
 		cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:identifier];
@@ -595,7 +601,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	
 	if ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier]) {
 		cell.textLabel.text = title;
-		cell.detailTextLabel.text = specifier.subtitle;
 
 		BOOL toggleState;
 		if (currentValue) {
@@ -609,6 +614,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		} else {
 			toggleState = specifier.defaultBoolValue;
 		}
+		cell.detailTextLabel.text = [specifier subtitle:toggleState ? @"YES" : @"NO"];
 		if (specifier.toggleStyle == IASKToggleStyleSwitch) {
 			IASKSwitch *toggle = [[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)];
 			[toggle addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];
@@ -712,7 +718,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if ([specifier.type isEqualToString:kIASKPSChildPaneSpecifier]) {
 		cell.textLabel.text = title;
-		if (specifier.subtitle.length) {
+		if (specifier.hasSubtitle) {
 			cell.detailTextLabel.text = specifier.subtitle;
 		} else if (specifier.key) {
 			NSString *valueString = currentValue ?: specifier.defaultValue;
