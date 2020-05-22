@@ -437,6 +437,25 @@
                 <string>with value aware subtitle (no)</string>
             </dict>
         </dict>
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>Title</key>
+            <string>Boolean Toggle</string>
+            <key>Key</key>
+            <string>toggle_boolean_value_aware_subtitle_and_default</string>
+            <key>DefaultValue</key>
+            <true/>
+            <key>IASKSubtitle</key>
+            <dict>
+                <key>YES</key>
+                <string>with value aware subtitle (yes)</string>
+                <key>NO</key>
+                <string>with value aware subtitle (no)</string>
+                <key>__default__</key>
+                <string>with value aware subtitle (default)</string>
+            </dict>
+        </dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>

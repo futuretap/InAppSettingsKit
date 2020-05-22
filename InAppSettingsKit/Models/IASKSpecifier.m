@@ -188,20 +188,23 @@
 }
 
 - (NSString*)subtitle {
-	return [self localizedObjectForKey:kIASKSubtitle];
+	return [self subtitleForValue:nil];
 }
 
 - (NSString*)subtitleForValue:(id)value {
 	id subtitleValue = [_specifierDict objectForKey:kIASKSubtitle];
 	if ([subtitleValue isKindOfClass:[NSDictionary class]]) {
-		if (value == nil) {
-			return nil;
+		id subtitleForValue = nil;
+		if (value != nil) {
+			subtitleForValue = [(NSDictionary*) subtitleValue objectForKey:value];
+		}
+		if (subtitleForValue == nil) {
+			subtitleForValue = [(NSDictionary*) subtitleValue objectForKey:@"__default__"];
 		}
 		IASKSettingsReader *settingsReader = self.settingsReader;
-		id subtitleForValue = [(NSDictionary*) subtitleValue objectForKey:value];
 		return [settingsReader titleForId:subtitleForValue];
 	}
-	return [self subtitle];
+	return [self localizedObjectForKey:kIASKSubtitle];
 }
 
 - (NSString *)placeholder {
