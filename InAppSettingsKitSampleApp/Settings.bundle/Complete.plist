@@ -432,9 +432,9 @@
             <key>IASKSubtitle</key>
             <dict>
                 <key>YES</key>
-                <string>with value aware subtitle (yes)</string>
+                <string>TOGGLE_SWITCH_SUBTITLE_YES</string>
                 <key>NO</key>
-                <string>with value aware subtitle (no)</string>
+                <string>TOGGLE_SWITCH_SUBTITLE_NO</string>
             </dict>
         </dict>
 		<dict>

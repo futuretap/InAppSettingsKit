@@ -45,6 +45,8 @@
 
 "TOGGLE_SWITCH2"        = "Boolscher Schalter";
 "TOGGLE_SWITCH_TITLE2"  = "Weiterer Toggle Schalter";
+"TOGGLE_SWITCH_SUBTITLE_YES" = "mit wertespezifischem Untertitel (Ja)";
+"TOGGLE_SWITCH_SUBTITLE_NO"  = "mit wertespezifischem Untertitel (Nein)";
 
 "SLIDER_TITLE"          = "Slider mit Icons";
 
