@@ -226,6 +226,7 @@ As an alternative to `IASKViewControllerClass` and `IASKViewControllerSelector` 
 ### Subtitles
 The `IASKSubtitle` key allows to define subtitles for these elements: Toggle, ChildPane, OpenURL, MailCompose, Button. Using a subtitle implies left alignment.
 A child pane displays its value as a subtitle, if available and no `IASKSubtitle` is specified.
+For toggle elements, the subtitle can be a localizable String or a Dictionary with localizable subtitles depending on the current value. `YES` and `NO` are used as keys for boolean toggle values.
 
 ### Text alignment
 For some element types, a `IASKTextAlignment` attribute may be added with the following values to override the default alignment:
