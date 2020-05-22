@@ -422,7 +422,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if (key != nil) {
 		NSIndexPath* indexPath = [_settingsReader indexPathForKey:key];
 		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
-		cell.detailTextLabel.text = [specifier subtitle:on ? @"YES" : @"NO"];
+		cell.detailTextLabel.text = [specifier subtitleForValue:on ? @"YES" : @"NO"];
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
 														object:self
@@ -614,7 +614,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		} else {
 			toggleState = specifier.defaultBoolValue;
 		}
-		cell.detailTextLabel.text = [specifier subtitle:toggleState ? @"YES" : @"NO"];
+		cell.detailTextLabel.text = [specifier subtitleForValue:toggleState ? @"YES" : @"NO"];
 		if (specifier.toggleStyle == IASKToggleStyleSwitch) {
 			IASKSwitch *toggle = [[IASKSwitch alloc] initWithFrame:CGRectMake(0, 0, 79, 27)];
 			[toggle addTarget:self action:@selector(toggledValue:) forControlEvents:UIControlEventValueChanged];

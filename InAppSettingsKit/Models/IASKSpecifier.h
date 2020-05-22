@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param value  The current value of the setting.
  @discussion Returns the subtitle for the current value of the setting.
  */
-- (nullable NSString*)subtitle:(nullable id)value;
+- (nullable NSString*)subtitleForValue:(nullable id)value;
 
 @property (nonatomic, copy, readonly) NSString *type;
 @property (nullable, nonatomic, strong, readonly) id defaultValue;

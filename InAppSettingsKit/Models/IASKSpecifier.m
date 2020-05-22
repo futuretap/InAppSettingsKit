@@ -191,7 +191,7 @@
 	return [self localizedObjectForKey:kIASKSubtitle];
 }
 
-- (NSString*)subtitle:(id)value {
+- (NSString*)subtitleForValue:(id)value {
 	id subtitleValue = [_specifierDict objectForKey:kIASKSubtitle];
 	if ([subtitleValue isKindOfClass:[NSDictionary class]]) {
 		if (value == nil) {
