@@ -803,6 +803,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		IASKSpecifier *childSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier.specifierDict];
 		childSpecifier.settingsReader = self.settingsReader;
 		IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] initWithSpecifier:childSpecifier];
+        targetViewController.view.backgroundColor = self.view.backgroundColor;
 		targetViewController.settingsReader = self.settingsReader;
 		[self setMultiValuesFromDelegateIfNeeded:childSpecifier];
 
@@ -885,6 +886,7 @@ CGRect IASKCGRectSwap(CGRect rect);
         targetViewController.file = (id)specifier.file;
         targetViewController.hiddenKeys = self.hiddenKeys;
         targetViewController.title = specifier.title;
+		targetViewController.view.backgroundColor = self.view.backgroundColor;
         _currentChildViewController = targetViewController;
         
         _reloadDisabled = NO;
