@@ -88,6 +88,30 @@
 	XCTAssertEqualObjects([multiSpecifier titleForCurrentValue:@(3)], [formatter stringFromNumber:@(3)]);
 }
 
+- (void) testSettingsReaderSubtitles {
+	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Complete"
+																   bundle:[NSBundle bundleForClass:[self class]]];
+	IASKSpecifier *noSubtitleSpecifier = [reader specifierForKey:@"toggle_boolean"];
+	XCTAssertFalse([noSubtitleSpecifier hasSubtitle], @"Expected no subtitle");
+	XCTAssertNil([noSubtitleSpecifier subtitle], @"Failed to read the subtitle: Got subtitle, expected none");
+	
+	IASKSpecifier *subtitleSpecifier = [reader specifierForKey:@"toggle_boolean_subtitle"];
+	XCTAssertTrue([subtitleSpecifier hasSubtitle], @"Expected a subtitle");
+	XCTAssertEqualObjects([subtitleSpecifier subtitle], @"with subtitle", @"Failed to read the correct subtitle");
+	
+	
+	IASKSpecifier *valueAwareSubtitleSpecifier = [reader specifierForKey:@"toggle_boolean_value_aware_subtitle"];
+	XCTAssertTrue([valueAwareSubtitleSpecifier hasSubtitle], @"Expected a subtitle");
+	XCTAssertNil([valueAwareSubtitleSpecifier subtitle], @"Expected no default subtitle");
+	XCTAssertEqualObjects([valueAwareSubtitleSpecifier subtitleForValue:@"YES"], @"with value aware subtitle (yes)", @"Failed to read the correct subtitle for the toggle 'YES' state");
+	XCTAssertEqualObjects([valueAwareSubtitleSpecifier subtitleForValue:@"NO"], @"with value aware subtitle (no)", @"Failed to read the correct subtitle for the toggle 'NO' state");
+	
+	IASKSpecifier *valueAwareSubtitleAndDefaultSpecifier = [reader specifierForKey:@"toggle_boolean_value_aware_subtitle_and_default"];
+	XCTAssertTrue([valueAwareSubtitleAndDefaultSpecifier hasSubtitle], @"Expected a subtitle");
+	XCTAssertEqualObjects([valueAwareSubtitleAndDefaultSpecifier subtitle], @"with value aware subtitle (default)", @"Failed to read the correct default subtitle for no value");
+	XCTAssertEqualObjects([valueAwareSubtitleAndDefaultSpecifier subtitleForValue:@"UNKNOWN"], @"with value aware subtitle (default)", @"Failed to read the correct default subtitle for an unspecified value");
+}
+
 - (void) testSettingsReaderFailsToSortMalformedMultiValueEntries {
 	XCTAssertThrows([[IASKSettingsReader alloc] initWithFile:@"Malformed"
 													  bundle:[NSBundle bundleForClass:self.class]]);

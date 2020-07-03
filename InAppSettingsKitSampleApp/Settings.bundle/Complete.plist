@@ -420,6 +420,23 @@
 			<key>IASKSubtitle</key>
 			<string>with subtitle</string>
 		</dict>
+        <dict>
+            <key>Type</key>
+            <string>PSToggleSwitchSpecifier</string>
+            <key>Title</key>
+            <string>Boolean Toggle</string>
+            <key>Key</key>
+            <string>toggle_boolean_value_aware_subtitle</string>
+            <key>DefaultValue</key>
+            <true/>
+            <key>IASKSubtitle</key>
+            <dict>
+                <key>YES</key>
+                <string>TOGGLE_SWITCH_SUBTITLE_YES</string>
+                <key>NO</key>
+                <string>TOGGLE_SWITCH_SUBTITLE_NO</string>
+            </dict>
+        </dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>

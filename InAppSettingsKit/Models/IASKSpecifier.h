@@ -43,6 +43,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Settings schema: `IASKSubtitle`
 @property (nullable, nonatomic, copy, readonly) NSString *subtitle;
 
+// internal: Whether or not this setting has a subtitle.
+@property (nonatomic, readonly) BOOL hasSubtitle;
+
+// internal: Returns the subtitle for the current value of the setting
+- (nullable NSString*)subtitleForValue:(nullable id)value;
+
 @property (nonatomic, copy, readonly) NSString *type;
 @property (nullable, nonatomic, strong, readonly) id defaultValue;
 @property (nullable, nonatomic, strong, readonly) id defaultStringValue;
