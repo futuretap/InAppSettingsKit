@@ -551,18 +551,20 @@
 	NSDictionary *dict = @{kIASKDatePickerStyleCompact: @(UIDatePickerStyleCompact),
 						   kIASKDatePickerStyleWheels: @(UIDatePickerStyleWheels)};
 	if (@available(iOS 14.0, *)) {
-		dict = @{kIASKDatePickerStyleCompact: @(UIDatePickerStyleCompact),
-				 kIASKDatePickerStyleWheels: @(UIDatePickerStyleWheels),
-				 kIASKDatePickerStyleInline: @(UIDatePickerStyleInline)};
+		IASK_IF_IOS14_OR_GREATER(
+		 dict = @{kIASKDatePickerStyleCompact: @(UIDatePickerStyleCompact),
+				  kIASKDatePickerStyleWheels: @(UIDatePickerStyleWheels),
+				  kIASKDatePickerStyleInline: @(UIDatePickerStyleInline)};
+		);
 	}
 	NSString *string = [_specifierDict objectForKey:kIASKDatePickerStyle];
 	NSNumber *value = dict[string];
-	return value == nil ? UIDatePickerStyleCompact : value.integerValue;
+	return value == nil ? UIDatePickerStyleWheels : value.integerValue;
 }
 
 - (BOOL)embeddedDatePicker {
 	BOOL embeddedDatePicker = NO;
-	if (@available(iOS 13.4, *)) {
+	if (@available(iOS 14.0, *)) {
 		embeddedDatePicker = [self.type isEqualToString:kIASKDatePickerSpecifier] && self.datePickerStyle == UIDatePickerStyleCompact;
 	}
 	return embeddedDatePicker;

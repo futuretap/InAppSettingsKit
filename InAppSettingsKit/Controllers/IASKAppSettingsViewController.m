@@ -554,7 +554,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if (specifier.embeddedDatePicker) {
 		cell = [[IASKEmbeddedDatePickerViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-	}
+		[((IASKDatePickerViewCell*)cell).datePicker addTarget:self action:@selector(datePickerChangedValue:) forControlEvents:UIControlEventValueChanged];
+}
 	else if ([@[kIASKPSMultiValueSpecifier, kIASKPSTitleValueSpecifier, kIASKDatePickerSpecifier] containsObject:specifier.type]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
 		cell.accessoryType = [identifier hasPrefix:kIASKPSMultiValueSpecifier] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
@@ -642,7 +643,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		datePickerCell.titleLabel.text = title;
 		datePickerCell.datePicker.specifier = specifier;
 		datePickerCell.datePicker.datePickerMode = specifier.datePickerMode;
-		if (@available(iOS 13.4, *)) {
+		if (@available(iOS 14.0, *)) {
 			datePickerCell.datePicker.preferredDatePickerStyle = specifier.datePickerStyle;
 		}
 		datePickerCell.datePicker.minuteInterval = specifier.datePickerMinuteInterval;
@@ -761,7 +762,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		IASKDatePickerViewCell *datePickerCell = (id)cell;
 		datePickerCell.datePicker.specifier = specifier;
 		datePickerCell.datePicker.datePickerMode = specifier.datePickerMode;
-		if (@available(iOS 13.4, *)) {
+		if (@available(iOS 14.0, *)) {
 			datePickerCell.datePicker.preferredDatePickerStyle = specifier.datePickerStyle;
 		}
 		datePickerCell.datePicker.minuteInterval = specifier.datePickerMinuteInterval;
