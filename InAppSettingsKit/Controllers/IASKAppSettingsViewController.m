@@ -435,11 +435,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)datePickerChangedValue:(IASKDatePicker*)datePicker {
+	datePicker.editing = YES;
 	if ([self.delegate respondsToSelector:@selector(settingsViewController:setDate:forSpecifier:)]) {
 		[self.delegate settingsViewController:self setDate:datePicker.date forSpecifier:datePicker.specifier];
 	} else {
 		[self.settingsStore setObject:datePicker.date forSpecifier:datePicker.specifier];
 	}
+	datePicker.editing = NO;
 }
 
 #pragma mark -
@@ -1243,6 +1245,8 @@ static NSMutableDictionary *oldUserDefaults = nil;
 		for (UITableViewCell *cell in self.tableView.visibleCells) {
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 			if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder] && indexPath) {
+				[indexPathsToUpdate removeObject:indexPath];
+			} else if ([cell isKindOfClass:IASKEmbeddedDatePickerViewCell.class] && !((IASKEmbeddedDatePickerViewCell*)cell).datePicker.editing) {
 				[indexPathsToUpdate removeObject:indexPath];
 			}
 		}

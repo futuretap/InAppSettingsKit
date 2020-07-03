@@ -12,5 +12,6 @@
 
 @interface IASKDatePicker : UIDatePicker
 @property (strong, nonatomic, nonnull) IASKSpecifier *specifier;
+@property (nonatomic, getter=isEditing) BOOL editing;
 @end
 

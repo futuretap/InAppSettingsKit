@@ -585,7 +585,10 @@
 - (BOOL)embeddedDatePicker {
 	BOOL embeddedDatePicker = NO;
 	if (@available(iOS 14.0, *)) {
-		embeddedDatePicker = [self.type isEqualToString:kIASKDatePickerSpecifier] && self.datePickerStyle == UIDatePickerStyleCompact;
+		IASK_IF_IOS14_OR_GREATER(
+		 embeddedDatePicker = [self.type isEqualToString:kIASKDatePickerSpecifier] &&
+		 (self.datePickerStyle == UIDatePickerStyleCompact || (self.datePickerStyle == UIDatePickerStyleInline && self.datePickerMode == UIDatePickerModeTime));
+        );
 	}
 	return embeddedDatePicker;
 }
