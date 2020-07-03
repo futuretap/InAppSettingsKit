@@ -1,5 +1,11 @@
 # Release Notes
 
+## InAppSettingsKit 3.1
+
+- In iOS 14+, setting an IASKDatePickerStyle is supported.
+- The minimum deployment target has been upped to iOS 9.0 in order to silence warnings in Xcode 12 which no longer supports a deployment target of iOS 8.0.
+
+
 ## InAppSettingsKit 3.0
 
 ### Changes in `IASKSettingsDelegate`
