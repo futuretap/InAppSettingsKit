@@ -104,7 +104,12 @@
     }
 
     [self.selection updateSelectionInCell:cell indexPath:indexPath];
-
+	UIColor *textColor = [UILabel appearanceWhenContainedInInstancesOfClasses:@[UITableViewCell.class]].textColor;
+	if (textColor == nil) {
+		textColor = [UILabel appearance].textColor;
+	}
+	cell.textLabel.textColor = textColor;
+    
     @try {
         [[cell textLabel] setText:[self.settingsReader titleForId:[titles objectAtIndex:indexPath.row]]];
         if ((NSInteger)iconNames.count > indexPath.row) {
