@@ -158,13 +158,37 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Date &amp; Time</string>
+			<string>Compact D &amp; T</string>
 			<key>Key</key>
-			<string>dateAndTime</string>
+			<string>compactDateAndTime</string>
 			<key>Type</key>
 			<string>IASKDatePickerSpecifier</string>
 			<key>DatePickerMode</key>
 			<string>DateAndTime</string>
+			<key>DatePickerStyle</key>
+			<string>Compact</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Wheels D &amp; T</string>
+			<key>Key</key>
+			<string>wheelsDateAndTime</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>DateAndTime</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Inline D &amp; T</string>
+			<key>Key</key>
+			<string>inlineDateAndTime</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>DateAndTime</string>
+			<key>DatePickerStyle</key>
+			<string>Inline</string>
 		</dict>
 		<dict>
 			<key>Title</key>
