@@ -106,10 +106,11 @@
 	XCTAssertEqualObjects([valueAwareSubtitleSpecifier subtitleForValue:@"YES"], @"with value aware subtitle (yes)", @"Failed to read the correct subtitle for the toggle 'YES' state");
 	XCTAssertEqualObjects([valueAwareSubtitleSpecifier subtitleForValue:@"NO"], @"with value aware subtitle (no)", @"Failed to read the correct subtitle for the toggle 'NO' state");
 	
-	IASKSpecifier *valueAwareSubtitleAndDefaultSpecifier = [reader specifierForKey:@"toggle_boolean_value_aware_subtitle_and_default"];
+	IASKSpecifier *valueAwareSubtitleAndDefaultSpecifier = [reader specifierForKey:@"fruit"];
 	XCTAssertTrue([valueAwareSubtitleAndDefaultSpecifier hasSubtitle], @"Expected a subtitle");
-	XCTAssertEqualObjects([valueAwareSubtitleAndDefaultSpecifier subtitle], @"with value aware subtitle (default)", @"Failed to read the correct default subtitle for no value");
-	XCTAssertEqualObjects([valueAwareSubtitleAndDefaultSpecifier subtitleForValue:@"UNKNOWN"], @"with value aware subtitle (default)", @"Failed to read the correct default subtitle for an unspecified value");
+	XCTAssertEqualObjects([valueAwareSubtitleAndDefaultSpecifier subtitle], @"Some fruit", @"Failed to read the correct default subtitle for no value");
+	XCTAssertEqualObjects([valueAwareSubtitleAndDefaultSpecifier subtitleForValue:@"UNKNOWN"], @"Some fruit", @"Failed to read the correct default subtitle for an unspecified value");
+	XCTAssertEqualObjects([valueAwareSubtitleAndDefaultSpecifier subtitleForValue:@"Banana"], @"Yellow fruit", @"Failed to read the correct default subtitle for a specified value");
 }
 
 - (void) testSettingsReaderFailsToSortMalformedMultiValueEntries {

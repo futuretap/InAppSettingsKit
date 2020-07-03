@@ -4,6 +4,7 @@
 
 - In iOS 14+, setting an IASKDatePickerStyle is supported.
 - The minimum deployment target has been upped to iOS 9.0 in order to silence warnings in Xcode 12 which no longer supports a deployment target of iOS 8.0.
+- Subtitles can depend on the current value by specifying a dictionary with localizable subtitles.
 
 
 ## InAppSettingsKit 3.0

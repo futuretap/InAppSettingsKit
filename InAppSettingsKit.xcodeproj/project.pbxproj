@@ -126,6 +126,7 @@
 		AA1C3AD924602B650081582F /* IASKDatePickerViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IASKDatePickerViewCell.m; sourceTree = "<group>"; };
 		AA1C3ADD24604C220081582F /* IASKDatePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IASKDatePicker.h; sourceTree = "<group>"; };
 		AA1C3ADE24604C220081582F /* IASKDatePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IASKDatePicker.m; sourceTree = "<group>"; };
+		AA391E6F24AFA23700973930 /* RELEASE_NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RELEASE_NOTES.md; sourceTree = "<group>"; };
 		AA5AB5261C88974100B20124 /* IASKTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextView.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		AA5AB5271C88974100B20124 /* IASKTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKTextView.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		AA5AB5281C88974100B20124 /* IASKTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = IASKTextViewCell.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
@@ -274,6 +275,7 @@
 			children = (
 				AAE500261A82A1D600C445B0 /* InAppSettingsKit.podspec */,
 				AA627D6F19F69A7F0079AAE8 /* README.md */,
+				AA391E6F24AFA23700973930 /* RELEASE_NOTES.md */,
 				E42ADA94168202D700295D85 /* InAppSettingsKit */,
 				E42ADAAB168202D700295D85 /* InAppSettingsKitTests */,
 				E42ADABC1682033800295D85 /* Configurations */,

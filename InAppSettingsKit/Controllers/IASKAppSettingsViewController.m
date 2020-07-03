@@ -735,25 +735,25 @@ CGRect IASKCGRectSwap(CGRect rect);
 	else if ([specifier.type isEqualToString:kIASKPSChildPaneSpecifier]) {
 		cell.textLabel.text = title;
 		if (specifier.hasSubtitle) {
-			cell.detailTextLabel.text = specifier.subtitle;
+			cell.detailTextLabel.text = [specifier subtitleForValue:currentValue];
 		} else if (specifier.key) {
 			NSString *valueString = currentValue ?: specifier.defaultValue;
 			valueString = [valueString isKindOfClass:NSString.class] ? valueString : nil;
 			if (valueString) {
 				if (specifier.textAlignment == NSTextAlignmentLeft) {
-					cell.textLabel.text = valueString;
+					cell.textLabel.text = [self.settingsReader titleForId:valueString];
 				} else {
-					cell.detailTextLabel.text = valueString;
+					cell.detailTextLabel.text = [self.settingsReader titleForId:valueString];
 				}
 			}
 		}
 	} else if ([@[kIASKMailComposeSpecifier, kIASKOpenURLSpecifier] containsObject:specifier.type]) {
 		cell.textLabel.text = title;
-		cell.detailTextLabel.text = specifier.subtitle ? : [specifier.defaultValue description];
+		cell.detailTextLabel.text = [specifier subtitleForValue:currentValue] ? : [specifier.defaultValue description];
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
 		cell.textLabel.text = ([currentValue isKindOfClass:NSString.class] && [self.settingsReader titleForId:currentValue].length) ? [self.settingsReader titleForId:currentValue] : title;
-		cell.detailTextLabel.text = specifier.subtitle;
+		cell.detailTextLabel.text = [specifier subtitleForValue:currentValue];
 		cell.textLabel.textAlignment = specifier.textAlignment;
 		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {

@@ -424,6 +424,23 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Boolean Toggle</string>
+			<key>Key</key>
+			<string>toggle_boolean_value_aware_subtitle</string>
+			<key>DefaultValue</key>
+			<true/>
+			<key>IASKSubtitle</key>
+			<dict>
+				<key>YES</key>
+				<string>TOGGLE_SWITCH_SUBTITLE_YES</string>
+				<key>NO</key>
+				<string>TOGGLE_SWITCH_SUBTITLE_NO</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Toggle w/ image</string>
 			<key>Key</key>
 			<string>toggle_pic</string>
@@ -733,6 +750,27 @@
 			<string>Advanced</string>
 			<key>IASKSubtitle</key>
 			<string>with subtitle</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Dynamic Subtitle</string>
+			<key>File</key>
+			<string>Fruit</string>
+			<key>Key</key>
+			<string>fruit</string>
+			<key>IASKSubtitle</key>
+			<dict>
+				<key>Banana</key>
+				<string>Yellow fruit</string>
+				<key>Kiwi</key>
+				<string>Green fruit</string>
+				<key>Strawberry</key>
+				<string>Red fruit</string>
+				<key>__default__</key>
+				<string>Some fruit</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Type</key>
