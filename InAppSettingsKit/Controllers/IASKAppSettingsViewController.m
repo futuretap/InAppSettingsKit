@@ -30,6 +30,7 @@
 #import "IASKMultipleValueSelection.h"
 #import "IASKDatePicker.h"
 #import "IASKDatePickerViewCell.h"
+#import "IASKEmbeddedDatePickerViewCell.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"
@@ -542,7 +543,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (UITableViewCell*)tableView:(UITableView *)tableView newCellForSpecifier:(IASKSpecifier*)specifier {
 
-	NSString *identifier = [NSString stringWithFormat:@"%@-%ld-%d", specifier.type, (long)specifier.textAlignment, !!specifier.subtitle.length];
+	NSString *identifier = [NSString stringWithFormat:@"%@-%ld-%d-%d", specifier.type, (long)specifier.textAlignment, !!specifier.subtitle.length, specifier.embeddedDatePicker];
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
 	if (cell) {
 		return cell;
@@ -550,6 +551,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	UITableViewCellStyle style = (specifier.textAlignment == NSTextAlignmentLeft || specifier.subtitle.length) ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault;
 	if ([identifier hasPrefix:kIASKPSToggleSwitchSpecifier]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+	}
+	else if (specifier.embeddedDatePicker) {
+		cell = [[IASKEmbeddedDatePickerViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
 	}
 	else if ([@[kIASKPSMultiValueSpecifier, kIASKPSTitleValueSpecifier, kIASKDatePickerSpecifier] containsObject:specifier.type]) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
@@ -631,6 +635,21 @@ CGRect IASKCGRectSwap(CGRect rect);
 		} else {
 			cell.textLabel.text = cell.detailTextLabel.text;
 			cell.detailTextLabel.text = nil;
+		}
+	}
+	else if (specifier.embeddedDatePicker) {
+		IASKEmbeddedDatePickerViewCell *datePickerCell = (id)cell;
+		datePickerCell.titleLabel.text = title;
+		datePickerCell.datePicker.specifier = specifier;
+		datePickerCell.datePicker.datePickerMode = specifier.datePickerMode;
+		if (@available(iOS 13.4, *)) {
+			datePickerCell.datePicker.preferredDatePickerStyle = specifier.datePickerStyle;
+		}
+		datePickerCell.datePicker.minuteInterval = specifier.datePickerMinuteInterval;
+		if ([self.delegate respondsToSelector:@selector(settingsViewController:dateForSpecifier:)]) {
+			datePickerCell.datePicker.date = [self.delegate settingsViewController:self dateForSpecifier:specifier];
+		} else {
+			datePickerCell.datePicker.date = currentValue ?: NSDate.date;
 		}
 	}
 	else if ([@[kIASKPSTitleValueSpecifier, kIASKDatePickerSpecifier] containsObject:specifier.type]) {
@@ -742,11 +761,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 		IASKDatePickerViewCell *datePickerCell = (id)cell;
 		datePickerCell.datePicker.specifier = specifier;
 		datePickerCell.datePicker.datePickerMode = specifier.datePickerMode;
+		if (@available(iOS 13.4, *)) {
+			datePickerCell.datePicker.preferredDatePickerStyle = specifier.datePickerStyle;
+		}
 		datePickerCell.datePicker.minuteInterval = specifier.datePickerMinuteInterval;
 		if ([self.delegate respondsToSelector:@selector(settingsViewController:dateForSpecifier:)]) {
 			datePickerCell.datePicker.date = [self.delegate settingsViewController:self dateForSpecifier:specifier];
 		} else {
-			datePickerCell.datePicker.date = currentValue;
+			datePickerCell.datePicker.date = currentValue ?: NSDate.date;
 		}
 	} else {
 		cell.textLabel.text = title;
@@ -767,7 +789,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
-	if ([specifier.type isEqualToString:kIASKPSSliderSpecifier] || ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier] && specifier.toggleStyle == IASKToggleStyleSwitch)) {
+	if ([specifier.type isEqualToString:kIASKPSSliderSpecifier] || ([specifier.type isEqualToString:kIASKPSToggleSwitchSpecifier] && specifier.toggleStyle == IASKToggleStyleSwitch) || specifier.embeddedDatePicker) {
 		return nil;
 	} else {
 		return indexPath;

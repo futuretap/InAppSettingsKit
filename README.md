@@ -135,6 +135,7 @@ Similar to standard text fields, `IASKTextViewSpecifier` displays a full-width, 
 `IASKDatePickerSpecifier` displays a `UIDatePicker` to set a date and/or time. It supports the following options:
 
  - `DatePickerMode`: one of `Date`, `Time`, or `DateAndTime` (see [UIDatePickerMode](https://developer.apple.com/documentation/uikit/uidatepickermode)). Default is `DateAndTime`.
+ - `DatePickerStyle`: one of `Compact`, `Wheels`, or `Inline` (see [UIDatePickerStyle](https://developer.apple.com/documentation/uikit/uidatepickerstyle)). Default is `Wheels`. Note that `Compact` requires iOS 13.4 or higher, `Inline` requires iOS 14 or higher.
  - `MinuteInterval`: The interval at which the date picker displays minutes. Default: 1.
 
 There are 3 optional delegate methods to customize how to store and display dates and times:

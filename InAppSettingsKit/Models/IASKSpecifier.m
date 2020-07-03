@@ -547,6 +547,27 @@
 	return value == nil ? UIDatePickerModeDateAndTime : value.integerValue;
 }
 
+- (UIDatePickerStyle)datePickerStyle {
+	NSDictionary *dict = @{kIASKDatePickerStyleCompact: @(UIDatePickerStyleCompact),
+						   kIASKDatePickerStyleWheels: @(UIDatePickerStyleWheels)};
+	if (@available(iOS 14.0, *)) {
+		dict = @{kIASKDatePickerStyleCompact: @(UIDatePickerStyleCompact),
+				 kIASKDatePickerStyleWheels: @(UIDatePickerStyleWheels),
+				 kIASKDatePickerStyleInline: @(UIDatePickerStyleInline)};
+	}
+	NSString *string = [_specifierDict objectForKey:kIASKDatePickerStyle];
+	NSNumber *value = dict[string];
+	return value == nil ? UIDatePickerStyleCompact : value.integerValue;
+}
+
+- (BOOL)embeddedDatePicker {
+	BOOL embeddedDatePicker = NO;
+	if (@available(iOS 13.4, *)) {
+		embeddedDatePicker = [self.type isEqualToString:kIASKDatePickerSpecifier] && self.datePickerStyle == UIDatePickerStyleCompact;
+	}
+	return embeddedDatePicker;
+}
+
 - (NSInteger)datePickerMinuteInterval {
 	return [_specifierDict[kIASKDatePickerMinuteInterval] integerValue] ?: 1;
 }

@@ -208,8 +208,14 @@ typedef NS_ENUM(NSUInteger, IASKToggleStyle) {
 /// Settings schema: `DatePickerMode` with values `Date`, `Time`, and `DateAndTime` (default)
 @property (nonatomic, readonly) UIDatePickerMode datePickerMode;
 
+/// Settings schema: `DatePickerStyle` with values `Compact` (default), `Inline`, and `Wheels`
+@property (nonatomic, readonly) UIDatePickerStyle datePickerStyle API_AVAILABLE(ios(13.4));
+
 /// Settings schema: `MinuteInterval` with an integer value (default: 1)
 @property (nonatomic, readonly) NSInteger datePickerMinuteInterval;
+
+// internal: the date picker doesn't expand/collapse (datePickerStyle is `Compact`)
+@property (nonatomic, readonly) BOOL embeddedDatePicker;
 
 // internal: represents the actual date picker cell below the title cell
 @property (nonatomic, strong, readonly) IASKSpecifier *editSpecifier;

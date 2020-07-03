@@ -168,7 +168,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Time</string>
+			<string>Compact Time</string>
 			<key>Key</key>
 			<string>time</string>
 			<key>Type</key>
@@ -177,6 +177,36 @@
 			<string>Time</string>
 			<key>MinuteInterval</key>
 			<integer>15</integer>
+			<key>DatePickerStyle</key>
+			<string>Compact</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Wheels Time</string>
+			<key>Key</key>
+			<string>timeWheels</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>Time</string>
+			<key>MinuteInterval</key>
+			<integer>15</integer>
+			<key>DatePickerStyle</key>
+			<string>Wheels</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Inline Time</string>
+			<key>Key</key>
+			<string>timeInline</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>Time</string>
+			<key>MinuteInterval</key>
+			<integer>15</integer>
+			<key>DatePickerStyle</key>
+			<string>Inline</string>
 		</dict>
 	</array>
 </dict>

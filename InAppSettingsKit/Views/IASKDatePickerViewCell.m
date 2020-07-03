@@ -18,6 +18,7 @@
 		[self.contentView addSubview:self.datePicker];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[picker]-0-|" options:0 metrics:nil views:@{@"picker": self.datePicker}]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[picker]-0-|" options:0 metrics:nil views:@{@"picker": self.datePicker}]];
+		self.datePicker.translatesAutoresizingMaskIntoConstraints = NO;
 	}
     return self;
 }
