@@ -974,10 +974,10 @@ CGRect IASKCGRectSwap(CGRect rect);
             }];
 			
         } else {
-			UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Mail not configured", @"InAppSettingsKit")
-																		   message:NSLocalizedString(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"InAppSettingsKit")
+			UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedStringFromTableInBundle(@"Mail not configured", @"IASKLocalizable", self.settingsReader.iaskBundle, @"warning title")
+																		   message:NSLocalizedStringFromTableInBundle(@"This device is not configured for sending Email. Please configure the Mail settings in the Settings app.", @"IASKLocalizable", self.settingsReader.iaskBundle, @"warning message")
 																	preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"InAppSettingsKit") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedStringFromTableInBundle(@"OK", @"IASKLocalizable", self.settingsReader.iaskBundle, @"InAppSettingsKit") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 [alert dismissViewControllerAnimated:YES completion:nil];
             }]];
 			[self presentViewController:alert animated:YES completion:nil];

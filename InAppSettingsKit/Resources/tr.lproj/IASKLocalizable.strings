@@ -1,12 +1,20 @@
 /* IASKLocalizable.strings
-  Where To
+  InAppSettingsKit
 
   Created by Ortwin Gentz on 20.10.14.
   Copyright (c) 2014 FutureTap. All rights reserved. */
 
-/* iOS 8+ Privacy cell: title */
+/* Privacy cell: title */
 "Privacy" = "Gizlilik";
 
-/* iOS 8+ Privacy cell: subtitle */
+/* Privacy cell: subtitle */
 "Open in Settings app" = "Ayarlar uygulaması ile aç";
+
+/* warning title */
+"Mail not configured" = "E-posta ayarları yapılandırılmamış";
+
+"OK" = "Tamam";
+
+/* warning message */
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Bu cihazın e-posta ayarları yapılandırılmamış. Lütfen telefonunuzun Ayarlar bölümünde e-posta ayarlarını yapılandırın.";
 

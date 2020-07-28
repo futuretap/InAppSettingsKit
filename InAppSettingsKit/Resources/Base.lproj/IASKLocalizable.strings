@@ -4,9 +4,17 @@
   Created by Ortwin Gentz on 20.10.14.
   Copyright (c) 2014 FutureTap. All rights reserved. */
 
-/* iOS 8+ Privacy cell: title */
+/* Privacy cell: title */
 "Privacy" = "Privacy";
 
-/* iOS 8+ Privacy cell: subtitle */
+/* Privacy cell: subtitle */
 "Open in Settings app" = "Open in “Settings” app";
+
+/* warning title */
+"Mail not configured" = "Mail not configured";
+
+"OK" = "OK";
+
+/* warning message */
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "This device is not configured for sending Email. Please configure the Mail settings in the Settings app.";
 

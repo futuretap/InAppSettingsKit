@@ -272,6 +272,7 @@ PSToggleSwitchSpecifier, PSTextFieldSpecifier).
 @property (nonatomic, readonly) NSDictionary *settingsDictionary;
 
 @property (nonatomic, strong) NSString *localizationTable;
+@property (nonatomic, readonly) NSBundle *iaskBundle;
 @property (nonatomic, strong) NSArray *dataSource;
 @property (nullable, nonatomic, strong) NSSet *hiddenKeys;
 @property (nonatomic) BOOL showPrivacySettings;

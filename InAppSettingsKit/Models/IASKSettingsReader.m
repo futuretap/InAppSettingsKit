@@ -108,12 +108,12 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 }
 
 - (NSArray*)privacySettingsSpecifiers {
-	NSMutableDictionary *dict = [@{kIASKTitle: [[self getBundle] localizedStringForKey:@"Privacy" value:@"" table:@"IASKLocalizable"],
+	NSMutableDictionary *dict = [@{kIASKTitle: NSLocalizedStringFromTableInBundle(@"Privacy", @"IASKLocalizable", self.iaskBundle, @"Privacy cell: title"),
 								   kIASKKey: @"IASKPrivacySettingsCellKey",
 								   kIASKType: kIASKOpenURLSpecifier,
 								   kIASKFile: UIApplicationOpenSettingsURLString,
 								   } mutableCopy];
-	NSString *subtitle = [[self getBundle] localizedStringForKey:@"Open in Settings app" value:@"" table:@"IASKLocalizable"];
+	NSString *subtitle = NSLocalizedStringFromTableInBundle(@"Open in Settings app", @"IASKLocalizable", self.iaskBundle, @"Privacy cell: subtitle");
 	if (subtitle.length) {
 		dict [kIASKSubtitle] = subtitle;
 	}
@@ -122,7 +122,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 			   [[IASKSpecifier alloc] initWithSpecifier:dict]]];
 }
 
-- (NSBundle*)getBundle {
+- (NSBundle*)iaskBundle {
 	NSURL *inAppSettingsBundlePath = [[NSBundle bundleForClass:[self class]] URLForResource:@"InAppSettingsKit" withExtension:@"bundle"];
 	NSBundle *bundle;
 	
