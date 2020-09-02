@@ -21,7 +21,7 @@
 @interface IASKMultipleValueSelection ()
 @property (nonatomic, strong) IASKSpecifier *specifier;
 @property (nonatomic) NSInteger section;
-@property (nonatomic, strong) id<IASKSettingsStore> settingsStore;
+
 @property (nonatomic) NSInteger checkedIndex;
 @end
 
@@ -86,6 +86,7 @@
 													 name:NSUserDefaultsDidChangeNotification
 												   object:udSettingsStore.defaults];
 	}
+	[self updateCheckedItem];
 }
 
 #pragma mark - selection

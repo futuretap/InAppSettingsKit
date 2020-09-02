@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, assign) UITableView *tableView;
 @property (nonatomic, copy, readonly) NSIndexPath *checkedIndexPath;
+@property (nonatomic, strong) id<IASKSettingsStore> settingsStore;
 
 - (id)initWithSettingsStore:(id<IASKSettingsStore>)settingsStore
 				  tableView:(nullable UITableView*)tableView

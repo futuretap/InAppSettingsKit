@@ -81,6 +81,13 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (void)setSettingsStore:(id<IASKSettingsStore>)settingsStore {
 	_settingsStore = settingsStore;
 	_settingsReader.settingsStore = _settingsStore;
+	
+	// Workaround for PSRadioGroupSpecifier's in List Groups
+	for (IASKMultipleValueSelection *selection in _selections) {
+		if (![selection isEqual:[NSNull null]]) {
+			selection.settingsStore = _settingsStore;
+		}
+	}
 }
 
 - (id<IASKSettingsStore>)settingsStore {
