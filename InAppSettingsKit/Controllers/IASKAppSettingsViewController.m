@@ -1033,6 +1033,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 			id value = [self.settingsStore objectForSpecifier:specifier];
 			if ([value isKindOfClass:NSDictionary.class]) {
 				itemDict = value;
+			} else if (specifier.key && value) {
+				itemDict = @{(id)specifier.key: value};
 			}
 		}
 		IASKSettingsStoreInMemory *inMemoryStore = [[IASKSettingsStoreInMemory alloc] initWithDictionary:itemDict];
