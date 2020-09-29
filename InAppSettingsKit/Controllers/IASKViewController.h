@@ -22,6 +22,7 @@
 @property (nonatomic, strong, nullable) IASKSettingsReader* settingsReader;
 @property (nonatomic, strong, nonnull) id<IASKSettingsStore> settingsStore;
 @property (nonatomic, copy, nullable) void (^childPaneHandler)(BOOL doneEditing);
+@property (nonatomic, weak, nullable) UIViewController<IASKViewController> *listParentViewController;
 
 @optional
 @property (nonatomic, weak, nullable) id currentFirstResponder;

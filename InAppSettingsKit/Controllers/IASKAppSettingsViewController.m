@@ -65,6 +65,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize file = _file;
 @synthesize childPaneHandler = _childPaneHandler;
 @synthesize currentFirstResponder = _currentFirstResponder;
+@synthesize listParentViewController;
 
 #pragma mark accessors
 - (IASKSettingsReader*)settingsReader {
@@ -1036,6 +1037,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		IASKSettingsStoreInMemory *inMemoryStore = [[IASKSettingsStoreInMemory alloc] initWithDictionary:itemDict];
 		targetViewController.settingsStore = inMemoryStore;
+		targetViewController.listParentViewController = self;
 		[targetViewController.settingsReader applyDefaultsToStore];
 		UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:targetViewController];
 		navCtrl.modalPresentationStyle = self.navigationController.modalPresentationStyle;
@@ -1101,8 +1103,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (void)textChanged:(IASKTextField*)textField {
-    // Wait with setting the property for the addSpecifier of list groups until editing ends
-    if (!textField.specifier.isAddSpecifier) {
+    // Wait with setting the property until editing ends for the addSpecifier of list groups or if a validation delegate is implemented
+    if ((!textField.specifier.isAddSpecifier && ![self.delegate respondsToSelector:@selector(settingsViewController:validateSpecifier:textField:previousValue:replacement:)]) ||
+		(self.listParentViewController && [self.delegate respondsToSelector:@selector(settingsViewController:childPaneIsValidForSpecifier:contentDictionary:)]))
+	{
 		[self.settingsStore setObject:textField.text forSpecifier:textField.specifier];
         NSDictionary *userInfo = textField.specifier.key && textField.text ? @{(id)textField.specifier.key : (NSString *)textField.text} : nil;
         [NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged

@@ -32,6 +32,7 @@
 @synthesize settingsReader = _settingsReader;
 @synthesize settingsStore = _settingsStore;
 @synthesize childPaneHandler = _childPaneHandler;
+@synthesize listParentViewController;
 
 - (id)initWithSpecifier:(IASKSpecifier*)specifier {
 	if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
