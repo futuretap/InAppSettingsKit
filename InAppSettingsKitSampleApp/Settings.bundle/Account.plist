@@ -86,6 +86,26 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Radio Group</string>
+			<key>Key</key>
+			<string>permission</string>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Read only access</string>
+				<string>Read and write access</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>
