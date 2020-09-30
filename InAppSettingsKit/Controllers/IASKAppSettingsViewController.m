@@ -1044,8 +1044,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 		UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:targetViewController];
 		navCtrl.modalPresentationStyle = self.navigationController.modalPresentationStyle;
 		navCtrl.popoverPresentationController.sourceView = [self.tableView cellForRowAtIndexPath:indexPath];
-		targetViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(addListItemCancel:)];
-		targetViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addListItemDone:)];
+		targetViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(listItemCancel:)];
+		targetViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(listItemDone:)];
 		[self.navigationController presentViewController:navCtrl animated:YES completion:nil];
 		
 		__weak typeof(self)weakSelf = self;
@@ -1222,12 +1222,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 #pragma mark - List groups
-- (void)addListItemCancel:(id)sender {
+- (void)listItemCancel:(id)sender {
 	self.childPaneHandler = nil;
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)addListItemDone:(id)sender {
+- (void)listItemDone:(id)sender {
 	self.childPaneHandler(YES);
 	self.childPaneHandler = nil;
 	[self dismissViewControllerAnimated:YES completion:nil];
