@@ -83,7 +83,7 @@ extension MainViewController: IASKSettingsDelegate {
 				}
 				return .ok
 			}
-			if key == "RegexValidation" {
+			if key != "RegexValidation2" {
 				let myReplacement: String = ((previousValue?.lengthOfBytes(using: .utf8) ?? 0) > 0 ? previousValue : textField.text) ?? ""
 				replacement?.pointee = myReplacement as NSString
 				return .failedWithShake

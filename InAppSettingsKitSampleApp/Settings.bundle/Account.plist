@@ -38,7 +38,7 @@
 			<key>Title</key>
 			<string>Email</string>
 			<key>Key</key>
-			<string>email</string>
+			<string>RegexValidation3</string>
 		</dict>
 		<dict>
 			<key>Title</key>
