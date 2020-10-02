@@ -567,7 +567,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0730;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = InAppSettingsKit;
 				TargetAttributes = {
 					DAC156221B54533D00655031 = {
@@ -791,7 +791,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4A95F30177DB25C00FF0906 /* Debug.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -800,7 +800,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4A95F32177DB25C00FF0906 /* Release.xcconfig */;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
