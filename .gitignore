@@ -10,3 +10,4 @@ InAppSettingsKitSampleApp/build/**
 *.xccheckout
 *.xcscmblueprint
 CarthageTest
+/.swiftpm
