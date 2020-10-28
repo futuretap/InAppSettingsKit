@@ -16,7 +16,11 @@
 
 #import <Foundation/Foundation.h>
 
+#ifdef SWIFT_PACKAGE
 #import "IASKSettingsStore.h"
+#else
+#import <InAppSettingsKit/IASKSettingsStore.h>
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
