@@ -17,11 +17,7 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-#ifdef SWIFT_PACKAGE
 #import "IASKViewController.h"
-#else
-#import <InAppSettingsKit/IASKViewController.h>
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

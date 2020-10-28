@@ -16,11 +16,7 @@
 
 #import <UIKit/UIKit.h>
 
-#ifdef SWIFT_PACKAGE
 #import "IASKViewController.h"
-#else
-#import <InAppSettingsKit/IASKViewController.h>
-#endif
 
 @class IASKSpecifier;
 
