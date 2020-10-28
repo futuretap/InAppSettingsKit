@@ -17,6 +17,8 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
+#import "IASKViewController.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class IASKSettingsReader;
