@@ -31,6 +31,7 @@
 #import "IASKDatePicker.h"
 #import "IASKDatePickerViewCell.h"
 #import "IASKEmbeddedDatePickerViewCell.h"
+#import "IASKTextView.h"
 
 #if !__has_feature(objc_arc)
 #error "IASK needs ARC"

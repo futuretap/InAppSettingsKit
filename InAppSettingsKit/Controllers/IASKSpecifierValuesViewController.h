@@ -14,8 +14,11 @@
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
 
-#import <InAppSettingsKit/IASKSpecifier.h>
-#import <InAppSettingsKit/IASKViewController.h>
+#import <UIKit/UIKit.h>
+
+#import "IASKViewController.h"
+
+@class IASKSpecifier;
 
 @interface IASKSpecifierValuesViewController : UITableViewController <IASKViewController>
 

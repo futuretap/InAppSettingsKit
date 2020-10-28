@@ -26,10 +26,31 @@ let package = Package(
             name: "InAppSettingsKit",
             dependencies: [
             ],
-            path: ".",
-            sources: ["InAppSettingsKit"],
-            resources: [.process("Resources")],
-            publicHeadersPath: "InAppSettingsKitFramework"
+            path: "InAppSettingsKit",
+            exclude: [
+                "Configurations",
+                "scripts",
+                "InAppSettingsKitSampleApp",
+                "InAppSettingsKitTests",
+                "README.md",
+                "InAppSettingsKit.podspec",
+                "LICENSE",
+                "RELEASE_NOTES.md",
+                "InAppSettingsKitFramework"
+            ],
+            sources: [
+                "Controllers",
+                "Views",
+                "Models"
+            ],
+            resources: [
+                .process("Resources")
+            ],
+            cSettings: [
+                .headerSearchPath("Controllers"),
+                .headerSearchPath("Views"),
+                .headerSearchPath("Models"),
+            ]
         )
     ]
 )
