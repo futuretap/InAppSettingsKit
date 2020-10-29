@@ -17,15 +17,16 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-#import <InAppSettingsKit/IASKSettingsStore.h>
-#import <InAppSettingsKit/IASKViewController.h>
-#import <InAppSettingsKit/IASKSpecifier.h>
-#import <InAppSettingsKit/IASKTextField.h>
+#import "IASKViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class IASKSettingsReader;
 @class IASKAppSettingsViewController;
+@class IASKSettingsStore;
+@class IASKSpecifier;
+@class IASKTextField;
+@protocol IASKViewController;
 
 @protocol IASKSettingsDelegate <UITableViewDelegate>
 

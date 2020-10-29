@@ -36,6 +36,14 @@ Add to your `Podfile`:
     pod 'InAppSettingsKit'
 
 
+**Using SPM**
+
+Add to your Package.swift
+
+    .package(name: "InAppSettingsKit", url: "https://github.com/futuretap/InAppSettingsKit.git", .branch("master"))
+
+Alternatively go to Xcodes `File->Swift Packages->Add Package Dependency...` menu entry and add `https://github.com/futuretap/InAppSettingsKit.git`.
+
 
 # App Integration
 

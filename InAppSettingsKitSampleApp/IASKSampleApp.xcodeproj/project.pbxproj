@@ -11,6 +11,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		284587A7254A2DF7002E0FE1 /* libInAppSettingsKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 284587A6254A2DF7002E0FE1 /* libInAppSettingsKit.a */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
 		575C01E8127CE845009FBEA2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575C01E7127CE845009FBEA2 /* MessageUI.framework */; };
 		6A1F35EE11490727003E6295 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F35ED11490727003E6295 /* Icon.png */; };
@@ -26,7 +27,6 @@
 		AAB8389B12846D110042FF80 /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB8389A12846D110042FF80 /* CustomViewCell.xib */; };
 		AAB838A012846D850042FF80 /* CustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8389F12846D850042FF80 /* CustomViewCell.m */; };
 		AAF478871A239A1A000A0A74 /* Launch.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAF478861A239A1A000A0A74 /* Launch.xib */; };
-		E42ADAE8168204DB00295D85 /* libInAppSettingsKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADAE7168204DB00295D85 /* libInAppSettingsKit.a */; };
 		E42ADAEB1682057B00295D85 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42ADAEA1682057B00295D85 /* Default-568h@2x.png */; };
 		E459FF8722C4B919002DBB60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E459FF8622C4B919002DBB60 /* Images.xcassets */; };
 		FB81CA08155BC7C900CEF887 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA04155BC7C900CEF887 /* facebook.png */; };
@@ -41,6 +41,9 @@
 		1D3623250D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppSettingsKitSampleAppAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* In App Settings Kit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "In App Settings Kit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		28458796254A2CB9002E0FE1 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2845879E254A2CCF002E0FE1 /* InAppSettingsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = InAppSettingsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		284587A6254A2DF7002E0FE1 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
@@ -122,11 +125,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E42ADAE8168204DB00295D85 /* libInAppSettingsKit.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				575C01E8127CE845009FBEA2 /* MessageUI.framework in Frameworks */,
+				284587A7254A2DF7002E0FE1 /* libInAppSettingsKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +219,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				284587A6254A2DF7002E0FE1 /* libInAppSettingsKit.a */,
+				2845879E254A2CCF002E0FE1 /* InAppSettingsKit.framework */,
+				28458796254A2CB9002E0FE1 /* libInAppSettingsKit.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,

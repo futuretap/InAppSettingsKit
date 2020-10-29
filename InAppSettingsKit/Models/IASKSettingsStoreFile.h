@@ -15,7 +15,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <InAppSettingsKit/IASKSettingsStore.h>
+
+#import "IASKSettingsStore.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

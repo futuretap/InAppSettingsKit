@@ -17,7 +17,6 @@
 #import "IASKColor.h"
 #import "IASKSpecifier.h"
 
-
 @implementation IASKTextView {
 	BOOL _shouldDrawPlaceholder;
 }

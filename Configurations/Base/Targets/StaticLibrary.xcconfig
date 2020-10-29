@@ -30,3 +30,5 @@ SKIP_INSTALL = YES
 // that have not been built with this setting enabled.
 APPLICATION_EXTENSION_API_ONLY = YES
 
+// Warns when a quoted include is used instead of a framework style include in a framework header.
+CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES
