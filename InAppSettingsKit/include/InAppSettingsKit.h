@@ -7,6 +7,7 @@
 #import "../Models/IASKSettingsReader.h"
 #import "../Models/IASKSettingsStore.h"
 #import "../Models/IASKSettingsStoreFile.h"
+#import "../Models/IASKSettingsStoreInMemory.h"
 #import "../Models/IASKSettingsStoreUserDefaults.h"
 #import "../Models/IASKSpecifier.h"
 #import "../Views/IASKSlider.h"
