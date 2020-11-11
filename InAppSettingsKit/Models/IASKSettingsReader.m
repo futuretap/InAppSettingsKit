@@ -123,6 +123,10 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 }
 
 - (NSBundle*)iaskBundle {
+#ifdef SWIFTPM_MODULE_BUNDLE
+	return SWIFTPM_MODULE_BUNDLE;
+#endif
+	
 	NSURL *inAppSettingsBundlePath = [[NSBundle bundleForClass:[self class]] URLForResource:@"InAppSettingsKit" withExtension:@"bundle"];
 	NSBundle *bundle;
 	
