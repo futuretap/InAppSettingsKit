@@ -67,8 +67,11 @@ IASKAppSettingsViewController *appSettingsViewController = [[IASKAppSettingsView
 
 - Drag and drop a Table View Controller embedded into a Navigation Controller into your app and wire the storyboard to your app UI
 - Set the Table View Controller class to `IASKAppSettingsViewController`
-- In the Table View Controller set "Show Done Button" under "App Settings View Controller" to "On" if you’re presenting the navigation controller modally.
 - Set the Table View to "Grouped" style.
+- If you’re presenting the navigation controller modally: 
+	- In the Table View Controller set "Show Done Button" under "App Settings View Controller" to "On"
+	- Set the delegate comforming to `IASKAppSettingsViewControllerDelegate`.
+	- Implement the delegate method `-settingsViewControllerDidEnd:` and dismiss the view controller.
 
 The sample application shows how to wire everything up.
 
