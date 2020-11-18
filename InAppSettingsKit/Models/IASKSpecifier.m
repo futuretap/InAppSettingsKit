@@ -523,7 +523,10 @@
 
 - (IASKSpecifier*)addSpecifier {
 	NSDictionary *specifierDictionary = [_specifierDict objectForKey:kIASKAddSpecifier];
-    IASKSpecifier *addSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
+	if (specifierDictionary == nil) {
+		return nil;
+	}
+	IASKSpecifier *addSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary];
 	addSpecifier.parentSpecifier = self;
 	addSpecifier.itemIndex = NSUIntegerMax;
 	BOOL validType = [@[kIASKPSChildPaneSpecifier, kIASKPSTextFieldSpecifier, kIASKPSMultiValueSpecifier, kIASKButtonSpecifier, kIASKCustomViewSpecifier] containsObject:addSpecifier.type];
