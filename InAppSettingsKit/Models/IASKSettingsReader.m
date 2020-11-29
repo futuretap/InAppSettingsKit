@@ -49,7 +49,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 			localizationTable = [plistFilePath.stringByDeletingPathExtension // removes '.plist'
 								 .stringByDeletingPathExtension // removes potential '.inApp'
 								 .lastPathComponent // strip absolute path
-								 stringByReplacingOccurrencesOfString:[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
+								 stringByReplacingOccurrencesOfString:[self platformSuffixForInterfaceIdiom:[[UIDevice currentDevice] userInterfaceIdiom]] withString:@""]; // removes potential '~device' (~ipad, ~iphone)
 			if ([self.settingsBundle pathForResource:localizationTable ofType:@"strings"] == nil) {
                 // Could not find the specified localization: use default
                 localizationTable = @"Root";
@@ -153,7 +153,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
         newSpecifier.settingsReader = self;
         [newSpecifier sortIfNeeded];
 
-        if (![newSpecifier.userInterfaceIdioms containsObject:@(UI_USER_INTERFACE_IDIOM())]) {
+        if (![newSpecifier.userInterfaceIdioms containsObject:@([[UIDevice currentDevice] userInterfaceIdiom])]) {
             // All specifiers without a matching idiom are ignored in the iOS Settings app, so we will do likewise here.
             // Some specifiers may be seen as containing other elements, such as groups, but the iOS settings app will not ignore the perceived content of those unless their own supported idioms do not fit.
             continue;
@@ -393,7 +393,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
     
     NSArray *extensions = @[@".inApp.plist", @".plist"];
     
-    NSArray *plattformSuffixes = @[[self platformSuffixForInterfaceIdiom:UI_USER_INTERFACE_IDIOM()],
+    NSArray *plattformSuffixes = @[[self platformSuffixForInterfaceIdiom:[[UIDevice currentDevice] userInterfaceIdiom]],
                                    @""];
     
     NSArray *preferredLanguages = [NSLocale preferredLanguages];
