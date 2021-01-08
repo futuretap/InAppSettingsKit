@@ -13,6 +13,7 @@ IASK not only replicates the feature set of system settings but supports a large
 
 **Updating from IASK 2.x?** Please read the [Release Notes](RELEASE_NOTES.md).
 
+![](IASK.gif)
 # How does it work?
 
 To support traditional Settings.app panes, the app must include a `Settings.bundle` with at least a `Root.plist` to specify the connection of settings UI elements with `NSUserDefaults` keys. InAppSettingsKit basically just uses the same Settings.bundle to do its work. This means there's no additional work when you want to include a new settings parameter. It just has to be added to the Settings.bundle and it will appear both in-app and in Settings.app. All settings types like text fields, sliders, toggle elements, child views etc. are supported.
