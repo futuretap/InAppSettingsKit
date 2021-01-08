@@ -53,8 +53,6 @@
 		6A1F35ED11490727003E6295 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		6A9BBF581148F1DA003D97FA /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitSampleApp-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		AA092DC515B73A0500081FBC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = en; path = en.lproj/settings_about.html; sourceTree = "<group>"; };
-		AA092DCD15B73A0C00081FBC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/settings_about.html; sourceTree = "<group>"; };
 		AA1552141F79054700F2CEA1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ../InAppSettingsKit/Resources/ja.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		AA1552151F79054700F2CEA1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../InAppSettingsKit/Resources/ru.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		AA1552161F79054700F2CEA1 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = ../InAppSettingsKit/Resources/sv.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
@@ -94,6 +92,9 @@
 		AAB8389F12846D850042FF80 /* CustomViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewCell.m; sourceTree = "<group>"; };
 		AAD676AD24D0804300A74C64 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "../InAppSettingsKit/Resources/pt-PT.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
 		AAF478861A239A1A000A0A74 /* Launch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Launch.xib; sourceTree = "<group>"; };
+		B4AF7EAD256311EE00332606 /* In App Settings Kit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "In App Settings Kit.entitlements"; sourceTree = "<group>"; };
+		B4AF7EB225631AF600332606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/settings_about.html; sourceTree = "<group>"; };
+		B4AF7EB525631B7400332606 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/settings_about.html; sourceTree = "<group>"; };
 		DACD38A910598A7600AC8E51 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
 		E42ADAE7168204DB00295D85 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADAEA1682057B00295D85 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				B4AF7EAD256311EE00332606 /* In App Settings Kit.entitlements */,
 				289233A00DB2D0730083E9F9 /* Main View */,
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -439,8 +441,8 @@
 		AA092DC415B73A0500081FBC /* settings_about.html */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA092DC515B73A0500081FBC /* en */,
-				AA092DCD15B73A0C00081FBC /* de */,
+				B4AF7EB225631AF600332606 /* Base */,
+				B4AF7EB525631B7400332606 /* de */,
 			);
 			name = settings_about.html;
 			sourceTree = "<group>";
@@ -496,15 +498,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "In App Settings Kit.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.$(PRODUCT_NAME:rfc1034identifier)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "IASKSampleAppStaticLibrary-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -514,14 +522,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "In App Settings Kit.entitlements";
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.$(PRODUCT_NAME:rfc1034identifier)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "IASKSampleAppStaticLibrary-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

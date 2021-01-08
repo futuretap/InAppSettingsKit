@@ -54,7 +54,11 @@
 	[super viewWillAppear:animated];
 	
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
+#if TARGET_OS_MACCATALYST
+	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+#else
 	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+#endif
 	[activityIndicatorView startAnimating];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
 	[self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
@@ -149,10 +153,13 @@
 	mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
 	mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
 	mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
-
+#if !TARGET_OS_MACCATALYST
 	UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+#endif
 	[self presentViewController:mailViewController animated:YES completion:^{
+#if !TARGET_OS_MACCATALYST
 		[UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
+#endif
 	}];
 }
 

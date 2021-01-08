@@ -492,16 +492,24 @@
 }
 
 - (NSArray *)userInterfaceIdioms {
+    NSMutableDictionary *idiomMap = [NSMutableDictionary dictionaryWithDictionary:
+                                     @{
+                                         @"Phone": @(UIUserInterfaceIdiomPhone),
+                                         @"Pad": @(UIUserInterfaceIdiomPad),
+                                     }];
+    if (@available(iOS 14.0, *)) {
+        idiomMap[@"Mac"] = @(UIUserInterfaceIdiomMac);
+    }
+    
     NSArray *idiomStrings = _specifierDict[kIASKSupportedUserInterfaceIdioms];
     if (idiomStrings.count == 0) {
-        return @[@(UIUserInterfaceIdiomPhone), @(UIUserInterfaceIdiomPad)];
+        return [idiomMap allValues];
     }
     NSMutableArray *idioms = [NSMutableArray new];
     for (NSString *idiomString in idiomStrings) {
-        if ([idiomString isEqualToString:@"Phone"]) {
-            [idioms addObject:@(UIUserInterfaceIdiomPhone)];
-        } else if ([idiomString isEqualToString:@"Pad"]) {
-            [idioms addObject:@(UIUserInterfaceIdiomPad)];
+        id idiom = idiomMap[idiomString];
+        if (idiom != nil){
+            [idioms addObject:idiom];
         }
     }
     return idioms;
