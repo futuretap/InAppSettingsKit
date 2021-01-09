@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name                  = 'InAppSettingsKit'
-	s.version               = '3.1.8'
+	s.version               = '3.2'
 	s.summary               = 'This iPhone framework allows settings to be in-app in addition to being in the Settings app.'
 
   s.description      = <<-DESC
@@ -8,7 +8,7 @@ InAppSettingsKit (IASK) is an open source solution to easily add in-app settings
                        DESC
 
 	s.authors               = {"Ortwin Gentz" => "http://www.futuretap.com", "Luc Vandal" => "http://edovia.com/company/#contact_form"}
-	s.social_media_url		= "https://twitter.com/IASettingsKit"
+	s.social_media_url		= 'https://twitter.com/IASettingsKit'
 	s.homepage              = 'https://github.com/futuretap/InAppSettingsKit'
 	s.license               = {type: 'BSD', file: 'LICENSE'}
 	s.requires_arc          = true
