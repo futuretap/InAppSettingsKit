@@ -226,7 +226,8 @@
     if (!class) {
         // if the class doesn't exist as a pure Obj-C class then try to retrieve it as a Swift class.
         NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
-        NSString *classStringName = [NSString stringWithFormat:@"_TtC%lu%@%lu%@", (unsigned long)appName.length, appName, (unsigned long)className.length, className];
+	NSString *appNameUnderScore = [appName stringByReplacingOccurrencesOfString:@" " withString:@"_"];   
+        NSString *classStringName = [NSString stringWithFormat:@"_TtC%lu%@%lu%@", (unsigned long)appNameUnderScore.length, appNameUnderScore, (unsigned long)className.length, className];
         class = NSClassFromString(classStringName);
     }
     return class;
