@@ -2,7 +2,7 @@ os: osx
 osx_image: xcode12.2
 language: objective-c
 xcode_workspace: InAppSettingsKit.xcworkspace
-xcode_destination: platform=iOS Simulator,OS=14.0,name=iPhone 11 Pro
+xcode_destination: platform=iOS Simulator,OS=14.1,name=iPhone 12
 matrix:
   include:
     - stage: Static Library & Tests
@@ -12,7 +12,7 @@ matrix:
         - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme InAppSettingsKitFramework build | xcpretty
     - stage: Sample App
       script:
-        - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App -destination platform\=iOS\ Simulator,OS\=14.0,name\=iPhone\ 11\ Pro build | xcpretty
+        - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App -destination platform\=iOS\ Simulator,OS\=14.1,name\=iPhone\ 12 build | xcpretty
     - stage: Carthage Setup
       script:
         - ./scripts/test-carthage.sh
