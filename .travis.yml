@@ -15,4 +15,6 @@ matrix:
         - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App -destination platform\=iOS\ Simulator,OS\=14.1,name\=iPhone\ 12 build | xcpretty
     - stage: Carthage Setup
       script:
+        - brew update
+        - (brew list carthage && brew upgrade carthage) || brew install carthage
         - ./scripts/test-carthage.sh
