@@ -1,5 +1,13 @@
 # Release Notes
 
+## InAppSettingsKit 3.3
+
+- The `IASKSettingChangedNotification` for a `PSTextFieldSpecifier` now sends `IASKAppSettingsViewController` as the notification object – analogous to all other occurrences of this notification. If your notification observer code needs to access the specifier key, consult the notification's userInfo dictionary.
+
+## InAppSettingsKit 3.2
+
+- Mac Catalyst support was added.
+
 ## InAppSettingsKit 3.1
 
 - In iOS 14+, setting an IASKDatePickerStyle is supported.

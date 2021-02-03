@@ -1201,7 +1201,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 	[self.settingsStore setObject:textView.text forSpecifier:textView.specifier];
 	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
-														object:textView.specifier.key
+														object:self
 													  userInfo:@{(id)textView.specifier.key: textView.text}];
 	
 }
