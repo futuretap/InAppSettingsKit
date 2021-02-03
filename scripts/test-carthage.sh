@@ -25,12 +25,12 @@ echo "git \"$IASKSETTINGSKIT_DIR\" \"$IASKSETTINGSKIT_BRANCH\"" > CarthageTest/C
 
 pushd CarthageTest > /dev/null
 
-carthage bootstrap --configuration Debug --verbose
+carthage bootstrap --use-xcframeworks --configuration Debug --verbose
 EXIT_CODE=$?
 
 echo "Checking for build products..."
 
-if [ ! -d "Carthage/Build/iOS/InAppSettingsKit.framework" ]; then
+if [ ! -d "Carthage/Build/InAppSettingsKit.xcframework" ]; then
     echo "No iOS library built"
     EXIT_CODE=1
 else
