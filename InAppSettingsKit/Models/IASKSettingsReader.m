@@ -260,10 +260,11 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 - (nullable NSIndexPath*)indexPathForKey:(NSString *)key {
     for (NSUInteger sectionIndex = 0; sectionIndex < self.dataSource.count; sectionIndex++) {
         NSArray *section = [self.dataSource iaskObjectAtIndex:sectionIndex];
-        for (NSUInteger rowIndex = 0; rowIndex < section.count; rowIndex++) {
+        for (NSInteger rowIndex = 0; (NSUInteger)rowIndex < section.count; rowIndex++) {
             IASKSpecifier *specifier = (IASKSpecifier*)[section objectAtIndex:rowIndex];
             if ([specifier isKindOfClass:[IASKSpecifier class]] && [specifier.key isEqualToString:key]) {
-                NSUInteger correctedRowIndex = rowIndex - [self _sectionHasHeading:sectionIndex];
+                NSInteger headingCorrection = [self _sectionHasHeading:sectionIndex] ? 1 : 0;
+                NSUInteger correctedRowIndex = MAX(0, rowIndex - headingCorrection);
                 return [NSIndexPath indexPathForRow:correctedRowIndex inSection:sectionIndex];
             }
         }
