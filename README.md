@@ -16,6 +16,36 @@ IASK not only replicates the feature set of system settings but supports a large
 **Updating from IASK 2.x?** Please read the [Release Notes](RELEASE_NOTES.md).
 
 ![](IASK.gif)
+
+- [How does it work?](#how-does-it-work)
+- [How to include it?](#how-to-include-it)
+- [App Integration](#app-integration)
+- [Goodies](#goodies)
+	- [Custom inApp plists](#custom-inapp-plists)
+	- [Privacy link](#privacy-link)
+	- [Open URL](#open-url)
+	- [Mail Composer](#mail-composer)
+	- [Button](#button)
+	- [Multiline Text View](#multiline-text-view)
+	- [Date Picker](#date-picker)
+	- [List Groups](#list-groups)
+	- [Custom Views](#custom-views)
+	- [Section Headers and Footers](#section-headers-and-footers)
+	- [Extending Child Panes](#extending-child-panes)
+	- [Extending various specifiers](#extending-various-specifiers)
+	- [Extending Text Fields](#extending-text-fields)
+	- [Customizing Toggles](#customizing-toggles)
+	- [Dynamic MultiValue Lists](#dynamic-multivalue-lists)
+	- [Settings Storage](#settings-storage)
+	- [Notifications](#notifications)
+	- [Dynamic cell hiding](#dynamic-cell-hiding)
+	- [Register default values](#register-default-values)
+- [iCloud sync](#icloud-sync)
+- [Support](#support)
+- [License](#license)
+- [Author](#author)
+    
+
 # How does it work?
 
 To support traditional Settings.app panes, the app must include a `Settings.bundle` with at least a `Root.plist` to specify the connection of settings UI elements with `NSUserDefaults` keys. InAppSettingsKit basically just uses the same Settings.bundle to do its work. This means there's no additional work when you want to include a new settings parameter. It just has to be added to the Settings.bundle and it will appear both in-app and in Settings.app. All settings types like text fields, sliders, toggle elements, child views etc. are supported.
@@ -55,13 +85,13 @@ In order to start using IASK add `Settings.bundle` to your project (`File` -> `A
 To display InAppSettingsKit, instantiate `IASKAppSettingsViewController` and push it onto the navigation stack or embed it as the root view controller of a navigation controller.
 
 **In code, using Swift:**
-```
+```swift
 let appSettingsViewController = IASKAppSettingsViewController()
 navigationController.pushViewController(appSettingsViewController, animated: true)
 ```
 
 **In code, using Objective-C:**
-```
+```objc
 IASKAppSettingsViewController *appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
 [self.navigationController pushViewController:appSettingsViewController animated:YES];
 ```
