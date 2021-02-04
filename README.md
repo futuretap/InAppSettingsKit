@@ -2,8 +2,10 @@
 
 [![Build Status](https://travis-ci.org/futuretap/InAppSettingsKit.svg?branch=master)](https://travis-ci.org/futuretap/InAppSettingsKit)
 [![Version](https://img.shields.io/cocoapods/v/InAppSettingsKit.svg?style=flat)](http://cocoapods.org/pods/InAppSettingsKit)
+[![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swiftpackageindex.com/futuretap/InAppSettingsKit)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/InAppSettingsKit.svg?style=flat)](https://github.com/futuretap/InAppSettingsKit/blob/master/LICENSE)
-[![Platform](https://img.shields.io/cocoapods/p/InAppSettingsKit.svg?style=flat)](http://cocoapods.org/pods/FTLinearActivityIndicator)
+![Platform](https://img.shields.io/badge/Platforms-iOS%20|%20macOS%20Catalyst-lightgrey.svg)
 [![Sponsor](https://img.shields.io/badge/Sponsor-ff40a0)](https://github.com/sponsors/futuretap)
 [![Twitter](https://img.shields.io/twitter/follow/ortwingentz.svg?style=social&label=Follow)](https://twitter.com/ortwingentz)
 
