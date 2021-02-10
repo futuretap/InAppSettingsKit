@@ -132,6 +132,14 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>Listgroup</string>
+			<key>Title</key>
+			<string>List groups</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>Advanced</string>
 			<key>Title</key>
 			<string>ADVANCED_TITLE</string>
@@ -148,7 +156,7 @@
 			<key>DefaultValue</key>
 			<string>inappsettingskit.com</string>
 			<key>File</key>
-			<string>http://www.inappsettingskit.com/</string>
+			<string>https://github.com/futuretap/InAppSettingsKit/</string>
 			<key>Title</key>
 			<string>Open URL</string>
 			<key>Type</key>
@@ -158,7 +166,7 @@
 			<key>DefaultValue</key>
 			<string>inappsettingskit.com</string>
 			<key>File</key>
-			<string>http://www.inappsettingskit.com/</string>
+			<string>https://github.com/futuretap/InAppSettingsKit/</string>
 			<key>Title</key>
 			<string>Open URL</string>
 			<key>Type</key>
@@ -170,7 +178,7 @@
 			<key>DefaultValue</key>
 			<string>inappsettingskit.com</string>
 			<key>File</key>
-			<string>http://www.inappsettingskit.com/</string>
+			<string>https://github.com/futuretap/InAppSettingsKit/</string>
 			<key>Title</key>
 			<string>Open URL (centered)</string>
 			<key>Type</key>
@@ -182,7 +190,7 @@
 			<key>DefaultValue</key>
 			<string>inappsettingskit.com</string>
 			<key>File</key>
-			<string>http://www.inappsettingskit.com/</string>
+			<string>https://github.com/futuretap/InAppSettingsKit/</string>
 			<key>Title</key>
 			<string>Open URL (right)</string>
 			<key>Type</key>
@@ -204,7 +212,7 @@
 			<key>IASKMailComposeBccRecipents</key>
 			<array/>
 			<key>IASKMailComposeBody</key>
-			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at https://github.com/futuretap/InAppSettingsKit/ today.</string>
 			<key>IASKMailComposeBodyIsHTML</key>
 			<string>NO</string>
 			<key>IASKMailComposeCcRecipents</key>
@@ -224,7 +232,7 @@
 			<key>IASKMailComposeBccRecipents</key>
 			<array/>
 			<key>IASKMailComposeBody</key>
-			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at https://github.com/futuretap/InAppSettingsKit/ today.</string>
 			<key>IASKMailComposeBodyIsHTML</key>
 			<string>NO</string>
 			<key>IASKMailComposeCcRecipents</key>
@@ -244,7 +252,7 @@
 			<key>IASKMailComposeBccRecipents</key>
 			<array/>
 			<key>IASKMailComposeBody</key>
-			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at https://github.com/futuretap/InAppSettingsKit/ today.</string>
 			<key>IASKMailComposeBodyIsHTML</key>
 			<string>NO</string>
 			<key>IASKMailComposeCcRecipents</key>
@@ -264,7 +272,7 @@
 			<key>IASKMailComposeBccRecipents</key>
 			<array/>
 			<key>IASKMailComposeBody</key>
-			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at https://github.com/futuretap/InAppSettingsKit/ today.</string>
 			<key>IASKMailComposeBodyIsHTML</key>
 			<string>NO</string>
 			<key>IASKMailComposeCcRecipents</key>
@@ -329,8 +337,6 @@
 			<string>test@example.com</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
-			<key>IASKRegex</key>
-			<string>.+\@.+</string>
 		</dict>
 		<dict>
 			<key>Key</key>
@@ -343,8 +349,6 @@
 			<string>test@example.com</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
-			<key>IASKRegex</key>
-			<string>.+\@.+</string>
 		</dict>
 		<dict>
 			<key>Title</key>

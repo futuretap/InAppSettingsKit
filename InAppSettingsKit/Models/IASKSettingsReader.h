@@ -1,8 +1,8 @@
 //
 //  IASKSettingsReader.h
-//  http://www.inappsettingskit.com
+//  InAppSettingsKit
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -17,9 +17,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 #define kIASKPreferenceSpecifiers             @"PreferenceSpecifiers"
 #define kIASKCellImage                        @"IASKCellImage"
 
+#define kIASKItemSpecifier                    @"ItemSpecifier"
+#define kIASKAddSpecifier					  @"AddSpecifier"
+#define kIASKDeletable					  	  @"Deletable"
 #define kIASKType                             @"Type"
 #define kIASKTitle                            @"Title"
 #define kIASKFooterText                       @"FooterText"
@@ -35,7 +40,6 @@
 #define KIASKKeyboardType                     @"KeyboardType"
 #define kIASKAutocapitalizationType           @"AutocapitalizationType"
 #define kIASKAutoCorrectionType               @"AutocorrectionType"
-#define kIASKRegex                            @"IASKRegex"
 #define kIASKValues                           @"Values"
 #define kIASKTitles                           @"Titles"
 #define kIASKIconNames                        @"IconNames"
@@ -48,8 +52,15 @@
 #define kIASKViewControllerStoryBoardFile     @"IASKViewControllerStoryBoardFile"
 #define kIASKViewControllerStoryBoardId       @"IASKViewControllerStoryBoardId"
 #define kIASKSegueIdentifier                  @"IASKSegueIdentifier"
-#define kIASKButtonClass                      @"IASKButtonClass"
-#define kIASKButtonAction                     @"IASKButtonAction"
+#define kIASKDatePickerMode                   @"DatePickerMode"
+#define kIASKDatePickerModeTime               @"Time"
+#define kIASKDatePickerModeDate               @"Date"
+#define kIASKDatePickerModeDateAndTime        @"DateAndTime"
+#define kIASKDatePickerStyle                  @"DatePickerStyle"
+#define kIASKDatePickerStyleCompact           @"Compact"
+#define kIASKDatePickerStyleInline            @"Inline"
+#define kIASKDatePickerStyleWheels            @"Wheels"
+#define kIASKDatePickerMinuteInterval         @"MinuteInterval"
 #define kIASKMailComposeToRecipents           @"IASKMailComposeToRecipents"
 #define kIASKMailComposeCcRecipents           @"IASKMailComposeCcRecipents"
 #define kIASKMailComposeBccRecipents          @"IASKMailComposeBccRecipents"
@@ -63,7 +74,33 @@
 #define kIASKKeyboardPhonePad                 @"PhonePad"
 #define kIASKKeyboardNamePhonePad             @"NamePhonePad"
 #define kIASKKeyboardASCIICapable             @"AsciiCapable"
-
+#define kIASKTextContentTypeName              @"Name"
+#define kIASKTextContentTypeNamePrefix        @"NamePrefix"
+#define kIASKTextContentTypeGivenName         @"GivenName"
+#define kIASKTextContentTypeMiddleName        @"MiddleName"
+#define kIASKTextContentTypeFamilyName        @"FamilyName"
+#define kIASKTextContentTypeNameSuffix        @"NameSuffix"
+#define kIASKTextContentTypeNickname          @"Nickname"
+#define kIASKTextContentTypeJobTitle          @"JobTitle"
+#define kIASKTextContentTypeOrganizationName  @"OrganizationName"
+#define kIASKTextContentTypeLocation          @"Location"
+#define kIASKTextContentTypeFullStreetAddress @"FullStreetAddress"
+#define kIASKTextContentTypeStreetAddressLine1 @"StreetAddressLine1"
+#define kIASKTextContentTypeStreetAddressLine2 @"StreetAddressLine2"
+#define kIASKTextContentTypeAddressCity       @"AddressCity"
+#define kIASKTextContentTypeAddressState      @"AddressState"
+#define kIASKTextContentTypeAddressCityAndState @"AddressCityAndState"
+#define kIASKTextContentTypeSublocality       @"Sublocality"
+#define kIASKTextContentTypeCountryName       @"CountryName"
+#define kIASKTextContentTypePostalCode        @"PostalCode"
+#define kIASKTextContentTypeTelephoneNumber   @"TelephoneNumber"
+#define kIASKTextContentTypeEmailAddress      @"EmailAddress"
+#define kIASKTextContentTypeURL               @"URL"
+#define kIASKTextContentTypeCreditCardNumber  @"CreditCardNumber"
+#define kIASKTextContentTypeUsername          @"Username"
+#define kIASKTextContentTypePassword          @"Password"
+#define kIASKTextContentTypeNewPassword       @"NewPassword"
+#define kIASKTextContentTypeOneTimeCode       @"OneTimeCode"
 #define KIASKKeyboardURL                      @"URL"
 #define kIASKKeyboardEmailAddress             @"EmailAddress"
 #define kIASKAutoCapNone                      @"None"
@@ -76,12 +113,17 @@
 #define kIASKMinimumValueImage                @"MinimumValueImage"
 #define kIASKMaximumValueImage                @"MaximumValueImage"
 #define kIASKAdjustsFontSizeToFitWidth        @"IASKAdjustsFontSizeToFitWidth"
+#define kIASKTextContentType                  @"IASKTextContentType"
 #define kIASKTextLabelAlignment               @"IASKTextAlignment"
 #define kIASKTextLabelAlignmentLeft           @"IASKUITextAlignmentLeft"
 #define kIASKTextLabelAlignmentCenter         @"IASKUITextAlignmentCenter"
 #define kIASKTextLabelAlignmentRight          @"IASKUITextAlignmentRight"
+#define kIASKToggleStyle                      @"IASKToggleStyle"
+#define kIASKToggleStyleCheckmark             @"Checkmark"
+#define kIASKToggleStyleSwitch                @"Switch"
 
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
+#define kIASKListGroupSpecifier	              @"IASKListGroupSpecifier"
 #define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"
 #define kIASKPSMultiValueSpecifier            @"PSMultiValueSpecifier"
 #define kIASKPSRadioGroupSpecifier            @"PSRadioGroupSpecifier"
@@ -94,6 +136,8 @@
 #define kIASKButtonSpecifier                  @"IASKButtonSpecifier"
 #define kIASKMailComposeSpecifier             @"IASKMailComposeSpecifier"
 #define kIASKCustomViewSpecifier              @"IASKCustomViewSpecifier"
+#define kIASKDatePickerSpecifier              @"IASKDatePickerSpecifier"
+#define kIASKDatePickerControl                @"IASKDatePickerControl"
 
 // IASKChildTitle can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
 // If IASKChildTitle is set, the navigation title is fixed to it; otherwise, the title value is used and is overridden by the HTML title tag
@@ -101,7 +145,8 @@
 // the HTML title as soon as the page is loaded. The value of IASKChildTitle is localizable.
 #define kIASKChildTitle                       @"IASKChildTitle"
 
-#define kIASKAppSettingChanged                @"kAppSettingChanged"
+extern NSString * const IASKSettingChangedNotification;
+#define kIASKAppSettingChanged                IASKSettingChangedNotification
 
 #define kIASKSectionHeaderIndex               0
 
@@ -137,14 +182,8 @@
 #define kCFCoreFoundationVersionNumber_iOS_11_0 1429.150000
 #endif
 
-#ifdef __IPHONE_8_0
-#define IASK_IF_IOS8_OR_GREATER(...) \
-if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0) \
-{ \
-__VA_ARGS__ \
-}
-#else
-#define IASK_IF_IOS8_OR_GREATER(...)
+#ifndef kCFCoreFoundationVersionNumber_iOS_14_0
+#define kCFCoreFoundationVersionNumber_iOS_14_0 1740.0
 #endif
 
 #ifdef __IPHONE_11_0
@@ -167,8 +206,18 @@ _Pragma("clang diagnostic pop")
 #define IASK_IF_PRE_IOS11(...)
 #endif
 
+#ifdef __IPHONE_14_0
+#define IASK_IF_IOS14_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_14_0) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IASK_IF_IOS14_OR_GREATER(...)
+#endif
 
 @class IASKSpecifier;
+@protocol IASKSettingsStore;
 
 /** settings reader transform iOS's settings plist files
  to the IASKSpecifier model objects.
@@ -178,52 +227,59 @@ _Pragma("clang diagnostic pop")
 @interface IASKSettingsReader : NSObject
 
 /** designated initializer
- searches for a settings bundle that contains
- a plist with the specified fileName that must
+ searches for a settings bundle that contains a plist with the specified fileName that must
  be contained in the given bundle
- 
- calls initWithFile where applicationBundle is
- set to [NSBundle mainBundle]
+ @param file   settings file name without the ".plist" suffix
+ @param bundle bundle that contains a plist with the specified file
+  */
+- (id)initWithFile:(NSString*)file bundle:(NSBundle*)bundle;
+
+/** convenience initializer
+ calls initWithFile where applicationBundle is set to NSBundle.mainBundle
+ @param file   settings file name without the ".plist" suffix
  */
-- (id) initWithSettingsFileNamed:(NSString*) fileName
-               applicationBundle:(NSBundle*) bundle;
+- (id)initWithFile:(NSString*)file;
 
-- (id) initWithFile:(NSString*)file;
-
-- (NSInteger)numberOfSections;
-- (NSInteger)numberOfRowsForSection:(NSInteger)section;
-- (IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
-- (IASKSpecifier *)headerSpecifierForSection:(NSInteger)section;
-- (NSIndexPath*)indexPathForKey:(NSString*)key;
-- (IASKSpecifier*)specifierForKey:(NSString*)key;
-- (NSString*)titleForSection:(NSInteger)section;
-- (NSString*)keyForSection:(NSInteger)section;
-- (NSString*)footerTextForSection:(NSInteger)section;
-- (NSString*)titleForId:(NSObject*)titleId;
+@property (nonatomic, readonly) NSInteger numberOfSections;
+- (NSInteger)numberOfRowsInSection:(NSInteger)section;
+- (nullable IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
+- (nullable IASKSpecifier*)headerSpecifierForSection:(NSInteger)section;
+- (nullable NSIndexPath*)indexPathForKey:(NSString*)key;
+- (nullable IASKSpecifier*)specifierForKey:(NSString*)key;
+- (nullable NSString*)titleForSection:(NSInteger)section;
+- (nullable NSString*)keyForSection:(NSInteger)section;
+- (nullable NSString*)footerTextForSection:(NSInteger)section;
+- (nullable NSString*)titleForId:(nullable NSObject*)titleId;
 - (NSString*)pathForImageNamed:(NSString*)image;
+- (nullable NSString*)locateSettingsFile:(NSString *)file;
 
-///the main application bundle. most often [NSBundle mainBundle]
-@property (nonatomic, readonly) NSBundle      *applicationBundle;
+/** recursively go through all specifiers of the file/sub-files and gather default values
+ @param limitedToEditableFields limit the gathering to default values of specifiers that can be edited by the user (e.g.
+PSToggleSwitchSpecifier, PSTextFieldSpecifier).
+ */
+- (NSDictionary<NSString *,id> *)gatherDefaultsLimitedToEditableFields:(BOOL)limitedToEditableFields;
 
-///the actual settings bundle
-@property (nonatomic, readonly) NSBundle    *settingsBundle;
+/// recursively go through all specifiers of the file/sub-files and populate the store with the specified default values
+- (void)applyDefaultsToStore;
 
-///the actual settings plist, parsed into a dictionary
-@property (nonatomic, readonly) NSDictionary  *settingsDictionary;
+/// the main application bundle. most often NSBundle.mainBundle
+@property (nonatomic, readonly) NSBundle *applicationBundle;
 
+/// the actual settings bundle
+@property (nonatomic, readonly) NSBundle *settingsBundle;
 
-@property (nonatomic, retain) NSString      *localizationTable;
-@property (nonatomic, retain) NSArray       *dataSource;
-@property (nonatomic, retain) NSSet         *hiddenKeys;
-@property (nonatomic) BOOL					showPrivacySettings;
+/// the actual settings plist, parsed into a dictionary
+@property (nonatomic, readonly) NSDictionary *settingsDictionary;
 
+@property (nonatomic, strong) NSString *localizationTable;
+@property (nonatomic, readonly) NSBundle *iaskBundle;
+@property (nonatomic, strong) NSArray *dataSource;
+@property (nullable, nonatomic, strong) NSSet *hiddenKeys;
+@property (nonatomic) BOOL showPrivacySettings;
+@property (nullable, nonatomic, weak) id<IASKSettingsStore> settingsStore;
+@property (nullable, nonatomic, strong) IASKSpecifier *selectedSpecifier; // currently used for date picker
 
-#pragma mark - internal use. public only for testing
-- (NSString *)file:(NSString *)file
-        withBundle:(NSString *)bundle
-            suffix:(NSString *)suffix
-         extension:(NSString *)extension;
-- (NSString *)locateSettingsFile:(NSString *)file;
-
-- (NSString *)platformSuffixForInterfaceIdiom:(UIUserInterfaceIdiom) interfaceIdiom;
 @end
+
+NS_ASSUME_NONNULL_END
+

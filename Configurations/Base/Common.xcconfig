@@ -99,7 +99,7 @@ CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR
 CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES
 
 // Warns when a quoted include is used instead of a framework style include in a framework header.
-CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES
+CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
 
 // Warn about ranged-based for loops.
 CLANG_WARN_RANGE_LOOP_ANALYSIS = YES

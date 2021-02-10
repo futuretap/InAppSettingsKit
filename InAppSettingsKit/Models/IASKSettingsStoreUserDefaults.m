@@ -1,6 +1,5 @@
 //
 //  IASKSettingsStoreUserDefaults.m
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -19,7 +18,7 @@
 
 @interface IASKSettingsStoreUserDefaults ()
 
-@property (nonatomic, retain, readwrite) NSUserDefaults* defaults;
+@property (nonatomic, strong, readwrite) NSUserDefaults* defaults;
 
 @end
 
@@ -37,44 +36,12 @@
     return [self initWithUserDefaults:[NSUserDefaults standardUserDefaults]];
 }
 
-- (void)setBool:(BOOL)value forKey:(NSString*)key {
-    [self.defaults setBool:value forKey:key];
-}
-
-- (void)setFloat:(float)value forKey:(NSString*)key {
-    [self.defaults setFloat:value forKey:key];
-}
-
-- (void)setDouble:(double)value forKey:(NSString*)key {
-    [self.defaults setDouble:value forKey:key];
-}
-
-- (void)setInteger:(NSInteger)value forKey:(NSString*)key {
-    [self.defaults setInteger:value forKey:key];
-}
-
 - (void)setObject:(id)value forKey:(NSString*)key {
-    [self.defaults setObject:value forKey:key];
-}
-
-- (BOOL)boolForKey:(NSString*)key {
-    return [self.defaults boolForKey:key];
-}
-
-- (float)floatForKey:(NSString*)key {
-    return [self.defaults floatForKey:key];
-}
-
-- (double)doubleForKey:(NSString*)key {
-    return [self.defaults doubleForKey:key];
-}
-
-- (NSInteger)integerForKey:(NSString*)key {
-    return [self.defaults integerForKey:key];
+	[self.defaults setObject:value forKey:key];
 }
 
 - (id)objectForKey:(NSString*)key {
-    return [self.defaults objectForKey:key];
+	return [self.defaults objectForKey:key];
 }
 
 - (BOOL)synchronize {

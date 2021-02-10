@@ -1,9 +1,8 @@
 //
 //  MainViewController.m
 //  InAppSettingsKitSampleApp
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009-2010:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -14,6 +13,13 @@
 //
 //  This code is licensed under the BSD license that is available at: http://www.opensource.org/licenses/bsd-license.php
 //
+
+
+
+// Superseded by MainViewController.swift
+// Code no longer compiled / in target, left here just for reference.
+
+
 
 #import "MainViewController.h"
 
@@ -40,8 +46,7 @@
 		appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
         appSettingsViewController.cellLayoutMarginsFollowReadableWidth = NO;
 		appSettingsViewController.delegate = self;
-		BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
-		appSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
+		[self settingDidChange:nil];
 	}
 	return appSettingsViewController;
 }
@@ -64,7 +69,7 @@
 
 - (void)showSettingsPopover:(id)sender {
 	if(self.currentPopoverController) {
-    [self dismissCurrentPopover];
+		[self dismissCurrentPopover];
 		return;
 	}
   
@@ -93,9 +98,8 @@
 	[super awakeFromNib];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
 
-
-	BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
-	self.tabAppSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
+	self.tabAppSettingsViewController = (id)[self.tabBarController.viewControllers.lastObject topViewController];
+	[self settingDidChange:nil];
 	
 	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)];
@@ -105,9 +109,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	IASKAppSettingsViewController *settingsViewController = (id)((UINavigationController*)segue.destinationViewController).topViewController;
 	settingsViewController.delegate = self;
-
-	BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"AutoConnect"];
-	settingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil];
+	
+	[self settingDidChange:nil];
 }
 
 #pragma mark -
@@ -124,7 +127,7 @@
 					 textField:(IASKTextField *)field
 				 previousValue:(NSString *)prevValue {
 	BOOL defaultBehaviour = YES;
-	if ([field.key isEqual: @"RegexValidation2"]) {
+	if ([field.specifier.key isEqual: @"RegexValidation2"]) {
 		defaultBehaviour = NO;
 		field.textColor  = UIColor.redColor;
 	}
@@ -142,7 +145,7 @@
 }
 
 // optional delegate method for handling mail sending result
-- (BOOL)settingsViewController:(id<IASKViewController>)settingsViewController
+- (BOOL)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController
 shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailComposeViewController
 				  forSpecifier:(IASKSpecifier*) specifier {
 	if ([specifier.key isEqualToString:@"mail_dynamic_subject"]) {
@@ -151,7 +154,10 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 	return YES;
 }
 
-- (void)settingsViewController:(id<IASKViewController>)settingsViewController mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+- (void)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController
+		 mailComposeController:(MFMailComposeViewController *)controller
+		   didFinishWithResult:(MFMailComposeResult)result
+						 error:(NSError *)error {
        
     if ( error != nil ) {
         // handle error here
@@ -170,9 +176,9 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
         // ...
     }
 }
-- (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController
-                        tableView:(UITableView *)tableView
-        heightForHeaderForSection:(NSInteger)section {
+- (CGFloat)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController
+		 heightForHeaderInSection:(NSInteger)section
+						specifier:(nonnull IASKSpecifier *)specifier {
     NSString *key = [settingsViewController.settingsReader keyForSection:section];
     if ([key isEqualToString:@"IASKLogo"]) {
         return [UIImage imageNamed:@"Icon.png"].size.height + 25;
@@ -182,9 +188,9 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
     return 0;
 }
 
-- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController
-                         tableView:(UITableView *)tableView 
-           viewForHeaderForSection:(NSInteger)section {
+- (UIView *)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController
+			viewForHeaderInSection:(NSInteger)section
+						 specifier:(nonnull IASKSpecifier *)specifier {
     NSString *key = [settingsViewController.settingsReader keyForSection:section];
     if ([key isEqualToString:@"IASKLogo"]) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
@@ -208,7 +214,9 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 	return nil;
 }
 
-- (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView titleForHeaderForSection:(NSInteger)section {
+- (NSString *)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController
+			 titleForHeaderInSection:(NSInteger)section
+						   specifier:(nonnull IASKSpecifier *)specifier {
     NSString *key = [settingsViewController.settingsReader keyForSection:section];
     if ([key isEqualToString:@"CUSTOM_HEADER_FOOTER"]) {
         return @"Custom header title";
@@ -217,8 +225,8 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 }
 
 - (CGFloat)settingsViewController:(id<IASKViewController>)settingsViewController
-                        tableView:(UITableView *)tableView
-        heightForFooterForSection:(NSInteger)section {
+		 heightForFooterInSection:(NSInteger)section
+						specifier:(nonnull IASKSpecifier *)specifier {
     NSString *key = [settingsViewController.settingsReader keyForSection:section];
     if ([key isEqualToString:@"IASKLogo"]) {
         return [UIImage imageNamed:@"Icon.png"].size.height + 25;
@@ -227,8 +235,8 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 }
 
 - (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController
-                         tableView:(UITableView *)tableView
-           viewForFooterForSection:(NSInteger)section {
+			viewForFooterInSection:(NSInteger)section
+						 specifier:(nonnull IASKSpecifier *)specifier {
     NSString *key = [settingsViewController.settingsReader keyForSection:section];
     if ([key isEqualToString:@"IASKLogo"]) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Icon.png"]];
@@ -238,7 +246,9 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
     return nil;
 }
 
-- (NSString *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView titleForFooterForSection:(NSInteger)section {
+- (NSString *)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController
+			 titleForFooterInSection:(NSInteger)section
+						   specifier:(nonnull IASKSpecifier *)specifier {
     NSString *key = [settingsViewController.settingsReader keyForSection:section];
     if ([key isEqualToString:@"CUSTOM_HEADER_FOOTER"]) {
         return @"Custom footer title";
@@ -246,23 +256,36 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
     return nil;
 }
 
-- (CGFloat)tableView:(UITableView*)tableView heightForSpecifier:(IASKSpecifier*)specifier {
+- (CGFloat)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController
+			   heightForSpecifier:(IASKSpecifier*)specifier {
 	if ([specifier.key isEqualToString:@"customCell"]) {
 		return 44*3;
 	}
-	return 0;
+	return UITableViewAutomaticDimension;
 }
 
-- (UITableViewCell*)tableView:(UITableView*)tableView cellForSpecifier:(IASKSpecifier*)specifier {
-	CustomViewCell *cell = (CustomViewCell*)[tableView dequeueReusableCellWithIdentifier:specifier.key];
+- (UITableViewCell*)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController
+						  cellForSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.parentSpecifier.key isEqualToString:@"accounts"]) {
+		UITableViewCell *cell = [settingsViewController.tableView dequeueReusableCellWithIdentifier:@"accountCell"];
+		if (!cell) {
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"accountCell"];
+		}
+		NSDictionary *dict = [self.appSettingsViewController.settingsStore objectForSpecifier:specifier];
+		cell.textLabel.text = dict[@"username"];
+		cell.detailTextLabel.text = dict[@"email"];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		return cell;
+	}
+	CustomViewCell *cell = (CustomViewCell*)[settingsViewController.tableView dequeueReusableCellWithIdentifier:(id)specifier.key];
 	
 	if (!cell) {
 		cell = (CustomViewCell*)[[[NSBundle mainBundle] loadNibNamed:@"CustomViewCell" 
 															   owner:self 
 															 options:nil] objectAtIndex:0];
 	}
-	cell.textView.text= [[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] != nil ? 
-	 [[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] : [specifier defaultStringValue];
+	cell.textView.text= [[NSUserDefaults standardUserDefaults] objectForKey:(id)specifier.key] != nil ?
+	 [[NSUserDefaults standardUserDefaults] objectForKey:(id)specifier.key] : [specifier defaultStringValue];
 	cell.textView.delegate = self;
 	[cell setNeedsLayout];
 	return cell;
@@ -272,7 +295,7 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 	if ([specifier.key isEqualToString:@"countryCode"]) {
 		return [NSLocale ISOCountryCodes];
 	}
-	return nil;
+	return @[];
 }
 
 - (NSArray *)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier *)specifier {
@@ -283,17 +306,70 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 		}
 		return countryNames;
 	}
+	return @[];
+}
+
+- (BOOL)settingsViewController:(UITableViewController<IASKViewController>*)settingsViewController childPaneIsValidForSpecifier:(IASKSpecifier *)specifier
+			 contentDictionary:(NSMutableDictionary *)contentDictionary {
+	if ([specifier.parentSpecifier.key isEqualToString:@"accounts"]) {
+		if (contentDictionary[@"email"] == nil) {
+			contentDictionary[@"email"] = @"foo@bar.com";
+		}
+		return [contentDictionary[@"username"] length] > 1 && [contentDictionary[@"password"] length] > 3
+		&& ([contentDictionary[@"roleUser"] boolValue] || [contentDictionary[@"roleEditor"] boolValue] || [contentDictionary[@"roleAdmin"] boolValue]);
+	}
+	return YES;
+}
+
+- (NSDate *)settingsViewController:(IASKAppSettingsViewController*)sender dateForSpecifier:(IASKSpecifier*)specifier {
+	id value = [sender.settingsStore objectForSpecifier:specifier];
+	if ([specifier.key isEqualToString:@"time"]) {
+		NSDateFormatter *df = [[NSDateFormatter alloc] init];
+		df.dateStyle = NSDateFormatterNoStyle;
+		df.timeStyle = NSDateFormatterShortStyle;
+		return [df dateFromString:value] ?: NSDate.date;
+	}
+	return value;
+}
+
+- (NSString *)settingsViewController:(IASKAppSettingsViewController *)sender datePickerTitleForSpecifier:(IASKSpecifier *)specifier {
+	NSDate *date = [sender.settingsStore objectForSpecifier:specifier];
+	if ([specifier.key isEqualToString:@"date"]) {
+		return [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
+	} else if ([specifier.key isEqualToString:@"dateAndTime"]) {
+		return [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
+	} else if ([specifier.key isEqualToString:@"time"]) {
+		return (id)date;
+	}
 	return nil;
+}
+
+- (void)settingsViewController:(IASKAppSettingsViewController*)sender setDate:(NSDate *)date forSpecifier:(IASKSpecifier *)specifier {
+	if ([specifier.key isEqualToString:@"time"]) {
+		NSDateFormatter *df = [[NSDateFormatter alloc] init];
+		df.dateStyle = NSDateFormatterNoStyle;
+		df.timeStyle = NSDateFormatterShortStyle;
+		[sender.settingsStore setObject:[df stringFromDate:date] forSpecifier:specifier];
+		return;
+	}
+	[sender.settingsStore setObject:date forSpecifier:specifier];
 }
 
 
 #pragma mark kIASKAppSettingChanged notification
 - (void)settingDidChange:(NSNotification*)notification {
-	if ([notification.userInfo.allKeys.firstObject isEqual:@"AutoConnect"]) {
-		IASKAppSettingsViewController *activeController = notification.object;
-		BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"AutoConnect"] intValue];
-		[activeController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil] animated:YES];
+	NSMutableSet *hiddenKeys = NSMutableSet.set;
+	BOOL autoConnect = [NSUserDefaults.standardUserDefaults boolForKey:@"AutoConnect"];
+	if (!autoConnect) {
+		[hiddenKeys addObjectsFromArray:@[@"AutoConnectLogin", @"AutoConnectPassword", @"loginOptions"]];
 	}
+	BOOL showAccounts = [NSUserDefaults.standardUserDefaults boolForKey:@"ShowAccounts"];
+	if (!showAccounts) {
+		[hiddenKeys addObjectsFromArray:@[@"accounts"]];
+	}
+
+	[self.appSettingsViewController setHiddenKeys:hiddenKeys animated:YES];
+	[self.tabAppSettingsViewController setHiddenKeys:hiddenKeys animated:YES];
 }
 
 #pragma mark UITextViewDelegate (for CustomViewCell)
@@ -314,8 +390,8 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 		[alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"InAppSettingsKit") style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {}]];
 		[sender presentViewController:alert animated:YES completion:nil];
 	} else if ([specifier.key isEqualToString:@"ButtonDemoAction2"]) {
-		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:specifier.key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
-		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:specifier.key];
+		NSString *newTitle = [[[NSUserDefaults standardUserDefaults] objectForKey:(id)specifier.key] isEqualToString:@"Logout"] ? @"Login" : @"Logout";
+		[[NSUserDefaults standardUserDefaults] setObject:newTitle forKey:(id)specifier.key];
 	}
 }
 

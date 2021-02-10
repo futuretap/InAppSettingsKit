@@ -128,7 +128,7 @@
 			<key>Key</key>
 			<string>text_URL</string>
 			<key>DefaultValue</key>
-			<string>http://www.inappsettingskit.com</string>
+			<string>https://github.com/futuretap/InAppSettingsKit</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>
@@ -268,6 +268,30 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Name</string>
+			<key>Key</key>
+			<string>text_content_type_name</string>
+			<key>DefaultValue</key>
+			<string></string>
+			<key>IASKTextContentType</key>
+			<string>Name</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Email</string>
+			<key>Key</key>
+			<string>text_content_type_email</string>
+			<key>IASKTextContentType</key>
+			<string>EmailAddress</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Title Values</string>
@@ -395,6 +419,23 @@
 			<true/>
 			<key>IASKSubtitle</key>
 			<string>with subtitle</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Boolean Toggle</string>
+			<key>Key</key>
+			<string>toggle_boolean_value_aware_subtitle</string>
+			<key>DefaultValue</key>
+			<true/>
+			<key>IASKSubtitle</key>
+			<dict>
+				<key>YES</key>
+				<string>TOGGLE_SWITCH_SUBTITLE_YES</string>
+				<key>NO</key>
+				<string>TOGGLE_SWITCH_SUBTITLE_NO</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -709,6 +750,27 @@
 			<string>Advanced</string>
 			<key>IASKSubtitle</key>
 			<string>with subtitle</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Dynamic Subtitle</string>
+			<key>File</key>
+			<string>Fruit</string>
+			<key>Key</key>
+			<string>fruit</string>
+			<key>IASKSubtitle</key>
+			<dict>
+				<key>Banana</key>
+				<string>Yellow fruit</string>
+				<key>Kiwi</key>
+				<string>Green fruit</string>
+				<key>Strawberry</key>
+				<string>Red fruit</string>
+				<key>__default__</key>
+				<string>Some fruit</string>
+			</dict>
 		</dict>
 		<dict>
 			<key>Type</key>

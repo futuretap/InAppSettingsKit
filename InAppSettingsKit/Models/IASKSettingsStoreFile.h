@@ -1,6 +1,5 @@
 //
 //  IASKSettingsStoreFile.h
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -16,7 +15,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <InAppSettingsKit/IASKSettingsStore.h>
+
+#import "IASKSettingsStore.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** file-based implementation of IASKAbstractSettingsStore
 
@@ -34,3 +36,5 @@
 @property (nonatomic, copy, readonly) NSString* filePath;
 
 @end
+
+NS_ASSUME_NONNULL_END

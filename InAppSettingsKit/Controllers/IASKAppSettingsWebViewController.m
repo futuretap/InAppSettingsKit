@@ -1,6 +1,6 @@
 //
 //  IASKAppSettingsWebViewController.h
-//  http://www.inappsettingskit.com
+//  InAppSettingsKit
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -16,24 +16,30 @@
 
 #import "IASKAppSettingsWebViewController.h"
 #import "IASKSettingsReader.h"
+#import "IASKSpecifier.h"
+
+@interface IASKAppSettingsWebViewController()
+@property (nullable, nonatomic, strong, readwrite) WKWebView *webView;
+@property (nonatomic, strong, readwrite) NSURL *url;
+@end
 
 @implementation IASKAppSettingsWebViewController
 
 - (id)initWithFile:(NSString*)urlString specifier:(IASKSpecifier*)specifier {
-    self = [super init];
-    if (self) {
-        self.url = [NSURL URLWithString:urlString];
-        if (!self.url || ![self.url scheme]) {
-            NSString *path = [[NSBundle mainBundle] pathForResource:[urlString stringByDeletingPathExtension] ofType:[urlString pathExtension]];
-            if(path)
-                self.url = [NSURL fileURLWithPath:path];
-            else
-                self.url = nil;
+    if ((self = [super init])) {
+        NSURL *url = [NSURL URLWithString:urlString];
+		if (!url.scheme) {
+			NSString *path = [NSBundle.mainBundle pathForResource:urlString.stringByDeletingPathExtension ofType:urlString.pathExtension];
+			url = path ? [NSURL fileURLWithPath:path] : nil;
         }
 		self.customTitle = [specifier localizedObjectForKey:kIASKChildTitle];
 		self.title = self.customTitle ? : specifier.title;
-    }
-    return self;
+		if (!url) {
+			return nil;
+		}
+		self.url = url;
+	}
+	return self;
 }
 
 - (void)loadView {
@@ -48,7 +54,11 @@
 	[super viewWillAppear:animated];
 	
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
+#if TARGET_OS_MACCATALYST
+	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+#else
 	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+#endif
 	[activityIndicatorView startAnimating];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
 	[self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
@@ -143,10 +153,13 @@
 	mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
 	mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
 	mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
-
+#if !TARGET_OS_MACCATALYST
 	UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+#endif
 	[self presentViewController:mailViewController animated:YES completion:^{
+#if !TARGET_OS_MACCATALYST
 		[UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
+#endif
 	}];
 }
 

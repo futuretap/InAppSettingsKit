@@ -1,9 +1,8 @@
 //
 //  main.m
 //  InAppSettingsKitSampleApp
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -18,8 +17,9 @@
 #import <UIKit/UIKit.h>
 
 int main(int argc, char *argv[]) {
-  @autoreleasepool {
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
-    return retVal;    
-  }
+	int retVal;
+	@autoreleasepool {
+		retVal = UIApplicationMain(argc, argv, nil, @"InAppSettingsKitSampleAppAppDelegate");
+	}
+	return retVal;
 }

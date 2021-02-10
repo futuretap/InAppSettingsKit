@@ -1,6 +1,5 @@
 //
 //  IASKSettingsStoreFile.m
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -17,35 +16,34 @@
 
 #import "IASKSettingsStoreFile.h"
 
-@interface IASKSettingsStoreFile() {
-    NSMutableDictionary * _dict;
-}
-
+@interface IASKSettingsStoreFile()
+@property (nonatomic, strong) NSMutableDictionary *dict;
+@property (nonatomic, copy, readwrite) NSString* filePath;
 @end
 
 @implementation IASKSettingsStoreFile
 
 - (id)initWithPath:(NSString*)path {
     if((self = [super init])) {
-        _filePath = [path copy];
-        _dict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
-        if(_dict == nil) {
-            _dict = [[NSMutableDictionary alloc] init];
+		self.filePath = path;
+		self.dict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
+		if (!self.dict) {
+			self.dict = NSMutableDictionary.dictionary;
         }
     }
     return self;
 }
 
 - (void)setObject:(id)value forKey:(NSString *)key {
-    [_dict setObject:value forKey:key];
+	[self.dict setObject:value forKey:key];
 }
 
 - (id)objectForKey:(NSString *)key {
-    return [_dict objectForKey:key];
+	return [self.dict objectForKey:key];
 }
 
 - (BOOL)synchronize {
-    return [_dict writeToFile:_filePath atomically:YES];
+	return [self.dict writeToFile:self.filePath atomically:YES];
 }
 
 @end

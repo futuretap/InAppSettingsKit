@@ -1,12 +1,17 @@
 /* IASKLocalizable.strings
-  Where To
+  InAppSettingsKit
 
   Created by Ortwin Gentz on 20.10.14.
   Copyright (c) 2014 FutureTap. All rights reserved. */
 
-/* iOS 8+ Privacy cell: title */
+/* Privacy cell: title */
 "Privacy" = "Απόρρητο";
 
-/* iOS 8+ Privacy cell: subtitle */
-"Open in Settings app" = "Open in “Settings” app";// TODO
+/* warning title */
+"Mail not configured" = "Δεν έχει ρυθμιστεί ακόμα το Mail";
+
+"OK" = "OK";
+
+/* warning message */
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "Αυτή η συσκευή δεν έχει ρυθμιστεί για χρήση Email. Παρακαλώ συμπληρώστε τις ρυθμίσεις στο Mail.";
 

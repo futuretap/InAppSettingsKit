@@ -1,6 +1,5 @@
 //
 //  IASKSettingsStore.m
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -16,49 +15,117 @@
 //
 
 #import "IASKSettingsStore.h"
+#import "IASKSettingsReader.h"
+#import "IASKSpecifier.h"
 
 @implementation IASKAbstractSettingsStore
 
 - (void)setObject:(id)value forKey:(NSString*)key {
-    [NSException raise:@"Unimplemented"
-                format:@"setObject:forKey: must be implemented in subclasses of IASKAbstractSettingsStore"];
+	@throw [NSException exceptionWithName:NSGenericException reason:@"setObject:forKey: must be implemented in subclasses of IASKAbstractSettingsStore" userInfo:nil];
 }
 
 - (id)objectForKey:(NSString*)key {
-    [NSException raise:@"Unimplemented"
-                format:@"objectForKey: must be implemented in subclasses of IASKAbstractSettingsStore"];
-    return nil;
+	@throw [NSException exceptionWithName:NSGenericException reason:@"objectForKey: must be implemented in subclasses of IASKAbstractSettingsStore" userInfo:nil];
 }
 
-- (void)setBool:(BOOL)value forKey:(NSString*)key {
-    [self setObject:[NSNumber numberWithBool:value] forKey:key];
+- (void)setObject:(id)value forSpecifier:(IASKSpecifier*)specifier {
+	if (!value) {
+		[self removeObjectWithSpecifier:specifier];
+		return;
+	}
+	if (specifier.parentSpecifier) {
+		if (specifier.isAddSpecifier) {
+			[self addObject:value forSpecifier:specifier];
+			return;
+		}
+		NSMutableArray *array = ([self arrayForSpecifier:(id)specifier.parentSpecifier] ?: @[]).mutableCopy;
+		if (array.count <= specifier.itemIndex) {
+			return;
+		}
+		NSObject *object = array[specifier.itemIndex];
+		if (![value isKindOfClass:NSDictionary.class] && [object isKindOfClass:NSDictionary.class] && [object respondsToSelector:@selector(mutableCopy)]) {
+			object = [object mutableCopy];
+			[object setValue:value forKey:(id)specifier.key];
+		} else {
+			object = value;
+		}
+		array[specifier.itemIndex] = object;
+		[self setObject:array forSpecifier:(id)specifier.parentSpecifier];
+		return;
+	}
+	if (specifier.key) {
+		[self setObject:value forKey:(id)specifier.key];
+	}
 }
 
-- (void)setFloat:(float)value forKey:(NSString*)key {
-    [self setObject:[NSNumber numberWithFloat:value] forKey:key];
+- (id)objectForSpecifier:(IASKSpecifier*)specifier {
+	if (specifier.parentSpecifier) {
+		NSArray *array = [self arrayForSpecifier:(id)specifier.parentSpecifier] ?: @[];
+		if (array.count <= specifier.itemIndex) {
+			return nil;
+		}
+		NSDictionary *value = array[specifier.itemIndex];
+		return specifier.key && [value valueForKey:(id)specifier.key] ? [value valueForKey:(id)specifier.key] : value;
+	}
+
+	return specifier.key ? [self objectForKey:(id)specifier.key] : nil;
 }
 
-- (void)setInteger:(NSInteger)value forKey:(NSString*)key {
-    [self setObject:[NSNumber numberWithInteger:value] forKey:key];
+- (void)setBool:(BOOL)value forSpecifier:(IASKSpecifier*)specifier {
+    [self setObject:[NSNumber numberWithBool:value] forSpecifier:specifier];
 }
 
-- (void)setDouble:(double)value forKey:(NSString*)key {
-    [self setObject:[NSNumber numberWithDouble:value] forKey:key];
+- (void)setFloat:(float)value forSpecifier:(IASKSpecifier*)specifier {
+    [self setObject:[NSNumber numberWithFloat:value] forSpecifier:specifier];
 }
 
-- (BOOL)boolForKey:(NSString*)key {
-    return [[self objectForKey:key] boolValue];
+- (void)setInteger:(NSInteger)value forSpecifier:(IASKSpecifier*)specifier {
+    [self setObject:[NSNumber numberWithInteger:value] forSpecifier:specifier];
 }
 
-- (float)floatForKey:(NSString*)key {
-    return [[self objectForKey:key] floatValue];
-}
-- (NSInteger)integerForKey:(NSString*)key {
-    return [[self objectForKey:key] integerValue];
+- (void)setDouble:(double)value forSpecifier:(IASKSpecifier*)specifier {
+    [self setObject:[NSNumber numberWithDouble:value] forSpecifier:specifier];
 }
 
-- (double)doubleForKey:(NSString*)key {
-    return [[self objectForKey:key] doubleValue];
+- (BOOL)boolForSpecifier:(IASKSpecifier*)specifier {
+    return [[self objectForSpecifier:specifier] boolValue];
+}
+
+- (float)floatForSpecifier:(IASKSpecifier*)specifier {
+    return [[self objectForSpecifier:specifier] floatValue];
+}
+
+- (NSInteger)integerForSpecifier:(IASKSpecifier*)specifier {
+    return [[self objectForSpecifier:specifier] integerValue];
+}
+
+- (double)doubleForSpecifier:(IASKSpecifier*)specifier {
+    return [[self objectForSpecifier:specifier] doubleValue];
+}
+
+- (void)setArray:(NSArray*)array forSpecifier:(IASKSpecifier*)specifier {
+	[self setObject:array forSpecifier:specifier];
+}
+
+- (NSArray*)arrayForSpecifier:(IASKSpecifier*)specifier {
+	NSArray *array = [self objectForSpecifier:specifier];
+	return [array isKindOfClass:NSArray.class] ? array : @[];
+}
+
+- (void)addObject:(NSObject*)object forSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.parentSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
+		NSMutableArray *array = [self arrayForSpecifier:(id)specifier.parentSpecifier].mutableCopy;
+		[array addObject:object];
+		[self setArray:array forSpecifier:(id)specifier.parentSpecifier];
+	}
+}
+
+- (void)removeObjectWithSpecifier:(IASKSpecifier*)specifier {
+	if ([specifier.parentSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
+		NSMutableArray *array = [self arrayForSpecifier:(id)specifier.parentSpecifier].mutableCopy;
+		[array removeObjectAtIndex:specifier.itemIndex];
+		[self setArray:array forSpecifier:(id)specifier.parentSpecifier];
+	}
 }
 
 - (BOOL)synchronize {

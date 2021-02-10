@@ -80,7 +80,7 @@
 			<key>IASKMailComposeSubject</key>
 			<real>0</real>
 			<key>IASKMailComposeBody</key>
-			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at http://www.inappsettingskit.com/ today.</string>
+			<string>InAppSettingsKit is a great way to get custom settings into your iOS app. Check it out at https://github.com/futuretap/InAppSettingsKit/ today.</string>
 			<key>Title</key>
 			<string>Send Mail</string>
 			<key>IASKSubtitle</key>
@@ -123,6 +123,114 @@
 			<string>TEXT_FIELD_PWD</string>
 			<key>Key</key>
 			<string>AutoConnectPassword</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Login Options</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Key</key>
+			<string>loginOptions</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>rememberCredentials</string>
+			<key>Title</key>
+			<string>Remember Credentials</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Date Picker</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Date</string>
+			<key>Key</key>
+			<string>date</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>Date</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Compact D &amp; T</string>
+			<key>Key</key>
+			<string>compactDateAndTime</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>DateAndTime</string>
+			<key>DatePickerStyle</key>
+			<string>Compact</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Wheels D &amp; T</string>
+			<key>Key</key>
+			<string>wheelsDateAndTime</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>DateAndTime</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Inline D &amp; T</string>
+			<key>Key</key>
+			<string>inlineDateAndTime</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>DateAndTime</string>
+			<key>DatePickerStyle</key>
+			<string>Inline</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Compact Time</string>
+			<key>Key</key>
+			<string>time</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>Time</string>
+			<key>MinuteInterval</key>
+			<integer>15</integer>
+			<key>DatePickerStyle</key>
+			<string>Compact</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Wheels Time</string>
+			<key>Key</key>
+			<string>timeWheels</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>Time</string>
+			<key>MinuteInterval</key>
+			<integer>15</integer>
+			<key>DatePickerStyle</key>
+			<string>Wheels</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Inline Time</string>
+			<key>Key</key>
+			<string>timeInline</string>
+			<key>Type</key>
+			<string>IASKDatePickerSpecifier</string>
+			<key>DatePickerMode</key>
+			<string>Time</string>
+			<key>MinuteInterval</key>
+			<integer>15</integer>
+			<key>DatePickerStyle</key>
+			<string>Inline</string>
 		</dict>
 	</array>
 </dict>

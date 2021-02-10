@@ -1,8 +1,7 @@
 //
 //  Root.strings
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009-2010:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -46,6 +45,8 @@
 
 "TOGGLE_SWITCH2"        = "Boolscher Schalter";
 "TOGGLE_SWITCH_TITLE2"  = "Weiterer Toggle Schalter";
+"TOGGLE_SWITCH_SUBTITLE_YES" = "mit wertespezifischem Untertitel (Ja)";
+"TOGGLE_SWITCH_SUBTITLE_NO"  = "mit wertespezifischem Untertitel (Nein)";
 
 "SLIDER_TITLE"          = "Slider mit Icons";
 
@@ -59,3 +60,11 @@
 
 "LOCALIZED_URL"			= "http://www.apple.com/de";
 "LOCALIZED_URL_TITLE"	= "Apple deutsch";
+
+"Yellow fruit"          = "Gelbes Obst";
+"Green fruit"           = "Grünes Obst";
+"Red fruit"             = "Rotes Obst";
+"Banana"                = "Banane";
+"Kiwi"                  = "Kiwi";
+"Strawberry"            = "Erdbeere";
+"Select a fruit"        = "Obst wählen";

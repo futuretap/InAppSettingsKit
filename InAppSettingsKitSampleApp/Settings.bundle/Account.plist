@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>New Account</string>
+			<key>Key</key>
+			<string>title</string>
+			<key>FooterText</key>
+			<string>Login must be 2 characters or longer, password 4 characters or longer</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Username</string>
+			<key>Key</key>
+			<string>username</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Password</string>
+			<key>Key</key>
+			<string>password</string>
+			<key>IsSecure</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Email</string>
+			<key>Key</key>
+			<string>RegexValidation3</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Roles</string>
+			<key>Key</key>
+			<string>AccountOption</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>At least one role must be selected</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>roleUser</string>
+			<key>Title</key>
+			<string>User</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKToggleStyle</key>
+			<string>Checkmark</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>roleEditor</string>
+			<key>Title</key>
+			<string>Editor</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKToggleStyle</key>
+			<string>Checkmark</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>roleAdmin</string>
+			<key>Title</key>
+			<string>Administrator</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>IASKToggleStyle</key>
+			<string>Checkmark</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSRadioGroupSpecifier</string>
+			<key>Title</key>
+			<string>Radio Group</string>
+			<key>Key</key>
+			<string>permission</string>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>Values</key>
+			<array>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Read only access</string>
+				<string>Read and write access</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,8 +1,7 @@
 //
 //  IASKTextField.h
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  All rights reserved.
@@ -15,12 +14,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class IASKSpecifier;
 
 @interface IASKTextField : UITextField
 
-@property (nonatomic, copy) NSString *key;
-@property (nonatomic, copy) NSRegularExpression *regex;
+@property (strong, nonatomic, nonnull) IASKSpecifier *specifier;
+@property (strong, nonatomic, nullable, readonly) NSString *oldText; // text when this field became first responder
 
 - (void)shake;
 

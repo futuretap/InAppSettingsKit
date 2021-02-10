@@ -1,9 +1,8 @@
 //
 //  InAppSettingsKitSampleAppAppDelegate.m
 //  InAppSettingsKitSampleApp
-//  http://www.inappsettingskit.com
 //
-//  Copyright (c) 2009-2010:
+//  Copyright (c) 2009-2020:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //  Manuel "StuFF mc" Carrasco Molina, http://www.pomcast.biz
@@ -22,11 +21,7 @@
 @implementation InAppSettingsKitSampleAppAppDelegate
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-  // add  the viewController from the storyboard
-  UIStoryboard *storyboardWithSettings = [UIStoryboard storyboardWithName:@"Main" bundle:NSBundle.mainBundle];
-  UIViewController *storyboardViewControllerWithSettings = [storyboardWithSettings instantiateInitialViewController];
-  _tabBarController.viewControllers = [_tabBarController.viewControllers arrayByAddingObject: storyboardViewControllerWithSettings];
-	[_window addSubview:_tabBarController.view];
+	[self.window makeKeyAndVisible];
 }
 
 @end

@@ -1,6 +1,5 @@
 //
 //  IASKSettingsStoreUserDefaults.h
-//  http://www.inappsettingskit.com
 //
 //  Copyright (c) 2010:
 //  Luc Vandal, Edovia Inc., http://www.edovia.com
@@ -16,18 +15,23 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <InAppSettingsKit/IASKSettingsStore.h>
+
+#import "IASKSettingsStore.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** implementation of IASKSettingsStore that uses NSUserDefaults
  */
-@interface IASKSettingsStoreUserDefaults : NSObject<IASKSettingsStore>
+@interface IASKSettingsStoreUserDefaults : IASKAbstractSettingsStore
 
-///designated initializer
-- (id) initWithUserDefaults:(NSUserDefaults*) defaults;
+/// designated initializer
+- (id)initWithUserDefaults:(NSUserDefaults*)defaults;
 
-///calls initWithUserDefaults: with [NSUserDefaults standardUserDefaults]
-- (id) init;
+/// calls initWithUserDefaults: with NSUserDefaults.standardUserDefaults
+- (id)init;
 
-@property (nonatomic, retain, readonly) NSUserDefaults* defaults;
+@property (nonatomic, strong, readonly) NSUserDefaults* defaults;
 
 @end
+
+NS_ASSUME_NONNULL_END
