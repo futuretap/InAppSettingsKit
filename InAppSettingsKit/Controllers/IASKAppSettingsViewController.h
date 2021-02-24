@@ -219,6 +219,10 @@ typedef NS_ENUM(NSUInteger, IASKValidationResult) {
 					   setDate:(NSDate*)date
 				  forSpecifier:(IASKSpecifier*)specifier;
 
+- (BOOL)settingsViewController:(id<IASKViewController>)controller
+shouldSetMultiValueForSpecifier:(IASKSpecifier*)specifier
+				toValueAtIndex:(NSInteger)index;
+
 /// Implement this if you want to customize the cells, e.g. add an accessibilityIdentifier. Called for every cell before it is displayed.
 - (void)settingsViewController:(id<IASKViewController>)settingsViewController
 			   willDisplayCell:(UITableViewCell*) cell

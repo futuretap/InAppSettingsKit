@@ -134,7 +134,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.selection selectRowAtIndexPath:indexPath];
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:shouldSetMultiValueForSpecifier:toValueAtIndex:)] &&
+		![self.delegate settingsViewController:self
+			   shouldSetMultiValueForSpecifier:self.currentSpecifier
+								toValueAtIndex:indexPath.row]) {
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		return;
+	}
+	[_selection selectRowAtIndexPath:indexPath];
 }
 
 @end
