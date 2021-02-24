@@ -18,6 +18,7 @@
 #import "IASKSpecifier.h"
 #import "IASKSettingsReader.h"
 #import "IASKMultipleValueSelection.h"
+#import "IASKAppSettingsViewController.h"
 
 #define kCellValue      @"kCellValue"
 
@@ -124,6 +125,12 @@
     }
     @catch (NSException * e) {}
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if([self.delegate respondsToSelector:@selector(settingsViewController:willDisplayCell:forRowAtIndexPath:)]) {
+		[self.delegate settingsViewController:self willDisplayCell:cell forRowAtIndexPath:indexPath];
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

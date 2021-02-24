@@ -19,9 +19,11 @@
 #import "IASKViewController.h"
 
 @class IASKSpecifier;
+@protocol IASKSettingsDelegate;
 
 @interface IASKSpecifierValuesViewController : UITableViewController <IASKViewController>
 
+@property (nonatomic, weak, nullable) id<IASKSettingsDelegate> delegate;
 - (nonnull id)initWithSpecifier:(nonnull IASKSpecifier*)specifier;
 
 @end
