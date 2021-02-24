@@ -840,6 +840,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] initWithSpecifier:childSpecifier];
         targetViewController.view.backgroundColor = self.view.backgroundColor;
 		targetViewController.settingsReader = self.settingsReader;
+		targetViewController.delegate = self.delegate;
 		[self setMultiValuesFromDelegateIfNeeded:childSpecifier];
 
 		[self presentChildViewController:targetViewController specifier:specifier indexPath:indexPath];
@@ -1024,6 +1025,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 	NSDictionary *userInfo = specifier.parentSpecifier.key && [self.settingsStore objectForSpecifier:(id)specifier.parentSpecifier] ? @{(id)specifier.parentSpecifier.key: [self.settingsStore objectForSpecifier:(id)specifier.parentSpecifier] ?: @[]} : nil;
 	[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged object:self userInfo:userInfo];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+	if([self.delegate respondsToSelector:@selector(settingsViewController:willDisplayCell:forRowAtIndexPath:)]) {
+		[self.delegate settingsViewController:self willDisplayCell:cell forRowAtIndexPath:indexPath];
+	}
 }
 
 - (void)presentChildViewController:(UITableViewController<IASKViewController> *)targetViewController specifier:(IASKSpecifier *)specifier indexPath:(NSIndexPath*)indexPath {
