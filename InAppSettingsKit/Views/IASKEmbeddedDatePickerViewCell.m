@@ -19,9 +19,10 @@
 		self.contentView.preservesSuperviewLayoutMargins = YES;
 		[self.contentView addSubview:self.titleLabel];
 		[self.contentView addSubview:self.datePicker];
-		[NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeLeadingMargin multiplier:1.0 constant:0].active = YES;
-		[NSLayoutConstraint constraintWithItem:self.titleLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.datePicker attribute:NSLayoutAttributeLeading multiplier:1.0 constant:10].active = YES;
-		[NSLayoutConstraint constraintWithItem:self.datePicker attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTrailingMargin multiplier:1.0 constant:0].active = YES;
+
+		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[label]-(>=16)-[picker(50@100)]-|" options:0 metrics:nil views:@{@"label": self.titleLabel, @"picker": self.datePicker}]];
+		[self.titleLabel setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+		[self.datePicker setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[picker]-4-|" options:0 metrics:nil views:@{@"picker": self.datePicker}]];
 		[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-4-[label]-4-|" options:0 metrics:nil views:@{@"label": self.titleLabel}]];
