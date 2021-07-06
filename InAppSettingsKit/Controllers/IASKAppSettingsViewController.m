@@ -135,8 +135,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-    if (style != UITableViewStyleGrouped) {
-        NSLog(@"WARNING: only UITableViewStyleGrouped style is supported by InAppSettingsKit.");
+    if (style == UITableViewStylePlain) {
+        NSLog(@"WARNING: only \"grouped\" table view styles are supported by InAppSettingsKit.");
     }
     if ((self = [super initWithStyle:style])) {
 		[self configure];
@@ -837,7 +837,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     if ([specifier.type isEqualToString:kIASKPSMultiValueSpecifier]) {
 		IASKSpecifier *childSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier.specifierDict];
 		childSpecifier.settingsReader = self.settingsReader;
-		IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] initWithSpecifier:childSpecifier];
+		IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] initWithSpecifier:childSpecifier style:self.tableView.style];
         targetViewController.view.backgroundColor = self.view.backgroundColor;
 		targetViewController.settingsReader = self.settingsReader;
 		[self setMultiValuesFromDelegateIfNeeded:childSpecifier];
@@ -913,8 +913,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
         
         _reloadDisabled = YES; // Disable internal unnecessary reloads
-        
-        IASKAppSettingsViewController *targetViewController = [[[self class] alloc] init];
+        IASKAppSettingsViewController *targetViewController =
+            [((IASKAppSettingsViewController*)[[self class] alloc]) initWithStyle:self.tableView.style];
         targetViewController.showDoneButton = NO;
         targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
         targetViewController.delegate = self.delegate;

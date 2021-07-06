@@ -41,6 +41,13 @@
 	return self;
 }
 
+- (id)initWithSpecifier:(IASKSpecifier*)specifier style:(UITableViewStyle)style {
+	if ((self = [super initWithStyle:style])) {
+		self.currentSpecifier = specifier;
+	};
+	return self;
+}
+
 - (void)setSettingsStore:(id <IASKSettingsStore>)settingsStore {
 	self.selection = [[IASKMultipleValueSelection alloc] initWithSettingsStore:settingsStore tableView:self.tableView specifier:self.currentSpecifier section:0];
 }

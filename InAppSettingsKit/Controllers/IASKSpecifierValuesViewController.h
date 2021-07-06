@@ -23,5 +23,6 @@
 @interface IASKSpecifierValuesViewController : UITableViewController <IASKViewController>
 
 - (nonnull id)initWithSpecifier:(nonnull IASKSpecifier*)specifier;
+- (nonnull id)initWithSpecifier:(nonnull IASKSpecifier*)specifier style:(UITableViewStyle)style;
 
 @end
