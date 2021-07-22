@@ -72,7 +72,7 @@
 	}];
 }
 
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler NS_EXTENSION_UNAVAILABLE("Uses APIs (i.e UIApplication.sharedApplication) not available for use in App Extensions.") {
 	NSURL* newURL = navigationAction.request.URL;
 
 	// intercept mailto URL and send it to an in-app Mail compose view instead
@@ -93,7 +93,7 @@
 	decisionHandler(WKNavigationActionPolicyCancel);
 }
 
-- (void)handleMailto:(NSURL*)mailToURL {
+- (void)handleMailto:(NSURL*)mailToURL NS_EXTENSION_UNAVAILABLE("Uses APIs (i.e UIApplication.sharedApplication) not available for use in App Extensions.") {
 	NSArray *rawURLparts = [[mailToURL resourceSpecifier] componentsSeparatedByString:@"?"];
 	if (rawURLparts.count > 2 || !MFMailComposeViewController.canSendMail) {
 		return; // invalid URL or can't send mail

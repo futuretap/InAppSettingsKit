@@ -27,17 +27,6 @@ let package = Package(
             dependencies: [
             ],
             path: "InAppSettingsKit",
-            exclude: [
-                "Configurations",
-                "scripts",
-                "InAppSettingsKitSampleApp",
-                "InAppSettingsKitTests",
-                "README.md",
-                "InAppSettingsKit.podspec",
-                "LICENSE",
-                "RELEASE_NOTES.md",
-                "InAppSettingsKitFramework"
-            ],
             sources: [
                 "Controllers",
                 "Views",
