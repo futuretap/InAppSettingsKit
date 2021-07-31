@@ -960,7 +960,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 			BOOL isHTML = NO;
 			if ([specifier.specifierDict objectForKey:kIASKMailComposeBodyIsHTML]) {
 				isHTML = [[specifier.specifierDict objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
-			} else if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
+			}
+			if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
 				[mailViewController setMessageBody:(id)[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
 			}
 		}
