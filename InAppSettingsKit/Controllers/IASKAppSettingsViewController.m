@@ -135,8 +135,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
-    if (style != UITableViewStyleGrouped) {
-        NSLog(@"WARNING: only UITableViewStyleGrouped style is supported by InAppSettingsKit.");
+    if (style == UITableViewStylePlain) {
+        NSLog(@"WARNING: only \"grouped\" table view styles are supported by InAppSettingsKit.");
     }
     if ((self = [super initWithStyle:style])) {
 		[self configure];
@@ -226,7 +226,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated NS_EXTENSION_UNAVAILABLE("Uses APIs (i.e UIApplication.sharedApplication) not available for use in App Extensions.") {
 	[super viewDidAppear:animated];
 
 	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
@@ -244,7 +244,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated NS_EXTENSION_UNAVAILABLE("Uses APIs (i.e UIApplication.sharedApplication) not available for use in App Extensions.") {
 	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
 		IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
@@ -809,7 +809,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath NS_EXTENSION_UNAVAILABLE("Uses APIs (i.e UIApplication.sharedApplication) not available for use in App Extensions.") {
     IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
     
     //switches and sliders can't be selected (should be captured by tableView:willSelectRowAtIndexPath: delegate method)
@@ -837,7 +837,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     if ([specifier.type isEqualToString:kIASKPSMultiValueSpecifier]) {
 		IASKSpecifier *childSpecifier = [[IASKSpecifier alloc] initWithSpecifier:specifier.specifierDict];
 		childSpecifier.settingsReader = self.settingsReader;
-		IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] initWithSpecifier:childSpecifier];
+		IASKSpecifierValuesViewController *targetViewController = [[IASKSpecifierValuesViewController alloc] initWithSpecifier:childSpecifier style:self.tableView.style];
         targetViewController.view.backgroundColor = self.view.backgroundColor;
 		targetViewController.settingsReader = self.settingsReader;
 		targetViewController.delegate = self.delegate;
@@ -914,8 +914,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         }
         
         _reloadDisabled = YES; // Disable internal unnecessary reloads
-        
-        IASKAppSettingsViewController *targetViewController = [[[self class] alloc] init];
+        IASKAppSettingsViewController *targetViewController =
+            [((IASKAppSettingsViewController*)[[self class] alloc]) initWithStyle:self.tableView.style];
         targetViewController.showDoneButton = NO;
         targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
         targetViewController.delegate = self.delegate;
@@ -961,7 +961,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 			BOOL isHTML = NO;
 			if ([specifier.specifierDict objectForKey:kIASKMailComposeBodyIsHTML]) {
 				isHTML = [[specifier.specifierDict objectForKey:kIASKMailComposeBodyIsHTML] boolValue];
-			} else if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
+			}
+			if ([specifier localizedObjectForKey:kIASKMailComposeBody]) {
 				[mailViewController setMessageBody:(id)[specifier localizedObjectForKey:kIASKMailComposeBody] isHTML:isHTML];
 			}
 		}

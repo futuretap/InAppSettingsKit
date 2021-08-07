@@ -25,5 +25,6 @@
 
 @property (nonatomic, weak, nullable) id<IASKSettingsDelegate> delegate;
 - (nonnull id)initWithSpecifier:(nonnull IASKSpecifier*)specifier;
+- (nonnull id)initWithSpecifier:(nonnull IASKSpecifier*)specifier style:(UITableViewStyle)style;
 
 @end
