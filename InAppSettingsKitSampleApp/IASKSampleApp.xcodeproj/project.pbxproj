@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,6 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		284587A7254A2DF7002E0FE1 /* libInAppSettingsKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 284587A6254A2DF7002E0FE1 /* libInAppSettingsKit.a */; };
 		288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765580DF743DE002DB57D /* CoreGraphics.framework */; };
 		575C01E8127CE845009FBEA2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 575C01E7127CE845009FBEA2 /* MessageUI.framework */; };
 		6A1F35EE11490727003E6295 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1F35ED11490727003E6295 /* Icon.png */; };
@@ -28,6 +27,7 @@
 		AAB838A012846D850042FF80 /* CustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8389F12846D850042FF80 /* CustomViewCell.m */; };
 		AAF478871A239A1A000A0A74 /* Launch.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAF478861A239A1A000A0A74 /* Launch.xib */; };
 		E42ADAEB1682057B00295D85 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42ADAEA1682057B00295D85 /* Default-568h@2x.png */; };
+		E42B9CB126F8F0BD00144EB1 /* InAppSettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = E42B9CB026F8F0BD00144EB1 /* InAppSettingsKit */; };
 		E459FF8722C4B919002DBB60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E459FF8622C4B919002DBB60 /* Images.xcassets */; };
 		FB81CA08155BC7C900CEF887 /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA04155BC7C900CEF887 /* facebook.png */; };
 		FB81CA09155BC7C900CEF887 /* facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB81CA05155BC7C900CEF887 /* facebook@2x.png */; };
@@ -41,42 +41,37 @@
 		1D3623250D0F684500981E51 /* InAppSettingsKitSampleAppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppSettingsKitSampleAppAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* In App Settings Kit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "In App Settings Kit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		28458796254A2CB9002E0FE1 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2845879E254A2CCF002E0FE1 /* InAppSettingsKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = InAppSettingsKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		284587A6254A2DF7002E0FE1 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		288765580DF743DE002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		289233A90DB2D0DB0083E9F9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* InAppSettingsKitSampleApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppSettingsKitSampleApp_Prefix.pch; sourceTree = "<group>"; };
 		575C01E7127CE845009FBEA2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		6A1F35ED11490727003E6295 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		6A9BBF581148F1DA003D97FA /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InAppSettingsKitSampleApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitSampleApp-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		AA1552141F79054700F2CEA1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ../InAppSettingsKit/Resources/ja.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552151F79054700F2CEA1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../InAppSettingsKit/Resources/ru.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552161F79054700F2CEA1 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = ../InAppSettingsKit/Resources/sv.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552171F79054700F2CEA1 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = ../InAppSettingsKit/Resources/nb.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552181F79054700F2CEA1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = ../InAppSettingsKit/Resources/tr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552191F79054700F2CEA1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = ../InAppSettingsKit/Resources/es.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA15521A1F79054700F2CEA1 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = ../InAppSettingsKit/Resources/hr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA15521B1F79054700F2CEA1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "../InAppSettingsKit/Resources/zh-Hans.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
-		AA15521C1F79054700F2CEA1 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = ../InAppSettingsKit/Resources/pt.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA15521D1F79054700F2CEA1 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = ../InAppSettingsKit/Resources/el.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA15521E1F79054700F2CEA1 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = ../InAppSettingsKit/Resources/th.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA15521F1F79054700F2CEA1 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = ../InAppSettingsKit/Resources/pl.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552201F79054700F2CEA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../InAppSettingsKit/Resources/en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552211F79054700F2CEA1 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = ../InAppSettingsKit/Resources/hu.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552221F79054700F2CEA1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = ../InAppSettingsKit/Resources/it.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552231F79054700F2CEA1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = ../InAppSettingsKit/Resources/fr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552241F79054700F2CEA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = ../InAppSettingsKit/Resources/Base.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552251F79054700F2CEA1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = ../InAppSettingsKit/Resources/nl.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552261F79054700F2CEA1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ../InAppSettingsKit/Resources/de.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552271F79054700F2CEA1 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = ../InAppSettingsKit/Resources/uk.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA1552281F79054700F2CEA1 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "../InAppSettingsKit/Resources/es-MX.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
-		AA1552291F79054700F2CEA1 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "../InAppSettingsKit/Resources/zh-Hant.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
-		AA15522A1F79054700F2CEA1 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ../InAppSettingsKit/Resources/ca.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
-		AA3966932464B88C00820E0C /* IASKSampleAppStaticLibrary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IASKSampleAppStaticLibrary-Bridging-Header.h"; sourceTree = "<group>"; };
+		AA1552141F79054700F2CEA1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ../Sources/InAppSettingsKit/Resources/ja.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552151F79054700F2CEA1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../Sources/InAppSettingsKit/Resources/ru.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552161F79054700F2CEA1 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = ../Sources/InAppSettingsKit/Resources/sv.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552171F79054700F2CEA1 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = ../Sources/InAppSettingsKit/Resources/nb.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552181F79054700F2CEA1 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = ../Sources/InAppSettingsKit/Resources/tr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552191F79054700F2CEA1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = ../Sources/InAppSettingsKit/Resources/es.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA15521A1F79054700F2CEA1 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = ../Sources/InAppSettingsKit/Resources/hr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA15521B1F79054700F2CEA1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "../Sources/InAppSettingsKit/Resources/zh-Hans.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		AA15521C1F79054700F2CEA1 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = ../Sources/InAppSettingsKit/Resources/pt.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA15521D1F79054700F2CEA1 /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = ../Sources/InAppSettingsKit/Resources/el.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA15521E1F79054700F2CEA1 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = ../Sources/InAppSettingsKit/Resources/th.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA15521F1F79054700F2CEA1 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = ../Sources/InAppSettingsKit/Resources/pl.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552201F79054700F2CEA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../Sources/InAppSettingsKit/Resources/en.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552211F79054700F2CEA1 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = ../Sources/InAppSettingsKit/Resources/hu.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552221F79054700F2CEA1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = ../Sources/InAppSettingsKit/Resources/it.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552231F79054700F2CEA1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = ../Sources/InAppSettingsKit/Resources/fr.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552241F79054700F2CEA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = ../Sources/InAppSettingsKit/Resources/Base.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552251F79054700F2CEA1 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = ../Sources/InAppSettingsKit/Resources/nl.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552261F79054700F2CEA1 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ../Sources/InAppSettingsKit/Resources/de.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552271F79054700F2CEA1 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = ../Sources/InAppSettingsKit/Resources/uk.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
+		AA1552281F79054700F2CEA1 /* es-MX */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-MX"; path = "../Sources/InAppSettingsKit/Resources/es-MX.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		AA1552291F79054700F2CEA1 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "../Sources/InAppSettingsKit/Resources/zh-Hant.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		AA15522A1F79054700F2CEA1 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ../Sources/InAppSettingsKit/Resources/ca.lproj/IASKLocalizable.strings; sourceTree = "<group>"; };
 		AA3966942464B88D00820E0C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = Classes/MainViewController.swift; sourceTree = "<group>"; };
 		AAA468D5125CD9680057A662 /* CustomSubviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSubviewController.h; sourceTree = "<group>"; };
 		AAA468D6125CD9680057A662 /* CustomSubviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSubviewController.m; sourceTree = "<group>"; };
@@ -90,14 +85,14 @@
 		AAB8389A12846D110042FF80 /* CustomViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomViewCell.xib; sourceTree = "<group>"; };
 		AAB8389E12846D850042FF80 /* CustomViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewCell.h; sourceTree = "<group>"; };
 		AAB8389F12846D850042FF80 /* CustomViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewCell.m; sourceTree = "<group>"; };
-		AAD676AD24D0804300A74C64 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "../InAppSettingsKit/Resources/pt-PT.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		AAD676AD24D0804300A74C64 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "../Sources/InAppSettingsKit/Resources/pt-PT.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
 		AAF478861A239A1A000A0A74 /* Launch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Launch.xib; sourceTree = "<group>"; };
 		B4AF7EAD256311EE00332606 /* In App Settings Kit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "In App Settings Kit.entitlements"; sourceTree = "<group>"; };
 		B4AF7EB225631AF600332606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/settings_about.html; sourceTree = "<group>"; };
 		B4AF7EB525631B7400332606 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/settings_about.html; sourceTree = "<group>"; };
 		DACD38A910598A7600AC8E51 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = SOURCE_ROOT; };
-		E42ADAE7168204DB00295D85 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADAEA1682057B00295D85 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E42B9CB226F8FC5400144EB1 /* IASKSampleAppStaticLibrary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IASKSampleAppStaticLibrary-Bridging-Header.h"; sourceTree = "<group>"; };
 		E459FF8622C4B919002DBB60 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E4D558DD177DC0BC00362644 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
 		E4D558DF177DC0BC00362644 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -128,9 +123,9 @@
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				E42B9CB126F8F0BD00144EB1 /* InAppSettingsKit in Frameworks */,
 				288765590DF743DE002DB57D /* CoreGraphics.framework in Frameworks */,
 				575C01E8127CE845009FBEA2 /* MessageUI.framework in Frameworks */,
-				284587A7254A2DF7002E0FE1 /* libInAppSettingsKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +161,6 @@
 				AAA468D6125CD9680057A662 /* CustomSubviewController.m */,
 				AAB8389E12846D850042FF80 /* CustomViewCell.h */,
 				AAB8389F12846D850042FF80 /* CustomViewCell.m */,
-				AA3966932464B88C00820E0C /* IASKSampleAppStaticLibrary-Bridging-Header.h */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -179,7 +173,6 @@
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				E42ADAE9168204E300295D85 /* Workspace Dependencies */,
 				E4D558DB177DC0BC00362644 /* Configurations */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -191,7 +184,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* InAppSettingsKitSampleApp_Prefix.pch */,
+				E42B9CB226F8FC5400144EB1 /* IASKSampleAppStaticLibrary-Bridging-Header.h */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -221,23 +214,12 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				284587A6254A2DF7002E0FE1 /* libInAppSettingsKit.a */,
-				2845879E254A2CCF002E0FE1 /* InAppSettingsKit.framework */,
-				28458796254A2CB9002E0FE1 /* libInAppSettingsKit.a */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765580DF743DE002DB57D /* CoreGraphics.framework */,
 				575C01E7127CE845009FBEA2 /* MessageUI.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E42ADAE9168204E300295D85 /* Workspace Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				E42ADAE7168204DB00295D85 /* libInAppSettingsKit.a */,
-			);
-			name = "Workspace Dependencies";
 			sourceTree = "<group>";
 		};
 		E42ADAEF1682072200295D85 /* LaunchImages */ = {
@@ -339,6 +321,9 @@
 			dependencies = (
 			);
 			name = IASKSampleAppStaticLibrary;
+			packageProductDependencies = (
+				E42B9CB026F8F0BD00144EB1 /* InAppSettingsKit */,
+			);
 			productName = InAppSettingsKitSampleApp;
 			productReference = 1D6058910D05DD3D006BFB54 /* In App Settings Kit.app */;
 			productType = "com.apple.product-type.application";
@@ -501,11 +486,13 @@
 				CODE_SIGN_ENTITLEMENTS = "In App Settings Kit.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				DEVELOPMENT_TEAM = "";
-				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.$(PRODUCT_NAME:rfc1034identifier)";
 				SUPPORTS_MACCATALYST = YES;
@@ -524,11 +511,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "In App Settings Kit.entitlements";
 				DEVELOPMENT_TEAM = "";
-				GCC_PREFIX_HEADER = InAppSettingsKitSampleApp_Prefix.pch;
 				INFOPLIST_FILE = "InAppSettingsKitSampleApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 13.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.$(PRODUCT_NAME:rfc1034identifier)";
 				SUPPORTS_MACCATALYST = YES;
@@ -616,6 +605,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E42B9CB026F8F0BD00144EB1 /* InAppSettingsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = InAppSettingsKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }

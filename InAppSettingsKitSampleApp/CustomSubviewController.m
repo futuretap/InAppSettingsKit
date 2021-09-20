@@ -15,7 +15,7 @@
 //
 
 #import "CustomSubviewController.h"
-#import "InAppSettingsKit/IASKSpecifier.h"
+@import InAppSettingsKit;
 
 @implementation CustomSubviewController
 
