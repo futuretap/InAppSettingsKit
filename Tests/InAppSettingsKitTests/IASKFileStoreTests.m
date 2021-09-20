@@ -7,8 +7,8 @@
 //  Ortwin Gentz, FutureTap GmbH, http://www.futuretap.com
 //
 
-#import <XCTest/XCTest.h>
-#import "IASKSettingsStoreFile.h"
+@import XCTest;
+@import InAppSettingsKit;
 
 @interface IASKFileStoreTests : XCTestCase
 @end

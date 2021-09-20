@@ -5,6 +5,6 @@
       location = "group:InAppSettingsKitSampleApp/IASKSampleApp.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:InAppSettingsKit.xcodeproj">
+      location = "group:">
    </FileRef>
 </Workspace>

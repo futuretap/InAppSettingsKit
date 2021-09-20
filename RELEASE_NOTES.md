@@ -2,7 +2,8 @@
 
 ## InAppSettingsKit 3.3.4
 
-- Restructure project to better support Swift Package Manager
+- Restructure project to better support Swift Package Manager when used with Tuist (Thanks @hisaac 🙏)
+- Change Sample App to use SPM setup
 
 ## InAppSettingsKit 3.3
 

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import InAppSettingsKit
 
 class MainViewController: UIViewController {
 
