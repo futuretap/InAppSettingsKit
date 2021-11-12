@@ -111,7 +111,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 	NSMutableDictionary *dict = [@{kIASKTitle: NSLocalizedStringFromTableInBundle(@"Privacy", @"IASKLocalizable", self.iaskBundle, @"Privacy cell: title"),
 								   kIASKKey: @"IASKPrivacySettingsCellKey",
 								   kIASKType: kIASKOpenURLSpecifier,
-								   kIASKFile: TARGET_OS_MACCATALYST ? @"x-apple.systempreferences:http://com.apple.preference.security" : UIApplicationOpenSettingsURLString,
+								   kIASKFile: TARGET_OS_MACCATALYST ? @"x-apple.systempreferences:com.apple.preference.security" : UIApplicationOpenSettingsURLString,
 								   } mutableCopy];
 	NSString *subtitle = NSLocalizedStringFromTableInBundle(@"Open in Settings app", @"IASKLocalizable", self.iaskBundle, @"Privacy cell: subtitle");
 	if (subtitle.length) {
