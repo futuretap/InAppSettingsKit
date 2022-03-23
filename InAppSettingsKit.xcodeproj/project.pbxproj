@@ -564,9 +564,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAC1562A1B54533D00655031 /* Build configuration list for PBXNativeTarget "InAppSettingsKitFramework" */;
 			buildPhases = (
+				DAC156201B54533D00655031 /* Headers */,
 				DAC1561E1B54533D00655031 /* Sources */,
 				DAC1561F1B54533D00655031 /* Frameworks */,
-				DAC156201B54533D00655031 /* Headers */,
 				DAC156211B54533D00655031 /* Resources */,
 			);
 			buildRules = (
@@ -582,9 +582,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E42ADAB6168202D700295D85 /* Build configuration list for PBXNativeTarget "InAppSettingsKit" */;
 			buildPhases = (
+				E42ADA8D168202D700295D85 /* Headers */,
 				E42ADA8B168202D700295D85 /* Sources */,
 				E42ADA8C168202D700295D85 /* Frameworks */,
-				E42ADA8D168202D700295D85 /* Headers */,
 			);
 			buildRules = (
 			);
