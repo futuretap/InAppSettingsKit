@@ -1298,7 +1298,6 @@ static NSMutableDictionary *oldUserDefaults = nil;
 
 - (void)setMultiValuesFromDelegateIfNeeded:(IASKSpecifier *)specifier {
 	if (specifier.multipleValues.count == 0) {
-		NSLog(@"need to init from delegate");
 		if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)] &&
 			[self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)])
 		{

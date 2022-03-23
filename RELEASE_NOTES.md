@@ -1,5 +1,10 @@
 # Release Notes
 
+## InAppSettingsKit 3.3.4
+
+- Restructure project to better support Swift Package Manager when used with Tuist (Thanks @hisaac 🙏)
+- Change Sample App to use SPM setup
+
 ## InAppSettingsKit 3.3
 
 - The `IASKSettingChangedNotification` for a `PSTextFieldSpecifier` now sends `IASKAppSettingsViewController` as the notification object – analogous to all other occurrences of this notification. If your notification observer code needs to access the specifier key, consult the notification's userInfo dictionary.
@@ -65,7 +70,7 @@ All classes now use properties instead of getter methods and are nullability-ann
 
 ### New features (see Readme)
 
-- List Groups 
+- List Groups
 - Date Picker
 - Toggles with checkmarks
 - Support hiding sections

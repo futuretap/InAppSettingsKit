@@ -55,20 +55,6 @@ To support traditional Settings.app panes, the app must include a `Settings.bund
 
 The source code is available on [github](http://github.com/futuretap/InAppSettingsKit). There are several ways of installing it:
 
-**Using Carthage**
-
-Add to your `Cartfile`:
-
-    github "futuretap/InAppSettingsKit" "master"
-
-
-**Using CocoaPods**
-
-Add to your `Podfile`:
-
-    pod 'InAppSettingsKit'
-
-
 **Using SPM**
 
 Add to your Package.swift
@@ -77,6 +63,17 @@ Add to your Package.swift
 
 Alternatively go to Xcodes `File->Swift Packages->Add Package Dependency...` menu entry and add `https://github.com/futuretap/InAppSettingsKit.git`.
 
+**Using CocoaPods**
+
+Add to your `Podfile`:
+
+    pod 'InAppSettingsKit'
+
+**Using Carthage**
+
+Add to your `Cartfile`:
+
+    github "futuretap/InAppSettingsKit" "master"
 
 # App Integration
 

@@ -33,6 +33,9 @@ echo "Checking for build products..."
 if [ ! -d "Carthage/Build/InAppSettingsKit.xcframework" ]; then
     echo "No iOS library built"
     EXIT_CODE=1
+elif [ `find Carthage/Build/InAppSettingsKit.xcframework -name "*.h" | wc -l` -le 3 ]; then
+    echo "Not enough headers present - please make sure the xcodeproj is still correctly setup"
+    EXIT_CODE=2
 else
     echo "Found iOS framework"
 fi
