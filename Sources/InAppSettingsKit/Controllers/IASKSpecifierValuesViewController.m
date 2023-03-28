@@ -82,8 +82,6 @@
 
 	if (!self.didFirstLayout) {
 		self.didFirstLayout = YES;
-		[self.tableView scrollToRowAtIndexPath:self.selection.checkedIndexPath
-							  atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 		[self.tableView flashScrollIndicators];
 	}
 }
