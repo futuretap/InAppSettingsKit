@@ -49,17 +49,25 @@
 	return self;
 }
 
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	if (self.currentSpecifier) {
+		self.title = self.currentSpecifier.title;
+		IASK_IF_IOS11_OR_GREATER(self.navigationItem.largeTitleDisplayMode = self.title.length ? UINavigationItemLargeTitleDisplayModeAutomatic : UINavigationItemLargeTitleDisplayModeNever;);
+	}
+	if (self.tableView) {
+		// add a header view to fix missing spacing under large title
+		self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 30.0)];
+	}
+}
+
 - (void)setSettingsStore:(id <IASKSettingsStore>)settingsStore {
 	self.selection = [[IASKMultipleValueSelection alloc] initWithSettingsStore:settingsStore tableView:self.tableView specifier:self.currentSpecifier section:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-    if (self.currentSpecifier) {
-		self.title = self.currentSpecifier.title;
-		IASK_IF_IOS11_OR_GREATER(self.navigationItem.largeTitleDisplayMode = self.title.length ? UINavigationItemLargeTitleDisplayModeAutomatic : UINavigationItemLargeTitleDisplayModeNever;);
-    }
     
     if (self.tableView) {
 		self.selection.tableView = self.tableView;
