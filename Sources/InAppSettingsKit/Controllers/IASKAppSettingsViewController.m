@@ -936,7 +936,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		NSURL *url = urlString ? [NSURL URLWithString:urlString] : nil;
 		if (url) {
 			IASK_IF_IOS11_OR_GREATER([UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];);
+#if !TARGET_OS_XR
 			IASK_IF_PRE_IOS11([UIApplication.sharedApplication openURL:url];);
+#endif
 		}
 	} else if ([specifier.type isEqualToString:kIASKButtonSpecifier]) {
         if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForSpecifier:)]) {
@@ -977,11 +979,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 		if ([MFMailComposeViewController canSendMail]) {
 			mailViewController.mailComposeDelegate = self;
             _currentChildViewController = mailViewController;
-#if !TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST && !TARGET_OS_XR
             UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
 #endif
             [self presentViewController:mailViewController animated:YES completion:^{
-#if !TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST && !TARGET_OS_XR
 			    [UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
 #endif
             }];
