@@ -495,8 +495,11 @@
     NSMutableDictionary *idiomMap = [NSMutableDictionary dictionaryWithDictionary:
                                      @{
                                          @"Phone": @(UIUserInterfaceIdiomPhone),
-                                         @"Pad": @(UIUserInterfaceIdiomPad),
-                                     }];
+										 @"Pad": @(UIUserInterfaceIdiomPad),
+#if defined(TARGET_OS_XR) && TARGET_OS_XR
+										 @"Reality": @(UIUserInterfaceIdiomReality),
+#endif
+	}];
     if (@available(iOS 14.0, *)) {
         idiomMap[@"Mac"] = @(UIUserInterfaceIdiomMac);
     }
@@ -582,11 +585,9 @@
 	NSDictionary *dict = @{kIASKDatePickerStyleCompact: @(UIDatePickerStyleCompact),
 						   kIASKDatePickerStyleWheels: @(UIDatePickerStyleWheels)};
 	if (@available(iOS 14.0, *)) {
-		IASK_IF_IOS14_OR_GREATER(
-		 dict = @{kIASKDatePickerStyleCompact: @(UIDatePickerStyleCompact),
-				  kIASKDatePickerStyleWheels: @(UIDatePickerStyleWheels),
-				  kIASKDatePickerStyleInline: @(UIDatePickerStyleInline)};
-		);
+		dict = @{kIASKDatePickerStyleCompact: @(UIDatePickerStyleCompact),
+				 kIASKDatePickerStyleWheels: @(UIDatePickerStyleWheels),
+				 kIASKDatePickerStyleInline: @(UIDatePickerStyleInline)};
 	}
 	NSString *string = [_specifierDict objectForKey:kIASKDatePickerStyle];
 	NSNumber *value = dict[string];
@@ -596,10 +597,8 @@
 - (BOOL)embeddedDatePicker {
 	BOOL embeddedDatePicker = NO;
 	if (@available(iOS 14.0, *)) {
-		IASK_IF_IOS14_OR_GREATER(
-		 embeddedDatePicker = [self.type isEqualToString:kIASKDatePickerSpecifier] &&
-		 (self.datePickerStyle == UIDatePickerStyleCompact || (self.datePickerStyle == UIDatePickerStyleInline && self.datePickerMode == UIDatePickerModeTime));
-        );
+		embeddedDatePicker = [self.type isEqualToString:kIASKDatePickerSpecifier] &&
+		(self.datePickerStyle == UIDatePickerStyleCompact || (self.datePickerStyle == UIDatePickerStyleInline && self.datePickerMode == UIDatePickerModeTime));
 	}
 	return embeddedDatePicker;
 }

@@ -101,7 +101,11 @@
 	self.tabAppSettingsViewController = (id)[self.tabBarController.viewControllers.lastObject topViewController];
 	[self settingDidChange:nil];
 	
-	if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+	if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
+#if defined(TARGET_OS_XR) && TARGET_OS_XR
+|| UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomReality
+#endif
+		) {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showSettingsPopover:)];
 	}
 }

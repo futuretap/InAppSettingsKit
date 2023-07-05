@@ -348,6 +348,9 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
     switch (interfaceIdiom) {
         case UIUserInterfaceIdiomPad: return @"~ipad";
         case UIUserInterfaceIdiomPhone: return @"~iphone";
+#if defined(TARGET_OS_XR) && TARGET_OS_XR
+		case UIUserInterfaceIdiomReality: return @"~reality";
+#endif
 		default: return @"~iphone";
     }
 }

@@ -170,51 +170,6 @@ extern NSString * const IASKSettingChangedNotification;
 
 #define kIASKMinimumFontSize                  12.0f
 
-#ifndef kCFCoreFoundationVersionNumber_iOS_7_0
-#define kCFCoreFoundationVersionNumber_iOS_7_0 843.00
-#endif
-
-#ifndef kCFCoreFoundationVersionNumber_iOS_8_0
-#define kCFCoreFoundationVersionNumber_iOS_8_0 1129.150000
-#endif
-
-#ifndef kCFCoreFoundationVersionNumber_iOS_11_0
-#define kCFCoreFoundationVersionNumber_iOS_11_0 1429.150000
-#endif
-
-#ifndef kCFCoreFoundationVersionNumber_iOS_14_0
-#define kCFCoreFoundationVersionNumber_iOS_14_0 1740.0
-#endif
-
-#ifdef __IPHONE_11_0
-#define IASK_IF_IOS11_OR_GREATER(...) \
-if (@available(iOS 11.0, *)) \
-{ \
-__VA_ARGS__ \
-}
-
-#define IASK_IF_PRE_IOS11(...) \
-_Pragma("clang diagnostic push") \
-_Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
-if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iOS_11_0) \
-{ \
-__VA_ARGS__ \
-} \
-_Pragma("clang diagnostic pop")
-#else
-#define IASK_IF_IOS11_OR_GREATER(...)
-#define IASK_IF_PRE_IOS11(...)
-#endif
-
-#ifdef __IPHONE_14_0
-#define IASK_IF_IOS14_OR_GREATER(...) \
-if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_14_0) \
-{ \
-__VA_ARGS__ \
-}
-#else
-#define IASK_IF_IOS14_OR_GREATER(...)
-#endif
 
 @class IASKSpecifier;
 @protocol IASKSettingsStore;

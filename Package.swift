@@ -1,10 +1,10 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.7
 import PackageDescription
 
 let package = Package(
     name: "InAppSettingsKit",
     defaultLocalization: "en",
-    platforms: [.iOS(.v9)],
+	platforms: [.iOS(.v10), .macCatalyst("13.1")],
     products: [
         .library(
             name: "InAppSettingsKit",

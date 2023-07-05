@@ -57,7 +57,13 @@
 	
     if (self.currentSpecifier) {
 		self.title = self.currentSpecifier.title;
-		IASK_IF_IOS11_OR_GREATER(self.navigationItem.largeTitleDisplayMode = self.title.length ? UINavigationItemLargeTitleDisplayModeAutomatic : UINavigationItemLargeTitleDisplayModeNever;);
+#if defined(TARGET_OS_XR) && TARGET_OS_XR
+		self.navigationItem.largeTitleDisplayMode = self.title.length ? UINavigationItemLargeTitleDisplayModeAutomatic : UINavigationItemLargeTitleDisplayModeNever;
+#else
+		if (@available(iOS 11.0, *)) {
+			self.navigationItem.largeTitleDisplayMode = self.title.length ? UINavigationItemLargeTitleDisplayModeAutomatic : UINavigationItemLargeTitleDisplayModeNever;
+		}
+#endif
     }
     
     if (self.tableView) {

@@ -5,7 +5,7 @@
 [![Swift Package Manager compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swiftpackageindex.com/futuretap/InAppSettingsKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/InAppSettingsKit.svg?style=flat)](https://github.com/futuretap/InAppSettingsKit/blob/master/LICENSE)
-![Platform](https://img.shields.io/badge/Platforms-iOS%20|%20macOS%20Catalyst-lightgrey.svg)
+![Platform](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ffuturetap%2FInAppSettingsKit%2Fbadge%3Ftype%3Dplatforms)
 [![Sponsor](https://img.shields.io/badge/Sponsor-ff40a0)](https://github.com/sponsors/futuretap)
 [![Twitter](https://img.shields.io/twitter/follow/ortwingentz.svg?style=social&label=Follow)](https://twitter.com/ortwingentz)
 

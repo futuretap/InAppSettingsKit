@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Gr-jG-lyL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22113.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Gr-jG-lyL">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089.1"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
             <objects>
                 <tableViewController id="3Zf-yv-ugt" customClass="IASKAppSettingsViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="443-2y-GSG">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="450"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                         <connections>
@@ -28,15 +28,17 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Ry-Ez-uuN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1101" y="457"/>
+            <point key="canvasLocation" x="1023" y="476"/>
         </scene>
         <!--Settings-->
         <scene sceneID="CNa-sX-LKX">
             <objects>
-                <navigationController id="S2w-zu-zJk" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="S2w-zu-zJk" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Settings" image="20-gear2.png" id="n11-vj-bkV"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="450" height="450"/>
+                    <size key="freeformSize" width="450" height="450"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fgk-j7-eRM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -45,7 +47,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9x6-Y1-aFi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="183" y="457"/>
+            <point key="canvasLocation" x="154" y="477"/>
         </scene>
         <!--Settings-->
         <scene sceneID="9xI-Rm-Ufl">
@@ -129,7 +131,7 @@
                 <navigationController id="BHR-vT-tkQ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" selectedImage="20-gear2.png" systemItem="featured" id="cIz-OH-P5r"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="73K-t4-ygZ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -146,8 +148,9 @@
                 <navigationController id="e9X-me-Kcp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" selectedImage="20-gear2.png" systemItem="featured" id="Gb4-Mn-Ir9"/>
                     <navigationItem key="navigationItem" id="OmC-Fw-Chl"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="450" height="450"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LLy-AZ-C3h">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -167,14 +170,14 @@
                         <viewControllerLayoutGuide type="bottom" id="jGX-oj-p4M"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Fji-CN-nws">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="450"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="nc7-Ps-6ar">
-                                <rect key="frame" x="178.5" y="419.5" width="57" height="57"/>
+                                <rect key="frame" x="196.5" y="196.5" width="57" height="57"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom View Controller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZK-d2-fPV">
-                                <rect key="frame" x="116.5" y="496.5" width="181" height="21"/>
+                                <rect key="frame" x="135" y="273.5" width="180" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -189,16 +192,17 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="f4e-TP-9xU"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="500" height="500"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GjR-3W-try" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2980" y="26"/>
+            <point key="canvasLocation" x="3104" y="26"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="FrQ-fZ-zWv"/>
         <segue reference="EaZ-im-nY2"/>
-        <segue reference="bIc-2K-M2Q"/>
+        <segue reference="SOU-rU-qTS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="20-gear2.png" width="26" height="28"/>
