@@ -118,6 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define kIASKTextLabelAlignmentLeft           @"IASKUITextAlignmentLeft"
 #define kIASKTextLabelAlignmentCenter         @"IASKUITextAlignmentCenter"
 #define kIASKTextLabelAlignmentRight          @"IASKUITextAlignmentRight"
+#define kIASKTextLabelAlignmentNatural        @"IASKUITextAlignmentNatural"
 #define kIASKToggleStyle                      @"IASKToggleStyle"
 #define kIASKToggleStyleCheckmark             @"Checkmark"
 #define kIASKToggleStyleSwitch                @"Switch"

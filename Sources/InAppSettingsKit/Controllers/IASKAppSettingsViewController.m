@@ -765,7 +765,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		cell.textLabel.text = ([currentValue isKindOfClass:NSString.class] && [self.settingsReader titleForId:currentValue].length) ? [self.settingsReader titleForId:currentValue] : title;
 		cell.detailTextLabel.text = [specifier subtitleForValue:currentValue];
 		cell.textLabel.textAlignment = specifier.textAlignment;
-		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+		cell.accessoryType = (specifier.textAlignment == NSTextAlignmentNatural || specifier.textAlignment == NSTextAlignmentLeft) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
 		NSInteger index = [specifier.multipleValues indexOfObject:(id)specifier.radioGroupValue];
 		cell.textLabel.text = [self.settingsReader titleForId:specifier.multipleTitles[index]];
