@@ -22,16 +22,16 @@
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E42ADAA1168202D700295D85"
-               BuildableName = "InAppSettingsKitTests.xctest"
+               BlueprintIdentifier = "InAppSettingsKitTests"
+               BuildableName = "InAppSettingsKitTests"
                BlueprintName = "InAppSettingsKitTests"
-               ReferencedContainer = "container:../InAppSettingsKit.xcodeproj">
+               ReferencedContainer = "container:..">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,10 +46,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E42ADAA1168202D700295D85"
-               BuildableName = "InAppSettingsKitTests.xctest"
+               BlueprintIdentifier = "InAppSettingsKitTests"
+               BuildableName = "InAppSettingsKitTests"
                BlueprintName = "InAppSettingsKitTests"
-               ReferencedContainer = "container:../InAppSettingsKit.xcodeproj">
+               ReferencedContainer = "container:..">
             </BuildableReference>
          </TestableReference>
       </Testables>
