@@ -41,8 +41,6 @@
 		AA5AB52B1C88974100B20124 /* IASKTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5AB5271C88974100B20124 /* IASKTextView.m */; };
 		AA5AB52D1C88974100B20124 /* IASKTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5AB5291C88974100B20124 /* IASKTextViewCell.m */; };
 		AA627D2819F67B7C0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
-		AA627D2919F67B8E0079AAE8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA627D2719F67B7C0079AAE8 /* MessageUI.framework */; };
-		AA627D3B19F695F30079AAE8 /* IASKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA627D2B19F695F30079AAE8 /* IASKLocalizable.strings */; };
 		AADCA136233142C700D55F13 /* IASKColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AADCA134233142C700D55F13 /* IASKColor.m */; };
 		AAE0B5B824AE863D00A3FB5F /* IASKEmbeddedDatePickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B5B624AE863D00A3FB5F /* IASKEmbeddedDatePickerViewCell.m */; };
 		AAE0B5B924AE864900A3FB5F /* IASKEmbeddedDatePickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE0B5B624AE863D00A3FB5F /* IASKEmbeddedDatePickerViewCell.m */; };
@@ -64,11 +62,6 @@
 		DAC156471B54538D00655031 /* IASKMultipleValueSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */; };
 		E40F708423339F0F00A3E65E /* IASKColor.m in Sources */ = {isa = PBXBuildFile; fileRef = AADCA134233142C700D55F13 /* IASKColor.m */; };
 		E42ADA93168202D700295D85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA92168202D700295D85 /* Foundation.framework */; };
-		E42ADAA6168202D700295D85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADAA5168202D700295D85 /* UIKit.framework */; };
-		E42ADAA7168202D700295D85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA92168202D700295D85 /* Foundation.framework */; };
-		E42ADAAA168202D700295D85 /* libInAppSettingsKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */; };
-		E42ADAB0168202D700295D85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E42ADAAE168202D700295D85 /* InfoPlist.strings */; };
-		E42ADAB3168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */; };
 		E4E2E7B9270B565B003960CF /* IASKSettingsStoreFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B98D2C226EFE26C0062D77E /* IASKSettingsStoreFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4E2E7BA270B565B003960CF /* IASKDatePickerViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B98D2C926EFE26C0062D77E /* IASKDatePickerViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E4E2E7BB270B565B003960CF /* IASKAppSettingsWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B98D2CC26EFE26C0062D77E /* IASKAppSettingsWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -104,21 +97,7 @@
 		E4EDC5A816820D9500BD3CA9 /* IASKSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADB1682036500295D85 /* IASKSlider.m */; };
 		E4EDC5A916820D9500BD3CA9 /* IASKSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADD1682036500295D85 /* IASKSwitch.m */; };
 		E4EDC5AA16820D9500BD3CA9 /* IASKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E42ADADF1682036500295D85 /* IASKTextField.m */; };
-		E4EDC5AD16821D7300BD3CA9 /* IASKAbstractStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */; };
-		E4EDC5AF1682216700BD3CA9 /* IASKFileStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */; };
-		E4EDC5B2168227B800BD3CA9 /* IASKSettingsReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */; };
-		E4EDC5B416822B6700BD3CA9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E4EDC5B316822B6700BD3CA9 /* Settings.bundle */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		E42ADAA8168202D700295D85 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E42ADA87168202D700295D85 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E42ADA8E168202D700295D85;
-			remoteInfo = InAppSettingsKit;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1AA10C9888067F44636DBF0D /* IASKMultipleValueSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKMultipleValueSelection.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
@@ -185,11 +164,7 @@
 		DAC156271B54533D00655031 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInAppSettingsKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADA92168202D700295D85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		E42ADAA2168202D700295D85 /* InAppSettingsKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppSettingsKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ADAA5168202D700295D85 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		E42ADAAD168202D700295D85 /* InAppSettingsKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InAppSettingsKitTests-Info.plist"; sourceTree = "<group>"; };
-		E42ADAAF168202D700295D85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASSettingsStoreUserDefaultsTests.m; sourceTree = "<group>"; };
 		E42ADAC31682036500295D85 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		E42ADAC51682036500295D85 /* IASKSpecifierValuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSpecifierValuesViewController.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		E42ADAC71682036500295D85 /* IASKAppSettingsWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsWebViewController.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
@@ -221,10 +196,6 @@
 		E4A95F3F177DB25C00FF0906 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
 		E4A95F40177DB25C00FF0906 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		E4A95F41177DB25C00FF0906 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = Configurations/README.md; sourceTree = "<group>"; };
-		E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAbstractStoreTests.m; sourceTree = "<group>"; };
-		E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = IASKFileStoreTests.m; sourceTree = "<group>"; };
-		E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKSettingsReaderTests.m; sourceTree = "<group>"; };
-		E4EDC5B316822B6700BD3CA9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,17 +212,6 @@
 			files = (
 				AA627D2819F67B7C0079AAE8 /* MessageUI.framework in Frameworks */,
 				E42ADA93168202D700295D85 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E42ADA9E168202D700295D85 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA627D2919F67B8E0079AAE8 /* MessageUI.framework in Frameworks */,
-				E42ADAA6168202D700295D85 /* UIKit.framework in Frameworks */,
-				E42ADAA7168202D700295D85 /* Foundation.framework in Frameworks */,
-				E42ADAAA168202D700295D85 /* libInAppSettingsKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +271,6 @@
 				AA627D6F19F69A7F0079AAE8 /* README.md */,
 				AA391E6F24AFA23700973930 /* RELEASE_NOTES.md */,
 				E42ADA94168202D700295D85 /* InAppSettingsKit */,
-				E42ADAAB168202D700295D85 /* InAppSettingsKitTests */,
 				E42ADABC1682033800295D85 /* Configurations */,
 				DAC156241B54533D00655031 /* InAppSettingsKitFramework */,
 				E42ADA91168202D700295D85 /* Frameworks */,
@@ -326,7 +285,6 @@
 			isa = PBXGroup;
 			children = (
 				E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */,
-				E42ADAA2168202D700295D85 /* InAppSettingsKitTests.xctest */,
 				DAC156231B54533D00655031 /* InAppSettingsKit.framework */,
 			);
 			name = Products;
@@ -353,28 +311,6 @@
 			);
 			name = InAppSettingsKit;
 			path = Sources/InAppSettingsKit;
-			sourceTree = "<group>";
-		};
-		E42ADAAB168202D700295D85 /* InAppSettingsKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				E4EDC5B316822B6700BD3CA9 /* Settings.bundle */,
-				E42ADAB2168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m */,
-				E4EDC5AC16821D7300BD3CA9 /* IASKAbstractStoreTests.m */,
-				E4EDC5AE1682216700BD3CA9 /* IASKFileStoreTests.m */,
-				E4EDC5B1168227B800BD3CA9 /* IASKSettingsReaderTests.m */,
-				E42ADAAC168202D700295D85 /* Supporting Files */,
-			);
-			path = InAppSettingsKitTests;
-			sourceTree = "<group>";
-		};
-		E42ADAAC168202D700295D85 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				E42ADAAD168202D700295D85 /* InAppSettingsKitTests-Info.plist */,
-				E42ADAAE168202D700295D85 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E42ADABC1682033800295D85 /* Configurations */ = {
@@ -595,24 +531,6 @@
 			productReference = E42ADA8F168202D700295D85 /* libInAppSettingsKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		E42ADAA1168202D700295D85 /* InAppSettingsKitTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E42ADAB9168202D700295D85 /* Build configuration list for PBXNativeTarget "InAppSettingsKitTests" */;
-			buildPhases = (
-				E42ADA9D168202D700295D85 /* Sources */,
-				E42ADA9E168202D700295D85 /* Frameworks */,
-				E42ADA9F168202D700295D85 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E42ADAA9168202D700295D85 /* PBXTargetDependency */,
-			);
-			name = InAppSettingsKitTests;
-			productName = InAppSettingsKitTests;
-			productReference = E42ADAA2168202D700295D85 /* InAppSettingsKitTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -665,7 +583,6 @@
 			projectRoot = "";
 			targets = (
 				E42ADA8E168202D700295D85 /* InAppSettingsKit */,
-				E42ADAA1168202D700295D85 /* InAppSettingsKitTests */,
 				DAC156221B54533D00655031 /* InAppSettingsKitFramework */,
 			);
 		};
@@ -677,16 +594,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAC156351B54537E00655031 /* IASKLocalizable.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E42ADA9F168202D700295D85 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA627D3B19F695F30079AAE8 /* IASKLocalizable.strings in Resources */,
-				E42ADAB0168202D700295D85 /* InfoPlist.strings in Resources */,
-				E4EDC5B416822B6700BD3CA9 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -749,26 +656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E42ADA9D168202D700295D85 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E42ADAB3168202D700295D85 /* IASSettingsStoreUserDefaultsTests.m in Sources */,
-				E4EDC5AD16821D7300BD3CA9 /* IASKAbstractStoreTests.m in Sources */,
-				E4EDC5AF1682216700BD3CA9 /* IASKFileStoreTests.m in Sources */,
-				E4EDC5B2168227B800BD3CA9 /* IASKSettingsReaderTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E42ADAA9168202D700295D85 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E42ADA8E168202D700295D85 /* InAppSettingsKit */;
-			targetProxy = E42ADAA8168202D700295D85 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AA627D2B19F695F30079AAE8 /* IASKLocalizable.strings */ = {
@@ -801,14 +689,6 @@
 				AAD676C124D0870B00A74C64 /* es-MX */,
 			);
 			name = IASKLocalizable.strings;
-			sourceTree = "<group>";
-		};
-		E42ADAAE168202D700295D85 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E42ADAAF168202D700295D85 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -890,28 +770,6 @@
 			};
 			name = Release;
 		};
-		E42ADABA168202D700295D85 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = "InAppSettingsKitTests/InAppSettingsKitTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		E42ADABB168202D700295D85 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E4A95F39177DB25C00FF0906 /* iOS-Base.xcconfig */;
-			buildSettings = {
-				INFOPLIST_FILE = "InAppSettingsKitTests/InAppSettingsKitTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.inappsettingskit.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -938,15 +796,6 @@
 			buildConfigurations = (
 				E42ADAB7168202D700295D85 /* Debug */,
 				E42ADAB8168202D700295D85 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E42ADAB9168202D700295D85 /* Build configuration list for PBXNativeTarget "InAppSettingsKitTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E42ADABA168202D700295D85 /* Debug */,
-				E42ADABB168202D700295D85 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
