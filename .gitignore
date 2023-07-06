@@ -11,3 +11,4 @@ InAppSettingsKitSampleApp/build/**
 *.xcscmblueprint
 CarthageTest
 /.swiftpm
+.build
