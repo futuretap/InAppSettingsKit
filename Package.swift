@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "InAppSettingsKit",
     defaultLocalization: "en",
-	platforms: [.iOS(.v10), .macCatalyst("13.1")],
+    platforms: [.iOS(.v10), .macCatalyst("13.1")],
     products: [
         .library(
             name: "InAppSettingsKit",
