@@ -1,18 +1,17 @@
 os: osx
 osx_image: xcode14.2
 language: objective-c
-xcode_workspace: InAppSettingsKit.xcworkspace
-xcode_destination: platform=iOS Simulator,OS=16.2,name=iPhone 12
 matrix:
   include:
     - stage: Static Library & Tests
-      xcode_scheme: InAppSettingsKit
+      script:
+        - xcodebuild -project InAppSettingsKit.xcodeproj -scheme InAppSettingsKit -destination 'platform=iOS Simulator,OS=16.2,name=iPhone 14' build | xcpretty
     - stage: Framework
       script:
-        - xcodebuild -project InAppSettingsKit.xcodeproj -scheme InAppSettingsKitFramework build | xcpretty
+        - xcodebuild -project InAppSettingsKit.xcodeproj -scheme InAppSettingsKitFramework -destination 'platform=iOS Simulator,OS=16.2,name=iPhone 14' build | xcpretty
     - stage: Sample App
       script:
-        - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App -destination platform\=iOS\ Simulator,OS\=16.2,name\=iPhone\ 12 build | xcpretty
+        - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App -destination 'platform=iOS Simulator,OS=16.2,name=iPhone 14' build | xcpretty
     - stage: Carthage Setup
       script:
         - brew update
