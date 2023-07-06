@@ -9,7 +9,7 @@ matrix:
       xcode_scheme: InAppSettingsKit
     - stage: Framework
       script:
-        - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme InAppSettingsKitFramework build | xcpretty
+        - xcodebuild -project InAppSettingsKit.xcodeproj -scheme InAppSettingsKitFramework build | xcpretty
     - stage: Sample App
       script:
         - xcodebuild -workspace InAppSettingsKit.xcworkspace -scheme Sample\ App -destination platform\=iOS\ Simulator,OS\=16.2,name\=iPhone\ 12 build | xcpretty
