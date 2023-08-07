@@ -102,7 +102,7 @@
 	[self settingDidChange:nil];
 	
 	if (UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
-#if defined(TARGET_OS_XR) && TARGET_OS_XR
+#if defined(TARGET_OS_VISION) && TARGET_OS_VISION
 || UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomReality
 #endif
 		) {

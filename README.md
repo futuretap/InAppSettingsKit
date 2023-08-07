@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/cocoapods/l/InAppSettingsKit.svg?style=flat)](https://github.com/futuretap/InAppSettingsKit/blob/master/LICENSE)
 ![Platform](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ffuturetap%2FInAppSettingsKit%2Fbadge%3Ftype%3Dplatforms)
 [![Sponsor](https://img.shields.io/badge/Sponsor-ff40a0)](https://github.com/sponsors/futuretap)
-[![Twitter](https://img.shields.io/twitter/follow/ortwingentz.svg?style=social&label=Follow)](https://twitter.com/ortwingentz)
+[![Mastodon](https://img.shields.io/mastodon/follow/000010558?domain=https%3A%2F%2Fmastodon.cloud)](https://mastodon.cloud/@ortwingentz)
 
 InAppSettingsKit (IASK) is an open source framework to easily add in-app settings to your iOS or Catalyst apps. Normally iOS apps use the `Settings.bundle` resource to add app-specific settings in the Settings app. InAppSettingsKit takes advantage of the same bundle and allows you to present the same settings screen within your app. So the user has the choice where to change the settings.
 
@@ -57,17 +57,19 @@ The source code is available on [github](http://github.com/futuretap/InAppSettin
 
 **Using SPM**
 
-Add to your Package.swift
+To install InAppSettingsKit using [Swift Package Manager](https://github.com/apple/swift-package-manager) you can follow the [tutorial published by Apple](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) using the URL for the InAppSettingsKit repo with the current version:
 
-    .package(name: "InAppSettingsKit", url: "https://github.com/futuretap/InAppSettingsKit.git", .branch("master"))
+1. In Xcode, select “File” → “Add Packages…”
+1. Enter `https://github.com/futuretap/InAppSettingsKit.git`
 
-Alternatively go to Xcodes `File->Swift Packages->Add Package Dependency...` menu entry and add `https://github.com/futuretap/InAppSettingsKit.git`.
 
 **Using CocoaPods**
 
 Add to your `Podfile`:
 
     pod 'InAppSettingsKit'
+
+Then run `pod install`.
 
 **Using Carthage**
 
@@ -365,6 +367,7 @@ Please don't use Github issues for support requests, we'll close them. Instead, 
 We released the code under the liberal BSD license in order to make it possible to include it in every project, be it a free or paid app. The only thing we ask for is giving the original developers some credit. The easiest way to include credits is by leaving the "Powered by InAppSettingsKit" notice in the code. If you decide to remove this notice, a noticeable mention on the App Store description page or homepage is fine, too.
 
 # Author
-Originally developed by my friend Luc Vandal, I took over the development and continue to update the framework. If you would like to support my Open Source work, consider joining me as a [sponsor](https://github.com/sponsors/futuretap)! 💪️ Your sponsorship enables me to spend more time on InAppSettingsKit and other community projects. Thank you!
+Originally developed by Luc Vandal, [Ortwin Gentz](https://www.futuretap.com/about/ortwin-gentz) ([Mastodon](https://mastodon.cloud/@ortwingentz)) took over the development and continues to update the framework. 
 
-*Ortwin Gentz*
+# Sponsors wanted
+If you would like to support my Open Source work, consider joining me as a [sponsor](https://github.com/sponsors/futuretap)! 💪️ Your sponsorship enables me to spend more time on InAppSettingsKit and other community projects. Thank you!

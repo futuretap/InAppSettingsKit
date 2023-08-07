@@ -976,11 +976,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 		if ([MFMailComposeViewController canSendMail]) {
 			mailViewController.mailComposeDelegate = self;
             _currentChildViewController = mailViewController;
-#if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_XR) || !TARGET_OS_XR)
+#if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_VISION) || !TARGET_OS_VISION)
             UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
 #endif
             [self presentViewController:mailViewController animated:YES completion:^{
-#if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_XR) || !TARGET_OS_XR)
+#if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_VISION) || !TARGET_OS_VISION)
 			    [UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
 #endif
             }];

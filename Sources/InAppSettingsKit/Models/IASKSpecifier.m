@@ -498,7 +498,7 @@
                                      @{
                                          @"Phone": @(UIUserInterfaceIdiomPhone),
 										 @"Pad": @(UIUserInterfaceIdiomPad),
-#if defined(TARGET_OS_XR) && TARGET_OS_XR
+#if defined(TARGET_OS_VISION) && TARGET_OS_VISION
 										 @"Reality": @(UIUserInterfaceIdiomReality),
 #endif
 	}];

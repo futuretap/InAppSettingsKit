@@ -57,7 +57,7 @@
 	
     if (self.currentSpecifier) {
 		self.title = self.currentSpecifier.title;
-#if defined(TARGET_OS_XR) && TARGET_OS_XR
+#if defined(TARGET_OS_VISION) && TARGET_OS_VISION
 		self.navigationItem.largeTitleDisplayMode = self.title.length ? UINavigationItemLargeTitleDisplayModeAutomatic : UINavigationItemLargeTitleDisplayModeNever;
 #else
 		if (@available(iOS 11.0, *)) {

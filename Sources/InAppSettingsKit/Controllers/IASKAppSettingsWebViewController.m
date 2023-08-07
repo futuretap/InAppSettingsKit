@@ -54,7 +54,7 @@
 	[super viewWillAppear:animated];
 	
 	UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
-#if TARGET_OS_MACCATALYST || (defined(TARGET_OS_XR) && TARGET_OS_XR)
+#if TARGET_OS_MACCATALYST || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)
 	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
 #else
 	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
@@ -152,11 +152,11 @@
 	mailViewController.navigationBar.barStyle = self.navigationController.navigationBar.barStyle;
 	mailViewController.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
 	mailViewController.navigationBar.titleTextAttributes =  self.navigationController.navigationBar.titleTextAttributes;
-#if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_XR) || !TARGET_OS_XR)
+#if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_VISION) || !TARGET_OS_VISION)
 	UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
 #endif
 	[self presentViewController:mailViewController animated:YES completion:^{
-#if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_XR) || !TARGET_OS_XR)
+#if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_VISION) || !TARGET_OS_VISION)
 		[UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
 #endif
 	}];
