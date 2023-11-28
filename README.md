@@ -367,7 +367,7 @@ Please don't use Github issues for support requests, we'll close them. Instead, 
 We released the code under the liberal BSD license in order to make it possible to include it in every project, be it a free or paid app. The only thing we ask for is giving the original developers some credit. The easiest way to include credits is by leaving the "Powered by InAppSettingsKit" notice in the code. If you decide to remove this notice, a noticeable mention on the App Store description page or homepage is fine, too.
 
 # Author
-Originally developed by Luc Vandal, [Ortwin Gentz](https://www.futuretap.com/about/ortwin-gentz) ([Mastodon](https://mastodon.cloud/@ortwingentz)) took over the development and continues to update the framework. 
+Originally developed by Luc Vandal, [Ortwin Gentz](https://www.futuretap.com/about/ortwin-gentz) ([Mastodon](https://mastodon.cloud/@ortwingentz)) took over the development and continues to update the framework. InAppSettingsKit is used in [FutureTap](https://www.futuretap.com)’s [Where To?](https://wheretoapp.com) app, so we eat our own dog food!
 
 # Sponsors wanted
 If you would like to support my Open Source work, consider joining me as a [sponsor](https://github.com/sponsors/futuretap)! 💪️ Your sponsorship enables me to spend more time on InAppSettingsKit and other community projects. Thank you!
