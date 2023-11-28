@@ -332,7 +332,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 				[dictionary setObject:(id)specifier.defaultValue forKey:(id)specifier.key];
 			}
 			if ([specifier.type isEqualToString:kIASKPSChildPaneSpecifier] && specifier.file) {
-				IASKSettingsReader *childReader = [[IASKSettingsReader alloc] initWithFile:(id)specifier.file];
+				IASKSettingsReader *childReader = [[IASKSettingsReader alloc] initWithFile:(id)specifier.file bundle:_applicationBundle];
 				childReader.settingsStore = self.settingsStore;
 				[childReader gatherDefaultsInDictionary:dictionary limitedToEditableFields:limitedToEditableFields apply:apply];
 			}

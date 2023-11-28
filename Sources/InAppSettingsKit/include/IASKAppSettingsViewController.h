@@ -254,6 +254,9 @@ typedef NS_ENUM(NSUInteger, IASKValidationResult) {
 /// Sets the same parameter on the tableView of the root and all child view controllers
 @property (nonatomic) IBInspectable BOOL cellLayoutMarginsFollowReadableWidth;
 
+/// The bundle to read the settings plist files from. Defaults to `NSBundle.mainBundle`.
+@property (nonatomic) NSBundle* bundle;
+
 /// Synchronizes the settings store, e.g. calls `-[NSUserDefaults synchronize]` in case of the default store.
 - (void)synchronizeSettings;
 
