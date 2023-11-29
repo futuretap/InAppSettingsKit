@@ -70,7 +70,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 #pragma mark accessors
 - (IASKSettingsReader*)settingsReader {
 	if (!_settingsReader) {
-		_settingsReader = [[IASKSettingsReader alloc] initWithFile:self.file];
+		NSBundle* bundle = _bundle == nil ? NSBundle.mainBundle : _bundle;
+		_settingsReader = [[IASKSettingsReader alloc] initWithFile:self.file bundle:bundle];
 		if (self.neverShowPrivacySettings) {
 			_settingsReader.showPrivacySettings = NO;
 		}
