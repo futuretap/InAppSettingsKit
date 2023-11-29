@@ -1,5 +1,15 @@
 # Release Notes
 
+## InAppSettingsKit 3.5
+
+- added `bundle` property allowing `InAppSettings.bundle` to be part of the swift package instead of the main app
+
+## InAppSettingsKit 3.4
+
+- visionOS support
+- raised deployment target to iOS 10.0
+- Added IASKUITextAlignmentNatural text alignment
+
 ## InAppSettingsKit 3.3.4
 
 - Restructure project to better support Swift Package Manager when used with Tuist (Thanks @hisaac 🙏)
