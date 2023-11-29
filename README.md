@@ -84,12 +84,54 @@ In order to start using IASK add `Settings.bundle` to your project (`File` -> `A
 To display InAppSettingsKit, instantiate `IASKAppSettingsViewController` and push it onto the navigation stack or embed it as the root view controller of a navigation controller.
 
 **In code, using Swift:**
+
 ```swift
 let appSettingsViewController = IASKAppSettingsViewController()
 navigationController.pushViewController(appSettingsViewController, animated: true)
 ```
 
+**In code, using Swift as part of a swift package:**
+
+In a modularized app, you might want to move all settings-related code into a separate package, and only reference the InAppSettingsKit dependency there. Your `Package.swift` would look like this:
+
+```swift
+let package = Package(
+    name: "SettingsPackage",
+    platforms: [.iOS(.v17)],
+    dependencies: [
+        .package(url: "https://github.com/futuretap/inappsettingskit", from: "3.4.0")
+    ],
+    .target(
+        name: "SettingsPackage",
+        dependencies: [
+            .product(name: "InAppSettingsKit", package: "inappsettingskit"),
+        ],
+        resources: [
+            .copy("InAppSettings.bundle")
+        ]
+    )
+)
+```
+
+(Note that the `InAppSettings.bundle` directory is also part of the package, and does not belong to the main app anymore.)
+
+Creating an `IASKAppSettingsViewController` now requires setting its `bundle` property to the package's bundle:
+
+```swift
+struct InAppSettingsView: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> some UIViewController {
+        let iask = IASKAppSettingsViewController(style: .insetGrouped)
+        iask.bundle = Bundle.module // IMPORTANT
+        return iask
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { }
+}
+
+```
+
 **In code, using Objective-C:**
+
 ```objc
 IASKAppSettingsViewController *appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
 [self.navigationController pushViewController:appSettingsViewController animated:YES];
