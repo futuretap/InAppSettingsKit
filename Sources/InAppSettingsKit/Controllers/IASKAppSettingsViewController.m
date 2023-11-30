@@ -918,6 +918,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             [((IASKAppSettingsViewController*)[[self class] alloc]) initWithStyle:self.tableView.style];
         targetViewController.showDoneButton = NO;
         targetViewController.showCreditsFooter = NO; // Does not reload the tableview (but next setters do it)
+        targetViewController.bundle = self.bundle;
         targetViewController.delegate = self.delegate;
         targetViewController.file = (id)specifier.file;
         targetViewController.hiddenKeys = self.hiddenKeys;
