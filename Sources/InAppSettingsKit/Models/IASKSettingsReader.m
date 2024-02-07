@@ -112,6 +112,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 								   kIASKKey: @"IASKPrivacySettingsCellKey",
 								   kIASKType: kIASKOpenURLSpecifier,
 								   kIASKFile: TARGET_OS_MACCATALYST ? @"x-apple.systempreferences:com.apple.preference.security?Privacy" : UIApplicationOpenSettingsURLString,
+								   kIASKCellImage: @"hand.raised",
 								   } mutableCopy];
 	NSString *subtitle = NSLocalizedStringFromTableInBundle(@"Open in Settings app", @"IASKLocalizable", self.iaskBundle, @"Privacy cell: subtitle");
 	if (subtitle.length) {
