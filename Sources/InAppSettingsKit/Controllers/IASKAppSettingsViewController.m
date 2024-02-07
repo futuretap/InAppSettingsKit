@@ -608,6 +608,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	
 	UITableViewCell* cell = [self tableView:tableView newCellForSpecifier:specifier];
+	if (![specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
+		cell.imageView.image = specifier.cellImage;
+	}
 	id currentValue = [self.settingsStore objectForSpecifier:specifier];
 	NSString *title = specifier.title;
 	

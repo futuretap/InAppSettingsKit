@@ -458,7 +458,11 @@
     if( imageName.length == 0 )
         return nil;
     
-    return [UIImage imageNamed:imageName];
+	if (@available(iOS 13.0, *)) {
+		return [UIImage imageNamed:imageName] ?: [UIImage systemImageNamed:imageName];
+	} else {
+		return [UIImage imageNamed:imageName];
+	}
 }
 
 - (UIImage *)highlightedCellImage {

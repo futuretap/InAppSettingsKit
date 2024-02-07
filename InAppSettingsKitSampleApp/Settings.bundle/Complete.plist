@@ -21,6 +21,8 @@
 			<string>text_plain</string>
 			<key>DefaultValue</key>
 			<string>Plain Text</string>
+			<key>IASKCellImage</key>
+			<string>doc.plaintext</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -31,6 +33,8 @@
 			<string>text_placeholder</string>
 			<key>IASKPlaceholder</key>
 			<string>placeholder</string>
+			<key>IASKCellImage</key>
+			<string>doc.plaintext</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -43,18 +47,8 @@
 			<string>Plain Text</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>With image</string>
-			<key>Key</key>
-			<string>text_plain_pic</string>
-			<key>DefaultValue</key>
-			<string>Plain Text</string>
 			<key>IASKCellImage</key>
-			<string>twitter</string>
+			<string>text.alignright</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -71,6 +65,8 @@
 			<string>Alphabet</string>
 			<key>AutocorrectionType</key>
 			<string>no</string>
+			<key>IASKCellImage</key>
+			<string>lock</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -87,6 +83,8 @@
 			<string>NumbersAndPunctuation</string>
 			<key>AutocorrectionType</key>
 			<string>Default</string>
+			<key>IASKCellImage</key>
+			<string>textformat.123</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -103,6 +101,8 @@
 			<string>NumberPad</string>
 			<key>AutocorrectionType</key>
 			<string>Default</string>
+			<key>IASKCellImage</key>
+			<string>textformat.123</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -119,6 +119,8 @@
 			<string>DecimalPad</string>
 			<key>AutocorrectionType</key>
 			<string>Default</string>
+			<key>IASKCellImage</key>
+			<string>textformat.123</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -135,6 +137,8 @@
 			<string>URL</string>
 			<key>AutocorrectionType</key>
 			<string>Default</string>
+			<key>IASKCellImage</key>
+			<string>link</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -151,6 +155,8 @@
 			<string>EmailAddress</string>
 			<key>AutocorrectionType</key>
 			<string>Default</string>
+			<key>IASKCellImage</key>
+			<string>mail</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -169,6 +175,8 @@
 			<string>Sentences</string>
 			<key>AutocorrectionType</key>
 			<string>Default</string>
+			<key>IASKCellImage</key>
+			<string>capslock</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -187,6 +195,8 @@
 			<string>No</string>
 			<key>IsSecure</key>
 			<false/>
+			<key>IASKCellImage</key>
+			<string>capslock</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -205,6 +215,8 @@
 			<string>AllCharacters</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
+			<key>IASKCellImage</key>
+			<string>capslock.fill</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -219,6 +231,8 @@
 			<false/>
 			<key>AutocorrectionType</key>
 			<string>No</string>
+			<key>IASKCellImage</key>
+			<string>textformat.abc.dottedunderline</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -229,16 +243,8 @@
 			<string>Textfield without title</string>
 			<key>IsSecure</key>
 			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Key</key>
-			<string>text_noTitle_image</string>
-			<key>DefaultValue</key>
-			<string>Textfield without title with image</string>
 			<key>IASKCellImage</key>
-			<string>twitter</string>
+			<string>character.cursor.ibeam</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -251,6 +257,8 @@
 			<string>foo bar</string>
 			<key>IsSecure</key>
 			<false/>
+			<key>IASKCellImage</key>
+			<string>arrow.left.and.right.text.vertical</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -265,6 +273,8 @@
 			<false/>
 			<key>IASKAdjustsFontSizeToFitWidth</key>
 			<false/>
+			<key>IASKCellImage</key>
+			<string>ellipsis</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -277,6 +287,8 @@
 			<string>Name</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
+			<key>IASKCellImage</key>
+			<string>textformat</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -289,6 +301,8 @@
 			<string>EmailAddress</string>
 			<key>AutocorrectionType</key>
 			<string>No</string>
+			<key>IASKCellImage</key>
+			<string>mail</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -305,18 +319,8 @@
 			<string>Value with a very, very long text</string>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
-		</dict>
-		<dict>
-			<key>Title</key>
-			<string>Title with image</string>
-			<key>Key</key>
-			<string>title_pic</string>
-			<key>DefaultValue</key>
-			<string>Value</string>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
 			<key>IASKCellImage</key>
-			<string>twitter</string>
+			<string>textformat</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -329,6 +333,8 @@
 			<string>PSTitleValueSpecifier</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentLeft</string>
+			<key>IASKCellImage</key>
+			<string>text.justify.left</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -339,6 +345,8 @@
 			<integer>2</integer>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
+			<key>IASKCellImage</key>
+			<string>eye</string>
 			<key>Values</key>
 			<array>
 				<integer>1</integer>
@@ -361,6 +369,8 @@
 			<string>Value is long, too</string>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
+			<key>IASKCellImage</key>
+			<string>text.word.spacing</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -371,6 +381,8 @@
 			<string>Title without label</string>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
+			<key>IASKCellImage</key>
+			<string>textformat</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -381,6 +393,8 @@
 			<integer>3</integer>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
+			<key>IASKCellImage</key>
+			<string>eye</string>
 			<key>Values</key>
 			<array>
 				<integer>1</integer>
@@ -407,6 +421,8 @@
 			<string>toggle_boolean</string>
 			<key>DefaultValue</key>
 			<true/>
+			<key>IASKCellImage</key>
+			<string>lightswitch.on</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -419,6 +435,8 @@
 			<true/>
 			<key>IASKSubtitle</key>
 			<string>with subtitle</string>
+			<key>IASKCellImage</key>
+			<string>lightswitch.on</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -429,6 +447,8 @@
 			<string>toggle_boolean_value_aware_subtitle</string>
 			<key>DefaultValue</key>
 			<true/>
+			<key>IASKCellImage</key>
+			<string>lightswitch.on</string>
 			<key>IASKSubtitle</key>
 			<dict>
 				<key>YES</key>
@@ -436,18 +456,6 @@
 				<key>NO</key>
 				<string>TOGGLE_SWITCH_SUBTITLE_NO</string>
 			</dict>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Toggle w/ image</string>
-			<key>Key</key>
-			<string>toggle_pic</string>
-			<key>DefaultValue</key>
-			<true/>
-			<key>IASKCellImage</key>
-			<string>twitter</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -462,6 +470,8 @@
 			<string>foo</string>
 			<key>FalseValue</key>
 			<string>bar</string>
+			<key>IASKCellImage</key>
+			<string>lightswitch.on</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -476,6 +486,8 @@
 			<integer>1</integer>
 			<key>FalseValue</key>
 			<integer>0</integer>
+			<key>IASKCellImage</key>
+			<string>lightswitch.on</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -490,6 +502,8 @@
 			<string>foo</string>
 			<key>FalseValue</key>
 			<string>bar</string>
+			<key>IASKCellImage</key>
+			<string>lightswitch.on</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -506,6 +520,8 @@
 			<string>bar</string>
 			<key>IASKToggleStyle</key>
 			<string>Checkmark</string>
+			<key>IASKCellImage</key>
+			<string>lightswitch.on</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -791,6 +807,8 @@
 			<string>Advanced</string>
 			<key>File</key>
 			<string>Advanced</string>
+			<key>IASKCellImage</key>
+			<string>gear</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -812,6 +830,8 @@
 				<key>__default__</key>
 				<string>Some fruit</string>
 			</dict>
+			<key>IASKCellImage</key>
+			<string>list.triangle</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -826,6 +846,8 @@
 			<string>A fruit</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentRight</string>
+			<key>IASKCellImage</key>
+			<string>list.triangle</string>
 		</dict>
 		<dict>
 			<key>Type</key>
