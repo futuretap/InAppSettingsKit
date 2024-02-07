@@ -329,6 +329,7 @@ To disable this behavior, add a `IASKAdjustsFontSizeToFitWidth` Boolean attribut
 
 ### Icons
 All element types (except sliders which already have a `MinimumValueImage`) support an icon image on the left side of the cell. You can specify the image name in an optional `IASKCellImage` attribute. The ".png" or "@2x.png" suffix is automatically appended and will be searched in the project. Optionally, you can add an image with suffix "Highlighted.png" or "Highlighted@2x.png" to the project and it will be automatically used as a highlight image when the cell is selected (for Buttons and ChildPanes).
+If the image is not found as a resource in the project, InAppSettingsKit falls back to SF Symbols.
 
 
 ## Extending Text Fields
