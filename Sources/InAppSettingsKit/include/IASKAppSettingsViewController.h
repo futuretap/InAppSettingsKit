@@ -162,9 +162,9 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
  @param specifier the specifier containing the key of the selected element
  @return an array of titles
  @discussion the returned array overrides any titles specified in the static schema plist
-*/
-- (NSArray*)settingsViewController:(IASKAppSettingsViewController*)settingsViewController
-				titlesForSpecifier:(IASKSpecifier*)specifier;
+ */
+- (NSArray<NSString*>*)settingsViewController:(IASKAppSettingsViewController*)settingsViewController
+						   titlesForSpecifier:(IASKSpecifier*)specifier;
 
 #pragma mark - Button
 /** Tells the delegate that the specified button (`IASKButton`) element is now selected.

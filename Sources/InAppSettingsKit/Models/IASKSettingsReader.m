@@ -15,6 +15,7 @@
 //
 
 #import "IASKSettingsReader.h"
+#import "IASKAppSettingsViewController.h"
 #import "IASKSpecifier.h"
 #import "IASKSettingsStore.h"
 
@@ -27,9 +28,10 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 
 @implementation IASKSettingsReader
 
-- (nonnull id)initWithFile:(nonnull NSString*)file bundle:(nonnull NSBundle*)bundle {
+- (nonnull id)initWithFile:(nonnull NSString*)file bundle:(nonnull NSBundle*)bundle delegate:(nullable id<IASKSettingsReaderDelegate>)delegate {
     if ((self = [super init])) {
         _applicationBundle = bundle;
+		_delegate = delegate;
         
         NSString* plistFilePath = [self locateSettingsFile:file];
         NSDictionary *settingsDictionary = [NSDictionary dictionaryWithContentsOfFile:plistFilePath];
@@ -76,7 +78,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 }
 
 - (nonnull id)initWithFile:(nonnull NSString*)file {
-    return [self initWithFile:file bundle:[NSBundle mainBundle]];
+    return [self initWithFile:file bundle:NSBundle.mainBundle delegate:nil];
 }
 
 - (id)init {
@@ -169,19 +171,13 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 			ignoreItemsInThisSection = NO;
 
 			///create a brand new array with the specifier above and an empty array
-            NSMutableArray *newArray = [NSMutableArray array];
-            [newArray addObject:newSpecifier];
-            [dataSource addObject:newArray];
 			
-            if ([newSpecifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
-                for (NSString *value in newSpecifier.multipleValues) {
-                    IASKSpecifier *valueSpecifier =
-                        [[IASKSpecifier alloc] initWithSpecifier:specifierDictionary radioGroupValue:value];
-                    valueSpecifier.settingsReader = self;
-                    [valueSpecifier sortIfNeeded];
-                    [newArray addObject:valueSpecifier];
-                }
-            }
+			if ([newSpecifier.type isEqualToString:kIASKPSRadioGroupSpecifier] && newSpecifier.multipleValues.count == 0)	{
+				[newSpecifier setMultipleValuesDictValues:[self.delegate valuesForSpecifier:newSpecifier]
+												   titles:[self.delegate titlesForSpecifier:newSpecifier]];
+			}
+			[dataSource addObject:newSpecifier.multiValueChildSpecifiers];
+
 		} else {
 			if (ignoreItemsInThisSection || (newSpecifier.key && [self.hiddenKeys containsObject:(id)newSpecifier.key])) {
 				continue;
@@ -231,6 +227,8 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 			numberOfRows++;
 		}
 		return numberOfRows;
+	} else if ([headerSpecifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+		return headerSpecifier.multipleValuesCount;
 	}
 
 	return ((NSArray*)[self.dataSource iaskObjectAtIndex:section]).count - headingCorrection;
@@ -333,7 +331,7 @@ NSString * const IASKSettingChangedNotification = @"IASKAppSettingChangedNotific
 				[dictionary setObject:(id)specifier.defaultValue forKey:(id)specifier.key];
 			}
 			if ([specifier.type isEqualToString:kIASKPSChildPaneSpecifier] && specifier.file) {
-				IASKSettingsReader *childReader = [[IASKSettingsReader alloc] initWithFile:(id)specifier.file bundle:_applicationBundle];
+				IASKSettingsReader *childReader = [[IASKSettingsReader alloc] initWithFile:(id)specifier.file bundle:_applicationBundle delegate:self.delegate];
 				childReader.settingsStore = self.settingsStore;
 				[childReader gatherDefaultsInDictionary:dictionary limitedToEditableFields:limitedToEditableFields apply:apply];
 			}

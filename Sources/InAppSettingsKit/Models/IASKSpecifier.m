@@ -67,11 +67,8 @@
     NSArray *iconNames = [_specifierDict objectForKey:kIASKIconNames];
     NSMutableDictionary *multipleValuesDict = [NSMutableDictionary new];
    
-    if (values) {
+    if (values && titles) {
         [multipleValuesDict setObject:values forKey:kIASKValues];
-    }
-	
-    if (titles) {
         [multipleValuesDict setObject:titles forKey:kIASKTitles];
     }
 
@@ -495,6 +492,23 @@
 		return NSTextAlignmentRight;
 	}
 	return NSTextAlignmentNatural;
+}
+
+- (NSArray<IASKSpecifier*>*)multiValueChildSpecifiers {
+	NSMutableArray *result = @[self].mutableCopy;
+	if (!self.multipleValues) return result;
+	
+	if ([self.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
+		for (NSString *value in self.multipleValues) {
+			IASKSpecifier *specifier =
+			[[IASKSpecifier alloc] initWithSpecifier:self.specifierDict radioGroupValue:value];
+			specifier.settingsReader = self.settingsReader;
+			specifier.multipleValuesDict = self.multipleValuesDict;
+			[specifier sortIfNeeded];
+			[result addObject:specifier];
+		}
+	}
+	return result;
 }
 
 - (NSArray *)userInterfaceIdioms {

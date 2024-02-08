@@ -62,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong, readonly) NSArray *userInterfaceIdioms;
 @property (nonatomic, readonly) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, readonly) NSTextAlignment textAlignment;
+@property (nonatomic, readonly) NSArray<IASKSpecifier*>* multiValueChildSpecifiers;
 
 - (nullable NSString*)localizedObjectForKey:(NSString*)key;
 - (nullable NSString*)titleForCurrentValue:(nullable id)currentValue;

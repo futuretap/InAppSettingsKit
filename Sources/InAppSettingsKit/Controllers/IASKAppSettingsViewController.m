@@ -45,7 +45,7 @@ static NSString *kIASKCredits = @"Powered by InAppSettingsKit"; // Leave this as
 
 CGRect IASKCGRectSwap(CGRect rect);
 
-@interface IASKAppSettingsViewController () <UITextViewDelegate>
+@interface IASKAppSettingsViewController () <IASKSettingsReaderDelegate, UITextViewDelegate>
 
 @property (nonatomic, weak) UIViewController *currentChildViewController;
 @property (nonatomic, strong) NSMutableDictionary *rowHeights;
@@ -71,7 +71,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 - (IASKSettingsReader*)settingsReader {
 	if (!_settingsReader) {
 		NSBundle* bundle = _bundle == nil ? NSBundle.mainBundle : _bundle;
-		_settingsReader = [[IASKSettingsReader alloc] initWithFile:self.file bundle:bundle];
+		_settingsReader = [[IASKSettingsReader alloc] initWithFile:self.file bundle:bundle delegate:self];
 		if (self.neverShowPrivacySettings) {
 			_settingsReader.showPrivacySettings = NO;
 		}
@@ -111,14 +111,14 @@ CGRect IASKCGRectSwap(CGRect rect);
     self.tableView.contentOffset = CGPointMake(0, -self.tableView.contentInset.top);
     self.settingsReader = nil; // automatically initializes itself
     if (!_reloadDisabled) {
-		[self.tableView reloadData];
 		[self createSelections];
+		[self.tableView reloadData];
 	}
 }
 
 - (void)createSelections {
 	NSMutableArray *sectionSelection = [NSMutableArray new];
-	for (int section = 0; section < _settingsReader.numberOfSections; section++) {
+	for (int section = 0; section < self.settingsReader.numberOfSections; section++) {
 		IASKSpecifier *specifier = [self.settingsReader headerSpecifierForSection:section];
 		if ([specifier.type isEqualToString:kIASKPSRadioGroupSpecifier]) {
 			IASKMultipleValueSelection *selection = [[IASKMultipleValueSelection alloc] initWithSettingsStore:self.settingsStore tableView:self.tableView specifier:specifier section:section];
@@ -368,6 +368,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			}
 		} else {
 			self.settingsReader.hiddenKeys = theHiddenKeys;
+			[self createSelections];
 			if (!_reloadDisabled) [self.tableView reloadData];
 		}
 	}
@@ -600,7 +601,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	IASKSpecifier *specifier  = [self.settingsReader specifierForIndexPath:indexPath];
+	IASKSpecifier *specifier = [self.settingsReader specifierForIndexPath:indexPath];
 	if ([specifier.type isEqualToString:kIASKCustomViewSpecifier] && [self.delegate respondsToSelector:@selector(settingsViewController:cellForSpecifier:)]) {
 		UITableViewCell* cell = [self.delegate settingsViewController:self cellForSpecifier:specifier];
 		assert(nil != cell && "delegate must return a UITableViewCell for custom cell types");
@@ -1091,6 +1092,31 @@ CGRect IASKCGRectSwap(CGRect rect);
 }
 
 #pragma mark -
+#pragma mark IASKSettingsReaderDelegate
+- (nullable NSArray<NSString*>*)titlesForSpecifier:(IASKSpecifier*)specifier {
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)]) {
+		return [self.delegate settingsViewController:self titlesForSpecifier:specifier];
+	}
+	return nil;
+}
+
+- (NSArray*)valuesForSpecifier:(IASKSpecifier*)specifier {
+	if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)]) {
+		return [self.delegate settingsViewController:self valuesForSpecifier:specifier];
+	}
+	return nil;
+}
+
+- (void)setMultiValuesFromDelegateIfNeeded:(IASKSpecifier *)specifier {
+	if (specifier.multipleValues.count == 0) {
+		NSArray *titles = [self titlesForSpecifier:specifier];
+		NSArray *values = [self valuesForSpecifier:specifier];
+		[specifier setMultipleValuesDictValues:values titles:titles];
+		[specifier sortIfNeeded];
+	}
+}
+
+#pragma mark -
 #pragma mark MFMailComposeViewControllerDelegate Function
 
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
@@ -1292,18 +1318,6 @@ static NSMutableDictionary *oldUserDefaults = nil;
 - (void)reload {
 	// wait 0.5 sec until UI is available after applicationWillEnterForeground
 	[self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:0.5];
-}
-
-- (void)setMultiValuesFromDelegateIfNeeded:(IASKSpecifier *)specifier {
-	if (specifier.multipleValues.count == 0) {
-		if ([self.delegate respondsToSelector:@selector(settingsViewController:valuesForSpecifier:)] &&
-			[self.delegate respondsToSelector:@selector(settingsViewController:titlesForSpecifier:)])
-		{
-			[specifier setMultipleValuesDictValues:[self.delegate settingsViewController:self valuesForSpecifier:specifier]
-											titles:[self.delegate settingsViewController:self titlesForSpecifier:specifier]];
-		}
-		[specifier sortIfNeeded];
-	}
 }
 
 

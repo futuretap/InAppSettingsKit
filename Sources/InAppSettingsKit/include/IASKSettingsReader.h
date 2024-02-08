@@ -175,6 +175,11 @@ extern NSString * const IASKSettingChangedNotification;
 @class IASKSpecifier;
 @protocol IASKSettingsStore;
 
+@protocol IASKSettingsReaderDelegate <NSObject>
+- (nullable NSArray<NSString*>*)titlesForSpecifier:(IASKSpecifier*)specifier;
+- (nullable NSArray*)valuesForSpecifier:(IASKSpecifier*)specifier;
+@end
+
 /** settings reader transform iOS's settings plist files
  to the IASKSpecifier model objects.
  Besides that, it also hides the complexity of finding
@@ -188,7 +193,7 @@ extern NSString * const IASKSettingChangedNotification;
  @param file   settings file name without the ".plist" suffix
  @param bundle bundle that contains a plist with the specified file
   */
-- (id)initWithFile:(NSString*)file bundle:(NSBundle*)bundle;
+- (id)initWithFile:(NSString*)file bundle:(NSBundle*)bundle delegate:(nullable id<IASKSettingsReaderDelegate>)delegate;
 
 /** convenience initializer
  calls initWithFile where applicationBundle is set to NSBundle.mainBundle
@@ -197,6 +202,7 @@ extern NSString * const IASKSettingChangedNotification;
 - (id)initWithFile:(NSString*)file;
 
 @property (nonatomic, readonly) NSInteger numberOfSections;
+@property (nonatomic, nullable, weak) id<IASKSettingsReaderDelegate> delegate;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 - (nullable IASKSpecifier*)specifierForIndexPath:(NSIndexPath*)indexPath;
 - (nullable IASKSpecifier*)headerSpecifierForSection:(NSInteger)section;

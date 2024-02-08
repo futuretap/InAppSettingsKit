@@ -353,10 +353,10 @@ The callback receives the `IASKTextField` which is a `UITextField` subclass to a
 
 
 ## Dynamic MultiValue Lists
-MultiValue lists (`PSMultiValueSpecifier`) can fetch their values and titles dynamically from the delegate instead of the static Plist. Implement these two methods in your `IASKSettingsDelegate`:
+MultiValue lists (`PSMultiValueSpecifier`) and radio groups (`PSRadioGroupSpecifier`) can fetch their values and titles dynamically from the delegate instead of the static Plist. Implement these two methods in your `IASKSettingsDelegate`:
 
     - (NSArray*)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier*)specifier;
-    - (NSArray*)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier*)specifier;
+    - (NSArray<NSString*>*)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier*)specifier;
 
 The sample app returns a list of all country codes as values and the localized country names as titles.
 

@@ -193,14 +193,14 @@ extension MainViewController: IASKSettingsDelegate {
 	}
 	
 	func settingsViewController(_ settingsViewController: IASKAppSettingsViewController, valuesFor specifier: IASKSpecifier) -> [Any] {
-		return specifier.key == "countryCode" ? Locale.isoRegionCodes : []
+		return specifier.key == "countryCode" ? Locale.isoRegionCodes : ["Chicago", "Seattle", "Miami"]
 	}
 	
-	func settingsViewController(_ settingsViewController: IASKAppSettingsViewController, titlesFor specifier: IASKSpecifier) -> [Any] {
+	func settingsViewController(_ settingsViewController: IASKAppSettingsViewController, titlesFor specifier: IASKSpecifier) -> [String] {
 		if specifier.key == "countryCode" {
 			return Locale.isoRegionCodes.map{Locale.current.localizedString(forRegionCode: $0) ?? ""}
 		}
-		return []
+		return ["Chicago", "Seattle", "Miami"]
 	}
 	
 	func settingsViewController(_ settingsViewController: IASKAppSettingsViewController, childPaneIsValidFor specifier: IASKSpecifier, contentDictionary: NSMutableDictionary) -> Bool {

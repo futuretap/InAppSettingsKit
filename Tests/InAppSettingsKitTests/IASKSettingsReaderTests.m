@@ -39,20 +39,23 @@
 #pragma mark - initializers
 - (void) testDesignatedInitializerSetsBundle {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Root"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	
 	XCTAssertEqualObjects(reader.applicationBundle, SWIFTPM_MODULE_BUNDLE, @"Bundle not set");
 }
 
 - (void) testSettingsReaderOpensTestBundle {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Root"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	XCTAssertEqualObjects([reader.settingsBundle bundlePath], settingsBundlePath, @"Paths don't match. Failed to locate test bundle");
 }
 
 - (void) testSettingsReaderFindsDeviceDependentPlist {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Root"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	
 	NSString* platfformSuffix = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? @"pad" : @"phone";
 	NSString* plistName = [reader locateSettingsFile:@"Root"];
@@ -61,7 +64,8 @@
 
 - (void) testSettingsReaderFindsAdvancedPlist {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Advanced"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	XCTAssertEqualObjects([reader.settingsDictionary objectForKey:@"Title"],
 						  @"ADVANCED_TITLE",
 						  @"Advanced file not found");
@@ -69,7 +73,8 @@
 
 - (void) testSettingsReaderSortsByLocalizedKey {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Root"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	IASKSpecifier *multiSpecifier = [reader specifierForKey:@"mulValue"];
 	XCTAssertTrue([multiSpecifier displaySortedByTitle]);
 	XCTAssertEqualObjects([multiSpecifier multipleValues], (@[@"0", @"6", @"1", @"4", @"5", @"7", @"3", @"9", @"8", @"10", @"2"]));
@@ -77,7 +82,8 @@
 
 - (void) testSettingsReaderLocalizedNumberTitles {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Complete"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	IASKSpecifier *multiSpecifier = [reader specifierForKey:@"mulValueWithNumbers"];
 	
 	NSNumberFormatter* formatter = [NSNumberFormatter new];
@@ -89,7 +95,8 @@
 
 - (void) testSettingsReaderSubtitles {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Complete"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	IASKSpecifier *noSubtitleSpecifier = [reader specifierForKey:@"toggle_boolean"];
 	XCTAssertFalse([noSubtitleSpecifier hasSubtitle], @"Expected no subtitle");
 	XCTAssertNil([noSubtitleSpecifier subtitle], @"Failed to read the subtitle: Got subtitle, expected none");
@@ -114,13 +121,15 @@
 
 - (void) testSettingsReaderFailsToSortMalformedMultiValueEntries {
 	XCTAssertThrows([[IASKSettingsReader alloc] initWithFile:@"Malformed"
-													  bundle:[NSBundle bundleForClass:self.class]]);
+													  bundle:[NSBundle bundleForClass:self.class]
+													delegate:nil]);
 }
 
 #pragma mark - parsing
 - (void) testSettingsReaderInterpretsAdvancedSettings {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Advanced"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	XCTAssertEqual(reader.numberOfSections, 4,
 				   @"Failed to read correct number of sections");
 	XCTAssertEqual([reader numberOfRowsInSection:0], 1,
@@ -136,14 +145,16 @@
 #pragma mark - hidden keys
 - (void) testSettingsReaderHidesHiddenKeys {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Advanced"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	[reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", nil]];
 	XCTAssertEqual([reader numberOfRowsInSection:3], 1, @"Wrong number of rows. Key not hidden");
 }
 
 - (void) testSettingsReaderShowsHiddenKeys {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Advanced"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	[reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", nil]];
 	[reader setHiddenKeys:nil];
 	XCTAssertEqual([reader numberOfRowsInSection:3], 3, @"Wrong number of rows. Key not unhidden");
@@ -151,7 +162,8 @@
 
 - (void) testSettingsReaderHidesGroupKeys {
 	IASKSettingsReader* reader = [[IASKSettingsReader alloc] initWithFile:@"Advanced"
-																   bundle:SWIFTPM_MODULE_BUNDLE];
+																   bundle:SWIFTPM_MODULE_BUNDLE
+																 delegate:nil];
 	[reader setHiddenKeys:[NSSet setWithObjects:@"AutoConnectLogin", @"AutoConnectPassword", @"AutoConnect", @"DynamicCellHidingGroup", nil]];
 	XCTAssertEqual([reader numberOfSections], 3, @"Wrong number of rows. Key not hidden");
 }
