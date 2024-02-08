@@ -10,6 +10,5 @@
 #import "IASKDatePickerViewCell.h"
 
 @interface IASKEmbeddedDatePickerViewCell : UITableViewCell
-@property (nonatomic, nonnull) UILabel *titleLabel;
 @property (nonatomic, nonnull) IASKDatePicker *datePicker;
 @end

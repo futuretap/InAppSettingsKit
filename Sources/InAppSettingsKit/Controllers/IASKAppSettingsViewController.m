@@ -656,7 +656,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if (specifier.embeddedDatePicker) {
 		IASKEmbeddedDatePickerViewCell *datePickerCell = (id)cell;
-		datePickerCell.titleLabel.text = title;
+		datePickerCell.textLabel.text = title;
 		datePickerCell.datePicker.specifier = specifier;
 		datePickerCell.datePicker.datePickerMode = specifier.datePickerMode;
 		if (@available(iOS 14.0, *)) {
@@ -668,6 +668,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		} else {
 			datePickerCell.datePicker.date = currentValue ?: NSDate.date;
 		}
+		datePickerCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	else if ([@[kIASKPSTitleValueSpecifier, kIASKDatePickerSpecifier] containsObject:specifier.type]) {
 		cell.textLabel.text = title;
