@@ -825,7 +825,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 
-	[tableView beginUpdates];
 	if ([specifier.type isEqualToString:kIASKDatePickerSpecifier]) {
 		[tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
@@ -1016,7 +1015,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 			});
 		}
     }
-	[tableView endUpdates];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
