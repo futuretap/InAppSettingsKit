@@ -13,7 +13,14 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "InAppSettingsKit"
+            name: "InAppSettingsKit",
+			exclude: [
+				"README.md",
+				"IASK.gif",
+				"InAppSettingsKit.podspec",
+				"RELEASE_NOTES.md",
+			],
+			resources: [.copy("PrivacyInfo.xcprivacy")]
         ),
         .testTarget(
             name: "InAppSettingsKitTests",
@@ -24,6 +31,5 @@ let package = Package(
                 .copy("Settings.bundle")
             ]
         ),
-
     ]
 )
