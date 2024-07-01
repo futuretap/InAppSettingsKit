@@ -131,8 +131,11 @@
             // This tries to read the image from the main bundle. As this is currently not supported in
             // system settings, this should be the correct behaviour. (Idea: abstract away and try different
             // paths?)
-            UIImage *image = [UIImage imageNamed:iconName];
-            cell.imageView.image = image;
+			if (@available(iOS 13.0, *)) {
+				cell.imageView.image = [UIImage imageNamed:iconName] ?: [UIImage systemImageNamed:iconName];
+			} else {
+				cell.imageView.image = [UIImage imageNamed:iconName];
+			}
         }
     }
     @catch (NSException * e) {}
