@@ -128,10 +128,10 @@
         [[cell textLabel] setText:[self.settingsReader titleForId:[titles objectAtIndex:indexPath.row]]];
         if ((NSInteger)iconNames.count > indexPath.row) {
             NSString *iconName = iconNames[indexPath.row];
-            // This tries to read the image from the main bundle. As this is currently not supported in
+            // This tries to read the image from the main bundle, falling back on SF Symbol names if an image is not found in the bundle. As this is currently not supported in
             // system settings, this should be the correct behaviour. (Idea: abstract away and try different
             // paths?)
-            UIImage *image = [UIImage imageNamed:iconName];
+            UIImage *image = [UIImage imageNamed:iconName] ?: [UIImage systemImageNamed:iconName];
             cell.imageView.image = image;
         }
     }
