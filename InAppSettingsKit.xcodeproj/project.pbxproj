@@ -196,6 +196,7 @@
 		E4A95F3F177DB25C00FF0906 /* Mac-Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-Framework.xcconfig"; sourceTree = "<group>"; };
 		E4A95F40177DB25C00FF0906 /* Mac-StaticLibrary.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Mac-StaticLibrary.xcconfig"; sourceTree = "<group>"; };
 		E4A95F41177DB25C00FF0906 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; name = README.md; path = Configurations/README.md; sourceTree = "<group>"; };
+		F6400E1A2C7ED33400EBAE7D /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -576,6 +577,7 @@
 				"zh-Hant",
 				"es-419",
 				"es-MX",
+				"zh-HK",
 			);
 			mainGroup = E42ADA86168202D700295D85;
 			productRefGroup = E42ADA90168202D700295D85 /* Products */;
@@ -687,6 +689,7 @@
 				AAD676AE24D080A700A74C64 /* es-419 */,
 				AAD676AF24D0812900A74C64 /* es */,
 				AAD676C124D0870B00A74C64 /* es-MX */,
+				F6400E1A2C7ED33400EBAE7D /* zh-HK */,
 			);
 			name = IASKLocalizable.strings;
 			sourceTree = "<group>";
