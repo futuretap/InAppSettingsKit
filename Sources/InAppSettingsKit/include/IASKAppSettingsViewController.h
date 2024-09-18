@@ -224,7 +224,7 @@ typedef NS_ENUM(NSUInteger, IASKValidationResult) {
 @interface IASKAppSettingsViewController : UITableViewController <IASKViewController, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
 
 /// the delegate to customize IASK’s behavior. Propagated to child view controllers.
-@property (nonatomic, assign) IBOutlet id<IASKSettingsDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<IASKSettingsDelegate> delegate;
 
 /** base name of the settings plist file (default: `Root`)
  @discussion IASK automatically checks for specific or custom inApp plists according to this order (`DEVICE` being a placeholder for "iphone" on iPhone and "ipad" on iPad):
