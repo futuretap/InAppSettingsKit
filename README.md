@@ -261,8 +261,7 @@ Both methods are called for all your `IASKCustomViewSpecifier` entries. To diffe
 
 Optionally you can implement
 
-    - (void)settingsViewController:(IASKAppSettingsViewController*)settingsViewController
-   didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
+    - (void)settingsViewController:(IASKAppSettingsViewController*)settingsViewControllerndidSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
 
 to catch tap events for your custom view.
 
