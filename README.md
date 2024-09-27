@@ -19,6 +19,7 @@ IASK not only replicates the feature set of system settings but supports a large
 
 - [How does it work?](#how-does-it-work)
 - [How to include it?](#how-to-include-it)
+- [Sample application](#sample-application)
 - [App Integration](#app-integration)
 - [Goodies](#goodies)
 	- [Custom inApp plists](#custom-inapp-plists)
@@ -76,6 +77,18 @@ Then run `pod install`.
 Add to your `Cartfile`:
 
     github "futuretap/InAppSettingsKit" "master"
+
+
+# Sample application
+
+InAppSettingsKit contains an Xcode sample application, that demonstrates all of it's extensive features. Both for a push and modal view controller.  
+To run the sample application:
+
+1. From the project root folder, open `InAppSettingsKit.xcworkspace` in Xcode.
+2. Change the scheme to `Sample App` (Product > Scheme > Sample App).
+3. Select a destination, like an iPhone Simulator.
+4. To build and run the application, choose Product > Run, or click the Run button in the Xcode toolbar.
+
 
 # App Integration
 
@@ -147,7 +160,7 @@ IASKAppSettingsViewController *appSettingsViewController = [[IASKAppSettingsView
 	- Set the delegate comforming to `IASKAppSettingsViewControllerDelegate`.
 	- Implement the delegate method `-settingsViewControllerDidEnd:` and dismiss the view controller.
 
-The sample application shows how to wire everything up.
+The [sample application](#sample-application) shows how to wire everything up.
 
 **Additional changes**
 
@@ -182,7 +195,7 @@ If the app includes a usage key for various privacy features such as camera or l
 
 If you don't want to show Privacy cells, set the property `neverShowPrivacySettings` to `YES`.
 
-The sample app defines `NSMicrophoneUsageDescription` to let the cell appear. Note that the settings page doesn't show any privacy settings yet because the app doesn't actually access the microphone. Privacy settings only show up in the Settings app after first use of the privacy-protected API.
+The [sample application](#sample-application) defines `NSMicrophoneUsageDescription` to let the cell appear. Note that the settings page doesn't show any privacy settings yet because the app doesn't actually access the microphone. Privacy settings only show up in the Settings app after first use of the privacy-protected API.
 
 
 ## Open URL
@@ -207,7 +220,7 @@ InAppSettingsKit adds a `IASKButtonSpecifier` element that allows to call a cust
 
     - (void)settingsViewController:(IASKAppSettingsViewController*)sender buttonTappedForSpecifier:(IASKSpecifier*)specifier;
 
-The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. Another nifty feature is that the title of IASK buttons can be overriden by the (localizable) value from `NSUserDefaults` (or any other settings store - see below). This comes in handy for toggle buttons (e.g. Login/Logout). See the sample app for details.
+The sender is always an instance of `IASKAppSettingsViewController`, a `UIViewController` subclass. So you can access its view property (might be handy to display an action sheet) or push another view controller. Another nifty feature is that the title of IASK buttons can be overriden by the (localizable) value from `NSUserDefaults` (or any other settings store - see below). This comes in handy for toggle buttons (e.g. Login/Logout). See the [sample application](#sample-application) for details.
 
 By default, Buttons are aligned centered except if an image is specified (default: left-aligned). The default alignment may be overridden.
 
@@ -298,7 +311,7 @@ For footer customization, three methods from the `IASKSettingsDelegate` protocol
 ## Extending Child Panes
 
 ### Custom ViewControllers
-For child pane elements (`PSChildPaneSpecifier`), Apple requires a `file` key that specifies the child plist. InAppSettingsKit allow to alternatively specify `IASKViewControllerClass` and `IASKViewControllerSelector`. In this case, the child pane is displayed by instantiating a UIViewController subclass of the specified class and initializing it using the init method specified in the `IASKViewControllerSelector`. The selector must have two arguments: an `NSString` argument for the file name in the Settings bundle and the `IASKSpecifier`. The custom view controller is then pushed onto the navigation stack. See the sample app for more details.
+For child pane elements (`PSChildPaneSpecifier`), Apple requires a `file` key that specifies the child plist. InAppSettingsKit allow to alternatively specify `IASKViewControllerClass` and `IASKViewControllerSelector`. In this case, the child pane is displayed by instantiating a UIViewController subclass of the specified class and initializing it using the init method specified in the `IASKViewControllerSelector`. The selector must have two arguments: an `NSString` argument for the file name in the Settings bundle and the `IASKSpecifier`. The custom view controller is then pushed onto the navigation stack. See the [sample application](#sample-application) for more details.
 
 ### Using Custom ViewControllers from StoryBoard
 Alternatively specify `IASKViewControllerStoryBoardId` to initiate a viewcontroller from [main storyboard](https://developer.apple.com/library/ios/documentation/general/conceptual/Devpedia-CocoaApp/Storyboard.html/).
@@ -357,7 +370,7 @@ MultiValue lists (`PSMultiValueSpecifier`) and radio groups (`PSRadioGroupSpecif
     - (NSArray*)settingsViewController:(IASKAppSettingsViewController*)sender valuesForSpecifier:(IASKSpecifier*)specifier;
     - (NSArray<NSString*>*)settingsViewController:(IASKAppSettingsViewController*)sender titlesForSpecifier:(IASKSpecifier*)specifier;
 
-The sample app returns a list of all country codes as values and the localized country names as titles.
+The [sample application](#sample-application) returns a list of all country codes as values and the localized country names as titles.
 
 MultiValue lists can be sorted alphabetically by adding a `true` Boolean `DisplaySortedByTitle` key in the Plist.
 MultiValue list entries can be given an image. Specify images via the `IconNames` attribute (next to Values/Titles/ShortTitles etc.).
@@ -382,7 +395,7 @@ or the non-animated version:
 
 	@property (nonatomic, strong) NSSet *hiddenKeys;
 
-See the sample app for more details. Including a `PSGroupSpecifier` key in the `hiddenKeys` hides the complete section.
+See the [sample application](#sample-application) for more details. Including a `PSGroupSpecifier` key in the `hiddenKeys` hides the complete section.
 
 
 ## Register default values
