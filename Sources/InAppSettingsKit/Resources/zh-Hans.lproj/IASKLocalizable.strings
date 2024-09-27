@@ -8,5 +8,12 @@
 "Privacy" = "隐私";
 
 /* Privacy cell: subtitle */
-"Open in Settings app" = "在设置中打开";
+"Open in Settings app" = "在“设置”中打开";
 
+/* warning title */
+"Mail not configured" = "未设置邮件";
+
+"OK" = "好";
+
+/* warning message */
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "此设备未配置为发送电子邮件。请在“设置”App 中配置电子邮件设置。";

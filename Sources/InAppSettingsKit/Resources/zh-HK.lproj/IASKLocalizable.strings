@@ -5,10 +5,10 @@
   Copyright (c) 2014 FutureTap. All rights reserved. */
 
 /* Privacy cell: title */
-"Privacy" = "隱私權";
+"Privacy" = "私隱";
 
 /* Privacy cell: subtitle */
-"Open in Settings app" = "在「設定」中打開";
+"Open in Settings app" = "在「設定」中開啟";
 
 /* warning title */
 "Mail not configured" = "郵件未設定";
@@ -16,4 +16,5 @@
 "OK" = "好";
 
 /* warning message */
-"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "此裝置未設定為傳送電子郵件。請在「設定」App 中設定郵件。";
+"This device is not configured for sending Email. Please configure the Mail settings in the Settings app." = "這個裝置未設定用於傳送電郵。請在「設定」App 中設定郵件。";
+
