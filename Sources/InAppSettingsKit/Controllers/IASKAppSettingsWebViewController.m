@@ -43,11 +43,31 @@
 }
 
 - (void)loadView {
+    // Initialize the webView
     self.webView = [[WKWebView alloc] init];
-    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO; // Disable autoresizing mask for layout constraints
     self.webView.navigationDelegate = self;
+        
+    // Set up the main view
+    self.view = [[UIView alloc] init];
     
-    self.view = self.webView;
+    // Ensure to define the default background color for the margins, otherwise those will be black:
+    if (@available(iOS 13.0, *)) {
+        self.view.backgroundColor = [UIColor systemBackgroundColor];
+    } else {
+        // Fallback on earlier versions:
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
+    [self.view addSubview:self.webView];
+    
+    // Create constraints to match the entire safe area layout:
+    UILayoutGuide *safeArea = self.view.safeAreaLayoutGuide;
+    [NSLayoutConstraint activateConstraints:@[
+        [self.webView.topAnchor constraintEqualToAnchor:safeArea.topAnchor],
+        [self.webView.bottomAnchor constraintEqualToAnchor:safeArea.bottomAnchor],
+        [self.webView.leadingAnchor constraintEqualToAnchor:safeArea.leadingAnchor],
+        [self.webView.trailingAnchor constraintEqualToAnchor:safeArea.trailingAnchor]
+    ]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -57,7 +77,12 @@
 #if TARGET_OS_MACCATALYST || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)
 	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
 #else
-	activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    if (@available(iOS 13.0, *)) {
+        activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+    } else {
+        // Fallback on earlier versions:
+        activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    }
 #endif
 	[activityIndicatorView startAnimating];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicatorView];
