@@ -44,7 +44,7 @@ IASK not only replicates the feature set of system settings but supports a large
 - [Support](#support)
 - [License](#license)
 - [Author](#author)
-    
+
 
 # How does it work?
 
@@ -230,7 +230,7 @@ There are 3 optional delegate methods to customize how to store and display date
 Implement this if you store the date/time in a custom format other than as `NSDate` object. Called when the user starts editing a date/time by selecting the title cell above the date/time picker.
 
     - (NSString*)settingsViewController:(IASKAppSettingsViewController*)sender datePickerTitleForSpecifier:(IASKSpecifier*)specifier;
-    
+
 Implement this to customize the displayed value in the title cell above the date/time picker.
 
     - (void)settingsViewController:(IASKAppSettingsViewController*)sender setDate:(NSDate*)date forSpecifier:(IASKSpecifier*)specifier;
@@ -261,12 +261,11 @@ Both methods are called for all your `IASKCustomViewSpecifier` entries. To diffe
 
 Optionally you can implement
 
-    - (void)settingsViewController:(IASKAppSettingsViewController*)settingsViewController
-   didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
+    - (void)settingsViewController:(IASKAppSettingsViewController*)settingsViewController didSelectCustomViewSpecifier:(IASKSpecifier*)specifier;
 
 to catch tap events for your custom view.
 
-If you specify `File`,  `IASKViewControllerClass`, `IASKViewControllerStoryBoardId`, or `IASKSegueIdentifier` (see below), the selection behavior of a custom view is identical to a child pane and the delegate is not called on selection.
+If you specify `File`, `IASKViewControllerClass`, `IASKViewControllerStoryBoardId`, or `IASKSegueIdentifier` (see below), the selection behavior of a custom view is identical to a child pane and the delegate is not called on selection.
 
 
 
@@ -274,7 +273,7 @@ If you specify `File`,  `IASKViewControllerClass`, `IASKViewControllerStoryBoard
 The FooterText key for Group elements is available in system settings. It is supported in InAppSettingsKit as well. On top of that, we support this key for Multi Value elements as well. The footer text is displayed below the table of multi value options.
 
 You can define a custom header view for `PSGroupSpecifier` segments by adding a `Key` attribute and implementing the following method in your `IASKSettingsDelegate`:
-    
+
 	- (UIView *)settingsViewController:(id<IASKViewController>)settingsViewController tableView:(UITableView *)tableView viewForHeaderForSection:(NSInteger)section;
 
 You can adjust the height of the header by implementing the following method:
