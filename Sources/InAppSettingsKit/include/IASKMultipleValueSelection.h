@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// This is used for PSMultiValueSpecifier and PSRadioGroupSpecifier
 @interface IASKMultipleValueSelection : NSObject
 
-@property (nullable, nonatomic, assign) UITableView *tableView;
+@property (nullable, nonatomic, weak) UITableView *tableView;
 @property (nonatomic, copy, readonly) NSIndexPath *checkedIndexPath;
 @property (nonatomic, strong) id<IASKSettingsStore> settingsStore;
 
