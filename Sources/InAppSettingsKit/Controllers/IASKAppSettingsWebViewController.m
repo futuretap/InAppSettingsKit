@@ -24,6 +24,7 @@
 @property (nonatomic, strong, readwrite) UIProgressView *progressView;
 @property (nonatomic, strong, readwrite) NSURL *url;
 @property (nonatomic, readwrite) BOOL showProgress;
+@property (nonatomic, readwrite) BOOL hideBottomBar;
 @end
 
 @implementation IASKAppSettingsWebViewController
@@ -45,6 +46,7 @@
         self.customTitle = [specifier localizedObjectForKey:kIASKChildTitle];
         self.title = self.customTitle ? : specifier.title;
         self.showProgress = [[specifier.specifierDict objectForKey:kIASKWebViewShowProgress] boolValue];
+        self.hideBottomBar = [[specifier.specifierDict objectForKey:kIASKWebViewHideBottomBar] boolValue];
 	}
 	return self;
 }
@@ -111,6 +113,11 @@
                        forKeyPath:@"estimatedProgress"
                           options:NSKeyValueObservingOptionNew
                           context:nil];
+    }
+    
+    if (self.hideBottomBar) {
+        // Hide the tab bar when this view is pushed:
+        self.hidesBottomBarWhenPushed = YES;
     }
 }
 

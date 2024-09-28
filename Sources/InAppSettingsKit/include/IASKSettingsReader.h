@@ -152,6 +152,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 #define kIASKWebViewShowProgress              @"IASKWebViewShowProgress"
 
+/*
+ IASKWebViewHideBottomBar can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+ If IASKWebViewHideBottomBar is set, it will hide the toolbar at the bottom of the screen when the IASKAppSettingsWebViewController is pushed on to a navigation controller. This will present the WKWebView full screen and prevents situations where the user can navigate the tab bar while the IASKAppSettingsWebViewController stays still present.
+ */
+#define kIASKWebViewHideBottomBar             @"IASKWebViewHideBottomBar"
+
 extern NSString * const IASKSettingChangedNotification;
 #define kIASKAppSettingChanged                IASKSettingChangedNotification
 
