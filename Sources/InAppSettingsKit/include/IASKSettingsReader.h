@@ -158,6 +158,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 #define kIASKWebViewHideBottomBar             @"IASKWebViewHideBottomBar"
 
+/*
+ IASKWebViewShowNavigationalButtons can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+ If IASKWebViewShowNavigationalButtons is set, it will show navigational buttons on the right side of the Navigation Bar. Their enable state will update dynamically based on the navigation history of the WKWebView.
+ */
+#define kIASKWebViewShowNavigationalButtons   @"IASKWebViewShowNavigationalButtons"
+
 extern NSString * const IASKSettingChangedNotification;
 #define kIASKAppSettingChanged                IASKSettingChangedNotification
 

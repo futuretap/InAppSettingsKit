@@ -340,7 +340,7 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>https://github.com/futuretap/InAppSettingsKit</string>
+			<string>https://www.futuretap.com</string>
 			<key>IASKViewControllerClass</key>
 			<string>IASKAppSettingsWebViewController</string>
 			<key>IASKViewControllerSelector</key>
@@ -352,6 +352,40 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>IASKWebViewShowProgress</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>https://www.futuretap.com</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
+			<string>WebView with navigational buttons</string>
+			<key>IASKSubtitle</key>
+			<string>use IASKWebViewShowNavigationalButtons</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKWebViewShowNavigationalButtons</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>https://www.futuretap.com</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
+			<string>WebView with all the above options</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKWebViewShowNavigationalButtons</key>
+			<true/>
+			<key>IASKWebViewShowProgress</key>
+			<true/>
+			<key>IASKWebViewHideBottomBar</key>
 			<true/>
 		</dict>
 		<dict>
