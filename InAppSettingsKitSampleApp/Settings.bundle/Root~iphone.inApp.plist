@@ -321,6 +321,22 @@
 			<string>ABOUT_TITLE</string>
 		</dict>
 		<dict>
+			<key>File</key>
+			<string>https://github.com/futuretap/InAppSettingsKit</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
+			<string>WebView with progress bar</string>
+			<key>IASKSubtitle</key>
+			<string>use IASKWebViewShowProgress</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKWebViewShowProgress</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>TextField</string>
 			<key>Type</key>

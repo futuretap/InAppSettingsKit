@@ -146,6 +146,12 @@ NS_ASSUME_NONNULL_BEGIN
 // the HTML title as soon as the page is loaded. The value of IASKChildTitle is localizable.
 #define kIASKChildTitle                       @"IASKChildTitle"
 
+/*
+ IASKWebViewShowProgress can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+ If IASKWebViewShowProgress is set, it will replace the default activity indicator on the Navigation Bar by a progress bar just below the Navigation Bar, which dynamically updates according to the `estimatedProgress` property of WKWebView.
+ */
+#define kIASKWebViewShowProgress              @"IASKWebViewShowProgress"
+
 extern NSString * const IASKSettingChangedNotification;
 #define kIASKAppSettingChanged                IASKSettingChangedNotification
 
