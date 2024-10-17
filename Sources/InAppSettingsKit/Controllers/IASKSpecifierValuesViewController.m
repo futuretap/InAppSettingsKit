@@ -144,6 +144,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.selection selectRowAtIndexPath:indexPath];
+	
+	if (self.currentSpecifier.quickSelection) {
+		[self.navigationController popViewControllerAnimated:YES];
+	}
 }
 
 @end

@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, readonly) NSTextAlignment textAlignment;
 @property (nonatomic, readonly) NSArray<IASKSpecifier*>* multiValueChildSpecifiers;
+@property (nonatomic, readonly) BOOL quickSelection;
 
 - (nullable NSString*)localizedObjectForKey:(NSString*)key;
 - (nullable NSString*)titleForCurrentValue:(nullable id)currentValue;

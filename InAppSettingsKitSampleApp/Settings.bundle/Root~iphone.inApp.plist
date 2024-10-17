@@ -99,6 +99,8 @@
 			</array>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentLeft</string>
+			<key>IASKQuickMultiValueSelection</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>Title</key>

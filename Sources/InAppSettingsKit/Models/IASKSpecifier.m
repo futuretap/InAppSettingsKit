@@ -511,6 +511,10 @@
 	return result;
 }
 
+- (BOOL)quickSelection {
+	return [[_specifierDict objectForKey:kIASKQuickMultiValueSelection] boolValue];
+}
+
 - (NSArray *)userInterfaceIdioms {
     NSMutableDictionary *idiomMap = [NSMutableDictionary dictionaryWithDictionary:
                                      @{

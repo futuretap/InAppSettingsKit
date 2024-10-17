@@ -374,6 +374,7 @@ The [sample application](#sample-application) returns a list of all country code
 
 MultiValue lists can be sorted alphabetically by adding a `true` Boolean `DisplaySortedByTitle` key in the Plist.
 MultiValue list entries can be given an image. Specify images via the `IconNames` attribute (next to Values/Titles/ShortTitles etc.).
+MultiValue lists support an `IASKQuickMultiValueSelection` boolean key. If set to true, the child view controller is popped on selection, so tapping the back button is not needed.
 
 
 ## Settings Storage

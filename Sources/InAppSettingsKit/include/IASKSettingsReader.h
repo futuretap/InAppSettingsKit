@@ -122,6 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define kIASKToggleStyle                      @"IASKToggleStyle"
 #define kIASKToggleStyleCheckmark             @"Checkmark"
 #define kIASKToggleStyleSwitch                @"Switch"
+#define kIASKQuickMultiValueSelection         @"IASKQuickMultiValueSelection"
 
 #define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
 #define kIASKListGroupSpecifier	              @"IASKListGroupSpecifier"
