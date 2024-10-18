@@ -205,7 +205,7 @@ InAppSettingsKit adds a new element `IASKOpenURLSpecifier` that allows to open a
 
 ## Web View Controller
 To open a specified URL inside your application, `IASKAppSettingsWebViewController` displays a fullscreen View Controller with an embedded [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview).  
-By default is shows an indeterminate activity indicator on the right side of the Navigation Bar when a page is loading.
+By default it shows an indeterminate activity indicator on the right side of the Navigation Bar while a page is loading.
 
 The Web View Controller can be defined in the Settings plist by using the following mandatory IASKSpecifier properties:
 
@@ -220,12 +220,12 @@ Use the following optional IASKSpecifier properties to customize the Web View Co
 - `IASKWebViewShowProgress`: set to `YES` to replace the default activity indicator on the Navigation Bar by a progress bar just below the Navigation Bar, which dynamically updates according to the [`estimatedProgress`](https://developer.apple.com/documentation/webkit/wkwebview/1415007-estimatedprogress) property of [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview).   
 The progress bar will be removed when page loading completes.
 - `IASKWebViewShowNavigationalButtons`: set to `YES` to show navigational buttons on the right side of the Navigation Bar. Their enable state will update dynamically based on the navigation history of the [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview).
-- `IASKWebViewHideBottomBar`: set to `YES` to hide the toolbar at the bottom of the screen when the `IASKAppSettingsWebViewController` is pushed on to a navigation controller. This will present the [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) full screen and prevents situations where the user can navigate the tab bar while the `IASKAppSettingsWebViewController` stays still present.  
+- `IASKWebViewHideBottomBar`: set to `YES` to hide the toolbar at the bottom of the screen when the `IASKAppSettingsWebViewController` is pushed on to a navigation controller. This will present the [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview) full screen and prevents situations where the user can navigate the tab bar while the `IASKAppSettingsWebViewController` stays presented.  
 This setting is ignored when the `IASKAppSettingsWebViewController` is presented modally.
 
 For more details, open the [Sample application](#sample-application) and take a look at all rows that start with **WebView**.
 
-Although `IASKAppSettingsWebViewController` might look similar to [`SFSafariViewController`](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller), the big difference is that `IASKAppSettingsWebViewController` does not reveal the URL to the user, nor can it be opened in an external browser (i.e. Safari or Chrome).  
+Although `IASKAppSettingsWebViewController` might look similar to [`SFSafariViewController`](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller), the big difference is that `IASKAppSettingsWebViewController` does not reveal the URL to the user, nor can it open the URL in an external browser (i.e. Safari or Chrome).  
 In other words, it keeps your source private.
 
 
