@@ -35,9 +35,7 @@
 	if (specifier.isAddSpecifier) {
 		self.returnKeyType = UIReturnKeyDone;
 	}
-	if (@available(iOS 10.0, *)) {
-		self.textContentType = specifier.textContentType;
-	}
+	self.textContentType = specifier.textContentType;
 }
 
 - (BOOL)becomeFirstResponder {
