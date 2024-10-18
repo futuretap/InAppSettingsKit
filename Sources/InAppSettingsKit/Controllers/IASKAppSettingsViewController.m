@@ -609,6 +609,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	
 	UITableViewCell* cell = [self tableView:tableView newCellForSpecifier:specifier];
+	cell.textLabel.textColor = (specifier.isAddSpecifier || specifier.textAlignment == NSTextAlignmentCenter) ? self.tintColor : [UILabel appearanceWhenContainedInInstancesOfClasses:@[UITableViewCell.class]].textColor;
 	if (![specifier.type isEqualToString:kIASKPSSliderSpecifier]) {
 		cell.imageView.image = specifier.cellImage;
 	}
@@ -648,11 +649,16 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 		BOOL hasTitle = title.length > 0 && !specifier.isItemSpecifier;
 		cell.detailTextLabel.text = [[specifier titleForCurrentValue:currentValue ?: specifier.defaultValue] description];
+		cell.detailTextLabel.textColor = self.tintColor;
 		if (hasTitle) {
 			cell.textLabel.text = title;
 		} else {
 			cell.textLabel.text = cell.detailTextLabel.text;
 			cell.detailTextLabel.text = nil;
+
+			if (!specifier.parentSpecifier) {
+				cell.textLabel.textColor = self.tintColor;
+			}
 		}
 	}
 	else if (specifier.embeddedDatePicker) {
@@ -760,6 +766,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 					cell.textLabel.text = [self.settingsReader titleForId:valueString];
 				} else {
 					cell.detailTextLabel.text = [self.settingsReader titleForId:valueString];
+					cell.detailTextLabel.textColor = self.tintColor;
 				}
 			}
 		}
@@ -802,7 +809,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	cell.detailTextLabel.textAlignment = specifier.textAlignment;
 	cell.textLabel.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
 	cell.detailTextLabel.adjustsFontSizeToFitWidth = specifier.adjustsFontSizeToFitWidth;
-	cell.textLabel.textColor = (specifier.isAddSpecifier || specifier.textAlignment == NSTextAlignmentCenter) ? self.tintColor : [UILabel appearanceWhenContainedInInstancesOfClasses:@[UITableViewCell.class]].textColor;
 	return cell;
 }
 
