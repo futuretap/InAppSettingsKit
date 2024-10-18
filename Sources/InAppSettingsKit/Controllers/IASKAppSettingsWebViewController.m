@@ -74,7 +74,10 @@
     [self.view addSubview:self.webView];
     
     // Create constraints to match the entire safe area layout:
-    UILayoutGuide *safeArea = self.view.safeAreaLayoutGuide;
+    UILayoutGuide *safeArea = self.view.layoutMarginsGuide;
+    if (@available(iOS 11.0, *)) {
+        safeArea = self.view.safeAreaLayoutGuide;
+    }
     [NSLayoutConstraint activateConstraints:@[
         [self.webView.topAnchor constraintEqualToAnchor:safeArea.topAnchor],
         [self.webView.bottomAnchor constraintEqualToAnchor:safeArea.bottomAnchor],
