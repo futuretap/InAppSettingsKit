@@ -321,6 +321,74 @@
 			<string>ABOUT_TITLE</string>
 		</dict>
 		<dict>
+			<key>File</key>
+			<string>settings_about.html</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
+			<string>WebView without tab bar (when pushed)</string>
+			<key>IASKSubtitle</key>
+			<string>use IASKWebViewHideBottomBar</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKChildTitle</key>
+			<string>ABOUT_TITLE</string>
+			<key>IASKWebViewHideBottomBar</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>https://www.futuretap.com</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
+			<string>WebView with progress bar</string>
+			<key>IASKSubtitle</key>
+			<string>use IASKWebViewShowProgress</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKWebViewShowProgress</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>https://www.futuretap.com</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
+			<string>WebView with navigational buttons</string>
+			<key>IASKSubtitle</key>
+			<string>use IASKWebViewShowNavigationalButtons</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKWebViewShowNavigationalButtons</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>https://www.futuretap.com</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
+			<string>WebView with all the above options</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKWebViewShowNavigationalButtons</key>
+			<true/>
+			<key>IASKWebViewShowProgress</key>
+			<true/>
+			<key>IASKWebViewHideBottomBar</key>
+			<true/>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>TextField</string>
 			<key>Type</key>

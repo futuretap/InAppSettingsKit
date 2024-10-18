@@ -147,6 +147,24 @@ NS_ASSUME_NONNULL_BEGIN
 // the HTML title as soon as the page is loaded. The value of IASKChildTitle is localizable.
 #define kIASKChildTitle                       @"IASKChildTitle"
 
+/*
+ IASKWebViewShowProgress can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+ If IASKWebViewShowProgress is set, it will replace the default activity indicator on the Navigation Bar by a progress bar just below the Navigation Bar, which dynamically updates according to the `estimatedProgress` property of WKWebView.
+ */
+#define kIASKWebViewShowProgress              @"IASKWebViewShowProgress"
+
+/*
+ IASKWebViewHideBottomBar can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+ If IASKWebViewHideBottomBar is set, it will hide the toolbar at the bottom of the screen when the IASKAppSettingsWebViewController is pushed on to a navigation controller. This will present the WKWebView full screen and prevents situations where the user can navigate the tab bar while the IASKAppSettingsWebViewController stays still present.
+ */
+#define kIASKWebViewHideBottomBar             @"IASKWebViewHideBottomBar"
+
+/*
+ IASKWebViewShowNavigationalButtons can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+ If IASKWebViewShowNavigationalButtons is set, it will show navigational buttons on the right side of the Navigation Bar. Their enable state will update dynamically based on the navigation history of the WKWebView.
+ */
+#define kIASKWebViewShowNavigationalButtons   @"IASKWebViewShowNavigationalButtons"
+
 extern NSString * const IASKSettingChangedNotification;
 #define kIASKAppSettingChanged                IASKSettingChangedNotification
 
