@@ -903,25 +903,18 @@ CGRect IASKCGRectSwap(CGRect rect);
 		NSString *segueIdentifier = specifier.segueIdentifier;
         if (segueIdentifier) {
             @try {
-                [self performSegueWithIdentifier:segueIdentifier
-                                          sender:self];
+                [self performSegueWithIdentifier:segueIdentifier sender:self];
                 
-                /*
-                 NOTE: The segue's viewcontroller will be presented modally. Hence any delegate methods on this class, like `viewWillDisappear:` and `viewWillAppear:`, will not be called when that viewcontroller is presented and dismissed. Consequently the selected row is not deselected, since that will be handled in `viewWillAppear:`.
-                 To resolve this, a repeating timer is used to check whether the presented view controller gets dismissed.
-                 */
+                // The segue's view controller will be presented modally. Hence any delegate methods on this class, like `viewWillDisappear:` and `viewWillAppear:`, will not be called when that view controller is presented and dismissed. In order to deselect the row upon dismissal, we use a repeating timer that checks whether the presented view controller gets dismissed.
                 NSTimer *checkSegueDismissedTimer = [NSTimer timerWithTimeInterval:0.1
                                                                            repeats:YES
                                                                              block:^(NSTimer * _Nonnull timer) {
                     // When the presented view controller is dismissed:
                     if (self.presentedViewController == nil) {
-                        // Deselect row:
-                        [self.tableView deselectRowAtIndexPath:indexPath
-                                                      animated:YES];
+                        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
                         
-                        // Stop timer:
                         if ([timer isValid]) {
-                            [timer invalidate];
+							[timer invalidate]; // Stop timer
                         }
                     }
                 }];
