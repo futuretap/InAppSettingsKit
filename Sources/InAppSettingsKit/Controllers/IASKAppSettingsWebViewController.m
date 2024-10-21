@@ -89,7 +89,7 @@
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
     self.activityIndicatorView.hidesWhenStopped = YES;
 #if TARGET_OS_MACCATALYST || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)
-    activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
 #else
     if (@available(iOS 13.0, *)) {
         self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
