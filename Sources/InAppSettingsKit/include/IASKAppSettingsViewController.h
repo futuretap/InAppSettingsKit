@@ -176,8 +176,16 @@ shouldPresentMailComposeViewController:(MFMailComposeViewController*)mailCompose
 
 #pragma mark - Validation
 typedef NS_ENUM(NSUInteger, IASKValidationResult) {
+	/** validation is OK, no replacement is performed. */
 	IASKValidationResultOk,
+	
+	/** validation is OK with the replacement performed. */
+	IASKValidationResultOkWithReplacement,
+	
+	/** validation has failed, the replacement is performed. */
 	IASKValidationResultFailed,
+	
+	/** validation has failed, the replacement is performed, and the field shakes to indicate the error. */
 	IASKValidationResultFailedWithShake,
 };
 /** validate user input in text fields

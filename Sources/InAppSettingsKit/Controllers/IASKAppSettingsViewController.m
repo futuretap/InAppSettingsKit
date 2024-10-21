@@ -1204,6 +1204,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 	};
 	
 	switch (result) {
+		case IASKValidationResultOkWithReplacement:
+			restoreText();
+			// fallthrough
 		case IASKValidationResultOk: {
 			if (![self.settingsStore objectForSpecifier:specifier] && textField.text.length == 0) {
 				return;

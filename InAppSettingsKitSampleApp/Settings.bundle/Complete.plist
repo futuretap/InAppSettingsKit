@@ -306,6 +306,18 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Account</string>
+			<key>Key</key>
+			<string>account_name</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
+			<key>IASKCellImage</key>
+			<string>person.crop.circle</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Title Values</string>

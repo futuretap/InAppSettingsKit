@@ -91,6 +91,22 @@ extension MainViewController: IASKSettingsDelegate {
 			}
 			textField.textColor = .red
 			return .failed
+		} else if key == "account_name", let value = textField.text {
+			let regex = "^@?[\\w](?!.*?\\.{2})[\\w.]{1,28}[\\w]$"
+			if value.isEmpty {
+				return .ok
+			} else if value == "@" {
+				replacement?.pointee = "" as NSString
+				return .failed
+			} else if value.range(of: regex, options: .regularExpression) == nil {
+				if let previousValue {
+					replacement?.pointee = previousValue as NSString
+					return .failedWithShake
+				}
+			} else if !value.hasPrefix("@") {
+				replacement?.pointee = "@\(value)" as NSString
+				return .okWithReplacement
+			}
 		}
 		return .ok
 	}
