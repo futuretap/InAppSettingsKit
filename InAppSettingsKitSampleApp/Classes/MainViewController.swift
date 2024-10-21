@@ -94,7 +94,7 @@ extension MainViewController: IASKSettingsDelegate {
 		} else if key == "account_name", let value = textField.text {
 			let regex = "^@?[\\w](?!.*?\\.{2})[\\w.]{1,28}[\\w]$"
 			if value.isEmpty {
-				return .ok
+				return .okWithReplacement
 			} else if value == "@" {
 				replacement?.pointee = "" as NSString
 				return .failed
