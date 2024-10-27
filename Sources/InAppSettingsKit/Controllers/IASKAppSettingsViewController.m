@@ -892,7 +892,7 @@ CGRect IASKCGRectSwap(CGRect rect);
             UIViewController * vc = [vcClass alloc];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-			vc = [vc performSelector:initSelector withObject:specifier.file withObject:specifier];
+			vc = [vc performSelector:initSelector withObject:NSLocalizedString(specifier.file, nil) withObject:specifier];
 #pragma clang diagnostic pop
             if ([vc respondsToSelector:@selector(setDelegate:)]) {
                 [vc performSelector:@selector(setDelegate:) withObject:self.delegate];
