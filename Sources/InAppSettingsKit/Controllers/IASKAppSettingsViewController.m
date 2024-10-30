@@ -66,6 +66,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 @synthesize childPaneHandler = _childPaneHandler;
 @synthesize currentFirstResponder = _currentFirstResponder;
 @synthesize listParentViewController;
+@synthesize colorScheme = _colorScheme;
 
 #pragma mark accessors
 - (IASKSettingsReader*)settingsReader {
@@ -113,6 +114,18 @@ CGRect IASKCGRectSwap(CGRect rect);
     if (!_reloadDisabled) {
 		[self createSelections];
 		[self.tableView reloadData];
+	}
+}
+
+- (UIColor*)detailTextColor {
+	if (self.colorScheme == IASKColorSchemeSystem) {
+		if (@available(iOS 13.0, *)) {
+			return UIColor.secondaryLabelColor;
+		} else {
+			return [UIColor colorWithRed:0.235294 green:0.235294 blue:0.262745 alpha:0.6];
+		}
+	} else {
+		return self.tintColor;
 	}
 }
 
@@ -649,14 +662,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 		BOOL hasTitle = title.length > 0 && !specifier.isItemSpecifier;
 		cell.detailTextLabel.text = [[specifier titleForCurrentValue:currentValue ?: specifier.defaultValue] description];
-		cell.detailTextLabel.textColor = self.tintColor;
+		cell.detailTextLabel.textColor = self.detailTextColor;
 		if (hasTitle) {
 			cell.textLabel.text = title;
 		} else {
 			cell.textLabel.text = cell.detailTextLabel.text;
 			cell.detailTextLabel.text = nil;
 
-			if (!specifier.parentSpecifier) {
+			if (!specifier.parentSpecifier && self.colorScheme == IASKColorSchemeTinted) {
 				cell.textLabel.textColor = self.tintColor;
 			}
 		}
@@ -698,7 +711,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		cell.userInteractionEnabled = [specifier.type isEqualToString:kIASKDatePickerSpecifier];
 		if ([specifier.type isEqualToString:kIASKDatePickerSpecifier]) {
-			cell.detailTextLabel.textColor = [specifier isEqual:self.settingsReader.selectedSpecifier] ? [UILabel appearanceWhenContainedInInstancesOfClasses:@[UITableViewCell.class]].textColor : self.tintColor;
+			cell.detailTextLabel.textColor = self.detailTextColor;
+			if ([specifier isEqual:self.settingsReader.selectedSpecifier]) {
+				cell.detailTextLabel.textColor = [UILabel appearanceWhenContainedInInstancesOfClasses:@[UITableViewCell.class]].textColor;
+			}
 		}
 	}
 	else if ([specifier.type isEqualToString:kIASKPSTextFieldSpecifier]) {
@@ -766,7 +782,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 					cell.textLabel.text = [self.settingsReader titleForId:valueString];
 				} else {
 					cell.detailTextLabel.text = [self.settingsReader titleForId:valueString];
-					cell.detailTextLabel.textColor = self.tintColor;
+					cell.detailTextLabel.textColor = self.detailTextColor;
 				}
 			}
 		}
@@ -1061,6 +1077,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	targetViewController.tableView.cellLayoutMarginsFollowReadableWidth = self.cellLayoutMarginsFollowReadableWidth;
 	_currentChildViewController = targetViewController;
 	targetViewController.settingsStore = self.settingsStore;
+	targetViewController.colorScheme = self.colorScheme;
 	targetViewController.view.tintColor = self.tintColor;
 	if ([specifier.parentSpecifier.type isEqualToString:kIASKListGroupSpecifier]) {
 		NSDictionary *itemDict = @{};

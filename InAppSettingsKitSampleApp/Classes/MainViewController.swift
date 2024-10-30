@@ -38,6 +38,7 @@ class MainViewController: UIViewController {
 		{
 			settingsVC.delegate = self
 			settingsVC.showDoneButton = segue.identifier == "modal"
+			settingsVC.colorScheme = .tinted
 			settingsViewController = settingsVC
 		} else if let settingsVC = segue.destination as? IASKAppSettingsViewController{
 			settingsVC.delegate = self

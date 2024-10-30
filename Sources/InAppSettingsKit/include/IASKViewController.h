@@ -16,13 +16,24 @@
 @class IASKSettingsReader;
 @protocol IASKSettingsStore;
 
-// protocol all IASK view controllers implement
+typedef NS_ENUM(NSUInteger, IASKColorScheme) {
+	/// color scheme replicating the system settings
+	IASKColorSchemeSystem = 0,
+	
+	/// color scheme where user-editable options are displayed in tintColor
+	IASKColorSchemeTinted,
+};
+
+/// protocol all IASK view controllers implement
 @protocol IASKViewController <NSObject>
 
 @property (nonatomic, strong, nullable) IASKSettingsReader* settingsReader;
 @property (nonatomic, strong, nonnull) id<IASKSettingsStore> settingsStore;
 @property (nonatomic, copy, nullable) void (^childPaneHandler)(BOOL doneEditing);
 @property (nonatomic, weak, nullable) UIViewController<IASKViewController> *listParentViewController;
+
+/// defines the use of tintColor, default is `IASKColorSchemeSystem`.
+@property (nonatomic) IASKColorScheme colorScheme;
 
 @optional
 @property (nonatomic, weak, nullable) id currentFirstResponder;
