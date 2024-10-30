@@ -33,6 +33,7 @@
 @synthesize settingsStore = _settingsStore;
 @synthesize childPaneHandler = _childPaneHandler;
 @synthesize listParentViewController;
+@synthesize colorScheme = _colorScheme;
 
 - (id)initWithSpecifier:(IASKSpecifier*)specifier {
 	if ((self = [super initWithStyle:UITableViewStyleGrouped])) {
