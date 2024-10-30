@@ -326,19 +326,20 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler NS_EXTENSION_UNAVAILABLE("Uses APIs (i.e UIApplication.sharedApplication) not available for use in App Extensions.") {
     NSURL* newURL = navigationAction.request.URL;
     
-    // intercept mailto URL and send it to an in-app Mail compose view instead
-    if ([[newURL scheme] isEqualToString:@"mailto"]) {
+    // Intercept mailto URL scheme and send it to an in-app Mail compose view instead:
+    if ([newURL.scheme isEqualToString:@"mailto"]) {
         [self handleMailto:newURL];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
     
-    // open inline if host is the same, otherwise, pass to the system
-    if (![newURL host] || ![self.url host] || [[newURL host] isEqualToString:(NSString *)[self.url host]]) {
+    // Allow loading of any http(s) requests:
+    if ([newURL.scheme isEqualToString:@"http"] || [newURL.scheme isEqualToString:@"https"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
         return;
     }
     
+    // For any other URL scheme, let the system find an appropriate app to open the URL:
     [UIApplication.sharedApplication openURL:newURL
                                      options:@{}
                            completionHandler:nil];
