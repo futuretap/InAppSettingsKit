@@ -199,6 +199,9 @@ If you don't want to show Privacy cells, set the property `neverShowPrivacySetti
 The [sample application](#sample-application) defines `NSMicrophoneUsageDescription` to let the cell appear. Note that the settings page doesn't show any privacy settings yet because the app doesn't actually access the microphone. Privacy settings only show up in the Settings app after first use of the privacy-protected API.
 
 
+## Color schemes
+You can specify `tintColor` by setting it on the view of your IASKAppSettingsViewController instance. The tint color is used for buttons and centered text (see below for both). Optionally, you can specify `settingsViewController.colorScheme = IASKColorSchemeTinted` to use tintColor for all user-editable options such as multi value elements.
+
 ## Open URL
 InAppSettingsKit adds a new element `IASKOpenURLSpecifier` that allows to open a specified URL using an external application (i.e. Safari or Mail). The URL to launch is specified in the `File` parameter. See the sample `Root.inApp.plist` for details.
 
