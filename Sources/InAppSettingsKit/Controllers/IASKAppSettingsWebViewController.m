@@ -333,8 +333,8 @@
         return;
     }
     
-    // Allow loading of any http(s) requests:
-    if ([newURL.scheme isEqualToString:@"http"] || [newURL.scheme isEqualToString:@"https"]) {
+    // Allow loading of any http(s) and file requests:
+    if ([@[@"http", @"https", @"file"] containsObject:newURL.scheme]) {
         decisionHandler(WKNavigationActionPolicyAllow);
         return;
     }
