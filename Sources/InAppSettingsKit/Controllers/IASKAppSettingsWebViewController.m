@@ -56,11 +56,6 @@
 }
 
 - (void)loadView {
-    // Initialize the webView
-    self.webView = [[WKWebView alloc] init];
-    self.webView.translatesAutoresizingMaskIntoConstraints = NO; // Disable autoresizing mask for layout constraints
-    self.webView.navigationDelegate = self;
-    
     // Set up the main view
     self.view = [[UIView alloc] init];
     
@@ -71,19 +66,6 @@
         // Fallback on earlier versions:
         self.view.backgroundColor = [UIColor whiteColor];
     }
-    [self.view addSubview:self.webView];
-    
-    // Create constraints to match the entire safe area layout:
-    UILayoutGuide *safeArea = self.view.layoutMarginsGuide;
-    if (@available(iOS 11.0, *)) {
-        safeArea = self.view.safeAreaLayoutGuide;
-    }
-    [NSLayoutConstraint activateConstraints:@[
-        [self.webView.topAnchor constraintEqualToAnchor:safeArea.topAnchor],
-        [self.webView.bottomAnchor constraintEqualToAnchor:safeArea.bottomAnchor],
-        [self.webView.leadingAnchor constraintEqualToAnchor:safeArea.leadingAnchor],
-        [self.webView.trailingAnchor constraintEqualToAnchor:safeArea.trailingAnchor]
-    ]];
     
     // Define default activity indicator:
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
@@ -104,15 +86,7 @@
     self.progressView.progress = 0.0;
     self.progressView.hidden = YES; // Will be shown by observer when enabled
     self.progressView.translatesAutoresizingMaskIntoConstraints = NO; // Disable autoresizing mask for layout constraints
-    [self.view addSubview:self.progressView];
-    
-    // Create constraints to set it to the top of the webView:
-    [NSLayoutConstraint activateConstraints:@[
-        [self.progressView.topAnchor constraintEqualToAnchor:self.webView.topAnchor],
-        [self.progressView.leadingAnchor constraintEqualToAnchor:self.webView.leadingAnchor],
-        [self.progressView.trailingAnchor constraintEqualToAnchor:self.webView.trailingAnchor]
-    ]];
-    
+
     // Create UIBarButtonItems with SF Symbols:
     if (@available(iOS 13.0, *)) {
         self.backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chevron.backward"]
@@ -164,6 +138,43 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
     }
     
+    if (self.hideBottomBar) {
+        // Hide the tab bar when this view is pushed:
+        self.hidesBottomBarWhenPushed = YES;
+    }
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Initialize the webView
+    self.webView = [[WKWebView alloc] init];
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO; // Disable autoresizing mask for layout constraints
+    self.webView.navigationDelegate = self;
+    [self.view addSubview:self.webView];
+    
+    // Create constraints to match the entire safe area layout:
+    UILayoutGuide *safeArea = self.view.layoutMarginsGuide;
+    if (@available(iOS 11.0, *)) {
+        safeArea = self.view.safeAreaLayoutGuide;
+    }
+    [NSLayoutConstraint activateConstraints:@[
+        [self.webView.topAnchor constraintEqualToAnchor:safeArea.topAnchor],
+        [self.webView.bottomAnchor constraintEqualToAnchor:safeArea.bottomAnchor],
+        [self.webView.leadingAnchor constraintEqualToAnchor:safeArea.leadingAnchor],
+        [self.webView.trailingAnchor constraintEqualToAnchor:safeArea.trailingAnchor]
+    ]];
+    
+    // Add UIProgressView:
+    [self.view addSubview:self.progressView];
+    
+    // Create constraints to set it to the top of the webView:
+    [NSLayoutConstraint activateConstraints:@[
+        [self.progressView.topAnchor constraintEqualToAnchor:self.webView.topAnchor],
+        [self.progressView.leadingAnchor constraintEqualToAnchor:self.webView.leadingAnchor],
+        [self.progressView.trailingAnchor constraintEqualToAnchor:self.webView.trailingAnchor]
+    ]];
+    
     // Enable progress observer depending on `IASKWebViewShowProgress`:
     if (self.showProgress) {
         // Observe the `estimatedProgress` property of WKWebView:
@@ -171,11 +182,6 @@
                        forKeyPath:@"estimatedProgress"
                           options:NSKeyValueObservingOptionNew
                           context:nil];
-    }
-    
-    if (self.hideBottomBar) {
-        // Hide the tab bar when this view is pushed:
-        self.hidesBottomBarWhenPushed = YES;
     }
 }
 
