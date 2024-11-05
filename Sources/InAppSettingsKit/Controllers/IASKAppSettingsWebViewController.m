@@ -312,7 +312,6 @@
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     // Show progress:
     [self.activityIndicatorView startAnimating];
-    self.progressView.progress = 0.0;
 }
 
 // Tells the delegate that navigation is complete.
