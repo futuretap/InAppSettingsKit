@@ -86,7 +86,7 @@
     self.progressView.progress = 0.0;
     self.progressView.hidden = YES; // Will be shown by observer when enabled
     self.progressView.translatesAutoresizingMaskIntoConstraints = NO; // Disable autoresizing mask for layout constraints
-
+    
     // Create UIBarButtonItems with SF Symbols:
     if (@available(iOS 13.0, *)) {
         self.backButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chevron.backward"]
@@ -147,10 +147,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Initialize the webView
-    self.webView = [[WKWebView alloc] init];
-    self.webView.translatesAutoresizingMaskIntoConstraints = NO; // Disable autoresizing mask for layout constraints
+    // Create a configuration for the webView, which sets the subset of properties that Interface Builder in Xcode (version 15.4) shows when adding a WKWebView. The Xcode titles are put in the comments:
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.suppressesIncrementalRendering = NO;                          // Display: Incremental Rendering
+    configuration.allowsAirPlayForMediaPlayback = YES;                          // Media: AirPlay
+    configuration.allowsInlineMediaPlayback = YES;                              // Media: Inline Playback
+    configuration.allowsPictureInPictureMediaPlayback = YES;                    // Media: Picture-in-Picture
+    configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;    // Interaction: For Audio/Video Playback -> Disable automatic start explicitely, since the video will be presented fullscreen after page load.
+    configuration.dataDetectorTypes = WKDataDetectorTypeAll;                    // Data Detectors: All
+    if (@available(iOS 14.0, *)) {
+        configuration.defaultWebpagePreferences.allowsContentJavaScript = YES;  // JavaScript: Enabled
+    }
+    else {
+        configuration.preferences.javaScriptEnabled = YES;                      // Deprecated since iOS 14.0
+    }
+    configuration.preferences.javaScriptCanOpenWindowsAutomatically = NO;       // JavaScript: Can Auto-open Windows -> Disable explicitely for security reasons.
+    
+    // Initialize the webView with the configuration in an empty frame (size will be updated in `-viewWillLayoutSubviews` after constraints have been added):
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+    self.webView.translatesAutoresizingMaskIntoConstraints = NO;                // Disable autoresizing mask for layout constraints
     self.webView.navigationDelegate = self;
+    
+    // Set other Xcode Interface Builder properties directly on webView:
+    self.webView.allowsBackForwardNavigationGestures = YES;                     // Interaction: Back/Forward Gestures
+    if (@available(iOS 16.0, *)) {
+        self.webView.findInteractionEnabled = YES;                              // Interaction: Find & Replace
+    }
+    self.webView.allowsLinkPreview = YES;                                       // Display: Link Preview
+    
     [self.view addSubview:self.webView];
     
     // Create constraints to match the entire safe area layout:
@@ -183,6 +207,12 @@
                           options:NSKeyValueObservingOptionNew
                           context:nil];
     }
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    
+    self.webView.frame = self.view.bounds;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
