@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong, readonly) WKWebView *webView;
 @property (nonatomic, strong, readonly) NSURL *url;
 @property (nullable, nonatomic, strong) NSString *customTitle;
+@property (nonnull, nonatomic, readonly) WKWebViewConfiguration *webViewConfiguration;
 
 @end
 

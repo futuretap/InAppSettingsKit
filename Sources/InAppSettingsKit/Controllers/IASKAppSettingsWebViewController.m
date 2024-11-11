@@ -55,6 +55,25 @@
     return self;
 }
 
+- (WKWebViewConfiguration*)webViewConfiguration {
+    // Create a configuration for the webView, which sets the subset of properties that Interface Builder in Xcode (version 15.4) shows when adding a WKWebView. The Xcode titles are put in the comments:
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.suppressesIncrementalRendering = NO;                          // Display: Incremental Rendering
+    configuration.allowsAirPlayForMediaPlayback = YES;                          // Media: AirPlay
+    configuration.allowsInlineMediaPlayback = YES;                              // Media: Inline Playback
+    configuration.allowsPictureInPictureMediaPlayback = YES;                    // Media: Picture-in-Picture
+    configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;    // Interaction: For Audio/Video Playback -> Disable automatic start explicitely, since the video will be presented fullscreen after page load.
+    configuration.dataDetectorTypes = WKDataDetectorTypeAll;                    // Data Detectors: All
+    if (@available(iOS 14.0, *)) {
+        configuration.defaultWebpagePreferences.allowsContentJavaScript = YES;  // JavaScript: Enabled
+    }
+    else {
+        configuration.preferences.javaScriptEnabled = YES;                      // Deprecated since iOS 14.0
+    }
+    configuration.preferences.javaScriptCanOpenWindowsAutomatically = NO;       // JavaScript: Can Auto-open Windows -> Disable explicitely for security reasons.
+    return configuration;
+}
+
 - (void)loadView {
     // Set up the main view
     self.view = [[UIView alloc] init];
@@ -147,24 +166,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Create a configuration for the webView, which sets the subset of properties that Interface Builder in Xcode (version 15.4) shows when adding a WKWebView. The Xcode titles are put in the comments:
-    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
-    configuration.suppressesIncrementalRendering = NO;                          // Display: Incremental Rendering
-    configuration.allowsAirPlayForMediaPlayback = YES;                          // Media: AirPlay
-    configuration.allowsInlineMediaPlayback = YES;                              // Media: Inline Playback
-    configuration.allowsPictureInPictureMediaPlayback = YES;                    // Media: Picture-in-Picture
-    configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;    // Interaction: For Audio/Video Playback -> Disable automatic start explicitely, since the video will be presented fullscreen after page load.
-    configuration.dataDetectorTypes = WKDataDetectorTypeAll;                    // Data Detectors: All
-    if (@available(iOS 14.0, *)) {
-        configuration.defaultWebpagePreferences.allowsContentJavaScript = YES;  // JavaScript: Enabled
-    }
-    else {
-        configuration.preferences.javaScriptEnabled = YES;                      // Deprecated since iOS 14.0
-    }
-    configuration.preferences.javaScriptCanOpenWindowsAutomatically = NO;       // JavaScript: Can Auto-open Windows -> Disable explicitely for security reasons.
     
     // Initialize the webView with the configuration in an empty frame (size will be updated in `-viewWillLayoutSubviews` after constraints have been added):
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:self.webViewConfiguration];
     self.webView.translatesAutoresizingMaskIntoConstraints = NO;                // Disable autoresizing mask for layout constraints
     self.webView.navigationDelegate = self;
     
