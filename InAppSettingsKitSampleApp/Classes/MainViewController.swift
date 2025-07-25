@@ -75,9 +75,12 @@ extension MainViewController: IASKSettingsDelegate {
 								textField: IASKTextField,
 								previousValue: String?,
 								replacement: AutoreleasingUnsafeMutablePointer<NSString>?) -> IASKValidationResult {
-		guard let key = specifier.key else { return .ok }
+		guard let key = specifier.key,
+			  let newText = replacement?.pointee else {
+			return .ok
+		}
 		if key.starts(with: "RegexValidation") {
-			if textField.text == "" || textField.text?.range(of: #".+\@.+"#, options: .regularExpression) != nil {
+			if newText == "" || newText.range(of: #".+\@.+"#, options: .regularExpression).location != NSNotFound {
 				if #available(iOS 13.0, *) {
 					textField.textColor = .label
 				} else {
@@ -86,26 +89,26 @@ extension MainViewController: IASKSettingsDelegate {
 				return .ok
 			}
 			if key != "RegexValidation2" {
-				let myReplacement: String = ((previousValue?.lengthOfBytes(using: .utf8) ?? 0) > 0 ? previousValue : textField.text) ?? ""
+				let myReplacement: String = (previousValue?.lengthOfBytes(using: .utf8) ?? 0) > 0 ? previousValue ?? "" : newText as String
 				replacement?.pointee = myReplacement as NSString
 				return .failedWithShake
 			}
 			textField.textColor = .red
 			return .failed
-		} else if key == "account_name", let value = textField.text {
+		} else if key == "account_name" {
 			let regex = "^@?[\\w](?!.*?\\.{2})[\\w.]{1,28}[\\w]$"
-			if value.isEmpty {
-				return .okWithReplacement
-			} else if value == "@" {
+			if newText == "" {
+				return .ok
+			} else if newText == "@" {
 				replacement?.pointee = "" as NSString
 				return .failed
-			} else if value.range(of: regex, options: .regularExpression) == nil {
+			} else if newText.range(of: regex, options: .regularExpression).location == NSNotFound {
 				if let previousValue {
 					replacement?.pointee = previousValue as NSString
 					return .failedWithShake
 				}
-			} else if !value.hasPrefix("@") {
-				replacement?.pointee = "@\(value)" as NSString
+			} else if !newText.hasPrefix("@") {
+				replacement?.pointee = "@\(newText)" as NSString
 				return .okWithReplacement
 			}
 		}

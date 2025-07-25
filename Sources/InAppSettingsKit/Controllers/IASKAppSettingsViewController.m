@@ -589,7 +589,6 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	else if ([identifier hasPrefix:kIASKPSTextFieldSpecifier]) {
 		cell = [[IASKPSTextFieldSpecifierViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-		[((IASKPSTextFieldSpecifierViewCell*)cell).textField addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
 	}
 	else if ([identifier hasPrefix:kIASKTextViewSpecifier]) {
         cell = [[IASKTextViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
@@ -1181,17 +1180,32 @@ CGRect IASKCGRectSwap(CGRect rect);
 	self.currentFirstResponder = textField;
 }
 
-- (void)textChanged:(IASKTextField*)textField {
+- (BOOL)textField:(IASKTextField*)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString*)replacementString {
+	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:replacementString];
     // Wait with setting the property until editing ends for the addSpecifier of list groups or if a validation delegate is implemented
-    if ((!textField.specifier.isAddSpecifier && ![self.delegate respondsToSelector:@selector(settingsViewController:validateSpecifier:textField:previousValue:replacement:)]) ||
+	IASKValidationResult result = IASKValidationResultOk;
+	if ((!textField.specifier.isAddSpecifier) ||
 		(self.listParentViewController && [self.delegate respondsToSelector:@selector(settingsViewController:childPaneIsValidForSpecifier:contentDictionary:)]))
 	{
-		[self.settingsStore setObject:textField.text forSpecifier:textField.specifier];
-        NSDictionary *userInfo = textField.specifier.key && textField.text ? @{(id)textField.specifier.key : (NSString *)textField.text} : nil;
-        [NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged
-                                                          object:self
-                                                        userInfo:userInfo];
-    }
+		BOOL storeToSettings = YES;
+		if (!textField.specifier.isAddSpecifier && [self.delegate respondsToSelector:@selector(settingsViewController:validateSpecifier:textField:previousValue:replacement:)]) {
+			result = [self.delegate settingsViewController:self validateSpecifier:textField.specifier textField:textField previousValue:textField.text replacement:&newText];
+			if (result == IASKValidationResultOkWithReplacement) {
+				storeToSettings = NO;
+				textField.text = newText;
+			} else if (result != IASKValidationResultOk) {
+				storeToSettings = NO;
+			}
+		}
+		if (storeToSettings) {
+			[self.settingsStore setObject:newText forSpecifier:textField.specifier];
+			NSDictionary *userInfo = textField.specifier.key && newText ? @{(id)textField.specifier.key : newText} : nil;
+			[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged
+															  object:self
+															userInfo:userInfo];
+		}
+	}
+	return result != IASKValidationResultOkWithReplacement;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -1216,7 +1230,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	void (^restoreText)(void) = ^{
 		if (![textField.text isEqualToString:replacement]) {
 			textField.text = replacement;
-			[self textChanged:textField];
+			[self textField:textField shouldChangeCharactersInRange:NSMakeRange(0, 0) replacementString:@""];
 		}
 	};
 	
