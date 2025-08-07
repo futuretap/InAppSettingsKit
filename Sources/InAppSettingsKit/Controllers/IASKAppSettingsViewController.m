@@ -232,9 +232,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	
 	NSNotificationCenter *dc = NSNotificationCenter.defaultCenter;
+	[dc removeObserver:self name:kIASKAppSettingChanged object:nil];
 	[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:nil];
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
 		IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
+		[dc removeObserver:self name:NSUserDefaultsDidChangeNotification object:udSettingsStore.defaults];
 		[dc addObserver:self selector:@selector(userDefaultsDidChange) name:NSUserDefaultsDidChangeNotification object:udSettingsStore.defaults];
 		[self userDefaultsDidChange]; // force update in case of changes while we were hidden
 	}
@@ -244,9 +246,12 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[super viewDidAppear:animated];
 
 	NSNotificationCenter *dc = [NSNotificationCenter defaultCenter];
-	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
-	[dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
-	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
+	[dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:UIApplication.sharedApplication];
+	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationDidEnterBackgroundNotification object:UIApplication.sharedApplication];
+	[dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:UIApplication.sharedApplication];
+	[dc addObserver:self selector:@selector(reload) name:UIApplicationWillEnterForegroundNotification object:UIApplication.sharedApplication];
+	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:UIApplication.sharedApplication];
+	[dc addObserver:self selector:@selector(synchronizeSettings) name:UIApplicationWillTerminateNotification object:UIApplication.sharedApplication];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -265,9 +270,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[dc removeObserver:self name:NSUserDefaultsDidChangeNotification object:udSettingsStore.defaults];
 		[dc removeObserver:self name:kIASKAppSettingChanged object:self];
 	}
-	[dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:[UIApplication sharedApplication]];
-	[dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:[UIApplication sharedApplication]];
-	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:[UIApplication sharedApplication]];
+	[dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:UIApplication.sharedApplication];
+	[dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:UIApplication.sharedApplication];
+	[dc removeObserver:self name:UIApplicationWillTerminateNotification object:UIApplication.sharedApplication];
 
 	[super viewDidDisappear:animated];
 }
@@ -1023,11 +1028,11 @@ CGRect IASKCGRectSwap(CGRect rect);
 			mailViewController.mailComposeDelegate = self;
             _currentChildViewController = mailViewController;
 #if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_VISION) || !TARGET_OS_VISION)
-            UIStatusBarStyle savedStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
+            UIStatusBarStyle savedStatusBarStyle = UIApplication.sharedApplication.statusBarStyle;
 #endif
             [self presentViewController:mailViewController animated:YES completion:^{
 #if !TARGET_OS_MACCATALYST && (!defined(TARGET_OS_VISION) || !TARGET_OS_VISION)
-			    [UIApplication sharedApplication].statusBarStyle = savedStatusBarStyle;
+				UIApplication.sharedApplication.statusBarStyle = savedStatusBarStyle;
 #endif
             }];
 			
