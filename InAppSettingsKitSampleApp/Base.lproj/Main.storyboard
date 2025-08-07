@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22113.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Gr-jG-lyL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24112" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Gr-jG-lyL">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24057"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,7 +12,7 @@
         <scene sceneID="Zt4-yV-Tva">
             <objects>
                 <tableViewController id="3Zf-yv-ugt" customClass="IASKAppSettingsViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="443-2y-GSG">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="443-2y-GSG">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="450"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
@@ -37,8 +37,8 @@
                     <tabBarItem key="tabBarItem" title="Settings" image="20-gear2.png" id="n11-vj-bkV"/>
                     <value key="contentSizeForViewInPopover" type="size" width="450" height="450"/>
                     <size key="freeformSize" width="450" height="450"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Fgk-j7-eRM">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="Fgk-j7-eRM">
+                        <rect key="frame" x="0.0" y="48" width="450" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -57,7 +57,7 @@
                         <viewControllerLayoutGuide type="top" id="aex-PX-YAG"/>
                         <viewControllerLayoutGuide type="bottom" id="1lu-Kk-k54"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3VK-Jj-4Bv">
+                    <view key="view" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="3VK-Jj-4Bv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -78,7 +78,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="S2w-zu-zJk" kind="presentation" identifier="modal" id="EaZ-im-nY2"/>
+                                    <segue destination="S2w-zu-zJk" kind="presentation" identifier="modal" modalPresentationStyle="pageSheet" id="EaZ-im-nY2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -130,8 +130,8 @@
             <objects>
                 <navigationController id="BHR-vT-tkQ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" selectedImage="20-gear2.png" systemItem="featured" id="cIz-OH-P5r"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="73K-t4-ygZ">
-                        <rect key="frame" x="0.0" y="48" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" largeTitles="YES" id="73K-t4-ygZ">
+                        <rect key="frame" x="0.0" y="96" width="414" height="106"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -149,8 +149,8 @@
                     <tabBarItem key="tabBarItem" selectedImage="20-gear2.png" systemItem="featured" id="Gb4-Mn-Ir9"/>
                     <navigationItem key="navigationItem" id="OmC-Fw-Chl"/>
                     <value key="contentSizeForViewInPopover" type="size" width="450" height="450"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LLy-AZ-C3h">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="LLy-AZ-C3h">
+                        <rect key="frame" x="0.0" y="48" width="450" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

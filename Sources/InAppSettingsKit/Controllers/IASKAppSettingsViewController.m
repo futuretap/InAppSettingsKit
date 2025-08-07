@@ -229,6 +229,10 @@ CGRect IASKCGRectSwap(CGRect rect);
 		dispatch_async(dispatch_get_main_queue(), ^(void){
 			[self.tableView selectRowAtIndexPath:selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 		});
+	} else if (self.navigationController.navigationBar.prefersLargeTitles) {
+		// -200 is large enough to show the large title if configured.
+		// UIKit is clever enough to clamp the offset to the maximum possible value.
+		self.tableView.contentOffset = CGPointMake(0, -200);
 	}
 	
 	NSNotificationCenter *dc = NSNotificationCenter.defaultCenter;

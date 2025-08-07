@@ -37,10 +37,11 @@ class MainViewController: UIViewController {
 			let settingsVC = nc.topViewController as? IASKAppSettingsViewController
 		{
 			settingsVC.delegate = self
-			settingsVC.showDoneButton = segue.identifier == "modal"
+			settingsVC.showDoneButton = true
 			settingsVC.colorScheme = .tinted
+			nc.navigationBar.prefersLargeTitles = segue.identifier == "modal"
 			settingsViewController = settingsVC
-		} else if let settingsVC = segue.destination as? IASKAppSettingsViewController{
+		} else if let settingsVC = segue.destination as? IASKAppSettingsViewController {
 			settingsVC.delegate = self
 			settingsViewController = settingsVC
 		} else {
