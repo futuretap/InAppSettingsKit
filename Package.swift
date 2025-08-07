@@ -14,12 +14,6 @@ let package = Package(
     targets: [
         .target(
             name: "InAppSettingsKit",
-			exclude: [
-				"README.md",
-				"IASK.gif",
-				"InAppSettingsKit.podspec",
-				"RELEASE_NOTES.md",
-			],
 			resources: [.copy("PrivacyInfo.xcprivacy")]
         ),
         .testTarget(
