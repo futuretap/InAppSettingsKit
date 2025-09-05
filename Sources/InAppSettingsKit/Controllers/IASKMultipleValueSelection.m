@@ -108,7 +108,8 @@
 	[self.settingsStore setObject:[values objectAtIndex:indexPath.row] forSpecifier:self.specifier];
     [self.settingsStore synchronize];
 	NSDictionary *userInfo = self.specifier.key && values[indexPath.row] ? @{(id)self.specifier.key: (id)values[indexPath.row]} : nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged object:self userInfo:userInfo];
+	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKInternalAppSettingChanged object:self userInfo:userInfo];
+	[[NSNotificationCenter defaultCenter] postNotificationName:IASKSettingChangedNotification object:self userInfo:userInfo];
 };
 
 - (void)updateSelectionInCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {

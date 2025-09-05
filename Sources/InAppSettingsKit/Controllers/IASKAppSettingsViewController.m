@@ -236,8 +236,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 	
 	NSNotificationCenter *dc = NSNotificationCenter.defaultCenter;
-	[dc removeObserver:self name:kIASKAppSettingChanged object:nil];
-	[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKAppSettingChanged object:nil];
+	[dc removeObserver:self name:kIASKInternalAppSettingChanged object:nil];
+	[dc addObserver:self selector:@selector(didChangeSettingViaIASK:) name:kIASKInternalAppSettingChanged object:nil];
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
 		IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
 		[dc removeObserver:self name:NSUserDefaultsDidChangeNotification object:udSettingsStore.defaults];
@@ -272,7 +272,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	if ([self.settingsStore isKindOfClass:[IASKSettingsStoreUserDefaults class]]) {
 		IASKSettingsStoreUserDefaults *udSettingsStore = (id)self.settingsStore;
 		[dc removeObserver:self name:NSUserDefaultsDidChangeNotification object:udSettingsStore.defaults];
-		[dc removeObserver:self name:kIASKAppSettingChanged object:self];
+		[dc removeObserver:self name:kIASKInternalAppSettingChanged object:nil];
 	}
 	[dc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:UIApplication.sharedApplication];
 	[dc removeObserver:self name:UIApplicationWillEnterForegroundNotification object:UIApplication.sharedApplication];
@@ -452,18 +452,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 		NSIndexPath* indexPath = [_settingsReader indexPathForKey:key];
 		UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:indexPath];
 		cell.detailTextLabel.text = [specifier subtitleForValue:on ? @"YES" : @"NO"];
+		[self postChange:specifier value: [self.settingsStore objectForSpecifier:specifier]];
 	}
-	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
-														object:self
-													  userInfo:@{(id)specifier.key: [self.settingsStore objectForSpecifier:specifier] ?: NSNull.null}];
 }
 
 - (void)sliderChangedValue:(id)sender {
 	IASKSlider *slider = (IASKSlider*)sender;
 	[self.settingsStore setFloat:slider.value forSpecifier:slider.specifier];
-	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
-														object:self
-													  userInfo:@{(id)slider.specifier.key: @(slider.value)}];
+	[self postChange:slider.specifier value: @(slider.value)];
 }
 
 - (void)datePickerChangedValue:(IASKDatePicker*)datePicker {
@@ -472,6 +468,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		[self.delegate settingsViewController:self setDate:datePicker.date forSpecifier:datePicker.specifier];
 	} else {
 		[self.settingsStore setObject:datePicker.date forSpecifier:datePicker.specifier];
+		[self postChange:datePicker.specifier value:datePicker.date];
 	}
 	datePicker.editing = NO;
 }
@@ -1077,8 +1074,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 	[self.settingsStore removeObjectWithSpecifier:specifier];
 	[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
-	NSDictionary *userInfo = specifier.parentSpecifier.key && [self.settingsStore objectForSpecifier:(id)specifier.parentSpecifier] ? @{(id)specifier.parentSpecifier.key: [self.settingsStore objectForSpecifier:(id)specifier.parentSpecifier] ?: @[]} : nil;
-	[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged object:self userInfo:userInfo];
+	[self postChange:specifier.parentSpecifier
+			   value:[self.settingsStore objectForSpecifier:specifier.parentSpecifier] ?: @[]];
 }
 
 - (void)presentChildViewController:(UITableViewController<IASKViewController> *)targetViewController specifier:(IASKSpecifier *)specifier indexPath:(NSIndexPath*)indexPath {
@@ -1094,7 +1091,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 			if ([value isKindOfClass:NSDictionary.class]) {
 				itemDict = value;
 			} else if (specifier.key && value) {
-				itemDict = @{(id)specifier.key: value};
+				itemDict = @{specifier.key: value};
 			}
 		}
 		IASKSettingsStoreInMemory *inMemoryStore = [[IASKSettingsStoreInMemory alloc] initWithDictionary:itemDict];
@@ -1130,8 +1127,9 @@ CGRect IASKCGRectSwap(CGRect rect);
 			} else {
 				[weakSelf.settingsStore setObject:inMemoryStore.dictionary forSpecifier:specifier];
 			}
-			NSDictionary *userInfo = specifier.parentSpecifier.key && [weakSelf.settingsStore objectForSpecifier:(id)specifier.parentSpecifier] ? @{(id)specifier.parentSpecifier.key: (id)[weakSelf.settingsStore objectForSpecifier:(id)specifier.parentSpecifier]} : nil;
-			[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged object:weakSelf userInfo:userInfo];
+			[weakSelf postChange:specifier.parentSpecifier
+						   value:[weakSelf.settingsStore objectForSpecifier:specifier.parentSpecifier]];
+			
 			[weakSelf.tableView reloadData];
 		};
 		self.childPaneHandler(NO); // perform initial validation
@@ -1208,10 +1206,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 		}
 		if (storeToSettings) {
 			[self.settingsStore setObject:newText forSpecifier:textField.specifier];
-			NSDictionary *userInfo = textField.specifier.key && newText ? @{(id)textField.specifier.key : newText} : nil;
-			[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged
-															  object:self
-															userInfo:userInfo];
+			[self postChange:textField.specifier value:newText];
 		}
 	}
 	return result != IASKValidationResultOkWithReplacement;
@@ -1251,19 +1246,19 @@ CGRect IASKCGRectSwap(CGRect rect);
 			if (![self.settingsStore objectForSpecifier:specifier] && textField.text.length == 0) {
 				return;
 			}
+			NSString* oldValue = [self.settingsStore objectForSpecifier:specifier];
 			[self.settingsStore setObject:textField.text forSpecifier:specifier];
 			if (specifier.isAddSpecifier) {
-				NSUInteger section = [self.settingsReader indexPathForKey:(id)specifier.parentSpecifier.key].section;
+				NSUInteger section = [self.settingsReader indexPathForKey:specifier.parentSpecifier.key].section;
 				NSUInteger row = [self tableView:self.tableView numberOfRowsInSection:section] - 2;
 				NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
 				[self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 				indexPath = [NSIndexPath indexPathForRow:row + 1 inSection:section];
 				[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 			}
-			NSDictionary *userInfo = specifier.key && textField.text ? @{(id)specifier.key: (id)textField.text} : nil;
-			[NSNotificationCenter.defaultCenter postNotificationName:kIASKAppSettingChanged
-															  object:self
-															userInfo:userInfo];
+			if (textField.text && ![oldValue isEqual:textField.text]) {
+				[self postChange:specifier value:textField.text];
+			}
 			break;
 		}
 		case IASKValidationResultFailed:
@@ -1291,7 +1286,7 @@ CGRect IASKCGRectSwap(CGRect rect);
     [self cacheRowHeightForTextView:textView animated:YES];
 	
 	CGRect visibleTableRect = UIEdgeInsetsInsetRect(self.tableView.bounds, self.tableView.contentInset);
-	NSIndexPath *indexPath = [self.settingsReader indexPathForKey:(id)textView.specifier.key];
+	NSIndexPath *indexPath = [self.settingsReader indexPathForKey:textView.specifier.key];
 	CGRect cellFrame = [self.tableView rectForRowAtIndexPath:indexPath];
 	
 	if (!CGRectContainsRect(visibleTableRect, cellFrame)) {
@@ -1299,9 +1294,7 @@ CGRect IASKCGRectSwap(CGRect rect);
 	}
 
 	[self.settingsStore setObject:textView.text forSpecifier:textView.specifier];
-	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKAppSettingChanged
-														object:self
-													  userInfo:@{(id)textView.specifier.key: textView.text}];
+	[self postChange:textView.specifier value:textView.text];
 	
 }
 
@@ -1370,6 +1363,19 @@ static NSMutableDictionary *oldUserDefaults = nil;
 			[self.tableView reloadRowsAtIndexPaths:indexPathsToUpdate withRowAnimation:UITableViewRowAnimationAutomatic];
 		}
 	});
+}
+
+- (void)postChange:(IASKSpecifier*)specifier value:(id)value {
+	if (!specifier.key) {
+		return;
+	}
+	NSDictionary *userInfo = @{specifier.key: value ?: NSNull.null};
+	[[NSNotificationCenter defaultCenter] postNotificationName:kIASKInternalAppSettingChanged
+														object:self
+													  userInfo:userInfo];
+	[[NSNotificationCenter defaultCenter] postNotificationName:IASKSettingChangedNotification
+														object:self
+													  userInfo:userInfo];
 }
 
 - (void)didChangeSettingViaIASK:(NSNotification*)notification {

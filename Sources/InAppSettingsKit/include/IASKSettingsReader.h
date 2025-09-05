@@ -167,6 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSString * const IASKSettingChangedNotification;
 #define kIASKAppSettingChanged                IASKSettingChangedNotification
+#define kIASKInternalAppSettingChanged        @"IASKInternalSettingChangedNotification"
 
 #define kIASKSectionHeaderIndex               0
 

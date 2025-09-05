@@ -51,8 +51,10 @@ class MainViewController: UIViewController {
 	}
 		
 	@objc func settingDidChange(notification: Notification?) {
+		print("settingDidChange: \(notification?.userInfo.debugDescription ?? "-")")
 		updateHiddenKeys()
 	}
+	
 	func updateHiddenKeys() {
 		var hiddenKeys = Set<String>()
 		if UserDefaults.standard.bool(forKey: "AutoConnect") {
