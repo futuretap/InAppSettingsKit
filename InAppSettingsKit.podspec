@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name                  = 'InAppSettingsKit'
-	s.version               = '3.8.7'
+	s.version               = '3.8.8'
 	s.summary               = 'This iPhone framework allows settings to be in-app in addition to being in the Settings app.'
 
   s.description      = <<-DESC
@@ -16,5 +16,5 @@ InAppSettingsKit (IASK) is an open source solution to easily add in-app settings
 	s.resource_bundles		= {"InAppSettingsKit" => "Sources/InAppSettingsKit/Resources/*"}
 	s.source_files			= "Sources/InAppSettingsKit/**/*.{h,m}"
 	s.frameworks			= "MessageUI", "UIKit"
-	s.ios.deployment_target = '10.0'
+	s.ios.deployment_target = '12.0'
 end

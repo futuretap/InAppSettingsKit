@@ -27,7 +27,7 @@
         // TextField
         _textField = [[IASKTextField alloc] initWithFrame:CGRectMake(0, 0, 200, self.frame.size.height)];
         _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
-        _textField.font = [UIFont systemFontOfSize:kIASKLabelFontSize];
+        _textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         _textField.minimumFontSize = kIASKMinimumFontSize;
         [self.contentView addSubview:_textField];
         

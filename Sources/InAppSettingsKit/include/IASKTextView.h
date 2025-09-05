@@ -20,5 +20,6 @@
 
 @property (strong, nonatomic) IASKSpecifier *specifier;
 @property (strong, nonatomic) NSString *placeholder;
+@property (nonatomic, readonly) CGFloat contentHeight;
 
 @end

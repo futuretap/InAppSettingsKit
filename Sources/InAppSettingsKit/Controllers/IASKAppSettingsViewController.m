@@ -1300,8 +1300,8 @@ CGRect IASKCGRectSwap(CGRect rect);
 
 - (void)cacheRowHeightForTextView:(IASKTextView *)textView animated:(BOOL)animated {
 	CGFloat maxHeight = self.tableView.bounds.size.height - self.tableView.contentInset.top - self.tableView.contentInset.bottom - 60;
-	CGFloat contentHeight = [textView sizeThatFits:CGSizeMake(textView.frame.size.width, 10000)].height + 16;
-	self.rowHeights[(id)textView.specifier.key] = @(MAX(44, MIN(maxHeight, contentHeight)));
+	CGFloat contentHeight = textView.contentHeight;
+	self.rowHeights[textView.specifier.key] = @(MAX(44, MIN(maxHeight, contentHeight)));
 	textView.scrollEnabled = contentHeight > maxHeight;
 
     void (^actions)(void) = ^{

@@ -30,7 +30,7 @@
 		IASKTextView *textView = [[IASKTextView alloc] initWithFrame:CGRectZero];
 		textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		textView.scrollEnabled = NO;
-		textView.font = [UIFont systemFontOfSize:17.0];
+		textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 		textView.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:textView];
 
@@ -42,14 +42,11 @@
 - (void)layoutSubviews {
 	[super layoutSubviews];
 	
-	UIEdgeInsets padding = (UIEdgeInsets) { 0, kIASKPaddingLeft, 0, kIASKPaddingRight };
-	if ([self respondsToSelector:@selector(layoutMargins)]) {
-		padding = self.layoutMargins;
-		padding.left -= 5;
-		padding.right -= 5;
-		padding.top -= 5;
-		padding.bottom -= 5;
-	}
+	UIEdgeInsets padding = self.layoutMargins;
+	padding.left -= self.textView.textContainer.lineFragmentPadding;
+	padding.right -= self.textView.textContainer.lineFragmentPadding;
+	padding.top -= self.textView.textContainer.lineFragmentPadding;
+	padding.bottom -= self.textView.textContainer.lineFragmentPadding;
 	
 	self.textView.frame = UIEdgeInsetsInsetRect(self.bounds, padding);
 }

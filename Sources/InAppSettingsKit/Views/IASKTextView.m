@@ -85,6 +85,12 @@
 	[self setNeedsDisplay];
 }
 
+#pragma mark Getters
+
+- (CGFloat)contentHeight {
+	return [self sizeThatFits:CGSizeMake(self.frame.size.width, 10000)].height + self.superview.layoutMargins.top + self.superview.layoutMargins.bottom - 2 * self.textContainer.lineFragmentPadding;
+}
+
 #pragma mark Private Methods
 
 - (void)updateShouldDrawPlaceholder {
