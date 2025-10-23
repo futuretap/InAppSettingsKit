@@ -25,6 +25,7 @@
 		AAAB97DC246203DF00C34803 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAAB97DE246203DF00C34803 /* Main.storyboard */; };
 		AAB8389B12846D110042FF80 /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAB8389A12846D110042FF80 /* CustomViewCell.xib */; };
 		AAB838A012846D850042FF80 /* CustomViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8389F12846D850042FF80 /* CustomViewCell.m */; };
+		AAE854282EAA679B00B3CE73 /* settings_about.css in Resources */ = {isa = PBXBuildFile; fileRef = AAE854272EAA679900B3CE73 /* settings_about.css */; };
 		AAF478871A239A1A000A0A74 /* Launch.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAF478861A239A1A000A0A74 /* Launch.xib */; };
 		E42ADAEB1682057B00295D85 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E42ADAEA1682057B00295D85 /* Default-568h@2x.png */; };
 		E42B9CB126F8F0BD00144EB1 /* InAppSettingsKit in Frameworks */ = {isa = PBXBuildFile; productRef = E42B9CB026F8F0BD00144EB1 /* InAppSettingsKit */; };
@@ -86,6 +87,7 @@
 		AAB8389E12846D850042FF80 /* CustomViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewCell.h; sourceTree = "<group>"; };
 		AAB8389F12846D850042FF80 /* CustomViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewCell.m; sourceTree = "<group>"; };
 		AAD676AD24D0804300A74C64 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "../Sources/InAppSettingsKit/Resources/pt-PT.lproj/IASKLocalizable.strings"; sourceTree = "<group>"; };
+		AAE854272EAA679900B3CE73 /* settings_about.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = settings_about.css; sourceTree = "<group>"; };
 		AAF478861A239A1A000A0A74 /* Launch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Launch.xib; sourceTree = "<group>"; };
 		B4AF7EAD256311EE00332606 /* In App Settings Kit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "In App Settings Kit.entitlements"; sourceTree = "<group>"; };
 		B4AF7EB225631AF600332606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/settings_about.html; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				AA1552131F79054700F2CEA1 /* IASKLocalizable.strings */,
 				AA092DC415B73A0500081FBC /* settings_about.html */,
 				E459FF8622C4B919002DBB60 /* Images.xcassets */,
+				AAE854272EAA679900B3CE73 /* settings_about.css */,
 				E42ADAEF1682072200295D85 /* LaunchImages */,
 				FB81CA03155BC7C900CEF887 /* Images */,
 				6A1F35ED11490727003E6295 /* Icon.png */,
@@ -400,6 +403,7 @@
 				FB81CA0B155BC7C900CEF887 /* twitter@2x.png in Resources */,
 				AAA53E8F15B057FD00C6558B /* 20-gear2Highlighted.png in Resources */,
 				AA092DC915B73A0500081FBC /* settings_about.html in Resources */,
+				AAE854282EAA679B00B3CE73 /* settings_about.css in Resources */,
 				AAAB97DC246203DF00C34803 /* Main.storyboard in Resources */,
 				AAA8D0C422C14BD700631015 /* Settings.bundle in Resources */,
 				E42ADAEB1682057B00295D85 /* Default-568h@2x.png in Resources */,
