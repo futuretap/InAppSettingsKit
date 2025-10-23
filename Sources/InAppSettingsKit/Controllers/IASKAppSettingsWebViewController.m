@@ -62,7 +62,7 @@
     configuration.allowsAirPlayForMediaPlayback = YES;                          // Media: AirPlay
     configuration.allowsInlineMediaPlayback = YES;                              // Media: Inline Playback
     configuration.allowsPictureInPictureMediaPlayback = YES;                    // Media: Picture-in-Picture
-    configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;    // Interaction: For Audio/Video Playback -> Disable automatic start explicitely, since the video will be presented fullscreen after page load.
+    configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;    // Interaction: For Audio/Video Playback -> Disable automatic start explicitly, since the video will be presented fullscreen after page load.
     configuration.dataDetectorTypes = WKDataDetectorTypeAll;                    // Data Detectors: All
     if (@available(iOS 14.0, *)) {
         configuration.defaultWebpagePreferences.allowsContentJavaScript = YES;  // JavaScript: Enabled
@@ -70,7 +70,7 @@
     else {
         configuration.preferences.javaScriptEnabled = YES;                      // Deprecated since iOS 14.0
     }
-    configuration.preferences.javaScriptCanOpenWindowsAutomatically = NO;       // JavaScript: Can Auto-open Windows -> Disable explicitely for security reasons.
+    configuration.preferences.javaScriptCanOpenWindowsAutomatically = NO;       // JavaScript: Can Auto-open Windows -> Disable explicitly for security reasons.
     return configuration;
 }
 
@@ -80,11 +80,11 @@
     
     // Ensure to define the default background color for the margins, otherwise those will be black:
     if (@available(iOS 13.0, *)) {
-        self.view.backgroundColor = [UIColor systemBackgroundColor];
+		self.view.backgroundColor = UIColor.systemBackgroundColor;
     } else {
-        // Fallback on earlier versions:
-        self.view.backgroundColor = [UIColor whiteColor];
-    }
+		// Fallback on earlier versions:
+		self.view.backgroundColor = UIColor.whiteColor;
+	}
     
     // Define default activity indicator:
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 20)];
@@ -140,27 +140,28 @@
     self.forwardButton.enabled = NO;
     
     // Only add buttons when `IASKWebViewShowNavigationalButtons` is enabled:
-    if (self.showNavigationalButtons) {
-        // Add bar buttons for navigation:
-        NSMutableArray *barButtons = [NSMutableArray arrayWithArray:@[self.forwardButton, self.backButton]];
-        
-        if (!self.showProgress) {
-            // Add default activity indicator when `IASKWebViewShowProgress` is disabled:
-            [barButtons addObject:[[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView]];
-        }
-        
-        // Add buttons to the right side of the Navigation Bar:
-        self.navigationItem.rightBarButtonItems = barButtons;
-    }
-    else if (!self.showProgress) {
-        // When optional Progress View is not used, assign default indicator to the right side of the Navigation Bar:
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
-    }
+	NSMutableArray *barButtons = NSMutableArray.array;
+	if (self.showNavigationalButtons) {
+		// Add bar buttons for navigation:
+		[barButtons addObjectsFromArray:@[self.forwardButton, self.backButton]];
+	}
+	if (!self.showProgress) {
+		// Add default activity indicator when `IASKWebViewShowProgress` is disabled:
+		UIBarButtonItem *activityBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
+		if (@available(iOS 26.0, *)) {
+			activityBarButtonItem.hidesSharedBackground = YES;
+			[barButtons addObject:UIBarButtonItem.fixedSpaceItem];
+		}
+		[barButtons addObject:activityBarButtonItem];
+	}
+	self.navigationItem.rightBarButtonItems = barButtons;
     
     if (self.hideBottomBar) {
-        // Hide the tab bar when this view is pushed:
+		// Hide the tab bar when this view is pushed:
         self.hidesBottomBarWhenPushed = YES;
     }
+	
+	self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 - (void)viewDidLoad {
@@ -178,27 +179,18 @@
         self.webView.findInteractionEnabled = YES;                              // Interaction: Find & Replace
     }
     self.webView.allowsLinkPreview = YES;                                       // Display: Link Preview
-    
+	
     [self.view addSubview:self.webView];
-    
-    // Create constraints to match the entire safe area layout:
-    UILayoutGuide *safeArea = self.view.layoutMarginsGuide;
-    if (@available(iOS 11.0, *)) {
-        safeArea = self.view.safeAreaLayoutGuide;
-    }
-    [NSLayoutConstraint activateConstraints:@[
-        [self.webView.topAnchor constraintEqualToAnchor:safeArea.topAnchor],
-        [self.webView.bottomAnchor constraintEqualToAnchor:safeArea.bottomAnchor],
-        [self.webView.leadingAnchor constraintEqualToAnchor:safeArea.leadingAnchor],
-        [self.webView.trailingAnchor constraintEqualToAnchor:safeArea.trailingAnchor]
-    ]];
-    
-    // Add UIProgressView:
     [self.view addSubview:self.progressView];
     
-    // Create constraints to set it to the top of the webView:
     [NSLayoutConstraint activateConstraints:@[
-        [self.progressView.topAnchor constraintEqualToAnchor:self.webView.topAnchor],
+		[self.webView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+		[self.webView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+		[self.webView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+		[self.webView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+
+		// Create constraints to set progressView to the top of the webView:
+		[self.progressView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
         [self.progressView.leadingAnchor constraintEqualToAnchor:self.webView.leadingAnchor],
         [self.progressView.trailingAnchor constraintEqualToAnchor:self.webView.trailingAnchor]
     ]];
@@ -217,6 +209,9 @@
     [super viewWillLayoutSubviews];
     
     self.webView.frame = self.view.bounds;
+	if (@available(iOS 15.0, *)) {
+		self.webView.underPageBackgroundColor = UIColor.systemBackgroundColor;
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -319,9 +314,9 @@
 }
 
 - (void)updateNavigationButtons {
-    // Enable or disable the buttons based on whether the webView can go back/forward:
-    self.backButton.enabled = [self.webView canGoBack];
-    self.forwardButton.enabled = [self.webView canGoForward];
+	// Enable or disable the buttons based on whether the webView can go back/forward:
+	self.backButton.enabled = self.webView.canGoBack;
+	self.forwardButton.enabled = self.webView.canGoForward;
 }
 
 
@@ -387,7 +382,6 @@
 
 // Tells the delegate that an error occurred during navigation.
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    // Update buttons:
     [self updateNavigationButtons];
 }
 
