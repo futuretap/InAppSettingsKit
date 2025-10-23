@@ -17,6 +17,7 @@
 #import "IASKAppSettingsWebViewController.h"
 #import "IASKSettingsReader.h"
 #import "IASKSpecifier.h"
+#import "UIColor+IASKAdditions.h"
 
 @interface IASKAppSettingsWebViewController()
 @property (nullable, nonatomic, strong, readwrite) WKWebView *webView;
@@ -209,14 +210,15 @@
     [super viewWillLayoutSubviews];
     
     self.webView.frame = self.view.bounds;
-	if (@available(iOS 15.0, *)) {
-		self.webView.underPageBackgroundColor = UIColor.systemBackgroundColor;
-	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
+	if (@available(iOS 15.0, *)) {
+		self.webView.underPageBackgroundColor = UIColor.systemBackgroundColor;
+	}
+
     // Load URL:
     [self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
@@ -348,11 +350,50 @@
     // Stop and hide default indicator and update title:
     [self.activityIndicatorView stopAnimating];
     [self.webView evaluateJavaScript:@"document.title" completionHandler:^(id result, NSError *error) {
-        NSString* title = (NSString*)result;
-        self.title = self.customTitle.length ? self.customTitle : title;
+        self.title = self.customTitle.length ? self.customTitle : result;
     }];
     
-    // Update button states when loading finishes:
+	if (@available(iOS 15.0, *)) {
+		NSString *javascript = @"function getThemeColorAsHex() {\n"
+		"    const themeColorMeta = document.querySelector('meta[name=\"theme-color\"]');\n"
+		"    if (!themeColorMeta) {\n"
+		"        return null;\n"
+		"    }\n"
+		"    \n"
+		"    const color = themeColorMeta.content;\n"
+		"    \n"
+		"    const temp = document.createElement('div');\n"
+		"    temp.style.color = color;\n"
+		"    document.body.appendChild(temp);\n"
+		"    \n"
+		"    const computedColor = window.getComputedStyle(temp).color;\n"
+		"    document.body.removeChild(temp);\n"
+		"    \n"
+		"    const match = computedColor.match(/rgba?\\((\\d+),\\s*(\\d+),\\s*(\\d+)(?:,\\s*([\\d.]+))?\\)/);\n"
+		"    \n"
+		"    if (!match) {\n"
+		"        return color; // Fallback: Originalwert zurückgeben\n"
+		"    }\n"
+		"    \n"
+		"    const r = parseInt(match[1]);\n"
+		"    const g = parseInt(match[2]);\n"
+		"    const b = parseInt(match[3]);\n"
+		"    const a = match[4] ? parseFloat(match[4]) : 1;\n"
+		"    \n"
+		"    const toHex = (num) => num.toString(16).padStart(2, '0');\n"
+		"    \n"
+		"    const alphaHex = Math.round(a * 255).toString(16).padStart(2, '0');\n"
+		"    return `${toHex(r)}${toHex(g)}${toHex(b)}${alphaHex}`;\n"
+		"}\n"
+		"getThemeColorAsHex()";
+
+		[self.webView evaluateJavaScript:javascript completionHandler: ^(id result, NSError *error) {
+			UIColor *color = [UIColor iaskColorWithHexString:result];
+			self.webView.underPageBackgroundColor = color;
+		}];
+	}
+
+	// Update button states when loading finishes:
     [self updateNavigationButtons];
 }
 
