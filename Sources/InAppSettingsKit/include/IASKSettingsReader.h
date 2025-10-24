@@ -177,11 +177,7 @@ extern NSString * const IASKSettingChangedNotification;
 #define kIASKMinLabelWidth                    97
 #define kIASKMaxLabelWidth                    240
 #define kIASKMinValueWidth                    35
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-#define kIASKPaddingLeft                      (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 ? 15 : 9)
-#else
-#define kIASKPaddingLeft                      9
-#endif
+#define kIASKPaddingLeft                      15
 #define kIASKPaddingRight                     10
 #define kIASKHorizontalPaddingGroupTitles     19
 #define kIASKVerticalPaddingGroupTitles       15
@@ -191,6 +187,15 @@ extern NSString * const IASKSettingChangedNotification;
 
 #define kIASKMinimumFontSize                  12.0f
 
+#ifdef __IPHONE_26_0
+#define IASK_IF_IOS26_OR_GREATER(...) \
+if (@available(iOS 26.0, *)) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IASK_IF_IOS26_OR_GREATER(...)
+#endif
 
 @class IASKSpecifier;
 @protocol IASKSettingsStore;

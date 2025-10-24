@@ -149,10 +149,11 @@
 	if (!self.showProgress) {
 		// Add default activity indicator when `IASKWebViewShowProgress` is disabled:
 		UIBarButtonItem *activityBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
-		if (@available(iOS 26.0, *)) {
+		IASK_IF_IOS26_OR_GREATER
+		(
 			activityBarButtonItem.hidesSharedBackground = YES;
 			[barButtons addObject:UIBarButtonItem.fixedSpaceItem];
-		}
+		 )
 		[barButtons addObject:activityBarButtonItem];
 	}
 	self.navigationItem.rightBarButtonItems = barButtons;
