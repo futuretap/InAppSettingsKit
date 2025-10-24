@@ -175,8 +175,14 @@
 	self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:self.webViewConfiguration];
 	self.webView.translatesAutoresizingMaskIntoConstraints = NO;                // Disable autoresizing mask for layout constraints
 	self.webView.navigationDelegate = self;
-    
-    // Set other Xcode Interface Builder properties directly on webView:
+	self.webView.opaque = NO;
+	if (@available(iOS 13.0, *)) {
+		self.webView.backgroundColor = UIColor.systemBackgroundColor;
+		self.webView.backgroundColor = UIColor.systemBackgroundColor;
+		self.webView.scrollView.backgroundColor = UIColor.systemBackgroundColor;
+	} else {
+		self.webView.backgroundColor = UIColor.whiteColor;
+	}
 	self.webView.allowsBackForwardNavigationGestures = YES;                     // Interaction: Back/Forward Gestures
 	if (@available(iOS 16.0, *)) {
 		self.webView.findInteractionEnabled = YES;                              // Interaction: Find & Replace
@@ -357,6 +363,8 @@
 		self.title = self.customTitle.length ? self.customTitle : result;
 	}];
 	
+	self.webView.scrollView.backgroundColor = nil;
+	self.webView.opaque = YES;
 	
 	// Update button states when loading finishes:
 	[self updateNavigationButtons];
