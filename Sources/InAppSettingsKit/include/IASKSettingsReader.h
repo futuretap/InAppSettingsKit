@@ -154,6 +154,12 @@ NS_ASSUME_NONNULL_BEGIN
 #define kIASKWebViewShowProgress              @"IASKWebViewShowProgress"
 
 /*
+ IASKWebViewFullscreen can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
+ If IASKWebViewFullscreen is set, it will present the WKWebView full screen, with content extending below the navigation bar.
+ */
+#define kIASKWebViewFullscreen                @"IASKWebViewFullscreen"
+
+/*
  IASKWebViewHideBottomBar can be set if IASKViewControllerClass is set to IASKAppSettingsWebViewController.
  If IASKWebViewHideBottomBar is set, it will hide the toolbar at the bottom of the screen when the IASKAppSettingsWebViewController is pushed on to a navigation controller. This will present the WKWebView full screen and prevents situations where the user can navigate the tab bar while the IASKAppSettingsWebViewController stays still present.
  */

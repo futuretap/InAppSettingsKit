@@ -366,6 +366,22 @@
 			<key>IASKViewControllerSelector</key>
 			<string>initWithFile:specifier:</string>
 			<key>Title</key>
+			<string>Full screen WebView</string>
+			<key>IASKSubtitle</key>
+			<string>use IASKWebViewFullscreen</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKWebViewFullscreen</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>https://github.com/futuretap/InAppSettingsKit/</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
 			<string>WebView with all the above options</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
@@ -374,6 +390,28 @@
 			<key>IASKWebViewShowProgress</key>
 			<true/>
 			<key>IASKWebViewHideBottomBar</key>
+			<true/>
+			<key>IASKWebViewFullscreen</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>https://apple.com/</string>
+			<key>IASKViewControllerClass</key>
+			<string>IASKAppSettingsWebViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>initWithFile:specifier:</string>
+			<key>Title</key>
+			<string>WebView with apple.com</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>IASKWebViewShowNavigationalButtons</key>
+			<true/>
+			<key>IASKWebViewShowProgress</key>
+			<true/>
+			<key>IASKWebViewHideBottomBar</key>
+			<true/>
+			<key>IASKWebViewFullscreen</key>
 			<true/>
 		</dict>
 		<dict>

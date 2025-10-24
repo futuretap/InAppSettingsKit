@@ -220,6 +220,7 @@ The Web View Controller can be defined in the Settings plist by using the follow
 
 Use the following optional properties to customize the Web View Controller:
 
+- `IASKWebViewFullscreen`: set to `YES` to present the web view fullscreen, with content extending below the navigation bar.
 - `IASKWebViewShowProgress`: set to `YES` to replace the default activity indicator on the navigation bar by a progress bar just below the navigation bar, which dynamically updates according to the [`estimatedProgress`](https://developer.apple.com/documentation/webkit/wkwebview/1415007-estimatedprogress) property of [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview).   
 The progress bar will be removed when page loading completes.
 - `IASKWebViewShowNavigationalButtons`: set to `YES` to show navigational buttons on the right side of the navigation bar. Their enabled state will update dynamically based on the navigation history of the [`WKWebView`](https://developer.apple.com/documentation/webkit/wkwebview).
