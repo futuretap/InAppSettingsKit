@@ -222,15 +222,19 @@
 		self.webView.underPageBackgroundColor = UIColor.systemBackgroundColor;
 	}
 	
+	// Load URL:
+	[self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
+}
+
+- (void)viewWillLayoutSubviews {
+	[super viewWillLayoutSubviews];
+	
 	if (self.fullscreen) {
 		// Apply a top content inset equal to the nav bar height
 		CGFloat navBarHeight = CGRectGetMaxY(self.navigationController.navigationBar.frame);
 		self.webView.scrollView.contentInset = UIEdgeInsetsMake(navBarHeight, 0, 0, 0);
 		self.webView.scrollView.scrollIndicatorInsets = self.webView.scrollView.contentInset;
 	}
-	
-	// Load URL:
-	[self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
 }
 
 
