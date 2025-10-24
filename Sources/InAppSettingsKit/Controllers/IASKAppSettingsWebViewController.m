@@ -381,8 +381,8 @@
 		return;
 	}
 	
-    // Allow loading of any http(s) and file requests:
-    if ([@[@"http", @"https", @"file"] containsObject:newURL.scheme]) {
+	// Allow loading of any http(s) and file requests if same frame
+	if ([@[@"http", @"https", @"file"] containsObject:newURL.scheme] && navigationAction.sourceFrame == navigationAction.targetFrame) {
 		decisionHandler(WKNavigationActionPolicyAllow);
 		return;
 	}
