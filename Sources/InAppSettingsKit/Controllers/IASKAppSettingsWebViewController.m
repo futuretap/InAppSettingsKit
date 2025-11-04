@@ -117,7 +117,7 @@
 	}
 	else {
 		// Fallback on earlier versions:
-		self.backButton = [[UIBarButtonItem alloc] initWithTitle:@" < "
+		self.backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@" < ", @"No translation needed, silence Xcode warning")
 														   style:UIBarButtonItemStylePlain
 														  target:self
 														  action:@selector(goBack)];
@@ -131,7 +131,7 @@
 	}
 	else {
 		// Fallback on earlier versions:
-		self.forwardButton = [[UIBarButtonItem alloc] initWithTitle:@" > "
+		self.forwardButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@" > ", @"No translation needed, silence Xcode warning")
 															  style:UIBarButtonItemStylePlain
 															 target:self
 															 action:@selector(goForward)];

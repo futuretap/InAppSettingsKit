@@ -1355,7 +1355,7 @@ static NSMutableDictionary *oldUserDefaults = nil;
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 			if ([cell isKindOfClass:[IASKPSTextFieldSpecifierViewCell class]] && [((IASKPSTextFieldSpecifierViewCell*)cell).textField isFirstResponder] && indexPath) {
 				[indexPathsToUpdate removeObject:indexPath];
-			} else if ([cell isKindOfClass:IASKEmbeddedDatePickerViewCell.class] && !((IASKEmbeddedDatePickerViewCell*)cell).datePicker.editing) {
+			} else if ([cell isKindOfClass:IASKEmbeddedDatePickerViewCell.class] && !((IASKEmbeddedDatePickerViewCell*)cell).datePicker.editing && indexPath) {
 				[indexPathsToUpdate removeObject:indexPath];
 			}
 		}
